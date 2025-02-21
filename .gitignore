@@ -15,8 +15,13 @@
 # Firebase 관련 파일 및 폴더 (보안 문제 방지)
 google-services.json
 GoogleService-Info.plist
+
+# Firebase 폴더 구조에 맞춰 경로 수정
 /[Aa]ssets/Firebase/
-/[Aa]ssets/Plugins/Firebase/
+
+/[Aa]ssets/Plugins/iOS/Firebase/
+/[Aa]ssets/Plugins/tvOS/Firebase/
+
 /android/build/**/google-services.json
 /android/app/google-services.json
 
