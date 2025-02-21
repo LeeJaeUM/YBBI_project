@@ -2,6 +2,8 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+# Unity specific ignores
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -10,8 +12,15 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# Firebase 관련 파일 및 폴더 (보안 문제 방지)
+google-services.json
+GoogleService-Info.plist
+/[Aa]ssets/Firebase/
+/[Aa]ssets/Plugins/Firebase/
+/android/build/**/google-services.json
+/android/app/google-services.json
+
 # MemoryCaptures can get excessive in size.
-# They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
 # Recordings can get excessive in size
