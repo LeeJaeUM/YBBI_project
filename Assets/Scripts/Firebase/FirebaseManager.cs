@@ -1,5 +1,6 @@
 using Firebase;
 using Firebase.Auth;
+using Firebase.Extensions;
 using UnityEngine;
 
 public class FirebaseManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class FirebaseManager : MonoBehaviour
 
     void Start()
     {
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             if (task.Result == DependencyStatus.Available)
             {
