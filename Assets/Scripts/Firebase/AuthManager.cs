@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
-using Firebase.Extensions;
 
 public class AuthManager : MonoBehaviour
 {
@@ -29,12 +28,11 @@ public class AuthManager : MonoBehaviour
     // 회원가입 (이메일 & 비밀번호)
     public void RegisterUser(string email, string password, Action<FirebaseUser> onSuccess, Action<string> onError)
     {
-        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {
-                //onError?.Invoke("회원가입 실패: " + task.Exception);
-                onError?.Invoke("회원가입 실패");
+                onError?.Invoke("회원가입 실패: " + task.Exception);
                 return;
             }
 
@@ -46,11 +44,11 @@ public class AuthManager : MonoBehaviour
     // 로그인 (이메일 & 비밀번호)
     public void LoginUser(string email, string password, Action<FirebaseUser> onSuccess, Action<string> onError)
     {
-        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {
-                onError?.Invoke("로그인 실패: ");//+ task.Exception);
+                onError?.Invoke("로그인 실패: " + task.Exception);
                 return;
             }
 
