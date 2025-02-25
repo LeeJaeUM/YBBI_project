@@ -33,7 +33,8 @@ public class AuthManager : MonoBehaviour
         {
             if (task.IsCanceled || task.IsFaulted)
             {
-                onError?.Invoke("회원가입 실패: " + task.Exception);
+                //onError?.Invoke("회원가입 실패: " + task.Exception);
+                onError?.Invoke("회원가입 실패");
                 return;
             }
 
