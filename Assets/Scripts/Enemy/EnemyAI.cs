@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
     public Transform _player;
     public float _chaseDist = 5f;
     public float _attackDist = 1f;
-    public float _speed = 4f;
+    public float _speed = 3.5f;
 
     void Update()
     {
