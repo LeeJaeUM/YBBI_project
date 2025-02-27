@@ -11,6 +11,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene/Firebase/01_FireBaseAuth.unity
     guid: 161d9cee55fb0d04188ac5ca03048568
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/Title.unity
+    guid: af156fb1aac06e3498bf13341faf3d02
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/Login.unity
+    guid: 2a5f38306f771494e91c8be23a6b07ea
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/Lobby.unity
+    guid: ebbaf64e7ce51ef408600e84ac039782
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/MakeRoom.unity
+    guid: ac8f1891fce9d5c49bc6b48a19da6270
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/JoinRoom.unity
+    guid: f1a6059d89fdfe24cbea97cccbb4b4ea
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/ReadyGame.unity
+    guid: 292ee04f8f340294c9c46816e4f73f7b
+  - enabled: 1
+    path: Assets/Scenes/TestScene/PlayScene/GameTest.unity
+    guid: b341cf1f43c77b14886f81213ca0f7cd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
