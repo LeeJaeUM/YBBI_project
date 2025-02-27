@@ -11,6 +11,7 @@ using Unity.Networking.Transport.Relay;
 public class RelayManager : MonoBehaviour
 {
     public static RelayManager Instance;
+    [SerializeField] private const int MaxConnections = 4;
 
     private void Awake()
     {
@@ -29,18 +30,18 @@ public class RelayManager : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
 /*
-        // NetworkManager.SingletonÀÌ nullÀÎÁö È®ÀÎ
+        // NetworkManager.Singletonì´ nullì¸ì§€ í™•ì¸
         if (NetworkManager.Singleton == null)
         {
-            Debug.LogError("NetworkManager.SingletonÀÌ ÃÊ±âÈ­µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("NetworkManager.Singletonì´ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // UnityTransport°¡ NetworkManager¿¡ Ãß°¡µÇ¾ú´ÂÁö È®ÀÎ
+        // UnityTransportê°€ NetworkManagerì— ì¶”ê°€ë˜ì—ˆëŠ”ì§€ í™•ì¸
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         if (transport == null)
         {
-            Debug.LogError("NetworkManager¿¡ UnityTransport ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("NetworkManagerì— UnityTransport ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 */
@@ -49,15 +50,15 @@ public class RelayManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
     }
-
+    /*
     /// <summary>
-    /// È£½ºÆ®°¡ Relay ¼­¹ö »ı¼º
+    /// í˜¸ìŠ¤íŠ¸ê°€ Relay ì„œë²„ ìƒì„±
     /// </summary>
     public async Task<string> CreateRelay()
     {
         try
         {
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4); // ÃÖ´ë 4¸í Á¢¼Ó °¡´É
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4); // ìµœëŒ€ 4ëª… ì ‘ì† ê°€ëŠ¥
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log($"Relay Join Code: {joinCode}");
 
@@ -65,7 +66,7 @@ public class RelayManager : MonoBehaviour
             
             transport.SetRelayServerData(new RelayServerData(allocation, "dtls"));
 
-            NetworkManager.Singleton.StartHost(); // È£½ºÆ® ½ÃÀÛ
+            NetworkManager.Singleton.StartHost(); // í˜¸ìŠ¤íŠ¸ ì‹œì‘
             return joinCode;
         }
         catch (RelayServiceException e)
@@ -76,7 +77,7 @@ public class RelayManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Å¬¶óÀÌ¾ğÆ®°¡ Relay ¼­¹ö¿¡ Á¢¼Ó
+    /// í´ë¼ì´ì–¸íŠ¸ê°€ Relay ì„œë²„ì— ì ‘ì†
     /// </summary>
     public async Task JoinRelay(string joinCode)
     {
@@ -87,11 +88,71 @@ public class RelayManager : MonoBehaviour
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
 
-            NetworkManager.Singleton.StartClient(); // Å¬¶óÀÌ¾ğÆ® ½ÃÀÛ
+            NetworkManager.Singleton.StartClient(); // í´ë¼ì´ì–¸íŠ¸ ì‹œì‘
         }
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
         }
     }
+    */
+
+    public async Task<string> CreateRelay()
+    {
+        try
+        {
+            // Relay ì„¸ì…˜ ìƒì„±
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(MaxConnections);
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            Debug.Log($"Relay created. Join code: {joinCode}");
+
+            // NGOì™€ Relay ì—°ê²°
+            var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(
+                allocation.RelayServer.IpV4,
+                (ushort)allocation.RelayServer.Port,
+                allocation.AllocationIdBytes,
+                allocation.Key,
+                allocation.ConnectionData
+            );
+
+            NetworkManager.Singleton.StartHost();
+            return joinCode;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to create Relay: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task JoinRelay(string joinCode)
+    {
+        try
+        {
+            // Relay ì„¸ì…˜ì— ì—°ê²°
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            Debug.Log($"Joining relay with code: {joinCode}");
+
+            // NGOì™€ Relay ì—°ê²°
+            var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(
+                joinAllocation.RelayServer.IpV4,
+                 (ushort)joinAllocation.RelayServer.Port,
+                joinAllocation.AllocationIdBytes,
+                joinAllocation.Key,
+                joinAllocation.ConnectionData,
+                joinAllocation.HostConnectionData
+            );
+
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to join Relay: {e.Message}");
+        }
+    }
+
 }
