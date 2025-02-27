@@ -39,7 +39,7 @@ public class SkillCoolTimeCtrl : MonoBehaviour
 
             if (_coolTimeImg != null)
             {
-                _coolTimeImg.fillAmount = _timer / _coolTime;
+                _coolTimeImg.fillAmount = 1f - (_timer / _coolTime);
             }
 
             if (_timer <= 0)
