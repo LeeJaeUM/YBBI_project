@@ -10,48 +10,61 @@ public class EnemyAI : MonoBehaviour
     }
 
     public EnemyState _currentState = EnemyState.Idle;
-    public Transform _player;
-    public float _chaseDist = 5f;
-    public float _attackDist = 1f;
-    public float _speed = 3.5f;
+
+    public float _speed = 3f;
+    private Transform _player;
+
+    void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, _player.position);
-
         switch (_currentState)
         {
             case EnemyState.Idle:
-                if (distanceToPlayer < _chaseDist)
-                {
-                    _currentState = EnemyState.Chase;
-                }
                 break;
-            case EnemyState.Chase:
-                if (distanceToPlayer > _chaseDist)
-                {
-                    _currentState = EnemyState.Idle;
-                }
-                else if (distanceToPlayer < _attackDist)
-                {
-                    _currentState = EnemyState.Attack;
-                }
-                else
-                {
-                    Vector2 direction = (_player.position - transform.position).normalized;
-                    transform.Translate(direction * _speed * Time.deltaTime);
-                }
+                case EnemyState.Chase:
+                ChasePlayer();
                 break;
-            case EnemyState.Attack:
-                if (distanceToPlayer > _attackDist)
-                {
-                    _currentState = EnemyState.Chase;
-                }
-                else
-                {
-                    
-                }
+                case EnemyState.Attack:
+                AttackPlayer();
                 break;
         }
+    }
+
+    void OnTriggerEnter2D (Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (other.tag == "DetectArea")
+            {
+                _currentState = EnemyState.Chase;
+            }
+            else if (other.tag == "AttackArea")
+            {
+                _currentState = EnemyState.Attack;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _currentState = EnemyState.Idle;
+        }
+    }
+
+    void ChasePlayer()
+    {
+        Vector2 _dir = (_player.position - transform.position).normalized;
+        transform.Translate(_dir * _speed * Time.deltaTime);
+    }
+
+    void AttackPlayer()
+    {
+        Debug.Log("Attack");
     }
 }
