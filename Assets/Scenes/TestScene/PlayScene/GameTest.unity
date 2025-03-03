@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 1505136730}
   m_Layer: 0
   m_Name: DetectArea
-  m_TagString: DetectArea
+  m_TagString: DetectAreaPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
