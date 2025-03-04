@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene/Firebase/03_AnotherStyleDemo.unity
     guid: 9700de6324a4b9d4789e59e1d34d6e58
+  - enabled: 1
+    path: Assets/Scenes/TestScene/NetCode/NetCodeTest.unity
+    guid: d95686b44866362438b33201e9c062b8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
