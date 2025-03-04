@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 298938806}
   - component: {fileID: 298938805}
   - component: {fileID: 298938804}
+  - component: {fileID: 298938807}
   m_Layer: 0
   m_Name: Enemy_Turtle
   m_TagString: Enemy
@@ -346,7 +347,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -3426014183138558913, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -444,13 +445,28 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.81, y: 1.45}
   m_Direction: 0
+--- !u!114 &298938807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298938801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2ac9652f80a104881bda32554453ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0.5
+  _spriteRenderer: {fileID: 0}
+  _originColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &631798396
 GameObject:
   m_ObjectHideFlags: 0
