@@ -2,61 +2,187 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Auth;
 using TMPro;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class AuthUIManager : MonoBehaviour
 {
-    public TMP_InputField emailInputField;  // TMP_InputField 사용
-    public TMP_InputField passwordInputField;  // TMP_InputField 사용
-    public Button signUpButton;
-    public Button loginButton;
-    public Button logoutButton;
-    public TextMeshProUGUI resultText;  // TextMeshProUGUI 사용
+    #region Fields & Properties
 
-    void Start()
+    [Header("Input Field")]
+    [SerializeField] private TMP_InputField _loginEmailInputField;        //로그인 이메일
+    [SerializeField] private TMP_InputField _loginPasswordInputField;     //로그인 비밀번호
+    [SerializeField] private TMP_InputField _signupEmailInputField;           // 회원가입 이메일
+    [SerializeField] private TMP_InputField _signupPasswordInputField;        // 회원가입 비밀번호
+    [SerializeField] private TMP_InputField _signupPasswordCheckInputField;   // 비밀번호 체크
+
+    [Header("Button")]
+    [SerializeField] private Button _loginButton;
+    [SerializeField] private Button _signupButton;
+    [SerializeField] private Button _signupEnterButton;
+    [SerializeField] private Button _exitSignupButton;
+    [SerializeField] private Button _logoutButton;
+
+    [Header("Coroutine Field")]
+    [SerializeField] private GameObject _signUpUIObj;           //회원가입 UI 패널
+    [SerializeField] private GameObject _failedUIObj;     //로그인 및 회원가입 실패 UI 패널
+    [SerializeField] private TextMeshProUGUI _failedText;
+    [SerializeField] private TextMeshProUGUI _resultText;   //체크용 텍스트 (마지막 작업 텍스트로 표시)
+    #endregion
+
+
+    #region Custom Functions
+    /// <summary>
+    /// 회원가입 UI 띄우는 함수
+    /// </summary>
+    private void OnSignUpClicked()
     {
-        signUpButton.onClick.AddListener(OnSignUpClicked);
-        loginButton.onClick.AddListener(OnLoginClicked);
-        logoutButton.onClick.AddListener(OnLogoutClicked);
+        _signUpUIObj.SetActive(true);
     }
 
-    // 회원가입 클릭 시 처리
-    void OnSignUpClicked()
+    /// <summary>
+    /// 회원가입 시 패스워드 체크 후 회원 등록
+    /// </summary>
+    private void OnSignUpEnterClicked()
     {
-        string email = emailInputField.text;
-        string password = passwordInputField.text;
+        string email = _signupEmailInputField.text;
+        string password = _signupPasswordInputField.text;
+        string passwordCheck = _signupPasswordCheckInputField.text;
 
+        //비어있는 입력공간 확인
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordCheck))
+        {
+            _resultText.text = "Please fill in all fields.";
+            OperationFailed("Please fill in all fields.");
+            return;
+        }
+
+        // 이메일 형식 확인 (간단한 정규식 사용)
+        if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            _resultText.text = "Invalid email format.";
+            OperationFailed("Invalid email format.");
+            return;
+        }
+
+        // 패스워드 길이 확인 (6자리 이상)
+        if (password.Length < 6)
+        {
+            _resultText.text = "Password must be at least 6 characters long.";
+            OperationFailed("Password must be at least 6 characters long.");
+            return;
+        }
+
+        // 패스워드가 패스워드 체크와 동일한지
+        if (password != passwordCheck)
+        {
+            _resultText.text = "Passwords do not match!";
+            OperationFailed("Passwords do not match!");
+            return;
+        }
+
+        // 회원가입 진행
         AuthManager.Instance.RegisterUser(email, password,
             (user) =>
             {
-                resultText.text = "Sign Up Successful! ID: " + user.UserId;
+                _resultText.text = "Sign Up Successful! ID: " + user.UserId;
+                _signUpUIObj.SetActive(false); // 회원가입 성공 시 UI 닫기
             },
             (error) =>
             {
-                resultText.text = "Sign Up Failed: " + error;
+                _resultText.text = "Sign Up Failed: " + error;
+                OperationFailed("Sign Up Failed");
             });
     }
 
-    // 로그인 클릭 시 처리
+    /// <summary>
+    /// 로그인 클릭 시 처리 
+    /// </summary>
     void OnLoginClicked()
     {
-        string email = emailInputField.text;
-        string password = passwordInputField.text;
+        string email = _loginEmailInputField.text;
+        string password = _loginPasswordInputField.text;
 
         AuthManager.Instance.LoginUser(email, password,
             (user) =>
             {
-                resultText.text = "Login Successful! ID: " + user.UserId;
+                Debug.Log("Login Successful! ID: " + user.UserId);
+                _resultText.text = "Login Successful! ID: " + user.UserId;
+                SceneMove();
             },
             (error) =>
             {
-                resultText.text = "Login Failed: " + error;
+                Debug.Log("Login Failed: 로그인 실패");
+                OperationFailed("Login Failed...");
             });
     }
 
-    // 로그아웃 클릭 시 처리
+    /// <summary>
+    /// 로그인 및 회원가입 
+    /// </summary>
+    /// <param name="errorText"></param>
+    public void OperationFailed(string errorText)
+    {
+        _failedText.text = errorText;
+        StartCoroutine(ShowFailedUI());
+    }
+    /// <summary>
+    /// 로그아웃 클릭 시 처리
+    /// </summary>
     void OnLogoutClicked()
     {
         AuthManager.Instance.LogoutUser();
-        resultText.text = "Logged Out!";
+        _resultText.text = "Logged Out!";
     }
+
+    /// <summary>
+    /// 로그인 성공 시 씬 이동용 함수
+    /// </summary>
+    void SceneMove()
+    {
+        Debug.Log("씬 이동 활성화 필요");
+        LoginSuccessHideUI();
+        //SceneManager.LoadScene("sample");
+    }
+
+    void HideUI()
+    {
+        _signUpUIObj?.SetActive(false);
+        _failedUIObj?.SetActive(false);
+    }
+   
+    void LoginSuccessHideUI()
+    {
+        Transform child = transform.GetChild(0);
+        child.gameObject.SetActive(false);
+        child = transform.GetChild(1);
+        child.gameObject.SetActive(false);
+        HideUI();
+    }
+
+    #endregion
+
+    #region Coroutine Methods
+    private IEnumerator ShowFailedUI()
+    {
+        Debug.Log("로그인 실패 코루틴");
+        _failedUIObj.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        _failedUIObj.SetActive(false);
+    }
+    #endregion
+
+    #region Unity Built-in Functions
+    void Start()
+    {
+        //버튼 이벤트 등록
+        _exitSignupButton.onClick.AddListener(HideUI);
+        _signupButton.onClick.AddListener(OnSignUpClicked);
+        _signupEnterButton.onClick.AddListener(OnSignUpEnterClicked);
+        _loginButton.onClick.AddListener(OnLoginClicked);
+        _logoutButton.onClick.AddListener(OnLogoutClicked);
+
+        HideUI();
+    }
+    #endregion
 }
