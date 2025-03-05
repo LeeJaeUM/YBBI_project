@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "340238139280",
+    "firebase_url": "https://unityybbi-default-rtdb.firebaseio.com",
     "project_id": "unityybbi",
     "storage_bucket": "unityybbi.firebasestorage.app"
   },

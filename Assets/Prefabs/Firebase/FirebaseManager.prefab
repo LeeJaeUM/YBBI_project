@@ -5784,20 +5784,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ea5588d5df0c349b2502ae99b1b8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loginEmailInputField: {fileID: 7593601622181105773}
-  _loginPasswordInputField: {fileID: 4516741893870039711}
-  _signupEmailInputField: {fileID: 1882950480536123856}
-  _signupPasswordInputField: {fileID: 6056480255852197150}
-  _signupPasswordCheckInputField: {fileID: 327331721545276949}
-  _loginButton: {fileID: 3213599518990815567}
-  _signupButton: {fileID: 4290985892380700197}
-  _signupEnterButton: {fileID: 8798201912049399439}
-  _exitSignupButton: {fileID: 707613510173931922}
-  _logoutButton: {fileID: 1763392310744067037}
-  _signUpUIObj: {fileID: 9114309955334123479}
-  _failedUIObj: {fileID: 7509447736144610878}
-  _failedText: {fileID: 5307221742036538120}
-  _resultText: {fileID: 1363414579247662176}
+  emailInputField: {fileID: 0}
+  passwordInputField: {fileID: 0}
+  signUpButton: {fileID: 0}
+  loginButton: {fileID: 0}
+  logoutButton: {fileID: 0}
+  resultText: {fileID: 0}
 --- !u!1 &9114309955334123479
 GameObject:
   m_ObjectHideFlags: 0
