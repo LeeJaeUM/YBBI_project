@@ -20,11 +20,11 @@ public class ColorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StopAllCoroutines();
-            StartCoroutine(ChangeColor());
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    StopAllCoroutines();
+        //    StartCoroutine(ChangeColor());
+        //}
     }
 
     IEnumerator ChangeColor()

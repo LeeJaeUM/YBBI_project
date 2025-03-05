@@ -1,12 +1,15 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public enum EnemyState 
-    { 
-        Idle, 
-        Chase, 
-        Attack 
+    public enum EnemyState
+    {
+        Idle,
+        Chase,
+        Attack,
+        Patrol
     }
 
     public EnemyState _currentState = EnemyState.Idle;
@@ -25,16 +28,18 @@ public class EnemyAI : MonoBehaviour
         {
             case EnemyState.Idle:
                 break;
-                case EnemyState.Chase:
+            case EnemyState.Chase:
                 ChasePlayer();
                 break;
-                case EnemyState.Attack:
+            case EnemyState.Attack:
                 AttackPlayer();
+                break;
+            case EnemyState.Patrol:
                 break;
         }
     }
 
-    void OnTriggerEnter2D (Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {

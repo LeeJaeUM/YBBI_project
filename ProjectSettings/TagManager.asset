@@ -8,6 +8,7 @@ TagManager:
   - AttackArea
   - Enemy
   - DetectAreaPlayer
+  - TeleportArea
   layers:
   - Default
   - TransparentFX

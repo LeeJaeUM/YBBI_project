@@ -3,38 +3,38 @@ guid: c3aaebedc71e89d4d924971b38698ee0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4954345118388884524
-    second: pngwing.com (1)_0
+      213: 8596640243658272642
+    second: Enemy_0
   - first:
-      213: 7073813113543266139
-    second: pngwing.com (1)_1
+      213: -7642239419928554605
+    second: Enemy_1
   - first:
-      213: 3049275563153414171
-    second: pngwing.com (1)_2
+      213: -3876759189950653258
+    second: Enemy_2
   - first:
-      213: -1837194645368780668
-    second: pngwing.com (1)_3
+      213: -5720429097031363069
+    second: Enemy_3
   - first:
-      213: -5447422357347314932
-    second: pngwing.com (1)_4
+      213: -7911572535675539837
+    second: Enemy_4
   - first:
-      213: -3426014183138558913
-    second: pngwing.com (1)_5
+      213: 5398807837072792716
+    second: Enemy_5
   - first:
-      213: -5717961006076924687
-    second: pngwing.com (1)_6
+      213: -3763824636803078212
+    second: Enemy_6
   - first:
-      213: 4448114402505400171
-    second: pngwing.com (1)_7
+      213: 8273598715916126338
+    second: Enemy_7
   - first:
-      213: 1221291196794073474
-    second: pngwing.com (1)_8
+      213: -8966301255875288918
+    second: Enemy_8
   - first:
-      213: 3732925130397117083
-    second: pngwing.com (1)_9
+      213: -7875468939738959075
+    second: Enemy_9
   - first:
-      213: 1959238727383368803
-    second: pngwing.com (1)_10
+      213: -7734248497391147085
+    second: Enemy_10
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -156,7 +156,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pngwing.com (1)_0
+      name: Enemy_0
       rect:
         serializedVersion: 2
         x: 24
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c24924cc2ae51c440800000000000000
-      internalID: 4954345118388884524
+      spriteID: 28f241131c66d4770800000000000000
+      internalID: 8596640243658272642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_1
+      name: Enemy_1
       rect:
         serializedVersion: 2
         x: 249
@@ -193,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b5f0f305c8b3b2260800000000000000
-      internalID: 7073813113543266139
+      spriteID: 393dba6ecbf41f590800000000000000
+      internalID: -7642239419928554605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_2
+      name: Enemy_2
       rect:
         serializedVersion: 2
         x: 304
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b18d90c08f3315a20800000000000000
-      internalID: 3049275563153414171
+      spriteID: 6bc92438e0cf23ac0800000000000000
+      internalID: -3876759189950653258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_3
+      name: Enemy_3
       rect:
         serializedVersion: 2
         x: 526
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4884b833439f086e0800000000000000
-      internalID: -1837194645368780668
+      spriteID: 30613ac5b04fc90b0800000000000000
+      internalID: -5720429097031363069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_4
+      name: Enemy_4
       rect:
         serializedVersion: 2
         x: 29
@@ -259,14 +259,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c03dac84a3ed664b0800000000000000
-      internalID: -5447422357347314932
+      spriteID: 38ea25432b2743290800000000000000
+      internalID: -7911572535675539837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_5
+      name: Enemy_5
       rect:
         serializedVersion: 2
         x: 241
@@ -281,14 +281,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f3c7392904a5470d0800000000000000
-      internalID: -3426014183138558913
+      spriteID: c8c915baf1b6cea40800000000000000
+      internalID: 5398807837072792716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_6
+      name: Enemy_6
       rect:
         serializedVersion: 2
         x: 254
@@ -303,14 +303,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1fcef3192c8b5a0b0800000000000000
-      internalID: -5717961006076924687
+      spriteID: cb72d763f6534cbc0800000000000000
+      internalID: -3763824636803078212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_7
+      name: Enemy_7
       rect:
         serializedVersion: 2
         x: 542
@@ -325,14 +325,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b6f12a16b70eabd30800000000000000
-      internalID: 4448114402505400171
+      spriteID: 2880f4c523ab1d270800000000000000
+      internalID: 8273598715916126338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_8
+      name: Enemy_8
       rect:
         serializedVersion: 2
         x: 547
@@ -347,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 281f8307fd5e2f010800000000000000
-      internalID: 1221291196794073474
+      spriteID: aa02a66638c419380800000000000000
+      internalID: -8966301255875288918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_9
+      name: Enemy_9
       rect:
         serializedVersion: 2
         x: 527
@@ -369,14 +369,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b9ae272d0a30ec330800000000000000
-      internalID: 3732925130397117083
+      spriteID: d13bc3fa9b6b4b290800000000000000
+      internalID: -7875468939738959075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pngwing.com (1)_10
+      name: Enemy_10
       rect:
         serializedVersion: 2
         x: 538
@@ -391,8 +391,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 364cfd7fd3d903b10800000000000000
-      internalID: 1959238727383368803
+      spriteID: 3b7e66c28fd6aa490800000000000000
+      internalID: -7734248497391147085
       vertices: []
       indices: 
       edges: []
@@ -410,18 +410,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      pngwing.com (1)_0: 4954345118388884524
-      pngwing.com (1)_1: 7073813113543266139
-      pngwing.com (1)_10: 1959238727383368803
-      pngwing.com (1)_2: 3049275563153414171
-      pngwing.com (1)_3: -1837194645368780668
-      pngwing.com (1)_4: -5447422357347314932
-      pngwing.com (1)_5: -3426014183138558913
-      pngwing.com (1)_6: -5717961006076924687
-      pngwing.com (1)_7: 4448114402505400171
-      pngwing.com (1)_8: 1221291196794073474
-      pngwing.com (1)_9: 3732925130397117083
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
