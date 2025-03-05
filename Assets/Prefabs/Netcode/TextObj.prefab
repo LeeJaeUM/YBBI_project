@@ -189,5 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c06191d57254a49906a9c78b83cf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 5
+  m_NetworkObject: {fileID: 8371452154672357554, guid: 833fc61c5767d9c459cfdc67f952c915, type: 3}
+  _destroyTime: 5
   _tmpText: {fileID: 531613599558739681}

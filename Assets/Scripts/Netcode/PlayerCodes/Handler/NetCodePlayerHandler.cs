@@ -2,16 +2,16 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
 
-public class PlayerHandler : NetworkBehaviour
+public class NetCodePlayerHandler : NetworkBehaviour
 {
     [SerializeField] private GameObject _textObj;
 
-    public static ulong _staticPlayerId;
-    private PlayerCountroller _player;
+    private ulong _playerId;
+    private PlayerController _player;
     private TextPopup _textPopup;
     private void Start()
     {
-        _player = GetComponent<PlayerCountroller>();
+        _player = GetComponent<PlayerController>();
         _textPopup = GetComponent<TextPopup>();
     }
 
@@ -45,27 +45,37 @@ public class PlayerHandler : NetworkBehaviour
 
     /*Skill_1******************************************************************************************************/
 
-    public void Skill_1Request(ulong playerId,Vector2 spawnPosition)
+    public void Skill_1Request(Vector2 spawnPosition)
     {
-        _staticPlayerId = playerId;
-        UpdateSkill_1ServerRpc(playerId, spawnPosition);
-        Instantiate(_textObj, spawnPosition, Quaternion.identity);
-        Debug.Log("skill_1Request에서텍스트 생성");
+        InstanceText(OwnerClientId, spawnPosition);
+        if (IsHost)
+        {
+            UpdateSkill_1ClientRpc(OwnerClientId, spawnPosition);
+        }
+        else if (IsClient)
+        {
+            UpdateSkill_1ServerRpc(OwnerClientId, spawnPosition);
+        }
+    }
 
+    private void InstanceText(ulong playerId, Vector2 spawnPosition)
+    {
+        GameObject textPref = Instantiate(_textObj, spawnPosition, Quaternion.identity);
+        TextPopup textpop = textPref.GetComponent<TextPopup>();
+        textpop.SetId(playerId);
     }
 
     [ServerRpc]
     private void UpdateSkill_1ServerRpc(ulong playerId, Vector2 spawnPosition)
     {
         UpdateSkill_1ClientRpc(playerId, spawnPosition);
+        InstanceText(playerId, spawnPosition);
     }
 
     [ClientRpc]
     private void UpdateSkill_1ClientRpc(ulong playerId, Vector2 spawnPosition)
     {
         if (IsOwner) return;
-        _staticPlayerId = playerId;
-        Instantiate(_textObj, spawnPosition, Quaternion.identity);
-        Debug.Log("ClinetRpc에서텍스트 생성");
+        InstanceText(playerId, spawnPosition);
     }
 }
