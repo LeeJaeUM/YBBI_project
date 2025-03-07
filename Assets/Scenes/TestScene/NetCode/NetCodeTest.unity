@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 707847263}
   - component: {fileID: 707847262}
-  - component: {fileID: 707847261}
   - component: {fileID: 707847259}
   - component: {fileID: 707847264}
   m_Layer: 0
@@ -164,21 +163,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &707847261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707847258}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cb693b9e48e60944a0428cdf75888cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hostButton: {fileID: 0}
-  clientButton: {fileID: 0}
-  joinCodeInput: {fileID: 0}
 --- !u!114 &707847262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,14 +199,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 707847258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2995d137c7b8e53458f7006cb5538eb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 51d9ff5ec8ca78544af9fccd5de577ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sessionNameInput: {fileID: 0}
-  privateToggle: {fileID: 0}
-  passwordInput: {fileID: 0}
-  sessionListContainer: {fileID: 0}
-  sessionListItemPrefab: {fileID: 0}
+  _sessionListPrefab: {fileID: 3987102533564522322, guid: f7e588e401be5bb4e99de5a23d5b39df, type: 3}
+  _createSessionPrefab: {fileID: 7313491034981176361, guid: 0ae2696900dc24f4c8ee32f95ce7ac7b, type: 3}
+  _sessionButtonPrefab: {fileID: 6697840583042781699, guid: cd89632508a95714596412f667016e79, type: 3}
+  _disconnectCanvPrefab: {fileID: 6174387635442845994, guid: 82b3164bae0f17047aa7683be6cdb008, type: 3}
 --- !u!1 &1022269043
 GameObject:
   m_ObjectHideFlags: 0

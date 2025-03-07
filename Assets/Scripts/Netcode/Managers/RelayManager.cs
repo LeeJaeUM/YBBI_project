@@ -4,18 +4,22 @@ using Unity.Services.Authentication;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Netcode;
-using System.Threading.Tasks;
 using Unity.Netcode.Transports.UTP;
-using Unity.Networking.Transport.Relay;
+using Firebase.Database;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+
 
 public class RelayManager : MonoBehaviour
 {
     public static RelayManager Instance;
     [SerializeField] private const int MaxConnections = 4;
 
+
+    private DatabaseReference dbReference;
     private List<SessionData> sessionList = new List<SessionData>();
 
+    private string firebaseDatabaseUrl = "https://mytest-10314-default-rtdb.firebaseio.com/";
     private void Awake()
     {
         if (Instance == null)
@@ -27,6 +31,7 @@ public class RelayManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        dbReference = FirebaseDatabase.GetInstance(firebaseDatabaseUrl).RootReference;
     }
 
     private async void Start()
@@ -38,8 +43,40 @@ public class RelayManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+
+        FirebaseDatabase.DefaultInstance.GetReference("sessions").ValueChanged += OnSessionListChanged;
     }
 
+    private void OnSessionListChanged(object sender, ValueChangedEventArgs e)
+    {
+        if (e.Snapshot.Exists)
+        {
+            sessionList.Clear();
+            foreach (var child in e.Snapshot.Children)
+            {
+                try
+                {
+                    string sessionName = child.Child("SessionName").Value?.ToString() ?? "Unknown";
+                    string joinCode = child.Child("JoinCode").Value?.ToString() ?? "";
+                    bool isPrivate = bool.TryParse(child.Child("IsPrivate").Value?.ToString(), out bool parsedPrivate) && parsedPrivate;
+                    string password = child.Child("Password").Value?.ToString() ?? "";
+
+                    sessionList.Add(new SessionData(sessionName, joinCode, isPrivate, password));
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Firebase 데이터 처리 중 오류 발생: {ex.Message}");
+                }
+            }
+        }
+        else
+        {
+            
+            sessionList.Clear();
+        }
+
+        UIManager.Instance.UpdateSessionList();
+    }
 
     public async Task<string> CreateRelay(string sessionName, bool isPrivate, string password = "")
     {
@@ -63,7 +100,9 @@ public class RelayManager : MonoBehaviour
 
             NetworkManager.Singleton.StartHost();
 
-            sessionList.Add(new SessionData(sessionName, joinCode, isPrivate, password));
+            string sessionId = dbReference.Child("sessions").Push().Key;
+            SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password);
+            dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
 
             return joinCode;
         }
@@ -107,6 +146,7 @@ public class RelayManager : MonoBehaviour
             );
 
             NetworkManager.Singleton.StartClient();
+
             return true;
         }
         catch (System.Exception e)
@@ -116,9 +156,38 @@ public class RelayManager : MonoBehaviour
         }
 
     }
+
+
     public List<SessionData> GetSessionList()
     {
         return sessionList;
+    }
+
+    public async void RemoveSessionFromFirebase(string joinCode)
+    {
+        try
+        {
+            // Firebase에서 특정 JoinCode를 가진 세션 찾기
+            DataSnapshot snapshot = await dbReference.Child("sessions").GetValueAsync();
+
+            if (snapshot.Exists)
+            {
+                foreach (var child in snapshot.Children)
+                {
+                    string sessionJoinCode = child.Child("JoinCode").Value?.ToString();
+                    if (sessionJoinCode == joinCode)
+                    {
+                        await dbReference.Child("sessions").Child(child.Key).RemoveValueAsync();
+                        Debug.Log($"Firebase에서 세션 {joinCode} 삭제 완료");
+                        return;
+                    }
+                }
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Firebase에서 세션 삭제 실패: {e.Message}");
+        }
     }
 
     [System.Serializable]
@@ -128,6 +197,8 @@ public class RelayManager : MonoBehaviour
         public string JoinCode;
         public bool IsPrivate;
         public string Password;
+        public int CurrentPlayers; // 현재 접속 인원
+        public int MaxPlayers; // 최대 접속 가능 인원
 
         public SessionData(string sessionName, string joinCode, bool isPrivate, string password)
         {
@@ -135,6 +206,8 @@ public class RelayManager : MonoBehaviour
             JoinCode = joinCode;
             IsPrivate = isPrivate;
             Password = password;
+            CurrentPlayers = 1; // 처음 생성 시 방장은 기본적으로 1명
+            MaxPlayers = 4;
         }
     }
 }

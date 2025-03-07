@@ -1,37 +1,29 @@
 {
   "project_info": {
-    "project_number": "340238139280",
-    "firebase_url": "https://unityybbi-default-rtdb.firebaseio.com",
-    "project_id": "unityybbi",
-    "storage_bucket": "unityybbi.firebasestorage.app"
+    "project_number": "36447982237",
+    "firebase_url": "https://mytest-10314-default-rtdb.firebaseio.com",
+    "project_id": "mytest-10314",
+    "storage_bucket": "mytest-10314.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340238139280:android:3b0077fbb94d60a67c3d15",
+        "mobilesdk_app_id": "1:36447982237:ios:e8cdc3d2c90e9730ddba74",
         "android_client_info": {
           "package_name": "com.YBBI.HadalZone"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "340238139280-6cgdf6dc6i3mo6skvrgcc1nbnced8pr3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-8uXnDTUQCuBSJU0hav808k17ZPsJctY"
+          "current_key": "AIzaSyD6CYZSo9SYVlzCWNSY0uDprWczWTXD0wY"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "340238139280-6cgdf6dc6i3mo6skvrgcc1nbnced8pr3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1
         }
       }
     }
