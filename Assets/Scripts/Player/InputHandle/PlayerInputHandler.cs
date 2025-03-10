@@ -10,6 +10,8 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnMoveInput; // 이동 입력 이벤트
     public event Action OnAttackInput; // 공격 입력 이벤트
+    public event Action OnAirSkillInput; // air스킬 입력 이벤트
+    public event Action OnUniqueSkillInput; // 유니크 스킬 입력 이벤트
 
     void OnMove(InputValue value)
     {
@@ -19,5 +21,15 @@ public class PlayerInputHandler : MonoBehaviour
     void OnAttack(InputValue value)
     {
         OnAttackInput?.Invoke();
+    }
+
+    void OnAirSkill(InputValue value)
+    {
+        OnAirSkillInput?.Invoke();
+    }
+
+    void OnUniqueSkill(InputValue value)
+    {
+        OnUniqueSkillInput?.Invoke();
     }
 }
