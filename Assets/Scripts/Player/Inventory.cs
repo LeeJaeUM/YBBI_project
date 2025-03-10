@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     Image _cursorSprite;
     [SerializeField]
-    Grid _slotGrid;
+    GridLayoutGroup _slotGrid;
     [SerializeField]
     Sprite[] _iconSprites;
     //[SerializeField]
@@ -87,19 +87,9 @@ public class Inventory : MonoBehaviour
         // _slotGrid.repositionNow = true;
     }
 
-    public void CreatItem()
+    public void InvenUpgrade()
     {
-        var curSlot = _slotList.Find((slot) => slot.IsEmpty);
-        if (curSlot != null)
-        {
-            var obj = Instantiate(_itemPrefab);
-            var type = (ItemType)Random.Range(0, (int)ItemType.Max);
-            int count = Random.Range(1, 11);
-            ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };
-            var item = obj.GetComponent<Item>();
-            item.SetItem(this, itemInfo);
-            curSlot.SetSlot(item);
-        }
+        CreateSlot(5);
     }
 
     void Awake()
@@ -110,17 +100,17 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateSlot(24);
+        CreateSlot(10);
         _cursorSprite.enabled = false;
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
         //_tweenClose.enabled = false;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            CreateSlot(1);
+            InvenUpgrade();
         }
     }
 }
