@@ -1,27 +1,51 @@
+using System.Net;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerData : NetworkBehaviour
 {
-    [SerializeField] float _playerDefaultEnergy = 100;
-    [SerializeField] string _playerDefaultName = "DefaultName";
+    public static PlayerData LocalInstance { get; private set; }
 
-    public NetworkVariable<float> _playerEnergy;
-    public NetworkVariable<string> _playerName;
-    
+    public NetworkVariable<string> PlayerID = new NetworkVariable<string>();
+    public NetworkVariable<bool> IsReady = new NetworkVariable<bool>();
 
-
-    void Awake()
+    private void Awake()
     {
-        _playerEnergy = new NetworkVariable<float>(_playerDefaultEnergy);
-        _playerName = new NetworkVariable<string>(_playerDefaultName);
+        if (IsOwner)
+        {
+            LocalInstance = this;
+        }
     }
 
-
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        PlayerID.Value = OwnerClientId.ToString();
+        IsReady.Value = false;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            SetPlayerIDServerRpc(OwnerClientId.ToString()); // 플레이어 ID 설정
+        }
+    }
+
+    [ServerRpc]
+    public void SetPlayerIDServerRpc(string id)
+    {
+        PlayerID.Value = id;
+    }
+
+    [ServerRpc]
+    public void ToggleReadyServerRpc()
+    {
+        IsReady.Value = !IsReady.Value;
+    }
+
+    [ClientRpc]
+    public void UpdateReadyStateClientRpc(bool ready)
+    {
+        IsReady.Value = ready;
     }
 }

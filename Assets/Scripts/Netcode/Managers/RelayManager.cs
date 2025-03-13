@@ -8,7 +8,9 @@ using Unity.Netcode.Transports.UTP;
 using Firebase.Database;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using UnityEngine.InputSystem;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class RelayManager : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class RelayManager : MonoBehaviour
 
     private DatabaseReference dbReference;
     private List<SessionData> sessionList = new List<SessionData>();
+    private List<PlayerData> playerList = new List<PlayerData>();
+
 
     private string firebaseDatabaseUrl = "https://mytest-10314-default-rtdb.firebaseio.com/";
     private void Awake()
@@ -45,6 +49,57 @@ public class RelayManager : MonoBehaviour
         }
 
         FirebaseDatabase.DefaultInstance.GetReference("sessions").ValueChanged += OnSessionListChanged;
+    }
+    public void AddPlayer(string joinCode)
+    {
+
+        var sessionId = GetSessionIdByJoinCode(joinCode);
+        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}";
+
+        PlayerData newPlayer = new PlayerData {};
+        dbReference.Child(playerPath).SetRawJsonValueAsync(JsonUtility.ToJson(newPlayer));
+    }
+
+    public void RemovePlayer(string joinCode)
+    {
+        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
+        string sessionId = session.JoinCode;
+        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}";
+
+        dbReference.Child(playerPath).RemoveValueAsync();
+    }
+    public void ToggleReadyStatus(string joinCode)
+    {
+        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
+        string sessionId = session.JoinCode;
+        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}/IsReady";
+
+        dbReference.Child(playerPath).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted && task.Result.Exists)
+            {
+                bool currentStatus = bool.Parse(task.Result.Value.ToString());
+                dbReference.Child(playerPath).SetValueAsync(!currentStatus);
+            }
+        });
+    }
+    public void ListenForPlayerUpdates(string joinCode)
+    {
+        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
+        string sessionId = session.JoinCode;
+        dbReference.Child($"sessions/{sessionId}/players").ValueChanged += (sender, e) =>
+        {
+            if (e.Snapshot.Exists)
+            {
+                playerList.Clear();
+                foreach (var child in e.Snapshot.Children)
+                {
+                    PlayerData player = JsonUtility.FromJson<PlayerData>(child.GetRawJsonValue());
+                    playerList.Add(player);
+                }
+                UIManager.Instance.UpdatePlayerPanels(playerList);
+            }
+        };
     }
 
     private void OnSessionListChanged(object sender, ValueChangedEventArgs e)
@@ -103,7 +158,7 @@ public class RelayManager : MonoBehaviour
             string sessionId = dbReference.Child("sessions").Push().Key;
             SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password);
             dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
-
+            AddPlayer(joinCode);
             return joinCode;
         }
         catch (System.Exception e)
@@ -146,6 +201,7 @@ public class RelayManager : MonoBehaviour
             );
 
             NetworkManager.Singleton.StartClient();
+            //AddPlayer(joinCode);
 
             return true;
         }
@@ -157,7 +213,27 @@ public class RelayManager : MonoBehaviour
 
     }
 
+    public async Task<string> GetSessionIdByJoinCode(string joinCode)
+    {
+        Debug.Log("키 요청");
+        var snapshot = await dbReference.Child("sessions")
+                                        .OrderByChild("JoinCode")
+                                        .EqualTo(joinCode)
+                                        .GetValueAsync();
 
+        if (snapshot.Exists && snapshot.ChildrenCount > 0)
+        {
+            return snapshot.Children.First().Key; // 첫 번째 세션 ID 반환
+        }
+
+        return null;
+    }
+
+    public void SetSessionCurrentPlayerNumber(string joinCode)
+    {
+        
+        
+    }
     public List<SessionData> GetSessionList()
     {
         return sessionList;
@@ -168,20 +244,12 @@ public class RelayManager : MonoBehaviour
         try
         {
             // Firebase에서 특정 JoinCode를 가진 세션 찾기
-            DataSnapshot snapshot = await dbReference.Child("sessions").GetValueAsync();
-
-            if (snapshot.Exists)
+            Debug.Log("파이어베이스 세션 제거 시도");
+            var sessionID = await GetSessionIdByJoinCode (joinCode);
+            if (sessionID != null)
             {
-                foreach (var child in snapshot.Children)
-                {
-                    string sessionJoinCode = child.Child("JoinCode").Value?.ToString();
-                    if (sessionJoinCode == joinCode)
-                    {
-                        await dbReference.Child("sessions").Child(child.Key).RemoveValueAsync();
-                        Debug.Log($"Firebase에서 세션 {joinCode} 삭제 완료");
-                        return;
-                    }
-                }
+                dbReference.Child("sessions").Child(sessionID).RemoveValueAsync();
+                Debug.Log("파이어베이스 세션 제거성공");
             }
         }
         catch (System.Exception e)
@@ -190,24 +258,5 @@ public class RelayManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class SessionData
-    {
-        public string SessionName;
-        public string JoinCode;
-        public bool IsPrivate;
-        public string Password;
-        public int CurrentPlayers; // 현재 접속 인원
-        public int MaxPlayers; // 최대 접속 가능 인원
 
-        public SessionData(string sessionName, string joinCode, bool isPrivate, string password)
-        {
-            SessionName = sessionName;
-            JoinCode = joinCode;
-            IsPrivate = isPrivate;
-            Password = password;
-            CurrentPlayers = 1; // 처음 생성 시 방장은 기본적으로 1명
-            MaxPlayers = 4;
-        }
-    }
 }

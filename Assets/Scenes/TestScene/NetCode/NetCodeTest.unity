@@ -205,7 +205,7 @@ MonoBehaviour:
   _sessionListPrefab: {fileID: 3987102533564522322, guid: f7e588e401be5bb4e99de5a23d5b39df, type: 3}
   _createSessionPrefab: {fileID: 7313491034981176361, guid: 0ae2696900dc24f4c8ee32f95ce7ac7b, type: 3}
   _sessionButtonPrefab: {fileID: 6697840583042781699, guid: cd89632508a95714596412f667016e79, type: 3}
-  _disconnectCanvPrefab: {fileID: 6174387635442845994, guid: 82b3164bae0f17047aa7683be6cdb008, type: 3}
+  _inSessionPrefab: {fileID: 3581835666948384402, guid: 6f47830a28663cd4bb3e99943c348f32, type: 3}
 --- !u!1 &1022269043
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,15 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [Header("UI 프리팹")]
-    [SerializeField] private GameObject _sessionListPrefab; // 세션 리스트 UI 프리팹
-    [SerializeField] private GameObject _createSessionPrefab; // 세션 생성 UI 프리팹
-    [SerializeField] private GameObject _sessionButtonPrefab; // 세션 버튼 프리팹
-    [SerializeField] private GameObject _disconnectCanvPrefab; // 세션 버튼 프리팹
+    [SerializeField] private GameObject _sessionListPrefab; 
+    [SerializeField] private GameObject _createSessionPrefab; 
+    [SerializeField] private GameObject _sessionButtonPrefab; 
+    [SerializeField] private GameObject _inSessionPrefab;
+
 
     private GameObject _sessionListUI;
     private GameObject _createSessionUI;
-    private GameObject _disconnectUI;
+    private GameObject _inSessionUI;
 
     private Button _refreshButton;
     private Transform _sessionListContainer;
@@ -32,12 +33,18 @@ public class UIManager : MonoBehaviour
     private Button _cancelButton;
 
     private Button _disconnectButton;
+    private Button _readyButton;
+    private Button _startButton;
+
+
+    private Transform _playerPanelCanv;
+    private List<PlayerPanel> _playerPanels = new List<PlayerPanel>();
 
     private void Awake()
     {
         if (Instance == null)
         {
-            Instance = this; // 🔹 싱글톤 인스턴스 설정
+            Instance = this;
         }
         else
         {
@@ -50,9 +57,10 @@ public class UIManager : MonoBehaviour
         // UI 프리팹을 인스턴스화하고 초기화
         _sessionListUI = Instantiate(_sessionListPrefab, transform);
         _createSessionUI = Instantiate(_createSessionPrefab, transform);
-        _disconnectUI = Instantiate(_disconnectCanvPrefab, transform);
         _createSessionUI.SetActive(false); // 처음엔 세션 생성 UI 숨김
-        _disconnectUI.SetActive(false); // 처음엔 연결해제 숨김
+        _inSessionUI = Instantiate(_inSessionPrefab, transform);
+        _inSessionUI.SetActive(false);
+
 
         // UI 오브젝트에서 필요한 요소 찾기 (세션 리스트 UI)
         _refreshButton = _sessionListUI.transform.Find("RefreshButton").GetComponent<Button>();
@@ -68,19 +76,27 @@ public class UIManager : MonoBehaviour
         _createPasswordInput = FindDeepChild(_createSessionUI.transform, "PasswordInput").GetComponent<TMP_InputField>();
         _createButton = FindDeepChild(_createSessionUI.transform, "CreateButton").GetComponent<Button>();
         _cancelButton = _createSessionUI.transform.Find("CancleButton").GetComponent<Button>();
+        _disconnectButton = _inSessionUI.transform.Find("Disconnect").GetComponent<Button>();
+        _readyButton = _inSessionUI.transform.Find("Ready").GetComponent<Button>();
+        _startButton = _inSessionUI.transform.Find("Start").GetComponent<Button>();
 
-        // UI 오브젝트에서 필요한 요소 찾기 (연결해제 UI)
-        _disconnectButton = _disconnectUI.transform.Find("DisconnectButton").GetComponent<Button> ();
+        _playerPanelCanv = _inSessionUI.transform.Find("PlayerPanelCanv");
+        foreach (Transform panel in _playerPanelCanv)
+        {
+            _playerPanels.Add(new PlayerPanel(panel));
+        }
 
         // 버튼 이벤트 연결
         _refreshButton.onClick.AddListener(UpdateSessionList);
         _joinButton.onClick.AddListener(JoinSession);
-        _createSessionUIButton.onClick.AddListener(ShowCreateSessionUI); // 🔹 세션 생성 UI 표시
+        _createSessionUIButton.onClick.AddListener(ShowCreateSessionUI); 
         _createButton.onClick.AddListener(CreateSession);
-        _cancelButton.onClick.AddListener(HideCreateSessionUI); // 🔹 세션 생성 UI 닫고 세션 리스트로 복귀
+        _cancelButton.onClick.AddListener(HideCreateSessionUI); 
         _disconnectButton.onClick.AddListener(DisconnectSession);
+        _readyButton.onClick.AddListener(ToggleReady);
+        _startButton.onClick.AddListener(StartGame);
 
-        // 초기 UI 상태 설정
+
         _sessionListUI.SetActive(true);
         _createSessionUI.SetActive(false);
     }
@@ -97,37 +113,34 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
-    /// <summary>
-    /// 🔹 세션 생성 UI를 보여주고, 세션 리스트 UI를 숨김
-    /// </summary>
+
+    private void ShowInSessionUI()
+    {
+        _sessionListUI.SetActive(false);
+        _createSessionUI.SetActive(false);
+        _inSessionUI.SetActive(true);
+    }
+
     private void ShowCreateSessionUI()
     {
         _sessionListUI.SetActive(false);
         _createSessionUI.SetActive(true);
-        _disconnectUI.SetActive(false);
+        _inSessionUI.SetActive(false);
     }
 
-    /// <summary>
-    /// 🔹 세션 생성 UI를 숨기고, 세션 리스트 UI를 다시 표시
-    /// </summary>
+
     private void HideCreateSessionUI()
     {
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(true);
-        _disconnectUI.SetActive(false);
+        _inSessionUI.SetActive(false);
     }
 
-    private void HideAllUiWithoutDisconnect()
-    {
-        _createSessionUI.SetActive(false);
-        _sessionListUI.SetActive(false);
-        _disconnectUI.SetActive(true);
-    }
 
     public void UpdateSessionList()
     {
         ClearSessionList();
-        List<RelayManager.SessionData> sessions = RelayManager.Instance.GetSessionList();
+        List<SessionData> sessions = RelayManager.Instance.GetSessionList();
 
         foreach (var session in sessions)
         {
@@ -167,7 +180,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void SelectSession(RelayManager.SessionData session)
+    private void SelectSession(SessionData session)
     {
         _sessionCodeInput.text = session.JoinCode;
 
@@ -200,7 +213,7 @@ public class UIManager : MonoBehaviour
         if (!string.IsNullOrEmpty(joinCode))
         {
             Debug.Log($"세션 생성 성공. Join Code: {joinCode}");
-            HideAllUiWithoutDisconnect();
+            ShowInSessionUI();
             UpdateSessionList();
         }
         else
@@ -220,21 +233,36 @@ public class UIManager : MonoBehaviour
             return;
         }
         Debug.Log("세션 참가 성공");
-        HideAllUiWithoutDisconnect();
 
+        ShowInSessionUI();
+    }
+
+    private void ToggleReady()
+    {
+        Debug.Log("준비 상태 변경");
+        
+    }
+
+    private void StartGame()
+    {
+        Debug.Log("게임 시작");
     }
 
     private async void DisconnectSession()
     {
+        Debug.Log("DisconnectSession요청");
         string joinCode = _sessionCodeInput.text;
         var sessionList = RelayManager.Instance.GetSessionList();
         var session = sessionList.Find(s => s.JoinCode == joinCode);
+
+        RelayManager.Instance.GetSessionIdByJoinCode(joinCode);
+        
 
         if (NetworkManager.Singleton.IsHost)
         {
             Debug.Log("호스트가 세션을 종료합니다.");
             // 호스트가 세션을 종료하면 모든 클라이언트 연결이 끊어짐
-            NetworkManager.Singleton.Shutdown();
+            
             sessionList.Remove(session);
 
             RelayManager.Instance.RemoveSessionFromFirebase(joinCode);
@@ -245,13 +273,58 @@ public class UIManager : MonoBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-            NetworkManager.Singleton.Shutdown();
 
         }
+        NetworkManager.Singleton.Shutdown();
 
 
+        foreach (var panel in _playerPanels)
+        {
+            panel.ResetPanel();
+        }
+
+        
         // UI 업데이트
         HideCreateSessionUI();
         UpdateSessionList();
+    }
+
+    public void UpdatePlayerPanels(List<PlayerData> players)
+    {
+        for (int i = 0; i < _playerPanels.Count; i++)
+        {
+            if (i < players.Count)
+            {
+                _playerPanels[i].UpdatePanel(players[i].PlayerID.ToString(), players[i].IsReady.Value);
+            }
+            else
+            {
+                _playerPanels[i].ResetPanel();
+            }
+        }
+    }
+
+    public class PlayerPanel
+    {
+        private TextMeshProUGUI _idText;
+        private Toggle _readyToggle;
+
+        public PlayerPanel(Transform panelTransform)
+        {
+            _idText = panelTransform.Find("ID").GetComponent<TextMeshProUGUI>();
+            _readyToggle = panelTransform.Find("IsReady").GetComponent<Toggle>();
+        }
+
+        public void UpdatePanel(string id, bool isReady)
+        {
+            _idText.text = id;
+            _readyToggle.isOn = isReady;
+        }
+
+        public void ResetPanel()
+        {
+            _idText.text = "ID";
+            _readyToggle.isOn = false;
+        }
     }
 }
