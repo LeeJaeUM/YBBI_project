@@ -7,8 +7,8 @@ public class ItemDataTable : MonoBehaviour
 {
     [SerializeField]
     ItemData[] itemDatas;
-    public Dictionary<ItemType, ItemData> _itemTable = new Dictionary<ItemType, ItemData>();
-    public ItemData this[ItemType Data]
+    public Dictionary<ItemID, ItemData> _itemTable = new Dictionary<ItemID, ItemData>();
+    public ItemData this[ItemID Data]
     {
         get
         {

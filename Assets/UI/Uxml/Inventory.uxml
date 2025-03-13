@@ -1,0 +1,5 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="InventoryPanel" style="flex-grow: 1; width: 2000px; height: 1000px; position: relative;">
+        <engine:VisualElement name="InvenBgPanel" style="flex-grow: 1; background-size: 2000px 1000px; background-image: url(&quot;project://database/Assets/Tiles/kenney_tiny-town/Tiles/tile_0126.png?fileID=21300000&amp;guid=ee13c26e5104da74da80a064588cf2b1&amp;type=3#tile_0126&quot;); background-color: rgba(0, 0, 0, 0); background-position-x: center 0;" />
+    </engine:VisualElement>
+</engine:UXML>
