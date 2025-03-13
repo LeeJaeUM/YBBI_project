@@ -5,47 +5,52 @@ using UnityEngine;
 public class PlayerData : NetworkBehaviour
 {
     public static PlayerData LocalInstance { get; private set; }
+    public static PlayerData Instance { get; private set; }
 
-    public NetworkVariable<string> PlayerID = new NetworkVariable<string>();
-    public NetworkVariable<bool> IsReady = new NetworkVariable<bool>();
+    string _playerID = "";
+    bool _IsReady = false;
 
     private void Awake()
     {
         if (IsOwner)
         {
-            LocalInstance = this;
+            Instance = this;
         }
-    }
 
-    private void Start()
-    {
-        PlayerID.Value = OwnerClientId.ToString();
-        IsReady.Value = false;
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
+        if (Instance == null)
         {
-            SetPlayerIDServerRpc(OwnerClientId.ToString()); // 플레이어 ID 설정
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    [ServerRpc]
-    public void SetPlayerIDServerRpc(string id)
+
+    public PlayerData(bool IsReady, string playerID)
     {
-        PlayerID.Value = id;
+        _playerID = playerID;
+        _IsReady = IsReady;
     }
 
-    [ServerRpc]
-    public void ToggleReadyServerRpc()
+
+    public string GetPlayerID()
     {
-        IsReady.Value = !IsReady.Value;
+        return _playerID;
+    }
+    public void SetPlayerID(string PlayerID)
+    {
+        _playerID = PlayerID;
+    }
+    public bool GetPlayerReady()
+    {
+        return _IsReady;
+    }
+    public void SetPlayerReady(bool IsReady)
+    {
+        _IsReady = IsReady;
     }
 
-    [ClientRpc]
-    public void UpdateReadyStateClientRpc(bool ready)
-    {
-        IsReady.Value = ready;
-    }
 }

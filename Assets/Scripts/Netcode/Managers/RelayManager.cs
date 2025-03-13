@@ -11,17 +11,19 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.Multiplayer.Playmode;
+using UnityEditor;
+using Firebase.Extensions;
 
 public class RelayManager : MonoBehaviour
 {
     public static RelayManager Instance;
     [SerializeField] private const int MaxConnections = 4;
 
-
+    private int _currentPlayers = 0;
     private DatabaseReference dbReference;
     private List<SessionData> sessionList = new List<SessionData>();
     private List<PlayerData> playerList = new List<PlayerData>();
-
 
     private string firebaseDatabaseUrl = "https://mytest-10314-default-rtdb.firebaseio.com/";
     private void Awake()
@@ -50,21 +52,32 @@ public class RelayManager : MonoBehaviour
 
         FirebaseDatabase.DefaultInstance.GetReference("sessions").ValueChanged += OnSessionListChanged;
     }
-    public void AddPlayer(string joinCode)
+
+    public void SetCurrentPlayer(int currentNum, string joinCode)
     {
-
-        var sessionId = GetSessionIdByJoinCode(joinCode);
-        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}";
-
-        PlayerData newPlayer = new PlayerData {};
-        dbReference.Child(playerPath).SetRawJsonValueAsync(JsonUtility.ToJson(newPlayer));
+        _currentPlayers = GetCurrentPlayer(joinCode);
+        _currentPlayers += currentNum;
+        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("CurrntPlayers").SetValueAsync(_currentPlayers);
+    }
+    public int GetCurrentPlayer(string joinCode)
+    {
+        int currentPlayerNum = GetCurrentPlayer(joinCode);
+        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("CurrntPlayers").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCanceled && task.Result.Exists)
+            {
+                currentPlayerNum = int.Parse(task.Result.Value.ToString());
+            }
+        });
+        Debug.Log(currentPlayerNum);
+        return currentPlayerNum;
     }
 
     public void RemovePlayer(string joinCode)
     {
         SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
         string sessionId = session.JoinCode;
-        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}";
+        string playerPath = $"sessions/{sessionId}/players/{PlayerData.Instance.GetPlayerID()}";
 
         dbReference.Child(playerPath).RemoveValueAsync();
     }
@@ -72,7 +85,7 @@ public class RelayManager : MonoBehaviour
     {
         SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
         string sessionId = session.JoinCode;
-        string playerPath = $"sessions/{sessionId}/players/{PlayerData.LocalInstance.PlayerID}/IsReady";
+        string playerPath = $"sessions/{sessionId}/players/{PlayerData.Instance.GetPlayerID()}/IsReady";
 
         dbReference.Child(playerPath).GetValueAsync().ContinueWith(task =>
         {
@@ -115,6 +128,7 @@ public class RelayManager : MonoBehaviour
                     string joinCode = child.Child("JoinCode").Value?.ToString() ?? "";
                     bool isPrivate = bool.TryParse(child.Child("IsPrivate").Value?.ToString(), out bool parsedPrivate) && parsedPrivate;
                     string password = child.Child("Password").Value?.ToString() ?? "";
+                    
 
                     sessionList.Add(new SessionData(sessionName, joinCode, isPrivate, password));
                 }
@@ -133,10 +147,27 @@ public class RelayManager : MonoBehaviour
         UIManager.Instance.UpdateSessionList();
     }
 
+    public void AddPlayer(string joinCode)
+    {
+        Debug.Log("플레이어 추가 시도");
+
+        SetCurrentPlayer(1, joinCode);
+
+        PlayerData newPlayer = new PlayerData(false, GetCurrentPlayer(joinCode).ToString());
+
+
+        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("Players").Child($"Player({GetCurrentPlayer(joinCode)})").SetValueAsync(JsonUtility.ToJson(newPlayer));
+    }
+    private void AddFireBaseSession(string sessionId, SessionData newSession)
+    {
+        dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
+        dbReference.Child("sessions").Child(sessionId).Child("Players").SetValueAsync("");
+    }
     public async Task<string> CreateRelay(string sessionName, bool isPrivate, string password = "")
     {
         try
         {
+            
             // Relay 세션 생성
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(MaxConnections);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -157,7 +188,8 @@ public class RelayManager : MonoBehaviour
 
             string sessionId = dbReference.Child("sessions").Push().Key;
             SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password);
-            dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
+
+            AddFireBaseSession(sessionId, newSession);
             AddPlayer(joinCode);
             return joinCode;
         }
@@ -201,7 +233,7 @@ public class RelayManager : MonoBehaviour
             );
 
             NetworkManager.Singleton.StartClient();
-            //AddPlayer(joinCode);
+            AddPlayer(GetSessionIdByJoinCode(joinCode).ToString());
 
             return true;
         }
@@ -210,7 +242,6 @@ public class RelayManager : MonoBehaviour
             Debug.LogError($"Failed to join Relay: {e.Message}");
             return false;
         }
-
     }
 
     public async Task<string> GetSessionIdByJoinCode(string joinCode)
@@ -227,12 +258,6 @@ public class RelayManager : MonoBehaviour
         }
 
         return null;
-    }
-
-    public void SetSessionCurrentPlayerNumber(string joinCode)
-    {
-        
-        
     }
     public List<SessionData> GetSessionList()
     {

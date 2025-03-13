@@ -16,8 +16,12 @@ public class SessionData
         JoinCode = joinCode;
         IsPrivate = isPrivate;
         Password = password;
-        CurrentPlayers = 1; // 처음 생성 시 방장은 기본적으로 1명
+        CurrentPlayers = 0; // 처음 생성 시 방장은 기본적으로 1명
         MaxPlayers = 4;
+    }
 
+    public void AddCurrentPlayers(int AddPlayerNum)
+    {
+        CurrentPlayers += AddPlayerNum;
     }
 }

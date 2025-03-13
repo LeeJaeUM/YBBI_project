@@ -208,8 +208,9 @@ public class UIManager : MonoBehaviour
             Debug.LogError("세션 이름을 입력하세요!");
             return;
         }
-
+        
         string joinCode = await RelayManager.Instance.CreateRelay(sessionName, isPrivate, password);
+  
         if (!string.IsNullOrEmpty(joinCode))
         {
             Debug.Log($"세션 생성 성공. Join Code: {joinCode}");
@@ -283,7 +284,7 @@ public class UIManager : MonoBehaviour
             panel.ResetPanel();
         }
 
-        
+        RelayManager.Instance.SetCurrentPlayer(-1, joinCode);
         // UI 업데이트
         HideCreateSessionUI();
         UpdateSessionList();
@@ -295,7 +296,7 @@ public class UIManager : MonoBehaviour
         {
             if (i < players.Count)
             {
-                _playerPanels[i].UpdatePanel(players[i].PlayerID.ToString(), players[i].IsReady.Value);
+                _playerPanels[i].UpdatePanel(players[i].GetPlayerID(), players[i].GetPlayerReady());
             }
             else
             {
