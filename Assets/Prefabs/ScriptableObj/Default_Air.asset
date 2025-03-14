@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: DefaultNormal
   _skillType: 1
-  _skillIcon: {fileID: 0}
+  _skillIcon: {fileID: -4683339530408089196, guid: 65792ac0671131b40a97cf5a7a896333, type: 3}
   _damageMultiplier: 1
-  _attributeType: 
-  _coolDown: 1
+  _coolDown: 2
+  _radius: 1
+  _moveSpeed: 6
+  _activeTime: 4
   _level: 0

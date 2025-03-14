@@ -16,6 +16,8 @@ MonoBehaviour:
   _skillType: 2
   _skillIcon: {fileID: 0}
   _damageMultiplier: 1.2
-  _attributeType: 
-  _coolDown: 3
+  _coolDown: 0.5
+  _radius: 1
+  _moveSpeed: 6
+  _activeTime: 4
   _level: 0

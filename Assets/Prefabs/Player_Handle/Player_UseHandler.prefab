@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 3416987850404257426}
   - component: {fileID: 2976315937961575054}
   - component: {fileID: 9129375009819758649}
+  - component: {fileID: 286923201458455927}
+  - component: {fileID: 6508134587500695124}
+  - component: {fileID: 2851588815969324307}
   m_Layer: 0
   m_Name: Player_UseHandler
   m_TagString: Player
@@ -244,6 +247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981188acbcbbc8744948023478d307c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aTKStats: {fileID: 0}
+  _nearestEnemyFinder: {fileID: 0}
+  _bullet: {fileID: 6946973756612847469, guid: 37dcee639d748e24fa9a0d45fc7d3119, type: 3}
+  _curAttackDamage: 1
+  _spawnDistance: 1
 --- !u!114 &9129375009819758649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +264,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43edf58a62b82e346bee44da2e660e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalAttackCoolTime: 2
+  _normalAttackSkillData: {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
+  _airSkillData: {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
+  _uniqueSkillData: {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
+  _normalAttackCoolDown: 6
+  _airSkillCoolDown: 6
+  _uniqueSkillCoolDown: 6
+  _attckDamage: 5
+--- !u!114 &286923201458455927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6661981702407580237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db43b8fa83aae8c4bbd18d59f799cf43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6508134587500695124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6661981702407580237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93395d4881d1d6240bd57ac976e43e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2851588815969324307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6661981702407580237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0651ee9c8fbe02348ab9ca86b87f7f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8229745202112726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,6 +318,10 @@ PrefabInstance:
     - target: {fileID: 3071625299999685112, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Name
       value: DetectArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6858349574633109565, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
+      propertyPath: m_Radius
+      value: 6.24
       objectReference: {fileID: 0}
     - target: {fileID: 9045068582441208762, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_LocalPosition.x

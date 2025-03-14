@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6858349574633109565}
   - component: {fileID: 1474360916975766494}
   - component: {fileID: 8545407319609383057}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DetectArea
   m_TagString: DetectAreaPlayer
   m_Icon: {fileID: 0}

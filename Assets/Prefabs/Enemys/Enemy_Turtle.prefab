@@ -79,7 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6608335807109619696}
   - component: {fileID: 5370420429912980314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DetectArea
   m_TagString: DetectArea
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.81, y: 1.45}
+  m_Size: {x: 2.49, y: 1.45}
   m_Direction: 0
 --- !u!50 &7326878342699151264
 Rigidbody2D:

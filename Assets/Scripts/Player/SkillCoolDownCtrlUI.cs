@@ -20,7 +20,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
     /// <summary>
     /// PlayerInput의 Attack과 연결되는 컴포넌트 (GamePad의 westBtn)
     /// </summary>
-    [SerializeField] private OnScreenButton _screenButton; 
+   [SerializeField] private OnScreenButton _screenButton; 
 
     // 스킬 버튼 클릭 시 호출되는 함수
     void OnClickButton()
@@ -51,7 +51,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 
         // 버튼 비활성화
         _baseAtkBtn.interactable = false;
-        _coolDownText.gameObject.SetActive(true);
+        _coolDownText.enabled = true;
 
         while (timer > 0)
         {
@@ -71,7 +71,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
         // 쿨타임 종료 후
         _isCoolDown = false;
         _screenButton.enabled = true;
-        _coolDownText.gameObject.SetActive(false);
+        _coolDownText.enabled = false;
         _baseAtkBtn.interactable = true;
 
         if (_coolDownImg != null)
@@ -82,7 +82,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
     void Start()
     {
         _baseAtkBtn.onClick.AddListener(OnClickButton);
-        _coolDownText.gameObject.SetActive(false);
+        _coolDownText.enabled = false;
 
         if (_coolDownImg != null)
         {
@@ -106,5 +106,6 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
         }
 
         _screenButton = GetComponent<OnScreenButton>();
+        _coolDownText = GetComponentInChildren<TextMeshProUGUI>();
     }
 }
