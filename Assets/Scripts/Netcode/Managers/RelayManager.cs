@@ -18,14 +18,9 @@ using Firebase.Extensions;
 public class RelayManager : MonoBehaviour
 {
     public static RelayManager Instance;
-    [SerializeField] private const int MaxConnections = 4;
-
-    private int _currentPlayers = 0;
-    private DatabaseReference dbReference;
     private List<SessionData> sessionList = new List<SessionData>();
     private List<PlayerData> playerList = new List<PlayerData>();
 
-    private string firebaseDatabaseUrl = "https://mytest-10314-default-rtdb.firebaseio.com/";
     private void Awake()
     {
         if (Instance == null)
@@ -37,7 +32,7 @@ public class RelayManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        dbReference = FirebaseDatabase.GetInstance(firebaseDatabaseUrl).RootReference;
+        
     }
 
     private async void Start()
@@ -49,127 +44,16 @@ public class RelayManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-
-        FirebaseDatabase.DefaultInstance.GetReference("sessions").ValueChanged += OnSessionListChanged;
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
     }
 
-    public void SetCurrentPlayer(int currentNum, string joinCode)
-    {
-        _currentPlayers = GetCurrentPlayer(joinCode);
-        _currentPlayers += currentNum;
-        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("CurrntPlayers").SetValueAsync(_currentPlayers);
-    }
-    public int GetCurrentPlayer(string joinCode)
-    {
-        int currentPlayerNum = GetCurrentPlayer(joinCode);
-        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("CurrntPlayers").GetValueAsync().ContinueWith(task =>
-        {
-            if (task.IsCanceled && task.Result.Exists)
-            {
-                currentPlayerNum = int.Parse(task.Result.Value.ToString());
-            }
-        });
-        Debug.Log(currentPlayerNum);
-        return currentPlayerNum;
-    }
-
-    public void RemovePlayer(string joinCode)
-    {
-        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
-        string sessionId = session.JoinCode;
-        string playerPath = $"sessions/{sessionId}/players/{PlayerData.Instance.GetPlayerID()}";
-
-        dbReference.Child(playerPath).RemoveValueAsync();
-    }
-    public void ToggleReadyStatus(string joinCode)
-    {
-        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
-        string sessionId = session.JoinCode;
-        string playerPath = $"sessions/{sessionId}/players/{PlayerData.Instance.GetPlayerID()}/IsReady";
-
-        dbReference.Child(playerPath).GetValueAsync().ContinueWith(task =>
-        {
-            if (task.IsCompleted && task.Result.Exists)
-            {
-                bool currentStatus = bool.Parse(task.Result.Value.ToString());
-                dbReference.Child(playerPath).SetValueAsync(!currentStatus);
-            }
-        });
-    }
-    public void ListenForPlayerUpdates(string joinCode)
-    {
-        SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
-        string sessionId = session.JoinCode;
-        dbReference.Child($"sessions/{sessionId}/players").ValueChanged += (sender, e) =>
-        {
-            if (e.Snapshot.Exists)
-            {
-                playerList.Clear();
-                foreach (var child in e.Snapshot.Children)
-                {
-                    PlayerData player = JsonUtility.FromJson<PlayerData>(child.GetRawJsonValue());
-                    playerList.Add(player);
-                }
-                UIManager.Instance.UpdatePlayerPanels(playerList);
-            }
-        };
-    }
-
-    private void OnSessionListChanged(object sender, ValueChangedEventArgs e)
-    {
-        if (e.Snapshot.Exists)
-        {
-            sessionList.Clear();
-            foreach (var child in e.Snapshot.Children)
-            {
-                try
-                {
-                    string sessionName = child.Child("SessionName").Value?.ToString() ?? "Unknown";
-                    string joinCode = child.Child("JoinCode").Value?.ToString() ?? "";
-                    bool isPrivate = bool.TryParse(child.Child("IsPrivate").Value?.ToString(), out bool parsedPrivate) && parsedPrivate;
-                    string password = child.Child("Password").Value?.ToString() ?? "";
-                    
-
-                    sessionList.Add(new SessionData(sessionName, joinCode, isPrivate, password));
-                }
-                catch (System.Exception ex)
-                {
-                    Debug.LogError($"Firebase 데이터 처리 중 오류 발생: {ex.Message}");
-                }
-            }
-        }
-        else
-        {
-            
-            sessionList.Clear();
-        }
-
-        UIManager.Instance.UpdateSessionList();
-    }
-
-    public void AddPlayer(string joinCode)
-    {
-        Debug.Log("플레이어 추가 시도");
-
-        SetCurrentPlayer(1, joinCode);
-
-        PlayerData newPlayer = new PlayerData(false, GetCurrentPlayer(joinCode).ToString());
-
-
-        dbReference.Child("sessions").Child(GetSessionIdByJoinCode(joinCode).ToString()).Child("Players").Child($"Player({GetCurrentPlayer(joinCode)})").SetValueAsync(JsonUtility.ToJson(newPlayer));
-    }
-    private void AddFireBaseSession(string sessionId, SessionData newSession)
-    {
-        dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
-        dbReference.Child("sessions").Child(sessionId).Child("Players").SetValueAsync("");
-    }
     public async Task<string> CreateRelay(string sessionName, bool isPrivate, string password = "")
     {
         try
         {
-            
+
             // Relay 세션 생성
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(MaxConnections);
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(NetcodeFireBaseManager.Instance.GetMaxConnection());
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             Debug.Log($"Relay created. Join code: {joinCode}");
@@ -186,11 +70,11 @@ public class RelayManager : MonoBehaviour
 
             NetworkManager.Singleton.StartHost();
 
-            string sessionId = dbReference.Child("sessions").Push().Key;
-            SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password);
+            string sessionId = NetcodeFireBaseManager.Instance.GetDBreference().Child("sessions").Push().Key;
+            SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password, 0, NetcodeFireBaseManager.Instance.newPlayerListMaker());
 
-            AddFireBaseSession(sessionId, newSession);
-            AddPlayer(joinCode);
+            NetcodeFireBaseManager.Instance.AddFireBaseSession(sessionId, newSession);
+            NetcodeFireBaseManager.Instance.AddPlayer(joinCode);
             return joinCode;
         }
         catch (System.Exception e)
@@ -199,6 +83,7 @@ public class RelayManager : MonoBehaviour
             return null;
         }
     }
+
 
     public async Task<bool> JoinRelay(string joinCode, string inputPassword = "")
     {
@@ -233,7 +118,7 @@ public class RelayManager : MonoBehaviour
             );
 
             NetworkManager.Singleton.StartClient();
-            AddPlayer(GetSessionIdByJoinCode(joinCode).ToString());
+            NetcodeFireBaseManager.Instance.AddPlayer(joinCode);
 
             return true;
         }
@@ -243,45 +128,35 @@ public class RelayManager : MonoBehaviour
             return false;
         }
     }
-
-    public async Task<string> GetSessionIdByJoinCode(string joinCode)
+    
+    public ulong GetClientID()
     {
-        Debug.Log("키 요청");
-        var snapshot = await dbReference.Child("sessions")
-                                        .OrderByChild("JoinCode")
-                                        .EqualTo(joinCode)
-                                        .GetValueAsync();
-
-        if (snapshot.Exists && snapshot.ChildrenCount > 0)
-        {
-            return snapshot.Children.First().Key; // 첫 번째 세션 ID 반환
-        }
-
-        return null;
+        return NetworkManager.Singleton.LocalClientId;
     }
+
+    private void OnClientDisconnected(ulong clientId)
+    {
+        Debug.Log($"클라이언트 {clientId} 연결 끊김 감지됨");
+
+        // 🔥 클라이언트가 호스트와의 연결이 끊어졌다면 세션 리스트 UI로 이동
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            Debug.Log("호스트와의 연결이 끊겼으므로 세션 리스트 UI로 이동");
+
+            // UIManager를 이용해 세션 리스트 화면으로 이동
+            UIManager.Instance.HideCreateSessionUI();
+
+            // 네트워크 정리
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
+
     public List<SessionData> GetSessionList()
     {
         return sessionList;
     }
-
-    public async void RemoveSessionFromFirebase(string joinCode)
+    public List<PlayerData> GetPlayerList()
     {
-        try
-        {
-            // Firebase에서 특정 JoinCode를 가진 세션 찾기
-            Debug.Log("파이어베이스 세션 제거 시도");
-            var sessionID = await GetSessionIdByJoinCode (joinCode);
-            if (sessionID != null)
-            {
-                dbReference.Child("sessions").Child(sessionID).RemoveValueAsync();
-                Debug.Log("파이어베이스 세션 제거성공");
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Firebase에서 세션 삭제 실패: {e.Message}");
-        }
+        return playerList;
     }
-
-
 }

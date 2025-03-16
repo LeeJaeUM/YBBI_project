@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour
     private Transform _playerPanelCanv;
     private List<PlayerPanel> _playerPanels = new List<PlayerPanel>();
 
+    private string _savedJoinCode;
+    private string _savedPlayerId;
     private void Awake()
     {
         if (Instance == null)
@@ -79,6 +81,7 @@ public class UIManager : MonoBehaviour
         _disconnectButton = _inSessionUI.transform.Find("Disconnect").GetComponent<Button>();
         _readyButton = _inSessionUI.transform.Find("Ready").GetComponent<Button>();
         _startButton = _inSessionUI.transform.Find("Start").GetComponent<Button>();
+
 
         _playerPanelCanv = _inSessionUI.transform.Find("PlayerPanelCanv");
         foreach (Transform panel in _playerPanelCanv)
@@ -129,7 +132,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void HideCreateSessionUI()
+    public void HideCreateSessionUI()
     {
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(true);
@@ -221,6 +224,7 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError("세션 생성 실패");
         }
+        _savedJoinCode = joinCode;
     }
     private async void JoinSession()
     {
@@ -235,13 +239,18 @@ public class UIManager : MonoBehaviour
         }
         Debug.Log("세션 참가 성공");
 
+        _savedJoinCode = code;
         ShowInSessionUI();
     }
 
     private void ToggleReady()
     {
         Debug.Log("준비 상태 변경");
-        
+/*        string joinCode = _sessionCodeInput.text;
+        var sessionList = RelayManager.Instance.GetSessionList();
+        var session = sessionList.Find(s => s.JoinCode == joinCode);
+        */
+
     }
 
     private void StartGame()
@@ -249,16 +258,16 @@ public class UIManager : MonoBehaviour
         Debug.Log("게임 시작");
     }
 
+
     private async void DisconnectSession()
     {
+
         Debug.Log("DisconnectSession요청");
-        string joinCode = _sessionCodeInput.text;
+        string joinCode = _savedJoinCode;
         var sessionList = RelayManager.Instance.GetSessionList();
         var session = sessionList.Find(s => s.JoinCode == joinCode);
-
-        RelayManager.Instance.GetSessionIdByJoinCode(joinCode);
+        Debug.Log($"나갈 세션 코드 :{joinCode}");
         
-
         if (NetworkManager.Singleton.IsHost)
         {
             Debug.Log("호스트가 세션을 종료합니다.");
@@ -266,7 +275,7 @@ public class UIManager : MonoBehaviour
             
             sessionList.Remove(session);
 
-            RelayManager.Instance.RemoveSessionFromFirebase(joinCode);
+            NetcodeFireBaseManager.Instance.RemoveSessionFromFirebase(joinCode);
 
             // 세션 리스트에서 해당 세션 제거 (호스트가 떠나면 자동 삭제)
             sessionList.RemoveAll(s => s.JoinCode == joinCode);
@@ -274,7 +283,7 @@ public class UIManager : MonoBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-
+            NetcodeFireBaseManager.Instance.SetCurrentPlayer(-1, joinCode);
         }
         NetworkManager.Singleton.Shutdown();
 
@@ -284,12 +293,15 @@ public class UIManager : MonoBehaviour
             panel.ResetPanel();
         }
 
-        RelayManager.Instance.SetCurrentPlayer(-1, joinCode);
+        
         // UI 업데이트
         HideCreateSessionUI();
         UpdateSessionList();
     }
-
+    public void SetSavedPlayerID(string playerID)
+    {
+        _savedPlayerId = playerID;
+    }
     public void UpdatePlayerPanels(List<PlayerData> players)
     {
         for (int i = 0; i < _playerPanels.Count; i++)

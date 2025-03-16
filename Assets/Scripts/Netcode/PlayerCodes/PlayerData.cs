@@ -1,22 +1,15 @@
+using System.Collections.Generic;
 using System.Net;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerData : NetworkBehaviour
-{
-    public static PlayerData LocalInstance { get; private set; }
-    public static PlayerData Instance { get; private set; }
 
-    string _playerID = "";
-    bool _IsReady = false;
+public class PlayerData : MonoBehaviour 
+{
+    public static PlayerData Instance;
 
     private void Awake()
     {
-        if (IsOwner)
-        {
-            Instance = this;
-        }
-
         if (Instance == null)
         {
             Instance = this;
@@ -28,13 +21,23 @@ public class PlayerData : NetworkBehaviour
         }
     }
 
+    string _playerID = "";
+    bool _isReady = false;
 
     public PlayerData(bool IsReady, string playerID)
     {
         _playerID = playerID;
-        _IsReady = IsReady;
+        _isReady = IsReady;
     }
 
+    public Dictionary<string, object> ToDictionary()
+    {
+        return new Dictionary<string, object>
+        {
+            { "playerID", _playerID },
+            { "isReady", _isReady }
+        };
+    }
 
     public string GetPlayerID()
     {
@@ -46,11 +49,11 @@ public class PlayerData : NetworkBehaviour
     }
     public bool GetPlayerReady()
     {
-        return _IsReady;
+        return _isReady;
     }
     public void SetPlayerReady(bool IsReady)
     {
-        _IsReady = IsReady;
+        _isReady = IsReady;
     }
 
 }

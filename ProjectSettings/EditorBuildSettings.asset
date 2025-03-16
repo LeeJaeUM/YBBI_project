@@ -5,34 +5,34 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/Firebase/01_FireBaseAuth.unity
     guid: 161d9cee55fb0d04188ac5ca03048568
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/Title.unity
     guid: af156fb1aac06e3498bf13341faf3d02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/Login.unity
     guid: 2a5f38306f771494e91c8be23a6b07ea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/Lobby.unity
     guid: ebbaf64e7ce51ef408600e84ac039782
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/MakeRoom.unity
     guid: ac8f1891fce9d5c49bc6b48a19da6270
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/JoinRoom.unity
     guid: f1a6059d89fdfe24cbea97cccbb4b4ea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/ReadyGame.unity
     guid: 292ee04f8f340294c9c46816e4f73f7b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/PlayScene/GameTest.unity
     guid: b341cf1f43c77b14886f81213ca0f7cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/Firebase/03_AnotherStyleDemo.unity
     guid: 9700de6324a4b9d4789e59e1d34d6e58
   - enabled: 1
