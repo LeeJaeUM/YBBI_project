@@ -5,6 +5,10 @@ using UnityEngine;
 
 public enum ItemID
 {
+    ZeZeZe,
+    ZeZeOne,
+    ZeZeTwo,
+    ZeZeThree,
     Max
 }
 

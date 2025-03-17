@@ -18,10 +18,6 @@ public class Inventory : MonoBehaviour
     GridLayoutGroup _slotGrid;
     [SerializeField]
     Sprite[] _iconSprites;
-    //[SerializeField]
-    //TweenScale _tweenOpen;
-    //[SerializeField]
-    //TweenScale _tweenClose;
     [SerializeField]
     List<Slot> _slotList = new List<Slot>();
 
@@ -34,20 +30,14 @@ public class Inventory : MonoBehaviour
 
     public void ShowUI()
     {
-        //_tweenOpen.ResetToBeginning();
-        //_tweenOpen.PlayForward();
         gameObject.SetActive(true);
     }
     public void HideUI()
     {
-        //_tweenClose.enabled = true;
-        //_tweenClose.ResetToBeginning();
-        //_tweenClose.PlayForward();
     }
     public void CloseUI()
     {
         gameObject.SetActive(false);
-        //_tweenClose.enabled = false;
     }
 
     public void OnSlotSelect(Slot current_slot)
@@ -102,8 +92,7 @@ public class Inventory : MonoBehaviour
     {
         CreateSlot(10);
         _cursorSprite.enabled = false;
-        // gameObject.SetActive(false);
-        //_tweenClose.enabled = false;
+        gameObject.SetActive(false);
     }
 
     void Update()

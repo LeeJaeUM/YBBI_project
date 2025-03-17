@@ -33,6 +33,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene/PlayScene/GameTest.unity
     guid: b341cf1f43c77b14886f81213ca0f7cd
   - enabled: 0
+    path: Assets/Scenes/TestScene/PlayScene/Inventory.unity
+    guid: acd8319830f8688479114eec99a0c57d
+  - enabled: 0
     path: Assets/Scenes/TestScene/Firebase/03_AnotherStyleDemo.unity
     guid: 9700de6324a4b9d4789e59e1d34d6e58
   - enabled: 1
