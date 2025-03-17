@@ -22,8 +22,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     /// <param name="skillType">사용할 스킬타입 : ISkillType.SkillType </param>
     private void CreateAttack(ISkillType.SkillType skillType)
     {
-        Debug.Log("플레이어가 공격 누름");
-        SkillData skillData = null;        
+        SkillData skillData;        
         switch (skillType)
         {
             case ISkillType.SkillType.Normal:
@@ -41,7 +40,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
         }
         if (!CanUseSkill(skillData))
         {
-            Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
+            //Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
             return;
         }
         _lastUsedTime[skillData._skillType] = Time.time;  // 해당 타입의 스킬 쿨타임 업데이트
@@ -56,7 +55,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
         {
             bullet.SetArrowVector(direction);
 
-            float damage = _curAttackDamage * skillData._damageMultiplier;
+            float damage = _curAttackDamage * GetDamageMultiplier(skillData._damageMultiplier);
             float radius = skillData._radius;
             float activeTime = skillData._activeTime;
             float speed = skillData._moveSpeed;
@@ -77,6 +76,18 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
         return Time.time >= lastUsed + skillData._coolDown;
     }
 
+    /// <summary>
+    /// 데미지 계산 함수 : 현재는 단순 배율 곱하기
+    /// </summary>
+    /// <param name="skillDamageMul"></param>
+    /// <returns></returns>
+    private float GetDamageMultiplier(float skillDamageMul)
+    {
+        float finalMul = 1;
+        finalMul *= skillDamageMul;
+        return finalMul;
+    }
+
 
     private void HandleNormalAttackInput()
     {
@@ -84,9 +95,9 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
         CreateAttack(skillType);
     }
 
-    private void HandlePressureSkillInput()
+    private void HandlePressureSkillInput(bool isPressed)
     {
-        Debug.Log("지금 나오고 있나? 1");
+        Debug.Log($"눌림 {isPressed}");
         ISkillType.SkillType skillType = ISkillType.SkillType.Pressure;
         CreateAttack(skillType);
     }

@@ -10,28 +10,33 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnMoveInput; // 이동 입력 이벤트
     public event Action OnAttackInput; // 공격 입력 이벤트
-    public event Action OnPressureSkillInput; // 압력 스킬 입력 이벤트
+    public event Action<bool> OnPressureSkillInput; // 압력 스킬 입력 이벤트
     public event Action OnUniqueSkillInput; // 유니크 스킬 입력 이벤트
 
-    void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext value)
     {
-        OnMoveInput?.Invoke(value.Get<Vector2>()); // 이동 입력이 들어올 때만 이벤트 실행
+        OnMoveInput?.Invoke(value.ReadValue<Vector2>()); // 이동 입력이 들어올 때만 이벤트 실행
     }
 
-    void OnAttack(InputValue value)
+    public void OnAttack(InputAction.CallbackContext value)
     {
-        Debug.Log("지금 나오고 있나? 3");
+        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnAttackInput?.Invoke();
     }
 
-    void OnPressureSkill(InputValue value)
+    public void OnPressureSkill(InputAction.CallbackContext value)
     {
-        Debug.Log("지금 나오고 있나? 2");
-        OnPressureSkillInput?.Invoke();
+        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+
+        if(value.started)
+            OnPressureSkillInput?.Invoke(true);
+        else if(value.canceled)
+            OnPressureSkillInput?.Invoke(false);
     }
 
-    void OnUniqueSkill(InputValue value)
+    public void OnUniqueSkill(InputAction.CallbackContext value)
     {
+        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnUniqueSkillInput?.Invoke();
     }
 }

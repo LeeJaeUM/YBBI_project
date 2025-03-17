@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem.OnScreen;
+using UnityEngine.EventSystems;
 
 public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 {
@@ -14,7 +15,8 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 
     [SerializeField] private float _coolDown = 5.0f;
     private bool _isCoolDown = false;
-    
+    private bool _isButtonHeld = false;  // 버튼을 꾹 눌렀는지 여부
+
     public PlayerATKStats _playerATKStats;
     public PlayerInputHandler _inputHandler;
 
@@ -28,26 +30,26 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
     {
         if (!_isCoolDown)
         {
-            // Attack 함수 호출
-            Attack();
-
             // 코루틴을 통해 쿨타임 관리 시작
             StartCoroutine(CooldownCoroutine());
         }
     }
 
-    // 공격 함수
-    void Attack()
+    void OnPressedButton(bool isPressed)
     {
-        // 실제 공격 로직 처리
-        Debug.Log("스킬 공격 실행!");
+        Debug.Log($"{isPressed} 지금 이 상태다");
+        if (!_isCoolDown)
+        {
+            // 코루틴을 통해 쿨타임 관리 시작
+            StartCoroutine(CooldownCoroutine());
+        }
     }
 
     // 코루틴으로 쿨타임 관리
     IEnumerator CooldownCoroutine()
     {
         _isCoolDown = true;
-        _screenButton.enabled = false;
+        //_screenButton.enabled = false;
         float timer = _coolDown;
 
         // 버튼 비활성화
@@ -71,13 +73,21 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 
         // 쿨타임 종료 후
         _isCoolDown = false;
-        _screenButton.enabled = true;
+       // _screenButton.enabled = true;
         _coolDownText.enabled = false;
         _baseAtkBtn.interactable = true;
 
         if (_coolDownImg != null)
         {
             _coolDownImg.fillAmount = 1f; // 쿨타임 종료 후 이미지 채우기
+        }
+    }
+
+    private void Update()
+    {
+        if(_isButtonHeld)
+        {
+
         }
     }
 
@@ -94,13 +104,36 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
                     _inputHandler.OnAttackInput += OnClickButton;
                     break;
                 case ISkillType.SkillType.Pressure:
-                    _inputHandler.OnPressureSkillInput += OnClickButton;
+                    _inputHandler.OnPressureSkillInput += OnPressedButton;
                     break;
                 case ISkillType.SkillType.Unique:
                     _inputHandler.OnUniqueSkillInput += OnClickButton;
                     break;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (_inputHandler != null)   // 이벤트 구독
+        {
+            switch (btnType)
+            {
+                case ISkillType.SkillType.NONE:
+                    Debug.Log("공격버튼에 아무것도 할당되지 않음");
+                    break;
+                case ISkillType.SkillType.Normal:
+                    _inputHandler.OnAttackInput -= OnClickButton;
+                    break;
+                case ISkillType.SkillType.Pressure:
+                    _inputHandler.OnPressureSkillInput -= OnPressedButton;
+                    break;
+                case ISkillType.SkillType.Unique:
+                    _inputHandler.OnUniqueSkillInput -= OnClickButton;
+                    break;
+            }
+        }
+
     }
     void Start()
     {
@@ -112,7 +145,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
             _coolDownImg.fillAmount = 1;
         }
 
-        switch(btnType)
+        switch (btnType)
         {
             case ISkillType.SkillType.NONE:
                 Debug.Log("공격버튼에 아무것도 할당되지 않음");
@@ -131,25 +164,21 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
         _screenButton = GetComponent<OnScreenButton>();
         _coolDownText = GetComponentInChildren<TextMeshProUGUI>();
     }
-    private void OnDestroy()
-    {
-        if (_inputHandler != null)   // 이벤트 구독
-        {
-            switch (btnType)
-            {
-                case ISkillType.SkillType.NONE:
-                    Debug.Log("공격버튼에 아무것도 할당되지 않음");
-                    break;
-                case ISkillType.SkillType.Normal:
-                    _inputHandler.OnAttackInput -= OnClickButton;
-                    break;
-                case ISkillType.SkillType.Pressure:
-                    _inputHandler.OnPressureSkillInput -= OnClickButton;
-                    break;
-                case ISkillType.SkillType.Unique:
-                    _inputHandler.OnUniqueSkillInput -= OnClickButton;
-                    break;
-            }
-        }
-    }
+
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    // 버튼을 꾹 눌렀을 때
+    //    _isButtonHeld = true;
+    //    if (!_isCoolDown)
+    //    {
+    //        Attack(); // 공격 실행
+    //        StartCoroutine(CooldownCoroutine()); // 쿨타임 시작
+    //    }
+    //}
+
+    //public void OnPointerUp(PointerEventData eventData)
+    //{
+    //    // 버튼에서 손을 뗐을 때
+    //    _isButtonHeld = false;
+    //}
 }

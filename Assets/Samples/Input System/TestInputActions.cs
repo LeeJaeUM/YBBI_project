@@ -97,7 +97,7 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""124663f4-ef54-4da4-ac0e-88b9cca27040"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
