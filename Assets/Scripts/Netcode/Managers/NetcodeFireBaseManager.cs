@@ -9,6 +9,10 @@ using Unity.Services.Relay;
 using UnityEngine;
 using System.Linq;
 using UnityEditor.PackageManager.Requests;
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
+using System;
+using WebSocketSharp;
 
 public class NetcodeFireBaseManager : MonoBehaviour
 {
@@ -53,14 +57,14 @@ public class NetcodeFireBaseManager : MonoBehaviour
         return MaxConnections;
     }
 
-    public async Task SetCurrentPlayer(int currentNum, string joinCode)
+    public async Task<bool> SetCurrentPlayer(int currentNum, string joinCode)
     {
         // 🔥 세션 ID 가져오기
         string sessionId = await GetSessionIdByJoinCode(joinCode);
         if (string.IsNullOrEmpty(sessionId))
         {
             Debug.LogError($"세션 ID를 찾을 수 없습니다. JoinCode: {joinCode}");
-            return;
+            return false;
         }
 
         // 🔥 Firebase에서 현재 플레이어 수 가져오기
@@ -77,6 +81,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
         await dbReference.Child("sessions").Child(sessionId).Child("CurrentPlayers").SetValueAsync(currentPlayers);
 
         Debug.Log($"세션 {sessionId}의 현재 플레이어 수: {currentPlayers}");
+        return true;
     }
 
     public async Task<int> GetCurrentPlayer(string joinCode)
@@ -118,31 +123,208 @@ public class NetcodeFireBaseManager : MonoBehaviour
     */
 
 
-    public async void AddPlayer(string joinCode)
+    public async Task<bool> AddPlayer(string joinCode)
     {
         Debug.Log("플레이어 추가 시도");
 
-        int currentPlayers = await GetCurrentPlayer(joinCode);
-        if (currentPlayers >= MaxConnections)
-        {
-            Debug.Log("이미 정원입니다.");
-            return;
-        }
 
         string sessionId = await GetSessionIdByJoinCode(joinCode);
         if (string.IsNullOrEmpty(sessionId))
         {
             Debug.LogError("세션 ID를 찾을 수 없습니다.");
-            return;
+            return false;
         }
 
-        PlayerData newPlayer = new PlayerData(false, currentPlayers.ToString());
-        UIManager.Instance.SetSavedPlayerID(currentPlayers.ToString());
+        int playerIndex = -1;
 
-        await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(currentPlayers.ToString()).SetValueAsync(newPlayer.ToDictionary());
+        // Players 경로에서 모든 데이터 가져오기
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            int index = 0;
+            foreach (var child in snapshot.Children)
+            {
+                string currentPlayerName = child.Child("PlayerName").Value?.ToString(); // "playerID" 필드를 가져옴
+                if (currentPlayerName == null)
+                {
+                    Debug.Log("foreach문안의 if문 작동");
+                    playerIndex = index;
+                    break;
+                }
+                index++;
+            }
+        }
+
+        if (playerIndex == -1)
+        {
+            Debug.LogError("플레이어 index 찾기 실패");
+            return false;
+        }
+
+        string playerName = $"{joinCode}__{playerIndex}";
+        Debug.Log($"player이름 : {playerName}");
+        PlayerData newPlayer = new PlayerData(false, playerName); //임시로 플레이어 네임을 아무렇게나 넣엇음
+        UIManager.Instance.SetSavedPlayerName(playerName);
+
+
+        await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).SetValueAsync(newPlayer.ToDictionary());
         await SetCurrentPlayer(1, joinCode);
 
-        Debug.Log($"세션 {sessionId}에 {currentPlayers}번째 플레이어 추가 완료!");
+        Debug.Log($"세션 {sessionId}에 {playerIndex}번째 플레이어 추가 완료!");
+
+        //UIManager.Instance.UpdatePlayerPanels();
+
+        return true;
+    }
+
+
+
+    public async Task<bool> RemovePlayerFromSession(string joinCode, string playerName)
+    {
+        Debug.Log("플레이어 제거 시도");
+
+        // JoinCode로 SessionID 찾기
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if (string.IsNullOrEmpty(sessionId))
+        {
+            Debug.LogError("세션을 찾을 수 없습니다.");
+            return false;
+        }
+
+        Debug.Log($"제거할 플레이어가 있는 세션 ID: {sessionId}");
+
+        int playerIndex = -1;
+
+        // Players 경로에서 모든 데이터 가져오기
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            int index = 0;
+            foreach (var child in snapshot.Children)
+            {
+                
+                string currentPlayerName = child.Child("PlayerName").Value?.ToString(); // "playerID" 필드를 가져옴
+                Debug.Log($"{index}번째 플레이어 이름 : {currentPlayerName}, 현재 찾는 플레이어 이름 : {playerName}");
+                if (currentPlayerName == playerName)
+                {
+                    Debug.Log("foreach문안의 if문 작동");
+                    playerIndex = index;
+                    Debug.Log($"{sessionId} 내의 {playerName}의 인덱스: {playerIndex}");
+                    break;
+                }
+                index++;
+            }
+        }
+
+        if (playerIndex == -1)
+        {
+            Debug.LogError("플레이어 index 가져오기 실패");
+            return false;
+        }
+
+        // 플레이어 데이터 제거
+        await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).RemoveValueAsync();
+
+        await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("instanceID").SetValueAsync(0);
+
+        Debug.Log($"플레이어 {playerName} 제거 완료");
+
+        // 현재 플레이어 수 업데이트
+        await SetCurrentPlayer(-1, joinCode);
+
+        return true;
+    }
+    public async void RequseReversalReadyToggle(string joincode, string playerName)
+    {
+        await ReversalReadyToggle(joincode, playerName);
+    }
+
+    private async Task<bool> ReversalReadyToggle(string joinCode, string playerName)
+    {
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+
+        int playerIndex = -1;
+
+        // Players 경로에서 모든 데이터 가져오기
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            int index = 0;
+            foreach (var child in snapshot.Children)
+            {
+
+                string currentPlayerName = child.Child("PlayerName").Value?.ToString(); // "playerID" 필드를 가져옴
+                Debug.Log($"{index}번째 플레이어 이름 : {currentPlayerName}, 현재 찾는 플레이어 이름 : {playerName}");
+                if (currentPlayerName == playerName)
+                {
+                    Debug.Log("foreach문안의 if문 작동");
+                    playerIndex = index;
+                    Debug.Log($"{sessionId} 내의 {playerName}의 인덱스: {playerIndex}");
+                    break;
+                }
+                index++;
+            }
+        }
+
+        if (playerIndex == -1)
+        {
+            Debug.LogError("플레이어 index 가져오기 실패");
+            return false;
+        }
+
+        snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            Debug.Log($"{playerIndex}번째 플레이어 준비 상태 변경 시도 현재 : {snapshot.Value}");
+
+            if(snapshot.Value.ToString() == false.ToString())
+            {
+                await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").SetValueAsync(true);
+                Debug.Log($"{playerIndex}번째 플레이어 준비 상태 변경 성공 현재 : {snapshot.Value}");
+            }
+            else if(snapshot.Value.ToString() == true.ToString())
+            {
+                await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").SetValueAsync(false);
+                Debug.Log($"{playerIndex}번째 플레이어 준비 상태 변경 성공 현재 : {snapshot.Value}");
+            }
+            else
+            {
+                Debug.Log($"{playerIndex}번째 플레이어 준비 상태 변경 실패 현재 : {snapshot.Value}");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public async Task<bool> GetSessionPlayerIsReady(string joinCode, int playerIndex)
+    {
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+
+        DataSnapshot snapshot = await dbReference.Child("SessionList").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            Debug.Log($"{playerIndex}번째 플레이어 준비 상태 : {snapshot.Value}");
+            if (snapshot.Value.ToString() == true.ToString())
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public async Task<string> GetSessionPlayerName(string joinCode, int playerIndex)
+    {
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+
+        DataSnapshot snapshot = await dbReference.Child("SessionList").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("PlayerName").GetValueAsync();
+        if (snapshot.Exists)
+        { 
+            return snapshot.Value.ToString();
+        }
+
+        return "ERROR" ;
     }
 
     public void AddFireBaseSession(string sessionId, SessionData newSession)
@@ -201,12 +383,6 @@ public class NetcodeFireBaseManager : MonoBehaviour
             Debug.LogError($"Firebase에서 세션 삭제 실패: {e.Message}");
         }
     }
-
-    public void RequestRemovePlayer()
-    {
-
-    }
-
 
     public void OnSessionListChanged(object sender, ValueChangedEventArgs e)
     {

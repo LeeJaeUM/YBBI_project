@@ -21,12 +21,12 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    string _playerID = "";
+    string _playerName = "";
     bool _isReady = false;
 
-    public PlayerData(bool IsReady, string playerID)
+    public PlayerData(bool IsReady, string playerName)
     {
-        _playerID = playerID;
+        _playerName = playerName;
         _isReady = IsReady;
     }
 
@@ -34,18 +34,18 @@ public class PlayerData : MonoBehaviour
     {
         return new Dictionary<string, object>
         {
-            { "playerID", _playerID },
-            { "isReady", _isReady }
+            { "PlayerName", _playerName },
+            { "IsReady", _isReady }
         };
     }
 
-    public string GetPlayerID()
+    public string GetPlayerName()
     {
-        return _playerID;
+        return _playerName;
     }
-    public void SetPlayerID(string PlayerID)
+    public void SetPlayerName(string PlayerName)
     {
-        _playerID = PlayerID;
+        _playerName = PlayerName;
     }
     public bool GetPlayerReady()
     {

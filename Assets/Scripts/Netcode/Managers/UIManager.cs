@@ -41,7 +41,8 @@ public class UIManager : MonoBehaviour
     private List<PlayerPanel> _playerPanels = new List<PlayerPanel>();
 
     private string _savedJoinCode;
-    private string _savedPlayerId;
+    private string _savedPlayerName;
+
     private void Awake()
     {
         if (Instance == null)
@@ -246,11 +247,7 @@ public class UIManager : MonoBehaviour
     private void ToggleReady()
     {
         Debug.Log("준비 상태 변경");
-/*        string joinCode = _sessionCodeInput.text;
-        var sessionList = RelayManager.Instance.GetSessionList();
-        var session = sessionList.Find(s => s.JoinCode == joinCode);
-        */
-
+        NetcodeFireBaseManager.Instance.RequseReversalReadyToggle(_savedJoinCode, _savedPlayerName);
     }
 
     private void StartGame()
@@ -263,10 +260,10 @@ public class UIManager : MonoBehaviour
     {
 
         Debug.Log("DisconnectSession요청");
-        string joinCode = _savedJoinCode;
+
         var sessionList = RelayManager.Instance.GetSessionList();
-        var session = sessionList.Find(s => s.JoinCode == joinCode);
-        Debug.Log($"나갈 세션 코드 :{joinCode}");
+        var session = sessionList.Find(s => s.JoinCode == _savedJoinCode);
+        Debug.Log($"나갈 세션 코드 :{_savedJoinCode}");
         
         if (NetworkManager.Singleton.IsHost)
         {
@@ -275,15 +272,15 @@ public class UIManager : MonoBehaviour
             
             sessionList.Remove(session);
 
-            NetcodeFireBaseManager.Instance.RemoveSessionFromFirebase(joinCode);
+            NetcodeFireBaseManager.Instance.RemoveSessionFromFirebase(_savedJoinCode);
 
             // 세션 리스트에서 해당 세션 제거 (호스트가 떠나면 자동 삭제)
-            sessionList.RemoveAll(s => s.JoinCode == joinCode);
+            sessionList.RemoveAll(s => s.JoinCode == _savedJoinCode);
         }
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-            NetcodeFireBaseManager.Instance.SetCurrentPlayer(-1, joinCode);
+            NetcodeFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerName);
         }
         NetworkManager.Singleton.Shutdown();
 
@@ -298,45 +295,44 @@ public class UIManager : MonoBehaviour
         HideCreateSessionUI();
         UpdateSessionList();
     }
-    public void SetSavedPlayerID(string playerID)
+    public void SetSavedPlayerName(string playerName)
     {
-        _savedPlayerId = playerID;
+        _savedPlayerName = playerName;
     }
-    public void UpdatePlayerPanels(List<PlayerData> players)
+
+/*    public void UpdatePlayerPanels()
     {
-        for (int i = 0; i < _playerPanels.Count; i++)
+        
+        for (int i = 0; i < 4; i++)
         {
-            if (i < players.Count)
-            {
-                _playerPanels[i].UpdatePanel(players[i].GetPlayerID(), players[i].GetPlayerReady());
-            }
-            else
+            _playerPanels[i].UpdatePanel(players[i].GetPlayerName(), NetcodeFireBaseManager.Instance.GetSessionPlayerIsReady(_savedJoinCode, i).Result);
+            if (_playerPanels[i] == null)
             {
                 _playerPanels[i].ResetPanel();
             }
         }
     }
-
+*/
     public class PlayerPanel
     {
-        private TextMeshProUGUI _idText;
+        private TextMeshProUGUI _nameText;
         private Toggle _readyToggle;
 
         public PlayerPanel(Transform panelTransform)
         {
-            _idText = panelTransform.Find("ID").GetComponent<TextMeshProUGUI>();
+            _nameText = panelTransform.Find("Name").GetComponent<TextMeshProUGUI>();
             _readyToggle = panelTransform.Find("IsReady").GetComponent<Toggle>();
         }
 
         public void UpdatePanel(string id, bool isReady)
         {
-            _idText.text = id;
+            _nameText.text = id;
             _readyToggle.isOn = isReady;
         }
 
         public void ResetPanel()
         {
-            _idText.text = "ID";
+            _nameText.text = "ID";
             _readyToggle.isOn = false;
         }
     }
