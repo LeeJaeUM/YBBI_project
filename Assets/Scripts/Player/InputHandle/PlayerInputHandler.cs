@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnMoveInput; // 이동 입력 이벤트
     public event Action OnAttackInput; // 공격 입력 이벤트
-    public event Action OnAirSkillInput; // air스킬 입력 이벤트
+    public event Action OnPressureSkillInput; // 압력 스킬 입력 이벤트
     public event Action OnUniqueSkillInput; // 유니크 스킬 입력 이벤트
 
     void OnMove(InputValue value)
@@ -20,12 +20,14 @@ public class PlayerInputHandler : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
+        Debug.Log("지금 나오고 있나? 3");
         OnAttackInput?.Invoke();
     }
 
-    void OnAirSkill(InputValue value)
+    void OnPressureSkill(InputValue value)
     {
-        OnAirSkillInput?.Invoke();
+        Debug.Log("지금 나오고 있나? 2");
+        OnPressureSkillInput?.Invoke();
     }
 
     void OnUniqueSkill(InputValue value)

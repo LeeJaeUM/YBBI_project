@@ -13,7 +13,6 @@ public class NearestEnemyFinder : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("범위안에 적 들어옴");
             _enemiesInRange.Add(collision.transform);
         }
     }
@@ -22,7 +21,6 @@ public class NearestEnemyFinder : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("적이 범위 밖으로 나감");
             _enemiesInRange.Remove(collision.transform);
         }
     }

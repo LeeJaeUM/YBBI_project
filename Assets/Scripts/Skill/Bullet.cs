@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     public void SetData(float damage, float radius, float activeTime, float moveSpeed)
     {
         _damage = damage;
-        transform.localScale = Vector2.one * radius;
+        transform.localScale = Vector3.one * radius;
         _lifeTime = activeTime;
         _speed = moveSpeed;
     }

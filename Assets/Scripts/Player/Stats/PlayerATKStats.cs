@@ -4,39 +4,21 @@ public class PlayerATKStats : MonoBehaviour
 {
     #region Fields & Properties
     public SkillData _normalAttackSkillData;
-    public SkillData _airSkillData;
+    public SkillData _pressureSkillData;
     public SkillData _uniqueSkillData;
 
     public float _normalAttackCoolDown = 6.0f;    // 일반 공격 쿨타임
-    public float _airSkillCoolDown = 6.0f;        // 공기 스킬 쿨타임 (스킬 1)
+    public float _pressureSkillCoolDown = 6.0f;        // 공기 스킬 쿨타임 (스킬 1)
     public float _uniqueSkillCoolDown = 6.0f;     // 고유 스킬 쿨타임 (스킬 2)
 
     public float _attckDamage = 5;
-
-
-    //public bool _canNormalAttack = true;
-    //public bool _canAirSkill = true;
-    //public bool _canUniqueSkill = true;
-
-   // public NormalAttack _normalAttack;
-   // public AirSkill _airSkill;
-   // public UniqueSkill _uniqueSkill;
     #endregion
 
     #region Custom Functions
-
-
-    private void StartAttack(BaseSkill baseSkill)
-    {
-
-        if (baseSkill == null || !baseSkill.CanAttack()) return;
-
-        baseSkill.Attack();
-    }
-    private void SetCoolDown(float normalCool, float airCool, float uniqueCool)
+    private void SetCoolDown(float normalCool, float pressureCool, float uniqueCool)
     {
         _normalAttackCoolDown = normalCool;
-        _airSkillCoolDown = airCool;
+        _pressureSkillCoolDown = pressureCool;
         _uniqueSkillCoolDown = uniqueCool;
     }
 
@@ -46,11 +28,7 @@ public class PlayerATKStats : MonoBehaviour
     private void InitSkillData()
     {
         SetCoolDown(_normalAttackSkillData._coolDown, 
-            _airSkillData._coolDown, _uniqueSkillData._coolDown);
-
-       // _normalAttack.SetSkillData(_normalAttackSkillData);
-       // _airSkill.SetSkillData(_airSkillData);
-       // _uniqueSkill.SetSkillData(_uniqueSkillData);
+            _pressureSkillData._coolDown, _uniqueSkillData._coolDown);
     }
 
     public float GetAttackDamage()
@@ -63,9 +41,9 @@ public class PlayerATKStats : MonoBehaviour
         return _normalAttackCoolDown;
     }
 
-    public float GetAirSkillCoolDown()
+    public float GetPressureSkillCoolDown()
     {
-        return _airSkillCoolDown;
+        return _pressureSkillCoolDown;
     }
 
     public float GetUniqueSkillCoolDown()
@@ -77,9 +55,9 @@ public class PlayerATKStats : MonoBehaviour
     {
         return _normalAttackSkillData;
     }
-    public SkillData GetAirSkillData()
+    public SkillData GetPressureSkillData()
     {
-        return _airSkillData;
+        return _pressureSkillData;
     }
     public SkillData GetUniqueSkillData()
     {

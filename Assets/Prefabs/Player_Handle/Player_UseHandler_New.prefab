@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7035302077526420912}
   - component: {fileID: 8571067894637158336}
   m_Layer: 0
-  m_Name: Player_UseHandler
+  m_Name: Player_UseHandler_New
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

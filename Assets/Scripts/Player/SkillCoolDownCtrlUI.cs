@@ -16,6 +16,7 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
     private bool _isCoolDown = false;
     
     public PlayerATKStats _playerATKStats;
+    public PlayerInputHandler _inputHandler;
 
     /// <summary>
     /// PlayerInput의 Attack과 연결되는 컴포넌트 (GamePad의 westBtn)
@@ -79,6 +80,28 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
             _coolDownImg.fillAmount = 1f; // 쿨타임 종료 후 이미지 채우기
         }
     }
+
+    private void Awake()
+    {
+        if (_inputHandler != null)   // 이벤트 구독
+        {
+            switch (btnType)
+            {
+                case ISkillType.SkillType.NONE:
+                    Debug.Log("공격버튼에 아무것도 할당되지 않음");
+                    break;
+                case ISkillType.SkillType.Normal:
+                    _inputHandler.OnAttackInput += OnClickButton;
+                    break;
+                case ISkillType.SkillType.Pressure:
+                    _inputHandler.OnPressureSkillInput += OnClickButton;
+                    break;
+                case ISkillType.SkillType.Unique:
+                    _inputHandler.OnUniqueSkillInput += OnClickButton;
+                    break;
+            }
+        }
+    }
     void Start()
     {
         _baseAtkBtn.onClick.AddListener(OnClickButton);
@@ -97,8 +120,8 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
             case ISkillType.SkillType.Normal:
                 _coolDown = _playerATKStats.GetNormalCoolDown();
                 break;
-            case ISkillType.SkillType.Air:
-                _coolDown = _playerATKStats.GetAirSkillCoolDown();
+            case ISkillType.SkillType.Pressure:
+                _coolDown = _playerATKStats.GetPressureSkillCoolDown();
                 break;
             case ISkillType.SkillType.Unique:
                 _coolDown = _playerATKStats.GetUniqueSkillCoolDown();
@@ -107,5 +130,26 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 
         _screenButton = GetComponent<OnScreenButton>();
         _coolDownText = GetComponentInChildren<TextMeshProUGUI>();
+    }
+    private void OnDestroy()
+    {
+        if (_inputHandler != null)   // 이벤트 구독
+        {
+            switch (btnType)
+            {
+                case ISkillType.SkillType.NONE:
+                    Debug.Log("공격버튼에 아무것도 할당되지 않음");
+                    break;
+                case ISkillType.SkillType.Normal:
+                    _inputHandler.OnAttackInput -= OnClickButton;
+                    break;
+                case ISkillType.SkillType.Pressure:
+                    _inputHandler.OnPressureSkillInput -= OnClickButton;
+                    break;
+                case ISkillType.SkillType.Unique:
+                    _inputHandler.OnUniqueSkillInput -= OnClickButton;
+                    break;
+            }
+        }
     }
 }

@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 647969794a4709b44a8e955227141558, type: 3}
-  m_Name: Default_Normal
+  m_Name: 001_Default_Normal
   m_EditorClassIdentifier: 
-  _skillName: DefaultNormal
-  _skillType: 2
-  _skillIcon: {fileID: 0}
+  _ID: 1
+  _name: 
+  _icon: {fileID: 0}
+  _sprite: {fileID: 0}
+  _skillType: 1
   _damageMultiplier: 1.2
   _coolDown: 0.5
   _radius: 1
-  _moveSpeed: 6
+  _moveSpeed: 1
   _activeTime: 4
   _level: 0
