@@ -43,14 +43,14 @@ public class Bullet : MonoBehaviour
         {
             if (collision.CompareTag("Enemy"))
             {
-                Debug.Log($"{collision.gameObject.name} 이 닿음");
+               // Debug.Log($"{collision.gameObject.name} 이 닿음");
                 if (!_isPlusAir)
                 {
-                    Debug.Log("데미지 총알");
+                   // Debug.Log("데미지 총알");
                 }
                 else
                 {
-                    Debug.Log("회복 총알");
+                   // Debug.Log("회복 총알");
                 }
                 StopAllCoroutines();
                 gameObject.SetActive(false); //움직임 종료
