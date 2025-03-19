@@ -10,8 +10,8 @@ public class Inventory : MonoBehaviour
     GameObject _slotPrefab;
     [SerializeField]
     GameObject _itemPrefab;
-    [SerializeField]
-    ItemDataTable _itemTable;
+    //[SerializeField]
+    //ItemDataTable _itemTable;
     [SerializeField]
     Image _cursorSprite;
     [SerializeField]
