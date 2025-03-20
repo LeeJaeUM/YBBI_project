@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 003_Default_Unique
   m_EditorClassIdentifier: 
   _ID: 3
-  _name: 
+  _name: DefaultUnique
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 3

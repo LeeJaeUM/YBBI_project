@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 002_Default_Pressure
   m_EditorClassIdentifier: 
   _ID: 2
-  _name: 
+  _name: Defaultpressire
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 2

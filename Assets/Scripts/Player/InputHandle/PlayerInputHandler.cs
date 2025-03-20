@@ -9,8 +9,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnMoveInput; // 이동 입력 이벤트
-    public event Action OnAttackInput; // 공격 입력 이벤트
-    public event Action<bool> OnPressureSkillInput; // 압력 스킬 입력 이벤트
+    public event Action<bool> OnAttackInput; // 공격 입력 이벤트
+    public event Action OnPressureSkillInput; // 압력 스킬 입력 이벤트
     public event Action OnUniqueSkillInput; // 유니크 스킬 입력 이벤트
 
     public void OnMove(InputAction.CallbackContext value)
@@ -20,23 +20,20 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
-        OnAttackInput?.Invoke();
+        if (value.started)
+            OnAttackInput?.Invoke(true);
+        else if(value.canceled)
+            OnAttackInput?.Invoke(false);
     }
 
     public void OnPressureSkill(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
-
-        if(value.started)
-            OnPressureSkillInput?.Invoke(true);
-        else if(value.canceled)
-            OnPressureSkillInput?.Invoke(false);
+        OnPressureSkillInput?.Invoke();
     }
 
     public void OnUniqueSkill(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+        //Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnUniqueSkillInput?.Invoke();
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float _lifeTime = 4;
+    public float _lifeTime = 2;
     public bool _isPlusAir = false;
     public float _damage = 5;
     public float _speed = 6f; // 총알 속도
@@ -29,6 +29,9 @@ public class Bullet : MonoBehaviour
         transform.localScale = Vector3.one * radius;
         _lifeTime = activeTime;
         _speed = moveSpeed;
+
+        //lifeTime 설정 후 코루틴 시작
+        StartCoroutine(LifeTimeCor());
     }
 
     IEnumerator LifeTimeCor()
@@ -61,11 +64,6 @@ public class Bullet : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         _canTrigger = true;
-    }
-
-    private void OnEnable()
-    {
-        StartCoroutine(LifeTimeCor());
     }
     private void Update()
     {

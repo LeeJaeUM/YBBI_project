@@ -14,15 +14,52 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     [SerializeField]
     private Dictionary<SkillType, float> _lastUsedTime = new Dictionary<SkillType, float>();
 
+    public bool _isPressed = false;
+
     #region Custom Functions 
 
     /// <summary>
-    /// 각 스킬타입마다 동일한 기능을 모든 함수
+    /// 각 스킬타입마다 동일하게 공격 시작 함수
     /// </summary>
     /// <param name="skillType">사용할 스킬타입 : ISkillType.SkillType </param>
-    private void CreateAttack(ISkillType.SkillType skillType)
+    private void StartAttack(ISkillType.SkillType skillType)
     {
-        SkillData skillData;        
+        SkillData skillData = SelectSkillData(skillType);
+        if (skillData == null)
+            return; 
+
+        if (!CanUseSkill(skillData))
+        {
+            //Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
+            return;
+        }
+
+        CreateBullet(skillData);
+    }
+
+    /// <summary>
+    /// skillData만 받는 공격 시작 함수
+    /// </summary>
+    /// <param name="skillData">이번 스킬의 skillData</param>
+    private void StartAttackInCor(SkillData skillData)
+    {
+        if (!CanUseSkill(skillData))
+        {
+            //Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
+            return;
+        }
+
+        CreateBullet(skillData);
+    }
+
+    /// <summary>
+    /// enum타입에 맞게 skillData를 ATKStats에서 불러옴
+    /// </summary>
+    /// <param name="skillType"></param>
+    /// <returns></returns>
+    private SkillData SelectSkillData(ISkillType.SkillType skillType)
+    {
+        SkillData skillData;
         switch (skillType)
         {
             case ISkillType.SkillType.Normal:
@@ -36,16 +73,32 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
                 break;
             default:
                 Debug.LogWarning("현재 사용할 스킬이 NULL입니다!!");
-                return;
+                return null;
         }
-        if (!CanUseSkill(skillData))
-        {
-            //Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
-            return;
-        }
-        _lastUsedTime[skillData._skillType] = Time.time;  // 해당 타입의 스킬 쿨타임 업데이트
-        Debug.Log($"스킬 {skillData._ID}은 아직 사용 불가!");
+        return skillData;
+    }
 
+    /// <summary>
+    /// 현재 스킬 데이터의 쿨타임과 비교해서 사용가능하면 true
+    /// </summary>
+    /// <param name="skillData"></param>
+    /// <returns>사용가능하면 true</returns>
+    public bool CanUseSkill(SkillData skillData)
+    {
+        bool value = false;
+        float lastUsed = _lastUsedTime[skillData._skillType];
+
+        value = Time.time >= lastUsed + skillData._coolDown;
+        if (value)
+        {
+            _lastUsedTime[skillData._skillType] = Time.time;  // 해당 타입의 스킬 쿨타임 업데이트
+        }
+
+        return value;
+    }
+
+    private void CreateBullet(SkillData skillData)
+    {
         Vector3 direction = _nearestEnemyFinder.GetDirectionToNearestEnemy();
         Vector3 spawnPosition = transform.position + direction.normalized * _spawnDistance;
 
@@ -59,22 +112,12 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
             float radius = skillData._radius;
             float activeTime = skillData._activeTime;
             float speed = skillData._moveSpeed;
-                //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
-                //Sprite sprite = skillData._skillSprite;   
+            //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
+            //Sprite sprite = skillData._skillSprite;   
             bullet.SetData(damage, radius, activeTime, speed);
         }
     }
 
-    /// <summary>
-    /// 현재 스킬 데이터의 쿨타임과 비교해서 사용가능하면 true
-    /// </summary>
-    /// <param name="skillData"></param>
-    /// <returns>사용가능하면 true</returns>
-    public bool CanUseSkill(SkillData skillData)
-    {
-        float lastUsed = _lastUsedTime[skillData._skillType];
-        return Time.time >= lastUsed + skillData._coolDown;
-    }
 
     /// <summary>
     /// 데미지 계산 함수 : 현재는 단순 배율 곱하기
@@ -89,30 +132,48 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     }
 
 
-    private void HandleNormalAttackInput()
-    {
-        ISkillType.SkillType skillType = ISkillType.SkillType.Normal;
-        CreateAttack(skillType);
-    }
-
-    private void HandlePressureSkillInput(bool isPressed)
+    private void HandleNormalAttackInput(bool isPressed)
     {
         Debug.Log($"눌림 {isPressed}");
+        _isPressed = isPressed;
+        ISkillType.SkillType skillType = ISkillType.SkillType.Normal;
+
+        //버튼 릴리즈 시 실행중인 코루틴 중지
+        if(!isPressed)
+            StopAllCoroutines();
+
+        // 홀드용 코루틴 시작 
+        StartCoroutine(CooldownCoroutine(skillType));
+    }
+
+    private void HandlePressureSkillInput()
+    {
         ISkillType.SkillType skillType = ISkillType.SkillType.Pressure;
-        CreateAttack(skillType);
+        StartAttack(skillType);
     }
     private void HandleUniqueSkillInput()
     {
         ISkillType.SkillType skillType = ISkillType.SkillType.Unique;
-        CreateAttack(skillType);
+        StartAttack(skillType);
     }
 
     #endregion
 
-    // 코루틴으로 쿨타임 관리
-    IEnumerator CooldownCoroutine()
+    /// <summary>
+    /// 꾹 누를때 코루틴 실행하여 쿨타임마다 스킬 사용
+    /// </summary>
+    /// <param name="skillType"></param>
+    /// <returns></returns>
+    IEnumerator CooldownCoroutine(SkillType skillType)
     {
-            yield return null; // 매 프레임마다 반복
+        SkillData skillData = SelectSkillData(skillType);
+        float coolDown = skillData._coolDown + 0.01f;
+        while(_isPressed)
+        {
+            StartAttackInCor(skillData);
+            yield return new WaitForSeconds(coolDown); // 쿨타임 마다 반복
+        }
+        yield return null;
     }
 
     #region Unity Built-in Functions

@@ -277,6 +277,7 @@ MonoBehaviour:
   _coolDownText: {fileID: 4539758800901856272}
   _coolDown: 5
   _playerATKStats: {fileID: 0}
+  _inputHandler: {fileID: 0}
   _screenButton: {fileID: 0}
 --- !u!114 &3923320833434263022
 MonoBehaviour:

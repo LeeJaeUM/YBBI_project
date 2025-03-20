@@ -101,10 +101,10 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
                     Debug.Log("공격버튼에 아무것도 할당되지 않음");
                     break;
                 case ISkillType.SkillType.Normal:
-                    _inputHandler.OnAttackInput += OnClickButton;
+                    _inputHandler.OnAttackInput += OnPressedButton;
                     break;
                 case ISkillType.SkillType.Pressure:
-                    _inputHandler.OnPressureSkillInput += OnPressedButton;
+                    _inputHandler.OnPressureSkillInput += OnClickButton;
                     break;
                 case ISkillType.SkillType.Unique:
                     _inputHandler.OnUniqueSkillInput += OnClickButton;
@@ -123,10 +123,10 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
                     Debug.Log("공격버튼에 아무것도 할당되지 않음");
                     break;
                 case ISkillType.SkillType.Normal:
-                    _inputHandler.OnAttackInput -= OnClickButton;
+                    _inputHandler.OnAttackInput -= OnPressedButton;
                     break;
                 case ISkillType.SkillType.Pressure:
-                    _inputHandler.OnPressureSkillInput -= OnPressedButton;
+                    _inputHandler.OnPressureSkillInput -= OnClickButton;
                     break;
                 case ISkillType.SkillType.Unique:
                     _inputHandler.OnUniqueSkillInput -= OnClickButton;
