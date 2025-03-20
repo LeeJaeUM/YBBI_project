@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using System;
 using WebSocketSharp;
+using System.Security.Cryptography;
 
 public class NetcodeFireBaseManager : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
     {
 
         FirebaseDatabase.DefaultInstance.GetReference("sessions").ValueChanged += OnSessionListChanged;
+        FirebaseDatabase.DefaultInstance.GetReference("Players").ValueChanged += OnPlayerListChanged;
     }
 
 
@@ -56,6 +58,23 @@ public class NetcodeFireBaseManager : MonoBehaviour
     {
         return MaxConnections;
     }
+
+    public void AddFireBaseSession(string sessionId, SessionData newSession)
+    {
+        dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
+    }
+
+    public List<PlayerData> newPlayerListMaker()
+    {
+        List<PlayerData> newList = new List<PlayerData>();
+        for (int i = 0; i < 4; i++)
+        {
+            newList.Add(new PlayerData(false, i.ToString(), 0));
+        }
+
+        return newList;
+    }
+
 
     public async Task<bool> SetCurrentPlayer(int currentNum, string joinCode)
     {
@@ -105,22 +124,6 @@ public class NetcodeFireBaseManager : MonoBehaviour
         return 0;
     }
 
-    /*    public void ToggleReadyStatus(string joinCode, string playerID)
-        {
-            SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
-            string sessionId = session.JoinCode;
-            string playerPath = $"sessions/{sessionId}/players/{playerID}/IsReady";
-
-            dbReference.Child(playerPath).GetValueAsync().ContinueWith(task =>
-            {
-                if (task.IsCompleted && task.Result.Exists)
-                {
-                    bool currentStatus = bool.Parse(task.Result.Value.ToString());
-                    dbReference.Child(playerPath).SetValueAsync(!currentStatus);
-                }
-            });
-        }
-    */
 
 
     public async Task<bool> AddPlayer(string joinCode)
@@ -163,7 +166,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
 
         string playerName = $"{joinCode}__{playerIndex}";
         Debug.Log($"player이름 : {playerName}");
-        PlayerData newPlayer = new PlayerData(false, playerName); //임시로 플레이어 네임을 아무렇게나 넣엇음
+        PlayerData newPlayer = new PlayerData(false, playerName, 0); //임시로 플레이어 네임을 아무렇게나 넣엇음
         UIManager.Instance.SetSavedPlayerName(playerName);
 
 
@@ -301,7 +304,13 @@ public class NetcodeFireBaseManager : MonoBehaviour
     {
         string sessionId = await GetSessionIdByJoinCode(joinCode);
 
-        DataSnapshot snapshot = await dbReference.Child("SessionList").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").GetValueAsync();
+        if (string.IsNullOrEmpty(sessionId))
+        {
+            return false;
+        }
+
+
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("IsReady").GetValueAsync();
         if (snapshot.Exists)
         {
             Debug.Log($"{playerIndex}번째 플레이어 준비 상태 : {snapshot.Value}");
@@ -316,31 +325,47 @@ public class NetcodeFireBaseManager : MonoBehaviour
 
     public async Task<string> GetSessionPlayerName(string joinCode, int playerIndex)
     {
+        Debug.Log("플레이어 이름 가져오기 시도");
         string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if(string.IsNullOrEmpty(sessionId))
+        {
+            Debug.Log("플레이어 이름 가져오기 에서 세션 아이디 찾기 실패");
+            return "Error";
+        }
 
-        DataSnapshot snapshot = await dbReference.Child("SessionList").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("PlayerName").GetValueAsync();
+        Debug.Log($"세션야이디 {sessionId} 의 {playerIndex}번쨰 플레이어 이름 가져오기 시도");
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("PlayerName").GetValueAsync();
         if (snapshot.Exists)
-        { 
+        {
+            Debug.Log($"플레이어 이름 : {snapshot.Value}");
             return snapshot.Value.ToString();
         }
 
-        return "ERROR" ;
+        Debug.Log("플레이어 이름 가져오기 마지막 단계 실패");
+        return "Player" ;
     }
 
-    public void AddFireBaseSession(string sessionId, SessionData newSession)
+    public async Task<int> GetSessionPlayerJobIndex(string joinCode, int playerIndex)
     {
-        dbReference.Child("sessions").Child(sessionId).SetRawJsonValueAsync(JsonUtility.ToJson(newSession));
-    }
-
-    public List<PlayerData> newPlayerListMaker()
-    {
-        List<PlayerData> newList = new List<PlayerData>();
-        for (int i = 0; i < 4; i++)
+                Debug.Log("플레이어 직업 인덱스 가져오기 시도");
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if(string.IsNullOrEmpty(sessionId))
         {
-            newList.Add(new PlayerData(false, i.ToString()));
+            Debug.Log("플레이어 직업 인덱스 가져오기 에서 세션 아이디 찾기 실패");
+            return 0;
         }
 
-        return newList;
+        Debug.Log($"세션야이디 {sessionId} 의 {playerIndex}번쨰 플레이어 직업 인덱스 가져오기 시도");
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("PlayerJobIndex").GetValueAsync();
+        if (snapshot.Exists)
+        {
+            Debug.Log($"플레이어 직업 인덱스 : {snapshot.Value}");
+            return int.Parse(snapshot.Value.ToString());
+        }
+
+        Debug.Log("플레이어 이름 가져오기 마지막 단계 실패");
+
+        return 0;
     }
 
     public async Task<string> GetSessionIdByJoinCode(string joinCode)
@@ -384,7 +409,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
         }
     }
 
-    public void OnSessionListChanged(object sender, ValueChangedEventArgs e)
+    public async void OnSessionListChanged(object sender, ValueChangedEventArgs e)
     {
         if (e.Snapshot.Exists)
         {
@@ -413,7 +438,38 @@ public class NetcodeFireBaseManager : MonoBehaviour
             RelayManager.Instance.GetSessionList().Clear();
         }
 
+       
         UIManager.Instance.UpdateSessionList();
+
     }
+
+    public async void OnPlayerListChanged(object sender, ValueChangedEventArgs e)
+    {
+        if (e.Snapshot.Exists)
+        {
+            RelayManager.Instance.GetPlayerList().Clear();
+            foreach (var child in e.Snapshot.Children)
+            {
+                try
+                {
+                    string playerName = child.Child("PlayerName").Value?.ToString() ?? "";
+                    bool isReady = bool.TryParse(child.Child("IsReady").Value?.ToString(), out bool parsedPrivate) && parsedPrivate;
+                    int currentPlayers = int.Parse(child.Child("CurrentPlayers").Value?.ToString() ?? "0");
+                    RelayManager.Instance.GetPlayerList().Add(new PlayerData(isReady, playerName, currentPlayers));
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Firebase 데이터 처리 중 오류 발생: {ex.Message}");
+                }
+            }
+        }
+        else
+        {
+            RelayManager.Instance.GetPlayerList().Clear();
+        }
+
+        bool result = await UIManager.Instance.UpdatePlayerPanels();
+    }
+
 }
 

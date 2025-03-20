@@ -3,10 +3,16 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using Unity.Netcode;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
+
+    [Header("플레이어 이미지 리스트")]
+    [SerializeField] private Sprite[] playerJobImages;
 
     [Header("UI 프리팹")]
     [SerializeField] private GameObject _sessionListPrefab; 
@@ -280,7 +286,7 @@ public class UIManager : MonoBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-            NetcodeFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerName);
+            bool result = await NetcodeFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerName);
         }
         NetworkManager.Singleton.Shutdown();
 
@@ -297,43 +303,80 @@ public class UIManager : MonoBehaviour
     }
     public void SetSavedPlayerName(string playerName)
     {
-        _savedPlayerName = playerName;
-    }
-
-/*    public void UpdatePlayerPanels()
-    {
-        
-        for (int i = 0; i < 4; i++)
+        if(_savedPlayerName == null)
         {
-            _playerPanels[i].UpdatePanel(players[i].GetPlayerName(), NetcodeFireBaseManager.Instance.GetSessionPlayerIsReady(_savedJoinCode, i).Result);
-            if (_playerPanels[i] == null)
-            {
-                _playerPanels[i].ResetPanel();
-            }
+            _savedPlayerName = playerName;
+        }
+        else if(_savedPlayerName != null)
+        {
+            Debug.Log($"이미 플레이어 이름이 존재함 현재 이름 : {_savedPlayerName}");
+        }
+        else
+        {
+            Debug.Log("이름 저장 실패");
         }
     }
-*/
+
+    public async Task<bool> UpdatePlayerPanels()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if(_savedJoinCode != null)
+            {
+                Debug.Log($"{_savedJoinCode}의 {i}번째 플레이어 판낼 출력 시도");
+                string playerName = await NetcodeFireBaseManager.Instance.GetSessionPlayerName(_savedJoinCode, i);
+                bool isReady = await NetcodeFireBaseManager.Instance.GetSessionPlayerIsReady(_savedJoinCode, i);
+                int playerJobIndex = await NetcodeFireBaseManager.Instance.GetSessionPlayerJobIndex(_savedJoinCode, i);
+                Debug.Log($"{i} 번쨰 플레이어의 이름 : {playerName}, 준비상태 {isReady}");
+                _playerPanels[i].UpdatePanel(playerName.ToString(), isReady, playerJobIndex, playerJobImages);
+                Debug.Log($"_playerPanels[{i}] = {_playerPanels[i].ReturnDataString()}");
+                if (_playerPanels[i] == null)
+                {
+                    _playerPanels[i].ResetPanel();
+                }
+            }
+            else
+            {
+                Debug.Log("저장된 joinCode가 없음");
+                return false;
+            }
+        }
+        return true;
+    }
+
     public class PlayerPanel
     {
         private TextMeshProUGUI _nameText;
         private Toggle _readyToggle;
+        private Image _playerJobImage;
 
         public PlayerPanel(Transform panelTransform)
         {
             _nameText = panelTransform.Find("Name").GetComponent<TextMeshProUGUI>();
             _readyToggle = panelTransform.Find("IsReady").GetComponent<Toggle>();
+            _playerJobImage = panelTransform.Find("PlayerJobButton").GetComponent<Image>();
         }
 
-        public void UpdatePanel(string id, bool isReady)
+        public void UpdatePanel(string playerName, bool isReady, int playerJobIndex, Sprite[] sprites)
         {
-            _nameText.text = id;
+            _nameText.text = playerName;
             _readyToggle.isOn = isReady;
+
+            if (sprites.Length > playerJobIndex)
+            {
+                _playerJobImage.sprite = sprites[playerJobIndex]; // 인덱스에 따라 이미지 변경
+            }
         }
 
         public void ResetPanel()
         {
             _nameText.text = "ID";
             _readyToggle.isOn = false;
+            _playerJobImage.sprite = null;
+        }
+        public string ReturnDataString() 
+        {
+            return $"{_nameText.text}, {_readyToggle.isOn}";
         }
     }
 }

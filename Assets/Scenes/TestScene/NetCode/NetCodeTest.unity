@@ -203,6 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d9ff5ec8ca78544af9fccd5de577ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerJobImages:
+  - {fileID: 8596640243658272642, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  - {fileID: -3876759189950653258, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  - {fileID: -5720429097031363069, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  - {fileID: -7911572535675539837, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   _sessionListPrefab: {fileID: 3987102533564522322, guid: f7e588e401be5bb4e99de5a23d5b39df, type: 3}
   _createSessionPrefab: {fileID: 7313491034981176361, guid: 0ae2696900dc24f4c8ee32f95ce7ac7b, type: 3}
   _sessionButtonPrefab: {fileID: 6697840583042781699, guid: cd89632508a95714596412f667016e79, type: 3}

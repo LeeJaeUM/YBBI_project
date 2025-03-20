@@ -23,11 +23,13 @@ public class PlayerData : MonoBehaviour
 
     string _playerName = "";
     bool _isReady = false;
+    int _playerJobIndex = 0;
 
-    public PlayerData(bool IsReady, string playerName)
+    public PlayerData(bool IsReady, string playerName, int playerJobIndex)
     {
         _playerName = playerName;
         _isReady = IsReady;
+        _playerJobIndex = playerJobIndex;   
     }
 
     public Dictionary<string, object> ToDictionary()
@@ -35,7 +37,8 @@ public class PlayerData : MonoBehaviour
         return new Dictionary<string, object>
         {
             { "PlayerName", _playerName },
-            { "IsReady", _isReady }
+            { "IsReady", _isReady },
+            { "PlayerJobIndex", _playerJobIndex}
         };
     }
 
@@ -55,5 +58,4 @@ public class PlayerData : MonoBehaviour
     {
         _isReady = IsReady;
     }
-
 }
