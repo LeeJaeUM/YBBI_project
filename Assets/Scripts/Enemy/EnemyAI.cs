@@ -1,75 +1,70 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enums;
+
 
 public class EnemyAI : MonoBehaviour
 {
-    public enum EnemyState
+    public Transform Player { get; private set; }
+    protected Dictionary<EnemyStateType, IEnemyState> _states;
+    protected Enums.EnemyStateType _currentStateType;
+    private IEnemyState _currentState;
+    public float  _speed;
+
+    public virtual void Initialize()
     {
-        Idle,
-        Chase,
-        Attack,
-        Patrol
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        //기본 상태 설정 (각 자식 클래스에서 필요하면 변경 가능)
+        _states = new Dictionary<EnemyStateType, IEnemyState>
+        {
+            { EnemyStateType.Idle, new IdleState() },
+            { EnemyStateType.Patrol, new PatrolState() },
+            { EnemyStateType.Chase, new ChaseState() },
+            { EnemyStateType.Attack, new AttackState() }
+        };
     }
 
-    public EnemyState _currentState = EnemyState.Idle;
-
-    public float _speed = 3f;
-    private Transform _player;
-
-    void Start()
+    public void ChangeState(EnemyStateType newState)
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (_currentStateType == newState) return; // 같은 상태면 변경 X
+
+        _currentState?.Exit(this);
+        _currentStateType = newState;
+        _currentState = _states[newState];
+        _currentState.Enter(this);
+    }
+
+    // 트리거 체크를 별도 함수로 분리 (각 자식 클래스에서 오버라이드 가능)
+    protected virtual void CheckTrigger(Collider2D other)
+    {
+        if (other.CompareTag("DetectArea"))
+        {
+            ChangeState(EnemyStateType.Chase);
+        }
+        else if (other.CompareTag("AttackArea"))
+        {
+            ChangeState(EnemyStateType.Attack);
+        }
+    }
+
+    void Awake()
+    {
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        ChangeState(EnemyStateType.Idle); // 기본 상태
     }
 
     void Update()
     {
-        switch (_currentState)
-        {
-            case EnemyState.Idle:
-                break;
-            case EnemyState.Chase:
-                ChasePlayer();
-                break;
-            case EnemyState.Attack:
-                AttackPlayer();
-                break;
-            case EnemyState.Patrol:
-                break;
-        }
+        _currentState?.Execute(this);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (other.tag == "DetectArea")
-            {
-                _currentState = EnemyState.Chase;
-            }
-            else if (other.tag == "AttackArea")
-            {
-                _currentState = EnemyState.Attack;
-            }
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _currentState = EnemyState.Idle;
-        }
-    }
-
-    void ChasePlayer()
-    {
-        Vector2 _dir = (_player.position - transform.position).normalized;
-        transform.Translate(_dir * _speed * Time.deltaTime);
-    }
-
-    void AttackPlayer()
-    {
-        Debug.Log("Attack");
+        CheckTrigger(other);
     }
 }

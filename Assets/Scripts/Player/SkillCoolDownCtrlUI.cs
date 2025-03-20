@@ -3,11 +3,12 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem.OnScreen;
+using static Enums;
 using UnityEngine.EventSystems;
 
-public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
+public class SkillCoolDownCtrlUI : MonoBehaviour
 {
-    public ISkillType.SkillType btnType;    
+    public Enums.SkillType btnType;    
 
     public Image _coolDownImg;
     public Button _baseAtkBtn;
@@ -97,16 +98,16 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
         {
             switch (btnType)
             {
-                case ISkillType.SkillType.NONE:
+                case Enums.SkillType.NONE:
                     Debug.Log("공격버튼에 아무것도 할당되지 않음");
                     break;
-                case ISkillType.SkillType.Normal:
+                case Enums.SkillType.Normal:
                     _inputHandler.OnAttackInput += OnPressedButton;
                     break;
-                case ISkillType.SkillType.Pressure:
+                case Enums.SkillType.Pressure:
                     _inputHandler.OnPressureSkillInput += OnClickButton;
                     break;
-                case ISkillType.SkillType.Unique:
+                case Enums.SkillType.Unique:
                     _inputHandler.OnUniqueSkillInput += OnClickButton;
                     break;
             }
@@ -119,16 +120,16 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
         {
             switch (btnType)
             {
-                case ISkillType.SkillType.NONE:
+                case Enums.SkillType.NONE:
                     Debug.Log("공격버튼에 아무것도 할당되지 않음");
                     break;
-                case ISkillType.SkillType.Normal:
+                case Enums.SkillType.Normal:
                     _inputHandler.OnAttackInput -= OnPressedButton;
                     break;
-                case ISkillType.SkillType.Pressure:
+                case Enums.SkillType.Pressure:
                     _inputHandler.OnPressureSkillInput -= OnClickButton;
                     break;
-                case ISkillType.SkillType.Unique:
+                case Enums.SkillType.Unique:
                     _inputHandler.OnUniqueSkillInput -= OnClickButton;
                     break;
             }
@@ -147,16 +148,16 @@ public class SkillCoolDownCtrlUI : MonoBehaviour, ISkillType
 
         switch (btnType)
         {
-            case ISkillType.SkillType.NONE:
+            case Enums.SkillType.NONE:
                 Debug.Log("공격버튼에 아무것도 할당되지 않음");
                 break;
-            case ISkillType.SkillType.Normal:
+            case Enums.SkillType.Normal:
                 _coolDown = _playerATKStats.GetNormalCoolDown();
                 break;
-            case ISkillType.SkillType.Pressure:
+            case Enums.SkillType.Pressure:
                 _coolDown = _playerATKStats.GetPressureSkillCoolDown();
                 break;
-            case ISkillType.SkillType.Unique:
+            case Enums.SkillType.Unique:
                 _coolDown = _playerATKStats.GetUniqueSkillCoolDown();
                 break;
         }

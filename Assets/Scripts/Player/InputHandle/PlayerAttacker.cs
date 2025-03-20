@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ISkillType;
 
-public class PlayerAttacker : MonoBehaviour, ISkillType
+public class PlayerAttacker : MonoBehaviour
 {
     public PlayerATKStats _aTKStats;
 
@@ -12,7 +11,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     public float _curAttackDamage = 1;
     public float _spawnDistance = 1;
     [SerializeField]
-    private Dictionary<SkillType, float> _lastUsedTime = new Dictionary<SkillType, float>();
+    private Dictionary<Enums.SkillType, float> _lastUsedTime = new Dictionary<Enums.SkillType, float>();
 
     public bool _isPressed = false;
 
@@ -21,8 +20,8 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     /// <summary>
     /// 각 스킬타입마다 동일하게 공격 시작 함수
     /// </summary>
-    /// <param name="skillType">사용할 스킬타입 : ISkillType.SkillType </param>
-    private void StartAttack(ISkillType.SkillType skillType)
+    /// <param name="Enums.SkillType">사용할 스킬타입 : IEnums.SkillType.Enums.SkillType </param>
+    private void StartAttack(Enums.SkillType skillType)
     {
         SkillData skillData = SelectSkillData(skillType);
         if (skillData == null)
@@ -57,18 +56,18 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     /// </summary>
     /// <param name="skillType"></param>
     /// <returns></returns>
-    private SkillData SelectSkillData(ISkillType.SkillType skillType)
+    private SkillData SelectSkillData(Enums.SkillType skillType)
     {
         SkillData skillData;
         switch (skillType)
         {
-            case ISkillType.SkillType.Normal:
+            case Enums.SkillType.Normal:
                 skillData = _aTKStats.GetNormalAttackData();
                 break;
-            case ISkillType.SkillType.Pressure:
+            case Enums.SkillType.Pressure:
                 skillData = _aTKStats.GetPressureSkillData();
                 break;
-            case ISkillType.SkillType.Unique:
+            case Enums.SkillType.Unique:
                 skillData = _aTKStats.GetUniqueSkillData();
                 break;
             default:
@@ -136,7 +135,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     {
         Debug.Log($"눌림 {isPressed}");
         _isPressed = isPressed;
-        ISkillType.SkillType skillType = ISkillType.SkillType.Normal;
+        Enums.SkillType skillType = Enums.SkillType.Normal;
 
         //버튼 릴리즈 시 실행중인 코루틴 중지
         if(!isPressed)
@@ -148,12 +147,12 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
 
     private void HandlePressureSkillInput()
     {
-        ISkillType.SkillType skillType = ISkillType.SkillType.Pressure;
+        Enums.SkillType skillType = Enums.SkillType.Pressure;
         StartAttack(skillType);
     }
     private void HandleUniqueSkillInput()
     {
-        ISkillType.SkillType skillType = ISkillType.SkillType.Unique;
+        Enums.SkillType skillType = Enums.SkillType.Unique;
         StartAttack(skillType);
     }
 
@@ -164,7 +163,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
     /// </summary>
     /// <param name="skillType"></param>
     /// <returns></returns>
-    IEnumerator CooldownCoroutine(SkillType skillType)
+    IEnumerator CooldownCoroutine(Enums.SkillType skillType)
     {
         SkillData skillData = SelectSkillData(skillType);
         float coolDown = skillData._coolDown + 0.01f;
@@ -196,7 +195,7 @@ public class PlayerAttacker : MonoBehaviour, ISkillType
         _curAttackDamage = _aTKStats.GetAttackDamage();
 
         // 모든 스킬 타입의 마지막 사용 시간을 0으로 초기화
-        foreach (SkillType type in System.Enum.GetValues(typeof(SkillType)))
+        foreach (Enums.SkillType type in System.Enum.GetValues(typeof(Enums.SkillType)))
         {
             _lastUsedTime[type] = 0f;
         }

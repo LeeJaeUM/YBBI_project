@@ -1,13 +1,13 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skills/Skill")]
-public class SkillData : ScriptableObject, ISkillType
+public class SkillData : ScriptableObject
 {
     public uint _ID;               // 고유번호 (000~999)
     public string _name;           // 사용자에게 표시될 스킬 이름
     public Sprite _icon;           // 스킬 버튼 아이콘 (스프라이트)
     public Sprite _sprite;         // 스킬 이미지/이펙트 (스프라이트)
-    public ISkillType.SkillType _skillType;  // 스킬 종류
+    public Enums.SkillType _skillType;  // 스킬 종류
     public float _damageMultiplier = 1.0f;  // 계수
     //public string _attributeType;     // 속성 타입 (예: Fire, Ice 등)
     public float _coolDown;             // 쿨타임
