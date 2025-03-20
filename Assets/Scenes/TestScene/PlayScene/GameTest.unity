@@ -1170,7 +1170,6 @@ GameObject:
   - component: {fileID: 718789893}
   - component: {fileID: 718789892}
   - component: {fileID: 718789896}
-  - component: {fileID: 718789895}
   m_Layer: 5
   m_Name: InventoryBtn
   m_TagString: Untagged
@@ -1292,19 +1291,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718789890}
   m_CullTransparentMesh: 1
---- !u!114 &718789895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718789890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d97d7411b6e3b5438c6b2c495c505b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sceneName: Inventory
 --- !u!61 &718789896
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1587,7 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotPrefab: {fileID: 9160961458989455180, guid: e010945e1165f8e42b7a61df2cdb320e, type: 3}
-  _itemPrefab: {fileID: 2591864260526108233, guid: 9c6bd9951d11b924eac9a63cdca69909, type: 3}
+  _itemPrefab: {fileID: 6454132739753376396, guid: 469a4ecd0b701b24b8d00726f596ad54, type: 3}
   _cursorSprite: {fileID: 915103034}
   _slotGrid: {fileID: 856058994}
   _iconSprites:

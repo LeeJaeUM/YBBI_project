@@ -440,7 +440,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slotPrefab: {fileID: 9160961458989455180, guid: e010945e1165f8e42b7a61df2cdb320e, type: 3}
   _itemPrefab: {fileID: 2591864260526108233, guid: 9c6bd9951d11b924eac9a63cdca69909, type: 3}
-  _itemTable: {fileID: 288951401}
   _cursorSprite: {fileID: 991981962}
   _slotGrid: {fileID: 1864386858}
   _iconSprites:
@@ -506,12 +505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1417a2fc8078d5540944f77cb2d66305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDatas:
-  - _id: 0
-    _property: 0
-    _icon: 0
-    _name: Mashroom
-    _description: "\uC0AC\uC6A9 \uC2DC \uC5D0\uB108\uC9C0 10 \uD68C\uBCF5(?)"
 --- !u!4 &288951402
 Transform:
   m_ObjectHideFlags: 0

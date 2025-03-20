@@ -10,10 +10,11 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 
     public enum ItemType
     {
-        None,
-        fire,
-        water,
-        Max
+        Arrow,
+        BeeHouse,
+        Bomb,
+        Key,
+        Mashroom
     }
 
     [SerializeField]
@@ -21,7 +22,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     GameObjectPool<ItemController> _pool;
     [SerializeField]
     Sprite[] _iconSprites;
-    float[] _itemTable = { 100f };
+    float[] _itemTable = { 5f, 15f, 20f, 25f, 35f };
 
     public void Create(Vector3 position)
     {
@@ -30,6 +31,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         item.gameObject.SetActive(true);
         // item.SetItem(position, type);
     }
+
     public void Remove(ItemController item)
     {
         item.gameObject.SetActive(false);
@@ -54,5 +56,4 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
             return item;
         });
     }
-
 }

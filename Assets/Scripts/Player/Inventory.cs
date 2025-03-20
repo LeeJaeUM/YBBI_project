@@ -10,8 +10,6 @@ public class Inventory : MonoBehaviour
     GameObject _slotPrefab;
     [SerializeField]
     GameObject _itemPrefab;
-    //[SerializeField]
-    //ItemDataTable _itemTable;
     [SerializeField]
     Image _cursorSprite;
     [SerializeField]
@@ -32,9 +30,7 @@ public class Inventory : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    public void HideUI()
-    {
-    }
+
     public void CloseUI()
     {
         gameObject.SetActive(false);
@@ -74,7 +70,21 @@ public class Inventory : MonoBehaviour
             slot.InitSlot(this);
             _slotList.Add(slot);
         }
-        // _slotGrid.repositionNow = true;
+    }
+
+    public void CreateItem()
+    {
+        var curSlot = _slotList.Find((_slot) => _slot.IsEmpty);
+
+        if ( curSlot != null)
+        {
+            var obj = Instantiate(_itemPrefab);
+            var type = obj.GetType();
+            int count = 1;
+            var item = obj.GetComponent<Item>();
+            // item.SetItem(this, itemInfo);
+            curSlot.SetSlot(item);
+        }
     }
 
     public void InvenUpgrade()
@@ -99,7 +109,7 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            InvenUpgrade();
+            CreateItem();
         }
     }
 }

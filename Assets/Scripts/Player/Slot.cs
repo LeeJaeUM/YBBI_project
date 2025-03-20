@@ -24,9 +24,9 @@ public class Slot : MonoBehaviour
     public void SetSlot(Item item)
     {
         _item = item;
-        //_item.transform.SetParent(transform);
-        //_item.transform.localPosition = Vector3.zero;
-        //_item.transform.localScale = Vector3.one;
+        _item.transform.SetParent(transform);
+        _item.transform.localPosition = Vector3.zero;
+        _item.transform.localScale = Vector3.one;
     }
 
     public void UseItem()

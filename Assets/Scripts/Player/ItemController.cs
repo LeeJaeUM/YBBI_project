@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -19,8 +20,8 @@ public class ItemController : MonoBehaviour
     [SerializeField]
     Vector3 _to;
 
-    bool _isMagnet;
     public ItemManager.ItemType Type;
+    public Sprite _curItemSprite;
 
     IEnumerator CoPlayTween()
     {
@@ -29,7 +30,7 @@ public class ItemController : MonoBehaviour
         float valueX = 0;
         Vector3 yPos = Vector3.zero;
         Vector3 xPos = Vector3.zero;
-        _duration = _baseDration;// * (_to - _from).magnitude / (new Vector3(0, 6f) - new Vector3(0, _endYpos)).magnitude;
+        _duration = _baseDration;
         while (true)
         {
             if (time > 1f)
@@ -57,36 +58,14 @@ public class ItemController : MonoBehaviour
         StartCoroutine(CoPlayTween());
         Type = type;
         _iconSprite.sprite = ItemManager.Instance.GetIcon(type);
-        if (Type >= ItemManager.ItemType.fire && Type <= ItemManager.ItemType.water)
-        {
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            _curItemSprite = GetComponent<SpriteRenderer>().sprite;
             ItemManager.Instance.Remove(this);
-            switch (Type)
-            {
-                case ItemManager.ItemType.fire:
-                    break;
-                case ItemManager.ItemType.water:
-                    break;
-                case ItemManager.ItemType.None:
-                    // ItemManager.Instance._player.SetBuff(BuffType.Invincible);
-                    break;
-                case ItemManager.ItemType.Max:
-                    // ItemManager.Instance._player.SetBuff(BuffType.Magnet);
-                    break;
-
-            }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 }
