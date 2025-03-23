@@ -6,6 +6,9 @@ using Unity.Netcode;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using System;
+using UnityEditor.Build;
+using System.Security.Cryptography;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,6 +51,9 @@ public class UIManager : MonoBehaviour
 
     private string _savedJoinCode;
     private string _savedPlayerName;
+    private int _savedPlayerIndex = -1;
+    private int _maxConnections;
+
 
     private void Awake()
     {
@@ -109,6 +115,8 @@ public class UIManager : MonoBehaviour
 
         _sessionListUI.SetActive(true);
         _createSessionUI.SetActive(false);
+
+        _maxConnections = NetcodeFireBaseManager.Instance.GetMaxConnection();
     }
 
     private Transform FindDeepChild(Transform parent, string name)
@@ -146,6 +154,12 @@ public class UIManager : MonoBehaviour
         _inSessionUI.SetActive(false);
     }
 
+    public void HideAllUi()
+    {
+        _createSessionUI.SetActive(false);
+        _sessionListUI.SetActive(false);
+        _inSessionUI.SetActive(false);
+    }
 
     public void UpdateSessionList()
     {
@@ -218,7 +232,9 @@ public class UIManager : MonoBehaviour
             Debug.LogError("세션 이름을 입력하세요!");
             return;
         }
-        
+
+        _createButton.interactable = false;
+
         string joinCode = await RelayManager.Instance.CreateRelay(sessionName, isPrivate, password);
   
         if (!string.IsNullOrEmpty(joinCode))
@@ -226,12 +242,16 @@ public class UIManager : MonoBehaviour
             Debug.Log($"세션 생성 성공. Join Code: {joinCode}");
             ShowInSessionUI();
             UpdateSessionList();
+            _savedJoinCode = joinCode;
         }
         else
         {
             Debug.LogError("세션 생성 실패");
+            _savedJoinCode = "";
         }
-        _savedJoinCode = joinCode;
+
+        _createButton.interactable = true;
+        
     }
     private async void JoinSession()
     {
@@ -250,15 +270,49 @@ public class UIManager : MonoBehaviour
         ShowInSessionUI();
     }
 
-    private void ToggleReady()
+    public async Task<bool> RequestStartGame(string joinCode)
+    {
+        try
+        {
+            bool isAllPlayerReady = await NetcodeFireBaseManager.Instance.IsAllPlayerReady(joinCode);
+            if (!isAllPlayerReady)
+            {
+                Debug.Log("모든 플레이어가 준비 되지 않음");
+                return false;
+            }
+            Debug.Log("게임시작");
+
+            if (NetworkManager.Singleton.IsHost)
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene("NetCodeGameStart", LoadSceneMode.Single);
+            }
+            SceneManager.LoadScene("NetCodeGameStart");
+
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"RequestStartGame도중 예외 발생{ex}");
+            return false;
+        }
+
+        return true;
+    }
+
+    private async void StartGame()
+    {
+        Debug.Log("스타트 버튼 눌림");
+        _startButton.interactable = false;
+        await RequestStartGame(_savedJoinCode);
+        _startButton.interactable = true;
+        Debug.Log("스타트 로직 완수");
+    }
+
+    private async void ToggleReady()
     {
         Debug.Log("준비 상태 변경");
         NetcodeFireBaseManager.Instance.RequseReversalReadyToggle(_savedJoinCode, _savedPlayerName);
-    }
-
-    private void StartGame()
-    {
-        Debug.Log("게임 시작");
+        await Task.Delay(300); // Firebase 값 갱신 시간 확보
+        await UpdatePlayerPanels();
     }
 
 
@@ -267,8 +321,12 @@ public class UIManager : MonoBehaviour
 
         Debug.Log("DisconnectSession요청");
 
+        HideCreateSessionUI();
+
         var sessionList = RelayManager.Instance.GetSessionList();
         var session = sessionList.Find(s => s.JoinCode == _savedJoinCode);
+
+
         Debug.Log($"나갈 세션 코드 :{_savedJoinCode}");
         
         if (NetworkManager.Singleton.IsHost)
@@ -282,13 +340,16 @@ public class UIManager : MonoBehaviour
 
             // 세션 리스트에서 해당 세션 제거 (호스트가 떠나면 자동 삭제)
             sessionList.RemoveAll(s => s.JoinCode == _savedJoinCode);
+
         }
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-            bool result = await NetcodeFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerName);
+            bool result = await NetcodeFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerIndex);
         }
         NetworkManager.Singleton.Shutdown();
+
+
 
 
         foreach (var panel in _playerPanels)
@@ -296,10 +357,17 @@ public class UIManager : MonoBehaviour
             panel.ResetPanel();
         }
 
-        
         // UI 업데이트
-        HideCreateSessionUI();
+
+        _savedPlayerIndex = -1;
         UpdateSessionList();
+    }
+
+
+
+    public string GetSavedJoinCode()
+    {
+        return _savedJoinCode;
     }
     public void SetSavedPlayerName(string playerName)
     {
@@ -317,23 +385,39 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetOwnPlayerIndex(int index)
+    {
+        _savedPlayerIndex = index;
+    }
+    public int GetOwnPlayerIndex()
+    {
+        return _savedPlayerIndex;
+    }
+
     public async Task<bool> UpdatePlayerPanels()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < _maxConnections; i++)
         {
             if(_savedJoinCode != null)
             {
                 Debug.Log($"{_savedJoinCode}의 {i}번째 플레이어 판낼 출력 시도");
+
+
                 string playerName = await NetcodeFireBaseManager.Instance.GetSessionPlayerName(_savedJoinCode, i);
+
+                if (string.IsNullOrEmpty(playerName) || playerName == "Player")
+                {
+                    Debug.Log($"{i}번 패널: 플레이어 없음 -> 초기화");
+                    _playerPanels[i].ResetPanel();
+                    continue;
+                }
+
                 bool isReady = await NetcodeFireBaseManager.Instance.GetSessionPlayerIsReady(_savedJoinCode, i);
                 int playerJobIndex = await NetcodeFireBaseManager.Instance.GetSessionPlayerJobIndex(_savedJoinCode, i);
                 Debug.Log($"{i} 번쨰 플레이어의 이름 : {playerName}, 준비상태 {isReady}");
+
                 _playerPanels[i].UpdatePanel(playerName.ToString(), isReady, playerJobIndex, playerJobImages);
-                Debug.Log($"_playerPanels[{i}] = {_playerPanels[i].ReturnDataString()}");
-                if (_playerPanels[i] == null)
-                {
-                    _playerPanels[i].ResetPanel();
-                }
+
             }
             else
             {
@@ -342,6 +426,26 @@ public class UIManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void ResetAllPlayerPanels()
+    {
+        foreach (var panel in _playerPanels)
+        {
+            panel.ResetPanel();
+        }
+    }
+
+    public void UpdateSinglePlayerPanel(int index, string name, bool isReady, int jobIndex)
+    {
+        if (index < 0 || index >= _playerPanels.Count) return;
+        _playerPanels[index].UpdatePanel(name, isReady, jobIndex, playerJobImages);
+    }
+
+    public void ResetSinglePlayerPanel(int index)
+    {
+        if (index < 0 || index >= _playerPanels.Count) return;
+        _playerPanels[index].ResetPanel();
     }
 
     public class PlayerPanel
@@ -368,6 +472,10 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        public string GetNameFromPanel()
+        {
+            return _nameText.text;
+        }
         public void ResetPanel()
         {
             _nameText.text = "ID";

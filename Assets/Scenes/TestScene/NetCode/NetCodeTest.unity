@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerJobImages:
-  - {fileID: 8596640243658272642, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  - {fileID: 7482667652216324306, guid: 240cca56b5d283b48b304d175789cfee, type: 3}
   - {fileID: -3876759189950653258, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: -5720429097031363069, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: -7911572535675539837, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
@@ -288,7 +288,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1022269044}
-    PlayerPrefab: {fileID: 430073722189843317, guid: 833fc61c5767d9c459cfdc67f952c915, type: 3}
+    PlayerPrefab: {fileID: 8991176855100481864, guid: a99bcb2a6549af741bfa58df650bf46c, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 6068ee0c249f0c144b69f2809ae9e4b2, type: 2}

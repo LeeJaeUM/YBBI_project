@@ -44,6 +44,11 @@ public class RelayManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+
+    }
+
+    public void AddInstanceDissconection()
+    {
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
     }
 
@@ -74,7 +79,12 @@ public class RelayManager : MonoBehaviour
             SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password, 0, NetcodeFireBaseManager.Instance.newPlayerListMaker());
 
             NetcodeFireBaseManager.Instance.AddFireBaseSession(sessionId, newSession);
+            NetcodeFireBaseManager.Instance.StartSessionSetting(sessionId);
+
+            AddInstanceDissconection();
+
             NetcodeFireBaseManager.Instance.AddPlayer(joinCode);
+
             return joinCode;
         }
         catch (System.Exception e)
@@ -92,12 +102,12 @@ public class RelayManager : MonoBehaviour
             SessionData session = sessionList.Find(s => s.JoinCode == joinCode);
             if (session == null)
             {
-                Debug.LogError("세션을 찾을 수 없습니다!");
+                Debug.Log("세션을 찾을 수 없습니다!");
                 return false;
             }
             if (session.IsPrivate && session.Password != inputPassword)
             {
-                Debug.LogError("비밀번호가 틀렸습니다!");
+                Debug.Log("비밀번호가 틀렸습니다!");
                 return false;
             }
 
@@ -120,6 +130,8 @@ public class RelayManager : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             NetcodeFireBaseManager.Instance.AddPlayer(joinCode);
 
+            AddInstanceDissconection();
+
             return true;
         }
         catch (System.Exception e)
@@ -128,6 +140,7 @@ public class RelayManager : MonoBehaviour
             return false;
         }
     }
+
     
     public ulong GetClientID()
     {
@@ -138,8 +151,7 @@ public class RelayManager : MonoBehaviour
     {
         Debug.Log($"클라이언트 {clientId} 연결 끊김 감지됨");
 
-        // 🔥 클라이언트가 호스트와의 연결이 끊어졌다면 세션 리스트 UI로 이동
-        if (!NetworkManager.Singleton.IsHost)
+        if(!NetworkManager.Singleton.IsHost)
         {
             Debug.Log("호스트와의 연결이 끊겼으므로 세션 리스트 UI로 이동");
 
@@ -148,7 +160,12 @@ public class RelayManager : MonoBehaviour
 
             // 네트워크 정리
             NetworkManager.Singleton.Shutdown();
+
+            
         }
+
+
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
     }
 
     public List<SessionData> GetSessionList()

@@ -21,9 +21,9 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    string _playerName = "";
-    bool _isReady = false;
-    int _playerJobIndex = 0;
+    public string _playerName = "";
+    public bool _isReady = true;
+    public int _playerJobIndex = 0;
 
     public PlayerData(bool IsReady, string playerName, int playerJobIndex)
     {
