@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum ItemType
 {
+    None = -1,
     Arrow,
     BeeHouse,
     Bomb,

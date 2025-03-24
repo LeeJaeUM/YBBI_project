@@ -14,21 +14,17 @@ public class ItemController : MonoBehaviour
     //AnimationCurve _xCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
     public ItemType _type;
-    public ItemType _curType;
-    Inventory _inventory;
 
     public void SetItem(ItemType _type)
     {
         var type = _type;
-        _iconImage = ItemManager.Instance.GetIconImage(type);
+        _iconImage.sprite = ItemManager.Instance.GetIcon(type);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            _curType = _type;
-            // _inventory.CreateItem();
             ItemManager.Instance.Remove(this);
         }
     }

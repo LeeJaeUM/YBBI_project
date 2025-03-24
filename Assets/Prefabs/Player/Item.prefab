@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2645521119466309982}
   - component: {fileID: 2470524685984394379}
   - component: {fileID: 6841309958178298385}
-  - component: {fileID: 5829102171757714877}
+  - component: {fileID: 8741562096887942597}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -19.235613, y: -10.68598}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &510538553815388414
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5829102171757714877
+--- !u!114 &8741562096887942597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,5 +164,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 2645521119466309982}
-  _type: 0
-  _curType: 0
+  _type: -1

@@ -82,7 +82,7 @@ public class Inventory : MonoBehaviour
         if ( curSlot != null)
         {
             var obj = Instantiate(_itemPrefab);
-            var type = _controller._curType;
+            var type = _controller._type;
             int count = 1;
             var item = obj.GetComponent<Item>();
             ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };

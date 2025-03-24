@@ -13,8 +13,6 @@ public class Item : MonoBehaviour
     [SerializeField]
     ItemInfo _itemInfo;
 
-    ItemController _controller;
-
     public void SetItem(Inventory inven, ItemInfo itemInfo)
     {
         _itemInfo = itemInfo;
