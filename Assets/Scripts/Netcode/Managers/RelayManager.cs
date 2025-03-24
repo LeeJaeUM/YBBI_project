@@ -76,7 +76,7 @@ public class RelayManager : MonoBehaviour
             NetworkManager.Singleton.StartHost();
 
             string sessionId = NetcodeFireBaseManager.Instance.GetDBreference().Child("sessions").Push().Key;
-            SessionData newSession = new SessionData(sessionName, joinCode, isPrivate, password, 0, NetcodeFireBaseManager.Instance.newPlayerListMaker());
+            SessionData newSession = new SessionData(false ,sessionName, joinCode, isPrivate, password, 0, NetcodeFireBaseManager.Instance.newPlayerListMaker());
 
             NetcodeFireBaseManager.Instance.AddFireBaseSession(sessionId, newSession);
             NetcodeFireBaseManager.Instance.StartSessionSetting(sessionId);

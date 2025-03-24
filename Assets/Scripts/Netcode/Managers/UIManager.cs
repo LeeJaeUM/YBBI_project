@@ -45,6 +45,8 @@ public class UIManager : MonoBehaviour
     private Button _readyButton;
     private Button _startButton;
 
+    private Canvas _JobSelectCanv;
+    private Button[] _JobButtons;
 
     private Transform _playerPanelCanv;
     private List<PlayerPanel> _playerPanels = new List<PlayerPanel>();
@@ -52,8 +54,9 @@ public class UIManager : MonoBehaviour
     private string _savedJoinCode;
     private string _savedPlayerName;
     private int _savedPlayerIndex = -1;
+    private int _savedJobIndex = 0;
     private int _maxConnections;
-
+    
 
     private void Awake()
     {
@@ -65,10 +68,13 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _JobButtons = new Button[4];
     }
 
     private void Start()
     {
+        _maxConnections = NetcodeFireBaseManager.Instance.GetMaxConnection();
         // UI 프리팹을 인스턴스화하고 초기화
         _sessionListUI = Instantiate(_sessionListPrefab, transform);
         _createSessionUI = Instantiate(_createSessionPrefab, transform);
@@ -76,8 +82,6 @@ public class UIManager : MonoBehaviour
         _inSessionUI = Instantiate(_inSessionPrefab, transform);
         _inSessionUI.SetActive(false);
 
-
-        // UI 오브젝트에서 필요한 요소 찾기 (세션 리스트 UI)
         _refreshButton = _sessionListUI.transform.Find("RefreshButton").GetComponent<Button>();
         _sessionListContainer = _sessionListUI.transform.Find("SessionList/Viewport/Content").GetComponent<Transform>();
         _sessionCodeInput = _sessionListUI.transform.Find("SessionCodeInput").GetComponent<TMP_InputField>();
@@ -85,7 +89,6 @@ public class UIManager : MonoBehaviour
         _joinButton = _sessionListUI.transform.Find("JoinButton").GetComponent<Button>();
         _createSessionUIButton = _sessionListUI.transform.Find("CreateSessionButton").GetComponent<Button>();
 
-        // UI 오브젝트에서 필요한 요소 찾기 (세션 생성 UI)
         _sessionNameInput = FindDeepChild(_createSessionUI.transform, "SessionNameInput").GetComponent<TMP_InputField>();
         _privateToggle = FindDeepChild(_createSessionUI.transform, "PrivateToggle").GetComponent<Toggle>();
         _createPasswordInput = FindDeepChild(_createSessionUI.transform, "PasswordInput").GetComponent<TMP_InputField>();
@@ -95,12 +98,18 @@ public class UIManager : MonoBehaviour
         _readyButton = _inSessionUI.transform.Find("Ready").GetComponent<Button>();
         _startButton = _inSessionUI.transform.Find("Start").GetComponent<Button>();
 
-
         _playerPanelCanv = _inSessionUI.transform.Find("PlayerPanelCanv");
         foreach (Transform panel in _playerPanelCanv)
         {
             _playerPanels.Add(new PlayerPanel(panel));
         }
+
+        _JobSelectCanv = _inSessionUI.transform.Find("JobSelectCanv").GetComponent<Canvas>();
+        for(int i = 0; i<4;i++)
+        {
+            _JobButtons[i] = FindDeepChild(_JobSelectCanv.transform, $"Job ({i})").GetComponent<Button>();
+        }
+        
 
         // 버튼 이벤트 연결
         _refreshButton.onClick.AddListener(UpdateSessionList);
@@ -111,13 +120,21 @@ public class UIManager : MonoBehaviour
         _disconnectButton.onClick.AddListener(DisconnectSession);
         _readyButton.onClick.AddListener(ToggleReady);
         _startButton.onClick.AddListener(StartGame);
+        
+        for(int i = 0; i<4; i++)
+        {
+            int index = i;
+            _JobButtons[index].onClick.AddListener(() => SetJobIndex(index+1));
+        }
+
 
 
         _sessionListUI.SetActive(true);
         _createSessionUI.SetActive(false);
-
-        _maxConnections = NetcodeFireBaseManager.Instance.GetMaxConnection();
+       _JobSelectCanv.gameObject.SetActive(false);
     }
+
+    
 
     private Transform FindDeepChild(Transform parent, string name)
     {
@@ -160,6 +177,10 @@ public class UIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _inSessionUI.SetActive(false);
     }
+    public void ShowJobSelectCanv()
+    {
+        _JobSelectCanv.gameObject.SetActive(true);
+    }
 
     public void UpdateSessionList()
     {
@@ -168,33 +189,44 @@ public class UIManager : MonoBehaviour
 
         foreach (var session in sessions)
         {
-            GameObject sessionButton = Instantiate(_sessionButtonPrefab, _sessionListContainer);
-
-            //  서버 이름 찾기
-            TMP_Text sessionNameText = FindDeepChild(sessionButton.transform, "SessionNameText").GetComponent<TMP_Text>();
-            TMP_Text playerCountText = FindDeepChild(sessionButton.transform, "PlayerCountText").GetComponent<TMP_Text>();
-
-            if (sessionNameText == null || playerCountText == null)
+            if(!session.GetIsStartInSessionData())
             {
-                Debug.LogError("sessionButtonPrefab 내부에 TMP_Text가 없습니다! 프리팹을 확인하세요.");
-                continue;
-            }
+                GameObject sessionButton = Instantiate(_sessionButtonPrefab, _sessionListContainer);
 
-            // UI 업데이트
-            sessionNameText.text = session.SessionName;
-            playerCountText.text = $"{session.CurrentPlayers} / {session.MaxPlayers}";
+                //  서버 이름 찾기
+                TMP_Text sessionNameText = FindDeepChild(sessionButton.transform, "SessionNameText").GetComponent<TMP_Text>();
+                TMP_Text playerCountText = FindDeepChild(sessionButton.transform, "PlayerCountText").GetComponent<TMP_Text>();
 
-            //  버튼 이벤트 추가
-            Button button = sessionButton.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.AddListener(() => SelectSession(session));
-            }
-            else
-            {
-                Debug.LogError("sessionButtonPrefab에 Button 컴포넌트가 없습니다!");
+                if (sessionNameText == null || playerCountText == null)
+                {
+                    Debug.LogError("sessionButtonPrefab 내부에 TMP_Text가 없습니다! 프리팹을 확인하세요.");
+                    continue;
+                }
+
+                // UI 업데이트
+                sessionNameText.text = session.SessionName;
+                playerCountText.text = $"{session.CurrentPlayers} / {session.MaxPlayers}";
+
+                //  버튼 이벤트 추가
+                Button button = sessionButton.GetComponent<Button>();
+                if (button != null)
+                {
+                    button.onClick.AddListener(() => SelectSession(session));
+                }
+                else
+                {
+                    Debug.LogError("sessionButtonPrefab에 Button 컴포넌트가 없습니다!");
+                }
             }
         }
+    }
+
+
+    private void SetJobIndex(int jobIndex)
+    {
+        _savedJobIndex = jobIndex;
+        NetcodeFireBaseManager.Instance.SetSessionPlayerJobIndex(_savedJoinCode, _savedPlayerIndex, jobIndex);
+        _JobSelectCanv.gameObject.SetActive(false);
     }
     private void ClearSessionList()
     {
@@ -242,6 +274,8 @@ public class UIManager : MonoBehaviour
             Debug.Log($"세션 생성 성공. Join Code: {joinCode}");
             ShowInSessionUI();
             UpdateSessionList();
+            _readyButton.gameObject.SetActive(false);
+            _startButton.gameObject.SetActive(true);
             _savedJoinCode = joinCode;
         }
         else
@@ -258,6 +292,13 @@ public class UIManager : MonoBehaviour
         string code = _sessionCodeInput.text;
         string password = _passwordInput.text;
 
+        if(await NetcodeFireBaseManager.Instance.GetIsStartInFireBase(code))
+        {
+            Debug.Log("이미 시작된 세션");
+            UpdateSessionList();
+            return;
+        }
+
         bool success = await RelayManager.Instance.JoinRelay(code, password);
         if (!success)
         {
@@ -268,6 +309,9 @@ public class UIManager : MonoBehaviour
 
         _savedJoinCode = code;
         ShowInSessionUI();
+
+        _readyButton.gameObject.SetActive(true);
+        _startButton.gameObject.SetActive(false);
     }
 
     public async Task<bool> RequestStartGame(string joinCode)
@@ -295,6 +339,7 @@ public class UIManager : MonoBehaviour
             return false;
         }
 
+        NetcodeFireBaseManager.Instance.SetIsStartInFireBase(_savedJoinCode, true);
         return true;
     }
 
@@ -360,6 +405,7 @@ public class UIManager : MonoBehaviour
         // UI 업데이트
 
         _savedPlayerIndex = -1;
+        _savedJobIndex = 0;
         UpdateSessionList();
     }
 
@@ -416,7 +462,7 @@ public class UIManager : MonoBehaviour
                 int playerJobIndex = await NetcodeFireBaseManager.Instance.GetSessionPlayerJobIndex(_savedJoinCode, i);
                 Debug.Log($"{i} 번쨰 플레이어의 이름 : {playerName}, 준비상태 {isReady}");
 
-                _playerPanels[i].UpdatePanel(playerName.ToString(), isReady, playerJobIndex, playerJobImages);
+                _playerPanels[i].UpdatePanel(playerName.ToString(), isReady, playerJobIndex, playerJobImages,i == 0);
 
             }
             else
@@ -436,55 +482,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateSinglePlayerPanel(int index, string name, bool isReady, int jobIndex)
+    public void UpdateSinglePlayerPanel(int index, string name, bool isReady, int jobIndex, bool isHost)
     {
         if (index < 0 || index >= _playerPanels.Count) return;
-        _playerPanels[index].UpdatePanel(name, isReady, jobIndex, playerJobImages);
+        _playerPanels[index].UpdatePanel(name, isReady, jobIndex, playerJobImages, isHost);
     }
-
     public void ResetSinglePlayerPanel(int index)
     {
         if (index < 0 || index >= _playerPanels.Count) return;
         _playerPanels[index].ResetPanel();
     }
-
-    public class PlayerPanel
-    {
-        private TextMeshProUGUI _nameText;
-        private Toggle _readyToggle;
-        private Image _playerJobImage;
-
-        public PlayerPanel(Transform panelTransform)
-        {
-            _nameText = panelTransform.Find("Name").GetComponent<TextMeshProUGUI>();
-            _readyToggle = panelTransform.Find("IsReady").GetComponent<Toggle>();
-            _playerJobImage = panelTransform.Find("PlayerJobButton").GetComponent<Image>();
-        }
-
-        public void UpdatePanel(string playerName, bool isReady, int playerJobIndex, Sprite[] sprites)
-        {
-            _nameText.text = playerName;
-            _readyToggle.isOn = isReady;
-
-            if (sprites.Length > playerJobIndex)
-            {
-                _playerJobImage.sprite = sprites[playerJobIndex]; // 인덱스에 따라 이미지 변경
-            }
-        }
-
-        public string GetNameFromPanel()
-        {
-            return _nameText.text;
-        }
-        public void ResetPanel()
-        {
-            _nameText.text = "ID";
-            _readyToggle.isOn = false;
-            _playerJobImage.sprite = null;
-        }
-        public string ReturnDataString() 
-        {
-            return $"{_nameText.text}, {_readyToggle.isOn}";
-        }
-    }
+ 
 }

@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 707847259}
   - component: {fileID: 707847264}
   - component: {fileID: 707847265}
+  - component: {fileID: 707847266}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -208,10 +209,11 @@ MonoBehaviour:
   - {fileID: -3876759189950653258, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: -5720429097031363069, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: -7911572535675539837, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  - {fileID: 5398807837072792716, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   _sessionListPrefab: {fileID: 3987102533564522322, guid: f7e588e401be5bb4e99de5a23d5b39df, type: 3}
   _createSessionPrefab: {fileID: 7313491034981176361, guid: 0ae2696900dc24f4c8ee32f95ce7ac7b, type: 3}
   _sessionButtonPrefab: {fileID: 6697840583042781699, guid: cd89632508a95714596412f667016e79, type: 3}
-  _inSessionPrefab: {fileID: 3581835666948384402, guid: 6f47830a28663cd4bb3e99943c348f32, type: 3}
+  _inSessionPrefab: {fileID: 2612293767408712387, guid: c09cd0bf519070c41a05dc9d657b7ef4, type: 3}
 --- !u!114 &707847265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +227,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentPlayers: 0
+--- !u!114 &707847266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707847258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98236e38dcd73164fbc29577357f4318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1022269043
 GameObject:
   m_ObjectHideFlags: 0

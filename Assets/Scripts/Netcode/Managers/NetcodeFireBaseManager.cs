@@ -284,7 +284,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
 
     public async Task<bool> IsAllPlayerReady(string joinCode)
     {
-        for (int i = 0;i< MaxConnections;i++)
+        for (int i = 1;i< MaxConnections;i++)
         {
             bool isReady = await GetSessionPlayerIsReady(joinCode, i);
             if(!isReady)
@@ -319,7 +319,35 @@ public class NetcodeFireBaseManager : MonoBehaviour
         return false;
     }
 
+    public async void SetIsStartInFireBase(string joinCode, bool isStart)
+    {
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if (string.IsNullOrEmpty(sessionId))
+        {
+            return;
+        }
+        await dbReference.Child("sessions").Child(sessionId).Child("IsStart").SetValueAsync(isStart);
+        Debug.Log("파이어 베이스 시작상태 변경 성공");
+    }
 
+    public async Task<bool> GetIsStartInFireBase(string joinCode)
+    {
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if (string.IsNullOrEmpty(sessionId))
+        {
+            return true;
+        }
+        DataSnapshot snapshot = await dbReference.Child("sessions").Child(sessionId).Child("IsStart").GetValueAsync();
+
+        bool isStart = false;
+        if(snapshot.Value.ToString() == true.ToString())
+        {
+            isStart = true;
+        }
+
+        Debug.Log("파이어 베이스 시작상태 return 성공");
+        return isStart;
+    }
 
 
     public async Task<string> GetSessionPlayerName(string joinCode, int playerIndex)
@@ -365,6 +393,19 @@ public class NetcodeFireBaseManager : MonoBehaviour
         Debug.Log("플레이어 이름 가져오기 마지막 단계 실패");
 
         return 0;
+    }
+
+    public async void SetSessionPlayerJobIndex(string joinCode, int playerIndex, int jobIndex)
+    {
+        Debug.Log("플레이어 직업 인덱스 설정 시도");
+        string sessionId = await GetSessionIdByJoinCode(joinCode);
+        if (string.IsNullOrEmpty(sessionId))
+        {
+            Debug.Log("플레이어 직업 인덱스 설정 에서 세션 아이디 찾기 실패");
+            return;
+        }
+        await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).Child("PlayerJobIndex").SetValueAsync(jobIndex);
+        Debug.Log("플레이어 직어 인덱스 설정 완료");
     }
 
     public async Task<string> GetSessionIdByJoinCode(string joinCode)
@@ -420,14 +461,15 @@ public class NetcodeFireBaseManager : MonoBehaviour
             {
                 try
                 {
+                    bool isStart = bool.TryParse(child.Child("IsStart").Value?.ToString(), out bool parsedPrivate_0) && parsedPrivate_0;
                     string sessionName = child.Child("SessionName").Value?.ToString() ?? "Unknown";
                     string joinCode = child.Child("JoinCode").Value?.ToString() ?? "";
-                    bool isPrivate = bool.TryParse(child.Child("IsPrivate").Value?.ToString(), out bool parsedPrivate) && parsedPrivate;
+                    bool isPrivate = bool.TryParse(child.Child("IsPrivate").Value?.ToString(), out bool parsedPrivate_1) && parsedPrivate_1;
                     string password = child.Child("Password").Value?.ToString() ?? "";
                     int currentPlayers = int.Parse(child.Child("CurrentPlayers").Value?.ToString() ?? "0"); 
                     List<PlayerData> Players = new List<PlayerData>();
 
-                    RelayManager.Instance.GetSessionList().Add(new SessionData(sessionName, joinCode, isPrivate, password, currentPlayers, Players));
+                    RelayManager.Instance.GetSessionList().Add(new SessionData(isStart, sessionName, joinCode, isPrivate, password, currentPlayers, Players));
                 }
                 catch (System.Exception ex)
                 {
@@ -472,7 +514,7 @@ public class NetcodeFireBaseManager : MonoBehaviour
                         continue;
                     }
 
-                    UIManager.Instance.UpdateSinglePlayerPanel(i, playerName, isReady, playerJobIndex);
+                    UIManager.Instance.UpdateSinglePlayerPanel(i, playerName, isReady, playerJobIndex, i == 0);
                     Debug.Log($"[Player {i}] 업데이트됨: {playerName}, Ready: {isReady}");
                 }
                 catch (Exception ex)
