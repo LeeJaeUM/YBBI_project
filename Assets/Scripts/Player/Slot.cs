@@ -35,11 +35,11 @@ public class Slot : MonoBehaviour
         {
             return;
         }
-        //var result = _item.Use();
-        //if (result == 0)
-        //{
-        //    _item = null;
-        //}
+        var result = _item.Use();
+        if (result == 0)
+        {
+            _item = null;
+        }
     }
 
     public void OnSelect()

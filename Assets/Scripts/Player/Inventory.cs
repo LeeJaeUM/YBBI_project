@@ -11,19 +11,22 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     GameObject _itemPrefab;
     [SerializeField]
+    ItemDataTable _itemTable;
+    [SerializeField]
     Image _cursorSprite;
     [SerializeField]
     GridLayoutGroup _slotGrid;
     [SerializeField]
-    Sprite[] _iconSprites;
+    Image[] _iconImages;
     [SerializeField]
     List<Slot> _slotList = new List<Slot>();
+    ItemController _controller;
 
     public bool IsOpened { get { return gameObject.activeSelf; } }
 
-    public Sprite GetIcon(int index)
+    public Image GetIcon(int index)
     {
-        return _iconSprites[index];
+        return _iconImages[index];
     }
 
     public void ShowUI()
@@ -79,13 +82,15 @@ public class Inventory : MonoBehaviour
         if ( curSlot != null)
         {
             var obj = Instantiate(_itemPrefab);
-            var type = obj.GetType();
+            var type = _controller._curType;
             int count = 1;
             var item = obj.GetComponent<Item>();
-            // item.SetItem(this, itemInfo);
+            ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };
+            item.SetItem(this, itemInfo);
             curSlot.SetSlot(item);
         }
     }
+
 
     public void InvenUpgrade()
     {

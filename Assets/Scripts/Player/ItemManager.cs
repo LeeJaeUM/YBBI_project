@@ -2,34 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemManager : SingletonMonoBehaviour<ItemManager>
 {
     [SerializeField]
     public PlayerItemController _player;
 
-    public enum ItemType
-    {
-        Arrow,
-        BeeHouse,
-        Bomb,
-        Key,
-        Mashroom
-    }
+    ItemType _itemType;
 
     [SerializeField]
     GameObject _itemPrefab;
     GameObjectPool<ItemController> _pool;
     [SerializeField]
-    Sprite[] _iconSprites;
+    Image[] _iconImages;
     float[] _itemTable = { 5f, 15f, 20f, 25f, 35f };
 
     public void Create(Vector3 position)
     {
-        // ItemType type = (ItemType)Utility.GetProbability(_itemTable);
+        ItemType type = (ItemType)Utility.GetProbability(_itemTable);
         var item = _pool.Get();
         item.gameObject.SetActive(true);
-        // item.SetItem(position, type);
+        item.SetItem(type);
     }
 
     public void Remove(ItemController item)
@@ -38,15 +32,15 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         _pool.Set(item);
     }
 
-    public Sprite GetIcon(ItemType type)
+    public Image GetIconImage(ItemType type)
     {
-        return _iconSprites[(int)type];
+        return _iconImages[(int)type];
     }
 
     // Start is called before the first frame update
     protected override void OnStart()
     {
-        _iconSprites = Resources.LoadAll<Sprite>("Items/");
+        _iconImages = Resources.LoadAll<Image>("Items/");
         _pool = new GameObjectPool<ItemController>(5, () =>
         {
             var obj = Instantiate(_itemPrefab);

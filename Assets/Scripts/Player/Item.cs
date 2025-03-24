@@ -10,31 +10,33 @@ public class Item : MonoBehaviour
     Image _icon;
     [SerializeField]
     public TextMeshProUGUI _count;
-    //[SerializeField]
-    //ItemInfo _itemInfo;
+    [SerializeField]
+    ItemInfo _itemInfo;
 
-    //public void SetItem(Inventory inven, ItemInfo itemInfo)
-    //{
-    //    _itemInfo = itemInfo;
-    //    _icon = inven.GetIcon(_itemInfo._data._icon);
-    //    SetCount();
-    //}
+    ItemController _controller;
 
-    //public int Use()
-    //{
-    //    _itemInfo._count--;
-    //    SetCount();
+    public void SetItem(Inventory inven, ItemInfo itemInfo)
+    {
+        _itemInfo = itemInfo;
+        _icon = inven.GetIcon(_itemInfo._data._icon);
+        SetCount();
+    }
 
-    //    if (_itemInfo._count <= 0)
-    //    {
-    //        Destroy(gameObject);
-    //    }
+    public int Use()
+    {
+        _itemInfo._count--;
+        SetCount();
 
-    //    return _itemInfo._count;
-    //}
+        if (_itemInfo._count <= 0)
+        {
+            Destroy(gameObject);
+        }
 
-    //void SetCount()
-    //{
-    //    _count.text = _itemInfo._count.ToString();
-    //}
+        return _itemInfo._count;
+    }
+
+    void SetCount()
+    {
+        _count.text = _itemInfo._count.ToString();
+    }
 }
