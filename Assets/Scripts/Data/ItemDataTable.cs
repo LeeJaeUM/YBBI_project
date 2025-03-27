@@ -17,10 +17,10 @@ public class ItemDataTable : MonoBehaviour
         }
     }
 
-    public ItemData GetData(ItemType type)
-    {
-        return _itemTable[type];
-    }
+    //public ItemData GetData(ItemType type)
+    //{
+    //    return _itemTable[type];
+    //}
 
     // Start is called before the first frame update
     void Start()

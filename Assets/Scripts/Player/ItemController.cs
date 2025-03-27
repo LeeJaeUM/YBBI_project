@@ -8,12 +8,13 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField]
     Image _iconImage;
+    Inventory Inventory;
     //[SerializeField]
     //AnimationCurve _yCurve = AnimationCurve.Linear(0, 0, 1, 1);
     //[SerializeField]
     //AnimationCurve _xCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-    public ItemType _type;
+    public int _index;
 
     public void SetItem(ItemType _type)
     {
@@ -25,7 +26,9 @@ public class ItemController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            _index = (int.Parse(_iconImage.sprite.name.Split('.')[0]) - 1);            
             ItemManager.Instance.Remove(this);
+            Inventory.CreateItem(_index);
         }
     }
 }
