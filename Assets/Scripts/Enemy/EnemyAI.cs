@@ -5,16 +5,23 @@ using static Enums;
 
 public class EnemyAI : MonoBehaviour
 {
-    public Transform Player { get; private set; }
     protected Dictionary<EnemyStateType, IEnemyState> _states;
-    protected Enums.EnemyStateType _currentStateType;
+    [SerializeField]protected Enums.EnemyStateType _currentStateType;
     private IEnemyState _currentState;
-    public float  _speed;
+
+    public Rigidbody2D Rigid { get; private set; }
+    public Transform Player { get; private set; }
+    public float _speed = 2;
+    public float _attackRange = 2;
+
+    public Vector2 StartPatrolPoint { get; private set; }
+    public Vector2 EndPatrolPoint { get; private set; }
+
+    public FindTargetPoint _findTargetPoint;  // FindTargetPoint를 참조
+    private PatrolPoint _patrolPoint;
 
     public virtual void Initialize()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
-
         //기본 상태 설정 (각 자식 클래스에서 필요하면 변경 가능)
         _states = new Dictionary<EnemyStateType, IEnemyState>
         {
@@ -23,6 +30,10 @@ public class EnemyAI : MonoBehaviour
             { EnemyStateType.Chase, new ChaseState() },
             { EnemyStateType.Attack, new AttackState() }
         };
+
+        _findTargetPoint = GetComponent<FindTargetPoint>();
+        _patrolPoint = GetComponentInChildren<PatrolPoint>();
+        Rigid = GetComponent<Rigidbody2D>();
     }
 
     public void ChangeState(EnemyStateType newState)
@@ -35,36 +46,48 @@ public class EnemyAI : MonoBehaviour
         _currentState.Enter(this);
     }
 
-    // 트리거 체크를 별도 함수로 분리 (각 자식 클래스에서 오버라이드 가능)
-    protected virtual void CheckTrigger(Collider2D other)
+    public void SetPlayer()
     {
-        if (other.CompareTag("DetectArea"))
-        {
-            ChangeState(EnemyStateType.Chase);
-        }
-        else if (other.CompareTag("AttackArea"))
-        {
-            ChangeState(EnemyStateType.Attack);
-        }
+        Player = _findTargetPoint.Player;
     }
 
-    void Awake()
+    public void EnemyMove(Vector2 direction)
+    {
+        transform.Translate(direction * _speed * Time.deltaTime);
+        //Rigid.MovePosition(Rigid.position + direction * _speed * Time.deltaTime);
+        // 회전: 이동 방향으로 회전
+        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    #region Unity Built-in Fuction
+
+
+
+    private void Awake()
     {
         Initialize();
     }
 
     private void OnEnable()
     {
+        //_findTargetPoint.OnFindTarget += FindTarget;
         ChangeState(EnemyStateType.Idle); // 기본 상태
     }
+    private void OnDisable()
+    {
+       // _findTargetPoint.OnFindTarget -= FindTarget;
+    }
 
+    private void Start()
+    {
+        StartPatrolPoint = _patrolPoint.GetStartPonint();
+        EndPatrolPoint = _patrolPoint.GetEndPonint();
+    }
     void Update()
     {
         _currentState?.Execute(this);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        CheckTrigger(other);
-    }
+    #endregion
 }

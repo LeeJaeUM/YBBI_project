@@ -11,6 +11,7 @@ public static class Enums
 
     public enum EnemyStateType 
     {
+        NONE,
         Idle, 
         Patrol, 
         Chase, 

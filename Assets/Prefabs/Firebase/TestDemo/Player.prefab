@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: -4002607244717554100}
   - component: {fileID: 7146715550019607152}
   - component: {fileID: 7783154205629626670}
+  - component: {fileID: 6531958504410652447}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -694,6 +695,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 5
   attackBullet: {fileID: 2150737453758765242, guid: 1cdcb8536096aee4aabc51fdf5e5af8b, type: 3}
+  _myCharAir: {fileID: 0}
+--- !u!114 &6531958504410652447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887172448659579055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed71b81c2bcb7b43be60d591eb62fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5928991673313804773
 GameObject:
   m_ObjectHideFlags: 0
