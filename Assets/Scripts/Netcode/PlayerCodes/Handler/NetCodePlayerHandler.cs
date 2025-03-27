@@ -15,30 +15,63 @@ public class NetCodePlayerHandler : NetworkBehaviour
         _textPopup = GetComponent<TextPopup>();
     }
 
+    /*플레이어텔레포트******************************************************************************************************/
+    public void TeleportRequest(Vector3 newPosition)
+    {
+        if (IsHost)
+        {
+            TeleportClientRpc(newPosition);
+        }
+        else if (IsClient)
+        {
+            TeleportServerRpc(newPosition);
+        }
+
+        TeleportLocal(newPosition); // 로컬도 이동
+    }
+
+    private void TeleportLocal(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
+    [ServerRpc]
+    private void TeleportServerRpc(Vector3 newPosition)
+    {
+        TeleportClientRpc(newPosition);
+        TeleportLocal(newPosition); // 서버에서도 이동
+    }
+
+    [ClientRpc]
+    private void TeleportClientRpc(Vector3 newPosition)
+    {
+        if (IsOwner) return; // 본인은 이미 이동했음
+        TeleportLocal(newPosition);
+    }
+
     /*플레이어이동******************************************************************************************************/
 
     public void MoveRequest(Vector2 deltaDir)
     {
         if (IsHost)
         {
-            UpdatePositionClientRpc(deltaDir);
+            UpdateMovePosClientRpc(deltaDir);
         }
         else if (IsClient)
         {
-            UpdatePositionServerRpc(deltaDir);
+            UpdateMovePosServerRpc(deltaDir);
         }
     }
 
     [ServerRpc]
-    private void UpdatePositionServerRpc(Vector2 deltaDir)
+    private void UpdateMovePosServerRpc(Vector2 deltaDir)
     {
-        UpdatePositionClientRpc(deltaDir);
+        UpdateMovePosClientRpc(deltaDir);
         _player.SetMoveDir(deltaDir);
-
     }
 
     [ClientRpc]
-    private void UpdatePositionClientRpc(Vector2 deltaDir)
+    private void UpdateMovePosClientRpc(Vector2 deltaDir)
     {
         _player.SetMoveDir(deltaDir);
     }

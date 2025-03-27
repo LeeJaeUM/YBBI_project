@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - DetectAreaPlayer
   - TeleportArea
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 240760823
+    locked: 0
+  - name: Map
+    uniqueID: 1446424193
     locked: 0
   m_RenderingLayers:
   - Default
