@@ -16,7 +16,7 @@ public class Item : MonoBehaviour
     public void SetItem(Inventory inven, ItemInfo itemInfo)
     {
         _itemInfo = itemInfo;
-        _icon = inven.GetIcon(_itemInfo._data._icon);
+        _icon.sprite = inven.GetIcon(_itemInfo._data._icon);
         SetCount();
     }
 

@@ -5,19 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemManager : SingletonMonoBehaviour<ItemManager>
-{
-    [SerializeField]
-    public PlayerItemController _player;
-
+{ 
     [SerializeField]
     GameObject _itemPrefab;
     GameObjectPool<ItemController> _pool;
     [SerializeField]
-    Sprite[] _itemSprites;
+    public Sprite[] _itemSprites;
     public RectTransform _itemCreatePos;
     public RectTransform _canvasPos;
     float[] _itemTable = { 5f, 15f, 20f, 25f, 35f };
-    
+
     public void Create(RectTransform position)
     {
         ItemType type = (ItemType)Utility.GetProbability(_itemTable);
@@ -51,11 +48,13 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     protected override void OnStart()
     {
         _itemSprites = Resources.LoadAll<Sprite>("Items/");
-        _pool = new GameObjectPool<ItemController>(5, () =>
+        _pool = new GameObjectPool<ItemController>(1, () =>
         {
             var obj = Instantiate(_itemPrefab);
             obj.SetActive(false);
             obj.transform.SetParent(transform);
+            SetRandomPosition();
+            obj.transform.position.Equals(_itemCreatePos.anchoredPosition);
             var item = obj.GetComponent<ItemController>();
             return item;
         });

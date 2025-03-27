@@ -1547,11 +1547,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotPrefab: {fileID: 9160961458989455180, guid: e010945e1165f8e42b7a61df2cdb320e, type: 3}
-  _itemPrefab: {fileID: 5792307782196041816, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
+  _itemPrefab: {fileID: 6454132739753376396, guid: 469a4ecd0b701b24b8d00726f596ad54, type: 3}
   _itemTable: {fileID: 1362513267}
   _cursorSprite: {fileID: 915103034}
   _slotGrid: {fileID: 856058994}
-  _iconImages: []
+  _iconSprites: []
   _slotList: []
 --- !u!54 &817520469
 Rigidbody:
@@ -1870,7 +1870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0a5c47c8bf2ae48a30694a61f72cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2122982985}
   _itemPrefab: {fileID: 5792307782196041816, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
   _itemSprites: []
   _itemCreatePos: {fileID: 1136701881746030143, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}

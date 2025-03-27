@@ -17,16 +17,16 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     GridLayoutGroup _slotGrid;
     [SerializeField]
-    Image[] _iconImages;
+    public Sprite[] _iconSprites;
     [SerializeField]
     List<Slot> _slotList = new List<Slot>();
-    ItemController _controller;
+    ItemController ItemCtrl;
 
     public bool IsOpened { get { return gameObject.activeSelf; } }
 
-    public Image GetIcon(int index)
+    public Sprite GetIcon(int index)
     {
-        return _iconImages[index];
+        return _iconSprites[index];
     }
 
     public void ShowUI()
@@ -75,14 +75,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void CreateItem()
+    public void CreateItem(int index)
     {
         var curSlot = _slotList.Find((_slot) => _slot.IsEmpty);
 
         if ( curSlot != null)
         {
             var obj = Instantiate(_itemPrefab);
-            var type = _controller._type;
+            var type = (ItemType)index;
             int count = 1;
             var item = obj.GetComponent<Item>();
             ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };
@@ -99,12 +99,13 @@ public class Inventory : MonoBehaviour
 
     void Awake()
     {
-
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        _iconSprites = ItemManager.Instance._itemSprites;
         CreateSlot(10);
         _cursorSprite.enabled = false;
         gameObject.SetActive(false);
@@ -114,7 +115,7 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            CreateItem();
+            // CreateItem();
         }
     }
 }
