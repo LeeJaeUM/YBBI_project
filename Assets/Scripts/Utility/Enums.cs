@@ -12,10 +12,21 @@ public static class Enums
     public enum EnemyStateType 
     {
         NONE,
+
         Idle, 
         Patrol, 
         Chase, 
         Attack
+    }
+
+    public enum ATKPatern
+    {
+        A,
+        B,
+        C,
+        D,
+        E,
+        F
     }
 
 }

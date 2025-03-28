@@ -65,6 +65,21 @@ public class FindTargetPoint : MonoBehaviour
             return false;
     }
 
+    /// <summary>
+    /// 대상 까지의 거리를 리턴
+    /// </summary>
+    public float GetDirectionToTarget()
+    {
+        Vector2 directionToPlayer = Player.position - transform.position;  // 적에서 플레이어로 향하는 벡터
+        float distanceToPlayer = directionToPlayer.magnitude;  // 적과 플레이어 간의 거리
+        
+        return distanceToPlayer;    
+    }
+
+    public Vector3 GetTargetDirection()
+    {
+        return Player.position - transform.position;  // 적에서 플레이어로 향하는 벡터
+    }
 
     public void SetMoveForward(Vector2 forward)
     {

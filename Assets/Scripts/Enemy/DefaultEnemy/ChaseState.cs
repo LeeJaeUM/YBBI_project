@@ -19,10 +19,17 @@ public class ChaseState : IEnemyState
         Vector2 _dir = (enemy.Player.position - enemy.transform.position).normalized;
         enemy.transform.Translate(_dir * enemy._speed * Time.deltaTime);
 
-        if (enemy._findTargetPoint.CheckTargetInRange(enemy._attackRange))
+        float distancToTarget = enemy._findTargetPoint.GetDirectionToTarget();
+
+        if(distancToTarget > enemy._chaseExitDistance)
+        {
+            enemy.ChangeState(Enums.EnemyStateType.Patrol);
+        }
+        else if (distancToTarget < enemy._attackRange)
         {
             enemy.ChangeState(Enums.EnemyStateType.Attack);
         }
+
     }
 
     public void Exit(EnemyAI enemy) => Debug.Log($"{enemy.name} stopped chasing.");

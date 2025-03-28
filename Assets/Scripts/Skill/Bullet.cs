@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public bool _isPlayers = true;
     public float _lifeTime = 2;
     public bool _isPlusAir = false;
     public float _damage = 5;
@@ -40,23 +41,45 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_canTrigger)
         {
-            if (collision.CompareTag("Enemy"))
+            if (_isPlayers)
             {
-               // Debug.Log($"{collision.gameObject.name} 이 닿음");
-                if (!_isPlusAir)
+
+                if (collision.CompareTag("Enemy"))
                 {
-                   // Debug.Log("데미지 총알");
+                    // Debug.Log($"{collision.gameObject.name} 이 닿음");
+                    if (!_isPlusAir)
+                    {
+                        // Debug.Log("데미지 총알");
+                    }
+                    else
+                    {
+                        // Debug.Log("회복 총알");
+                    }
+                    StopAllCoroutines();
+                    gameObject.SetActive(false); //움직임 종료
                 }
-                else
+            }
+            else
+            {
+                if (collision.CompareTag("Player"))
                 {
-                   // Debug.Log("회복 총알");
+                    // Debug.Log($"{collision.gameObject.name} 이 닿음");
+                    if (!_isPlusAir)
+                    {
+                        // Debug.Log("데미지 총알");
+                    }
+                    else
+                    {
+                        // Debug.Log("회복 총알");
+                    }
+                    StopAllCoroutines();
+                    gameObject.SetActive(false); //움직임 종료
                 }
-                StopAllCoroutines();
-                gameObject.SetActive(false); //움직임 종료
             }
         }
 
