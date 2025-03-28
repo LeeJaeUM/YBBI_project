@@ -51,8 +51,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         _itemCreatePos.anchoredPosition = new Vector2(randomX, randomY);
     }
 
-    // Start is called before the first frame update
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         _itemSprites = Resources.LoadAll<Sprite>("Items/");
         _pool = new GameObjectPool<ItemController>(1, () =>
@@ -65,6 +64,12 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
             var item = obj.GetComponent<ItemController>();
             return item;
         });
+    }
+
+    // Start is called before the first frame update
+    protected override void OnStart()
+    {
+        
     }
 
     void Update()
