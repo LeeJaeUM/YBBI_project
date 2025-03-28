@@ -870,7 +870,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1505,12 +1505,12 @@ GameObject:
   - component: {fileID: 817520469}
   - component: {fileID: 817520468}
   m_Layer: 5
-  m_Name: InventoryPanel
+  m_Name: InventoryUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &817520467
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1653,7 +1653,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -870}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &856058993
 MonoBehaviour:
@@ -1870,9 +1870,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0a5c47c8bf2ae48a30694a61f72cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 5792307782196041816, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
+  _itemPrefab: {fileID: 3175133025054244218, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
+  inventory: {fileID: 817520468}
   _itemSprites: []
-  _itemCreatePos: {fileID: 1136701881746030143, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
+  _itemCreatePos: {fileID: 5550717293256532049, guid: 7f822d8b70add7e46ae5e05c0a25621e, type: 3}
   _canvasPos: {fileID: 631798398}
 --- !u!1 &1247909462
 GameObject:
@@ -2522,7 +2523,6 @@ GameObject:
   - component: {fileID: 1658279520}
   - component: {fileID: 1658279519}
   - component: {fileID: 1658279518}
-  - component: {fileID: 1658279521}
   m_Layer: 5
   m_Name: BaseAttackBtn
   m_TagString: Untagged
@@ -2656,26 +2656,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658279516}
   m_CullTransparentMesh: 1
---- !u!114 &1658279521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1658279516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d88fb50994f0234aa0bf0dbe005a8e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnType: 0
-  _coolDownImg: {fileID: 1658279519}
-  _baseAtkBtn: {fileID: 1658279518}
-  _coolDownText: {fileID: 0}
-  _coolDown: 5
-  _playerATKStats: {fileID: 0}
-  _inputHandler: {fileID: 0}
-  _screenButton: {fileID: 0}
 --- !u!1 &1678970064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3672,79 +3652,6 @@ RectTransform:
   m_AnchoredPosition: {x: 410, y: 300}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &3087071151103323165
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5933559282823159168, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Turtle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.645172
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.8833103
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743343301891393154, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7907193419103827069, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: _originColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7907193419103827069, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: _originColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7907193419103827069, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: _originColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7907193419103827069, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
-      propertyPath: _originColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1d2b0742141021847978db8e942b5d05, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3755,5 +3662,4 @@ SceneRoots:
   - {fileID: 6304079}
   - {fileID: 1113423643}
   - {fileID: 688978728}
-  - {fileID: 3087071151103323165}
   - {fileID: 1362513268}

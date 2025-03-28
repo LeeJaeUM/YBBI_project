@@ -20,12 +20,15 @@ public class Inventory : MonoBehaviour
     public Sprite[] _iconSprites;
     [SerializeField]
     List<Slot> _slotList = new List<Slot>();
-    ItemController ItemCtrl;
 
     public bool IsOpened { get { return gameObject.activeSelf; } }
 
     public Sprite GetIcon(int index)
     {
+        foreach (var a in _iconSprites)
+        {
+            Debug.Log("ddd");
+        }
         return _iconSprites[index];
     }
 
@@ -108,7 +111,7 @@ public class Inventory : MonoBehaviour
         _iconSprites = ItemManager.Instance._itemSprites;
         CreateSlot(10);
         _cursorSprite.enabled = false;
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);    
     }
 
     void Update()

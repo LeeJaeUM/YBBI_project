@@ -8,6 +8,8 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 { 
     [SerializeField]
     GameObject _itemPrefab;
+    [SerializeField]
+    Inventory inventory;
     GameObjectPool<ItemController> _pool;
     [SerializeField]
     public Sprite[] _itemSprites;
@@ -33,7 +35,12 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     {
         return _itemSprites[(int)type];
     }
-    
+
+    public void SetInvenItem(int index)
+    {
+        inventory.CreateItem(index);
+    }
+
     void SetRandomPosition()
     {
         Rect canvasRect = _canvasPos.rect;
