@@ -12,43 +12,53 @@ public class TeleportManager : MonoBehaviour
 
         Debug.Log($"[텔레포트] 요청 ID: {teleportID}");
 
-        
-        Tilemap[] allMaps = FindObjectsOfType<Tilemap>(); // 씬 전체에서 Map 타일맵을 가진 오브젝트들을 찾음
+        // 현재 맵 (Grid) 참조
+        GameObject currentMap = GetComponentInParent<Grid>().gameObject;
 
-        foreach (Tilemap map in allMaps)
+        // 모든 TeleportManager 찾기
+        TeleportManager[] allTeleporters = FindObjectsOfType<TeleportManager>();
+
+        foreach (TeleportManager targetTeleporter in allTeleporters)
         {
-            if (map.gameObject.name != "Map") continue; // Map 이름의 타일맵만
+            // 자기 자신 무시
+            if (targetTeleporter == this)
+                continue;
 
-            Vector3 exitPos = FindMatchingExit(map, teleportID);
-            if (exitPos != Vector3.zero)
+            // 같은 맵(Grid 내부)에 있는 포탈 무시
+            if (targetTeleporter.transform.IsChildOf(currentMap.transform))
+                continue;
+
+            // teleportID 같은 포탈 발견 시
+            if (targetTeleporter.teleportID == this.teleportID)
             {
+                // 해당 포탈이 속한 타일맵 찾기
+                Tilemap targetTilemap = targetTeleporter.GetComponent<Tilemap>();
+                Vector3 teleportPosition;
+
+                if (targetTilemap != null)
+                {
+                    Debug.Log("타겟 위치 존재함");
+                    // 타일맵이 존재하면, 정확한 셀 위치 중앙에 스폰
+                    Vector3Int cellPosition = targetTilemap.WorldToCell(targetTeleporter.transform.position);
+                    teleportPosition = targetTilemap.GetCellCenterWorld(cellPosition);
+                }
+                else
+                {
+                    // 타일맵이 없다면, 포탈 오브젝트 위치에 스폰
+                    teleportPosition = targetTeleporter.transform.position;
+                }
+
+
+                // 플레이어를 찾은 위치로 이동
                 NetCodePlayerHandler handler = collision.GetComponent<NetCodePlayerHandler>();
                 if (handler != null)
                 {
-                    handler.TeleportRequest(exitPos);
+                    handler.TeleportRequest(teleportPosition);
                 }
                 return;
             }
         }
 
-        Debug.LogWarning($"출구 '{teleportID}' 를 가진 타일을 어떤 맵에서도 못 찾음!");
-    }
-
-    Vector3 FindMatchingExit(Tilemap map, string id)
-    {
-        BoundsInt bounds = map.cellBounds;
-        foreach (Vector3Int pos in bounds.allPositionsWithin)
-        {
-            TileBase tile = map.GetTile(pos);
-            if (tile is TileMapTelepoter targetTile)
-            {
-                if (!targetTile.isEntrance && targetTile.teleportID == id)
-                {
-                    Debug.Log($"[텔레포트] 출구 위치 찾음: {map.name} - {pos}");
-                    return map.CellToWorld(pos) + map.cellSize / 2f;
-                }
-            }
-        }
-        return Vector3.zero;
+        Debug.LogWarning($"다른 맵에서 teleportID '{teleportID}'를 가진 포탈을 찾지 못했습니다!");
     }
 }

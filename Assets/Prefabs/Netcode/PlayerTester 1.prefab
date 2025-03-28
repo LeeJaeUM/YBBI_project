@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _speed: 4
+  _speed: 10
 --- !u!114 &327686210603525494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _textObj: {fileID: 5393577986598681031, guid: ac12092b4bd7fdf499308b78ef91f3fc, type: 3}
+  _interpolationSpeed: 10
+  _speed: 4
+  NetworkPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!50 &-3260086727910774697
 Rigidbody2D:
   serializedVersion: 5

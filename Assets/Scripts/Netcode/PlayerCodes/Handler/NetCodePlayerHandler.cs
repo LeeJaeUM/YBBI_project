@@ -14,8 +14,16 @@ public class NetCodePlayerHandler : NetworkBehaviour
         _player = GetComponent<PlayerController>();
         _textPopup = GetComponent<TextPopup>();
     }
+    //플레이어위치보강******************************************************************************************************
 
-    /*플레이어텔레포트******************************************************************************************************/
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdatePositionServerRpc(Vector3 correctedPosition)
+    {
+        // 서버에서 위치를 다시 한 번 보정
+        transform.position = correctedPosition;
+    }
+
+    //플레이어텔레포트******************************************************************************************************
     public void TeleportRequest(Vector3 newPosition)
     {
         if (IsHost)
@@ -28,6 +36,8 @@ public class NetCodePlayerHandler : NetworkBehaviour
         }
 
         TeleportLocal(newPosition); // 로컬도 이동
+
+        UpdatePositionServerRpc(newPosition);
     }
 
     private void TeleportLocal(Vector3 newPosition)
@@ -35,7 +45,9 @@ public class NetCodePlayerHandler : NetworkBehaviour
         transform.position = newPosition;
     }
 
-    [ServerRpc]
+ 
+
+    [ServerRpc(RequireOwnership = false)]
     private void TeleportServerRpc(Vector3 newPosition)
     {
         TeleportClientRpc(newPosition);
@@ -49,7 +61,7 @@ public class NetCodePlayerHandler : NetworkBehaviour
         TeleportLocal(newPosition);
     }
 
-    /*플레이어이동******************************************************************************************************/
+    //플레이어이동******************************************************************************************************
 
     public void MoveRequest(Vector2 deltaDir)
     {
@@ -76,7 +88,38 @@ public class NetCodePlayerHandler : NetworkBehaviour
         _player.SetMoveDir(deltaDir);
     }
 
-    /*Skill_1******************************************************************************************************/
+    public void OnMoveReleased(Vector3 currentPosition)
+    {
+        if (IsHost)
+        {
+            StopMoveClientRpc(currentPosition);
+        }
+        else
+        {
+            StopMoveServerRpc(currentPosition);
+        }
+
+        _player.SetMoveDir(Vector2.zero);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void StopMoveServerRpc(Vector3 correctedPosition)
+    {
+        StopMoveClientRpc(correctedPosition);
+        _player.SetMoveDir(Vector2.zero);
+        transform.position = correctedPosition; // 보강
+    }
+
+    [ClientRpc]
+    private void StopMoveClientRpc(Vector3 correctedPosition)
+    {
+        if (IsOwner) return;
+
+        _player.SetMoveDir(Vector2.zero);
+        transform.position = correctedPosition; // 클라이언트도 보강 (추가적으로)
+    }
+
+    //Skill_1******************************************************************************************************
 
     public void Skill_1Request(Vector2 spawnPosition)
     {

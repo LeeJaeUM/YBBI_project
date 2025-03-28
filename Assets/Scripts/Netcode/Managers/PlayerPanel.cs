@@ -12,46 +12,62 @@ public class PlayerPanel
 
     public PlayerPanel(Transform panelTransform)
     {
-        _nameText = panelTransform.Find("Name").GetComponent<TextMeshProUGUI>();
-        _readyToggle = panelTransform.Find("IsReady").GetComponent<Toggle>();
-        _JobSelectButton = panelTransform.Find("PlayerJobButton").GetComponent<Button>();
-        _toggleImage = panelTransform.Find("IsReady").GetComponent<Image>();
-        _playerJobImage = panelTransform.Find("PlayerJobButton").GetComponent<Image>();
+        _nameText = panelTransform.Find("Name")?.GetComponent<TextMeshProUGUI>();
+        _readyToggle = panelTransform.Find("IsReady")?.GetComponent<Toggle>();
+        _JobSelectButton = panelTransform.Find("PlayerJobButton")?.GetComponent<Button>();
+        _toggleImage = panelTransform.Find("IsReady")?.GetComponent<Image>();
+        _playerJobImage = panelTransform.Find("PlayerJobButton")?.GetComponent<Image>();
 
-        _JobSelectButton.onClick.AddListener(UIManager.Instance.ShowJobSelectCanv);
+        if (_JobSelectButton != null)
+        {
+            _JobSelectButton.onClick.AddListener(UIManager.Instance.ShowJobSelectCanv);
+        }
     }
 
     public void UpdatePanel(string playerName, bool isReady, int playerJobIndex, Sprite[] sprites, bool isHost)
     {
-        _nameText.text = playerName;
-        _readyToggle.isOn = isReady;
-        if (sprites.Length > playerJobIndex)
-        {
-            _playerJobImage.sprite = sprites[playerJobIndex]; // 인덱스에 따라 이미지 변경
-        }
+        if (_nameText != null)
+            _nameText.text = playerName;
+
+        if (_readyToggle != null)
+            _readyToggle.isOn = isReady;
+
+        if (_playerJobImage != null && sprites != null && playerJobIndex >= 0 && playerJobIndex < sprites.Length)
+            _playerJobImage.sprite = sprites[playerJobIndex];
+
         if (!isHost)
         {
             ToggleImageChange(isReady);
         }
     }
 
-
     public void ToggleImageChange(bool isReady)
     {
-        _toggleImage.color = isReady ? Color.green : Color.white;
+        if (_toggleImage != null)
+            _toggleImage.color = isReady ? Color.green : Color.white;
     }
+
     public string GetNameFromPanel()
     {
-        return _nameText.text;
+        return _nameText != null ? _nameText.text : "Unknown";
     }
+
     public void ResetPanel()
     {
-        _nameText.text = "ID";
-        _readyToggle.isOn = false;
-        _playerJobImage.sprite = null;
+        if (_nameText != null)
+            _nameText.text = "ID";
+
+        if (_readyToggle != null)
+            _readyToggle.isOn = false;
+
+        if (_playerJobImage != null && _playerJobImage.gameObject != null)
+            _playerJobImage.sprite = null;
     }
+
     public string ReturnDataString()
     {
-        return $"{_nameText.text}, {_readyToggle.isOn}";
+        return $"{_nameText?.text ?? "Unknown"}, {_readyToggle?.isOn.ToString() ?? "false"}";
     }
 }
+
+

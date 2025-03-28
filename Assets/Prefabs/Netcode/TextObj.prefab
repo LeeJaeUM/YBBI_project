@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 4873063822323636872}
   - component: {fileID: 531613599558739681}
   - component: {fileID: -4573986232447633769}
-  m_Layer: 0
+  - component: {fileID: 1872617096425268234}
+  - component: {fileID: 2017642112192106830}
+  m_Layer: 5
   m_Name: TextObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,6 +191,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c06191d57254a49906a9c78b83cf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NetworkObject: {fileID: 8371452154672357554, guid: 833fc61c5767d9c459cfdc67f952c915, type: 3}
   _destroyTime: 5
   _tmpText: {fileID: 531613599558739681}
+--- !u!114 &1872617096425268234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393577986598681031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!210 &2017642112192106830
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393577986598681031}
+  m_Enabled: 1
+  m_SortingLayerID: 1446424193
+  m_SortingLayer: 3
+  m_SortingOrder: 5
+  m_SortAtRoot: 0
