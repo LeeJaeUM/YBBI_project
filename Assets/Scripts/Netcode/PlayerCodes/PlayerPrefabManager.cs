@@ -18,7 +18,7 @@ public class PlayerPrefabManager : NetworkBehaviour
     private async void SpawnPlayerForClient(ulong clientId)
     {
         string joinCode = UIManager.Instance.GetSavedJoinCode(); // 저장해둔 값
-        int playerIndex = int.Parse(clientId.ToString()); // 이 함수는 따로 구현 필요
+        int playerIndex = int.Parse(clientId.ToString());
 
         int jobIndex = await NetcodeFireBaseManager.Instance.GetSessionPlayerJobIndex(joinCode, playerIndex) - 1;
 

@@ -8592,7 +8592,7 @@ GameObject:
   - component: {fileID: 6740552014119554020}
   - component: {fileID: 7517673425886973440}
   m_Layer: 0
-  m_Name: BaseMap
+  m_Name: TestBaseMap
   m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

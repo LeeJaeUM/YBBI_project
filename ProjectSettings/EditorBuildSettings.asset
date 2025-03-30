@@ -38,12 +38,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestScene/Firebase/03_AnotherStyleDemo.unity
     guid: 9700de6324a4b9d4789e59e1d34d6e58
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/NetCode/NetCodeTest.unity
     guid: d95686b44866362438b33201e9c062b8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/NetCode/NetCodeGameStart.unity
     guid: 42c166786fc8f2142bb1ec2d323e99bb
+  - enabled: 1
+    path: Assets/The Game/Lobby&SessionScene.unity
+    guid: c84d3891593058a4bb64754023d7e5ba
+  - enabled: 1
+    path: Assets/The Game/InGameScene.unity
+    guid: 5d2c4a11fc7425441842181a2f6c692b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
