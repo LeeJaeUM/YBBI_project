@@ -80,18 +80,36 @@ public class Inventory : MonoBehaviour
 
     public void CreateItem(int index)
     {
-        var curSlot = _slotList.Find((_slot) => _slot.IsEmpty);
-
-        if ( curSlot != null)
+        // 슬롯 리스트의 각 슬롯을 순차적으로 확인
+        for (int i = 0; i < _slotList.Count; i++)
         {
-            var obj = Instantiate(_itemPrefab);
-            var type = (ItemType)index;
-            int count = 1;
-            var item = obj.GetComponent<Item>();
-            ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };
-            item.SetItem(this, itemInfo);
-            curSlot.SetSlot(item);
+            var curSlot = _slotList[i];
+
+            // 슬롯이 비어있다면 새로운 아이템 생성
+            if (curSlot.IsEmpty)
+            {
+                var obj = Instantiate(_itemPrefab);
+                var type = (ItemType)index;
+                int count = 1;
+                var item = obj.GetComponent<Item>();
+                ItemInfo itemInfo = new ItemInfo() { _data = _itemTable[type], _count = count };
+                item.SetItem(this, itemInfo);
+                curSlot.SetSlot(item);
+                return; 
+            }
+            else
+            {
+                var existingItem = curSlot.GetItem(); 
+                if (existingItem != null && existingItem.ItemType == (ItemType)index)
+                { 
+                    existingItem.IncreaseCount();
+                    return;
+                }
+            }
         }
+
+        // 만약 슬롯 리스트에 빈 공간이 없다면, 필요에 따라 추가적인 처리
+        Debug.Log("No empty slots available!");
     }
 
 
@@ -112,13 +130,5 @@ public class Inventory : MonoBehaviour
         CreateSlot(10);
         _cursorSprite.enabled = false;
         gameObject.SetActive(false);    
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            // CreateItem();
-        }
     }
 }

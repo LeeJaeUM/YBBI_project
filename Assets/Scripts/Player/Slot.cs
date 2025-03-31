@@ -12,6 +12,8 @@ public class Slot : MonoBehaviour
     [SerializeField]
     Inventory _inventory;
 
+    private Item _storedItem;
+
     public bool IsSelected { get { return _isSelected; } set { _isSelected = value; } }
 
     public bool IsEmpty { get { return _item == null; } }
@@ -24,9 +26,15 @@ public class Slot : MonoBehaviour
     public void SetSlot(Item item)
     {
         _item = item;
+        _storedItem = item;
         _item.transform.SetParent(transform);
         _item.transform.localPosition = Vector3.zero;
         _item.transform.localScale = Vector3.one;
+    }
+
+    public Item GetItem() 
+    { 
+        return _storedItem;
     }
 
     public void UseItem()

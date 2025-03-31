@@ -13,10 +13,13 @@ public class Item : MonoBehaviour
     [SerializeField]
     ItemInfo _itemInfo;
 
+    public ItemType ItemType { get; private set; }
+
     public void SetItem(Inventory inven, ItemInfo itemInfo)
     {
         _itemInfo = itemInfo;
         _icon.sprite = inven.GetIcon(_itemInfo._data._icon);
+        ItemType = _itemInfo._data._id;
         SetCount();
     }
 
@@ -36,5 +39,11 @@ public class Item : MonoBehaviour
     void SetCount()
     {
         _count.text = _itemInfo._count.ToString();
+    }
+
+    public void IncreaseCount()
+    {
+        _itemInfo._count++;
+        SetCount();
     }
 }
