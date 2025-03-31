@@ -25,10 +25,6 @@ public class Inventory : MonoBehaviour
 
     public Sprite GetIcon(int index)
     {
-        foreach (var a in _iconSprites)
-        {
-            Debug.Log("ddd");
-        }
         return _iconSprites[index];
     }
 
