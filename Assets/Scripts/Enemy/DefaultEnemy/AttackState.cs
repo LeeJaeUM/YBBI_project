@@ -10,6 +10,7 @@ public class AttackState : IEnemyState
         if(!enemy.GetIsAttacking())
         {
             enemy.SetIsAttacking(true);
+            enemy.SetRandomAttackPatern();
             enemy.StartAttack();
         }
         else

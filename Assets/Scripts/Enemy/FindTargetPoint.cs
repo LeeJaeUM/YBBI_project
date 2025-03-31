@@ -5,12 +5,17 @@ using static Enums;
 public class FindTargetPoint : MonoBehaviour
 {
     public Transform Player { get; private set; }
-    public float visionRange = 4f;  // 시야 거리 : 반지름 (최대 거리)
-    public float visionAngle = 20f;  // 시야 각도 (양옆 20도)
+    public float _visionRange = 4f;  // 시야 거리 : 반지름 (최대 거리)
+    public float _visionAngle = 20f;  // 시야 각도 (양옆 20도)
     public Vector2 _moveForward = Vector2.zero;
     public bool _isChasing = false;
 
     //public Action OnFindTarget;
+
+    public void SetVisionRange(float visionRange)
+    {
+        _visionRange = visionRange;
+    }
 
     /// <summary>
     /// 시야 범위 안에 플레이어가 있는지 확인하는 함수 : Patrol 상태때만 update에서 실행
@@ -24,12 +29,12 @@ public class FindTargetPoint : MonoBehaviour
         float distanceToPlayer = directionToPlayer.magnitude;  // 적과 플레이어 간의 거리
 
         // 플레이어가 시야 범위 내에 있는지 확인 (거리)
-        if (distanceToPlayer <= visionRange)
+        if (distanceToPlayer <= _visionRange)
         {
             // 플레이어가 적의 바라보는 방향에 있는지 확인 (각도)
             float angleToPlayer = Vector2.Angle(_moveForward, directionToPlayer);  // transform.up은 적이 바라보는 방향
 
-            if (angleToPlayer <= visionAngle)
+            if (angleToPlayer <= _visionAngle)
             {
                 // 플레이어가 시야 각도 범위 내에 있으면 상태를 변경
                 Debug.LogWarning("플레이어 찾음 액션날림");
@@ -40,9 +45,9 @@ public class FindTargetPoint : MonoBehaviour
 
         // 디버그용으로 적의 시야 범위를 그려주는 코드
         // 적의 바라보는 방향을 기준으로 원 범위 안에 있는지 확인
-        Debug.DrawRay(transform.position, _moveForward * visionRange, Color.green);  // 적의 앞 방향을 향한 시야 거리
-        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, -visionAngle) * _moveForward * visionRange, Color.red);  // 시야 각도 왼쪽
-        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, visionAngle) * _moveForward * visionRange, Color.red);  // 시야 각도 오른쪽
+        Debug.DrawRay(transform.position, _moveForward * _visionRange, Color.green);  // 적의 앞 방향을 향한 시야 거리
+        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, -_visionAngle) * _moveForward * _visionRange, Color.red);  // 시야 각도 왼쪽
+        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, _visionAngle) * _moveForward * _visionRange, Color.red);  // 시야 각도 오른쪽
 
         return false;
     }

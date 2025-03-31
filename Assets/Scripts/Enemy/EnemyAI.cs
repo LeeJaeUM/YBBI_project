@@ -60,8 +60,6 @@ public class EnemyAI : MonoBehaviour
         _currentState.Enter(this);
     }
 
-
-
     public void EnemyMove(Vector2 direction)
     {
         transform.Translate(direction * _speed * Time.deltaTime);
@@ -71,6 +69,11 @@ public class EnemyAI : MonoBehaviour
         //transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    public void StartAttack()
+    {
+        _enemyATKStats.Attack(_findTargetPoint.GetTargetDirection());
+    }
+
     public void SetRandomAttackPatern()
     {
         int randomIndex = Random.Range(0, _maxPaternNumber);  // 1 ~ max-1 랜덤 값0
@@ -78,10 +81,6 @@ public class EnemyAI : MonoBehaviour
         _enemyATKStats.SetSkillData(randomIndex);
     }
 
-    public void StartAttack()
-    {
-        _enemyATKStats.Attack(_findTargetPoint.GetTargetDirection());
-    }
     public void SetPlayer()
     {
         Player = _findTargetPoint.Player;

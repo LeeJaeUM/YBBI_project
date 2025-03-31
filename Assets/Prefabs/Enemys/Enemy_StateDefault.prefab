@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 8852696980550195802}
   - component: {fileID: 1859072663928137634}
   - component: {fileID: 9191551375935444347}
+  - component: {fileID: 404987338087079165}
   m_Layer: 0
   m_Name: Enemy_StateDefault
   m_TagString: Enemy
@@ -241,10 +242,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentStateType: 0
-  _speed: 2
-  _chaseExitDistance: 4
-  _attackRange: 2
+  _speed: 3.12
+  _chaseExitDistance: 9
+  _attackRange: 6
   _curATKPatern: 0
+  _isAttacking: 0
+  _isAttackFinished: 0
   _maxPaternNumber: 2
   _findTargetPoint: {fileID: 0}
 --- !u!114 &1859072663928137634
@@ -275,12 +278,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skills:
-  - {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
   - {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
+  - {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
   _curSkill: {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   _spawnDistance: 1
-  _bullet: {fileID: 0}
+  _bullet: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
   _curAttackDamage: 2
+  _attackPreDelay: 0.5
+  _attackEndDelay: 0.5
+--- !u!114 &404987338087079165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744865221038294097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2229f81336ed1254ebda331ba1da8923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minusAirPersec: 1
 --- !u!1 &5865167942674616530
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc19d88e0c5e4c42ab044967af217f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRange: 4
-  visionAngle: 20
+  _visionRange: 4
+  _visionAngle: 20
   _moveForward: {x: 0, y: 0}
   _isChasing: 0
 --- !u!50 &6468353719087338639

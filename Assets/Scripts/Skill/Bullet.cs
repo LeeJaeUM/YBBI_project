@@ -5,7 +5,8 @@ public class Bullet : MonoBehaviour
 {
     public bool _isPlayers = true;
     public float _lifeTime = 2;
-    public bool _isPlusAir = false;
+    public bool _isPlusAir = false;     //데미지가 +인지 -인지 판단하는 변수
+    public float _damageMul = 1;        //데미지가 +인지 -인지 정하는 1/-1 곱하기용 변수
     public float _damage = 5;
     public float _speed = 6f; // 총알 속도
     public Vector2 _arrowVec = Vector2.right;
@@ -42,24 +43,23 @@ public class Bullet : MonoBehaviour
     }
 
 
+    private void CheckBullet(UnitHealth unitHealth)
+    {
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_canTrigger)
         {
             if (_isPlayers)
             {
-
                 if (collision.CompareTag("Enemy"))
                 {
                     // Debug.Log($"{collision.gameObject.name} 이 닿음");
-                    if (!_isPlusAir)
-                    {
+                    UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
+                    unitHealth.AddAir(_damage * _damageMul);
                         // Debug.Log("데미지 총알");
-                    }
-                    else
-                    {
-                        // Debug.Log("회복 총알");
-                    }
                     StopAllCoroutines();
                     gameObject.SetActive(false); //움직임 종료
                 }
@@ -69,14 +69,8 @@ public class Bullet : MonoBehaviour
                 if (collision.CompareTag("Player"))
                 {
                     // Debug.Log($"{collision.gameObject.name} 이 닿음");
-                    if (!_isPlusAir)
-                    {
-                        // Debug.Log("데미지 총알");
-                    }
-                    else
-                    {
-                        // Debug.Log("회복 총알");
-                    }
+                    UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
+                    unitHealth.AddAir(_damage * _damageMul);
                     StopAllCoroutines();
                     gameObject.SetActive(false); //움직임 종료
                 }
@@ -87,6 +81,13 @@ public class Bullet : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         _canTrigger = true;
+    }
+
+    private void Awake()
+    {
+        if (!_isPlusAir)
+            _damageMul = -1;
+
     }
     private void Update()
     {

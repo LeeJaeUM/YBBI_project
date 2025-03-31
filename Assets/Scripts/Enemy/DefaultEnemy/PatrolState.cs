@@ -16,6 +16,7 @@ public class PatrolState : IEnemyState
         Debug.Log($"{enemy.name} is now Patrol");
         _patrolStartVec = enemy.StartPatrolPoint;
         _patrolEndVec = enemy.EndPatrolPoint;
+        enemy._findTargetPoint.SetVisionRange(enemy._attackRange);
     }
 
     public void Execute(EnemyAI enemy)

@@ -12,7 +12,7 @@ public class EnemyATKStats : MonoBehaviour
     public GameObject _bullet;
     public float _curAttackDamage = 2;
     public float _attackPreDelay = 0.5f;
-    public float _attackEndDelay = 2f;
+    public float _attackEndDelay = 1f;
 
     public Action<bool> OnFinishedAttack;
 
@@ -66,11 +66,12 @@ public class EnemyATKStats : MonoBehaviour
     IEnumerator CooldownCoroutine(Vector3 direction)
     {
         Debug.Log("공격 시작");
-        float coolDown = _curSkill._coolDown - _attackPreDelay;
-        yield return new WaitForSeconds(_attackPreDelay); //쿨다운 동안 대기
+        float coolDown = _curSkill._coolDown;
+        yield return new WaitForSeconds(_attackPreDelay); //공격전 딜레이만큼 대기
         CreateBullet(_curSkill, direction);
+        yield return new WaitForSeconds(_attackEndDelay); //공격후 딜레이만큼 대기
         OnFinishedAttack?.Invoke(true);
-        yield return new WaitForSeconds(_attackEndDelay + coolDown); //쿨다운 동안 대기
+        yield return new WaitForSeconds(coolDown); //쿨다운 동안 대기
         OnFinishedAttack?.Invoke(false);
         Debug.Log("공격 시작");
     }
