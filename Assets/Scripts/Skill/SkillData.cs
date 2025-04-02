@@ -14,5 +14,7 @@ public class SkillData : ScriptableObject
     public float _radius = 1.0f;        //공격 범위
     public float _moveSpeed = 3;        //투사체 속도
     public float _activeTime = 3;       //투사체 유지 시간
+    public float _attackPreDelay = 0;   //공격 전 딜레이
+    public float _attackEndDelay = 0;   // 공격 후 딜레이
     public int _level;                  // 스킬 레벨
 }

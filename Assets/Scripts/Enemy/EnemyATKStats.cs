@@ -67,9 +67,9 @@ public class EnemyATKStats : MonoBehaviour
     {
         Debug.Log("공격 시작");
         float coolDown = _curSkill._coolDown;
-        yield return new WaitForSeconds(_attackPreDelay); //공격전 딜레이만큼 대기
+        yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기
         CreateBullet(_curSkill, direction);
-        yield return new WaitForSeconds(_attackEndDelay); //공격후 딜레이만큼 대기
+        yield return new WaitForSeconds(_curSkill._attackEndDelay); //공격후 딜레이만큼 대기
         OnFinishedAttack?.Invoke(true);
         yield return new WaitForSeconds(coolDown); //쿨다운 동안 대기
         OnFinishedAttack?.Invoke(false);
