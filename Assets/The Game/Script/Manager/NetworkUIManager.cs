@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class NetworkUIManager : MonoBehaviour
 {
-    [SerializeField] NetworkSkillCoolDownUI[] networkSkillCoolDownUIs;
+    [SerializeField] NetworkSkillCoolDownUI[] _networkSkillCoolDownUIs;
+    [SerializeField] NetworkJoyStick _networkJoyStick;
 
     private void Awake()
     {
-        networkSkillCoolDownUIs = GetComponentsInChildren<NetworkSkillCoolDownUI>();
+        _networkSkillCoolDownUIs = GetComponentsInChildren<NetworkSkillCoolDownUI>();
     }
 
     public void SetUpUIsInStart(PlayerATKStats playerAtkStats, TheGamePlayerInputHandler theGamePlayerInput)
     {
-        for (int i = 0; i < networkSkillCoolDownUIs.Length; i++)
+        for (int i = 0; i < _networkSkillCoolDownUIs.Length; i++)
         {
-            networkSkillCoolDownUIs[i].SetUpStart(playerAtkStats, theGamePlayerInput);
+            _networkSkillCoolDownUIs[i].SetUpStart(playerAtkStats, theGamePlayerInput);
         }
     }
 }
