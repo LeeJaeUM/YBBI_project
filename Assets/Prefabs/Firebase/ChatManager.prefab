@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7130796117651944443}
   - component: {fileID: 3939693997150504369}
-  - component: {fileID: 7509044163113624119}
   m_Layer: 0
   m_Name: ChatManager
   m_TagString: Untagged
@@ -45,15 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1db9a1dcd595c04eae8cf81320a324d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7509044163113624119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7823200850864726388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7b3e0c9926b41d4c8c6cb87f26731e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _nicname: null nick
