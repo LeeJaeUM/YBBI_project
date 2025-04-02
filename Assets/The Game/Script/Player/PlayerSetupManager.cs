@@ -1,12 +1,25 @@
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Lumin;
 
 public class PlayerSetupManager : NetworkBehaviour
 {
-    SkillCoolDownUIManager skillCoolDownUI;
-    PlayerATKStats playerATKStats;
+    [SerializeField] NetworkUIManager networkUIUIManager;
+    [SerializeField] PlayerATKStats playerATKStats;
+    [SerializeField] TheGamePlayerInputHandler theGamePlayerInputHandler;
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        SetUp();
+    }
 
     void Start()
+    {
+       // SetUp();
+    }
+
+    private void SetUp()
     {
         if (!IsOwner) return;
 
@@ -19,14 +32,17 @@ public class PlayerSetupManager : NetworkBehaviour
         }
 
         // 씬에 존재하는 SkillCoolDownUI 찾기
-        skillCoolDownUI = FindObjectOfType<SkillCoolDownUIManager>();
-        if (skillCoolDownUI == null)
+        networkUIUIManager = FindObjectOfType<NetworkUIManager>();
+        
+        if (networkUIUIManager == null)
         {
             Debug.LogError("씬에서 SkillCoolDownUI를 찾을 수 없음!");
             return;
         }
 
+        theGamePlayerInputHandler = GetComponent<TheGamePlayerInputHandler>();
+
         // SkillCoolDownUI 세팅
-        skillCoolDownUI.SetUpStart(playerATKStats);
+        networkUIUIManager.SetUpUIsInStart(playerATKStats, theGamePlayerInputHandler);
     }
 }

@@ -14,11 +14,20 @@ public class TheGamePlayerInputHandler : NetworkBehaviour
     public event Action OnPressureSkillInput; // 압력 스킬 입력 이벤트
     public event Action OnUniqueSkillInput; // 유니크 스킬 입력 이벤트
 
+    private void Start()
+    {
+        //타 플레이어의 입력은 끔
+        if(!IsLocalPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = false;
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext value)
     {
         if (!IsOwner) return; 
         OnMoveInput?.Invoke(value.ReadValue<Vector2>()); // 이동 입력이 들어올 때만 이벤트 실행
-        
+        TestInputCheck(value, "move");
     }
 
     public void OnAttack(InputAction.CallbackContext value)
@@ -28,18 +37,25 @@ public class TheGamePlayerInputHandler : NetworkBehaviour
             OnAttackInput?.Invoke(true);
         else if(value.canceled)
             OnAttackInput?.Invoke(false);
+        TestInputCheck(value, "attack");
     }
 
     public void OnPressureSkill(InputAction.CallbackContext value)
     {
         if (!IsOwner) return;
         OnPressureSkillInput?.Invoke();
+        TestInputCheck(value, "Air");
     }
 
     public void OnUniqueSkill(InputAction.CallbackContext value)
     {
         if (!IsOwner) return;
-        //Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnUniqueSkillInput?.Invoke();
+        TestInputCheck(value, "unique");
+    }
+
+    private void TestInputCheck(InputAction.CallbackContext value, string name)
+    {
+        Debug.Log($"{name} : {value.started}, {value.performed},  {value.canceled} ");
     }
 }

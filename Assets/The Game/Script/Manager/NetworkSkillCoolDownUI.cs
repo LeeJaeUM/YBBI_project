@@ -5,8 +5,9 @@ using System.Collections;
 using UnityEngine.InputSystem.OnScreen;
 using static Enums;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-public class SkillCoolDownUIManager : MonoBehaviour
+public class NetworkSkillCoolDownUI : MonoBehaviour
 {
     public Enums.SkillType btnType;
 
@@ -84,15 +85,8 @@ public class SkillCoolDownUIManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (_isButtonHeld)
-        {
 
-        }
-    }
-
-    private void Awake()
+    private void RinkInputHandler()
     {
         if (_inputHandler != null)   // 이벤트 구독
         {
@@ -114,6 +108,41 @@ public class SkillCoolDownUIManager : MonoBehaviour
         }
     }
 
+
+
+    public void SetUpStart(PlayerATKStats playerAtkStats, TheGamePlayerInputHandler theGamePlayerInput)
+    {
+        Debug.Log($"{gameObject.name}의 셋업 시작");
+        _playerATKStats = playerAtkStats.GetComponent<PlayerATKStats>();
+        _inputHandler = theGamePlayerInput;
+        _screenButton = GetComponent<OnScreenButton>();
+        _coolDownText = GetComponentInChildren<TextMeshProUGUI>();
+
+        RinkInputHandler();
+
+        _baseAtkBtn.onClick.AddListener(OnClickButton);
+        _coolDownText.enabled = false;
+
+        if (_coolDownImg != null)
+        {
+            _coolDownImg.fillAmount = 1;
+        }
+        switch (btnType)
+        {
+            case Enums.SkillType.NONE:
+                Debug.Log("공격버튼에 아무것도 할당되지 않음");
+                break;
+            case Enums.SkillType.Normal:
+                _coolDown = _playerATKStats.GetNormalCoolDown();
+                break;
+            case Enums.SkillType.Pressure:
+                _coolDown = _playerATKStats.GetPressureSkillCoolDown();
+                break;
+            case Enums.SkillType.Unique:
+                _coolDown = _playerATKStats.GetUniqueSkillCoolDown();
+                break;
+        }
+    }
     private void OnDestroy()
     {
         if (_inputHandler != null)   // 이벤트 구독
@@ -136,41 +165,6 @@ public class SkillCoolDownUIManager : MonoBehaviour
         }
 
     }
-    void Start()
-    {
-    }
-
-    public void SetUpStart(PlayerATKStats playerAtkStats)
-    {
-        Debug.Log("셋업 시작");
-        _baseAtkBtn.onClick.AddListener(OnClickButton);
-        _coolDownText.enabled = false;
-
-        if (_coolDownImg != null)
-        {
-            _coolDownImg.fillAmount = 1;
-        }
-        _playerATKStats = playerAtkStats.GetComponent<PlayerATKStats>();
-        switch (btnType)
-        {
-            case Enums.SkillType.NONE:
-                Debug.Log("공격버튼에 아무것도 할당되지 않음");
-                break;
-            case Enums.SkillType.Normal:
-                _coolDown = _playerATKStats.GetNormalCoolDown();
-                break;
-            case Enums.SkillType.Pressure:
-                _coolDown = _playerATKStats.GetPressureSkillCoolDown();
-                break;
-            case Enums.SkillType.Unique:
-                _coolDown = _playerATKStats.GetUniqueSkillCoolDown();
-                break;
-        }
-
-        _screenButton = GetComponent<OnScreenButton>();
-        _coolDownText = GetComponentInChildren<TextMeshProUGUI>();
-    }
-
     //public void OnPointerDown(PointerEventData eventData)
     //{
     //    // 버튼을 꾹 눌렀을 때
