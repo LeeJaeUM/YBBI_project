@@ -11,6 +11,7 @@ public class PlayerJobPrefabManager : NetworkBehaviour
 
         foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
+            Debug.Log($"플레이어ID : {clientId}스폰성공");
             SpawnPlayerForClient(clientId);
         }
     }

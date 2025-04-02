@@ -4,14 +4,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerPosRPC : NetworkBehaviour
 {
-    [SerializeField] private GameObject _textObj;
+    //[SerializeField] private GameObject _textObj;
 
-    private ulong _playerId;
-    private GamePlayerInputHandler _player;
+    //private ulong _playerId;
+    private TheGamePlayerMover _player;
     //private TextPopup _textPopup;
     private void Start()
     {
-        _player = GetComponent<GamePlayerInputHandler>();
+        _player = GetComponent<TheGamePlayerMover>();
         //_textPopup = GetComponent<TextPopup>();
     }
     //플레이어위치보강******************************************************************************************************
@@ -78,13 +78,13 @@ public class PlayerPosRPC : NetworkBehaviour
     private void UpdateMovePosServerRpc(Vector2 deltaDir)
     {
         UpdateMovePosClientRpc(deltaDir);
-        _player.SetMoveDir(deltaDir);
+        _player.SetMoveVector(deltaDir);
     }
 
     [ClientRpc]
     private void UpdateMovePosClientRpc(Vector2 deltaDir)
     {
-        _player.SetMoveDir(deltaDir);
+        _player.SetMoveVector(deltaDir);
     }
 
     public void OnMoveReleased(Vector3 currentPosition)
@@ -98,14 +98,14 @@ public class PlayerPosRPC : NetworkBehaviour
             StopMoveServerRpc(currentPosition);
         }
 
-        _player.SetMoveDir(Vector2.zero);
+        _player.SetMoveVector(Vector2.zero);
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void StopMoveServerRpc(Vector3 correctedPosition)
     {
         StopMoveClientRpc(correctedPosition);
-        _player.SetMoveDir(Vector2.zero);
+        _player.SetMoveVector(Vector2.zero);
         transform.position = correctedPosition; // 보강
     }
 
@@ -114,7 +114,7 @@ public class PlayerPosRPC : NetworkBehaviour
     {
         if (IsOwner) return;
 
-        _player.SetMoveDir(Vector2.zero);
+        _player.SetMoveVector(Vector2.zero);
         transform.position = correctedPosition; // 클라이언트도 보강 (추가적으로)
     }
 

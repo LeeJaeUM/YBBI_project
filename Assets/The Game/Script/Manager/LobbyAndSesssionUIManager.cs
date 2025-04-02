@@ -76,6 +76,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
     private void Start()
     {
+
         _maxConnections = LobbyAndSesssionFireBaseManager.Instance.GetMaxConnection();
         // UI 프리팹을 인스턴스화하고 초기화
         _sessionListUI = Instantiate(_sessionListPrefab, transform);
@@ -134,6 +135,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(true);
         _createSessionUI.SetActive(false);
        _JobSelectCanv.gameObject.SetActive(false);
+
     }
 
     
@@ -150,6 +152,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         }
         return null;
     }
+
 
     private void ShowInSessionUI()
     {
@@ -179,6 +182,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _inSessionUI.SetActive(false);
     }
+
     public void ShowJobSelectCanv()
     {
         _JobSelectCanv.gameObject.SetActive(true);
