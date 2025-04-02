@@ -529,12 +529,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2536303361309978070, guid: 673f29082a97acc4eb348550831b7421, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671119934517487926, guid: 673f29082a97acc4eb348550831b7421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4599551950041902797, guid: 673f29082a97acc4eb348550831b7421, type: 3}
       propertyPath: m_Name
       value: PlayersUI_addManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7921637712693059208, guid: 673f29082a97acc4eb348550831b7421, type: 3}
+      propertyPath: _itemTable
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4257650088340128893, guid: 673f29082a97acc4eb348550831b7421, type: 3}
+    - {fileID: 7602048257614561864, guid: 673f29082a97acc4eb348550831b7421, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 673f29082a97acc4eb348550831b7421, type: 3}

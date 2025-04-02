@@ -2373,27 +2373,27 @@ MonoBehaviour:
     _property: 0
     _icon: 0
     _value: 0
-    _price: 0
+    _price: 10
   - _id: 1
     _property: 0
     _icon: 1
     _value: 0
-    _price: 0
+    _price: 30
   - _id: 2
-    _property: 0
+    _property: 1
     _icon: 2
     _value: 0
-    _price: 0
+    _price: 5
   - _id: 3
-    _property: 0
+    _property: 1
     _icon: 3
     _value: 0
-    _price: 0
+    _price: 45
   - _id: 4
     _property: 1
     _icon: 4
     _value: 0
-    _price: 0
+    _price: 50
 --- !u!4 &1362513268
 Transform:
   m_ObjectHideFlags: 0
