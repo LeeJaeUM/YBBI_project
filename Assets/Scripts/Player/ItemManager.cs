@@ -41,6 +41,11 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         inventory.CreateItem(index);
     }
 
+    public void SetInvenItemZero()
+    {
+        inventory.SetItemZero();
+    }
+
     void SetRandomPosition()
     {
         Rect canvasRect = _canvasPos.rect;

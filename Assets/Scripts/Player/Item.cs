@@ -31,6 +31,7 @@ public class Item : MonoBehaviour
         if (_itemInfo._count <= 0)
         {
             Destroy(gameObject);
+            ItemManager.Instance.SetInvenItemZero();
         }
 
         return _itemInfo._count;

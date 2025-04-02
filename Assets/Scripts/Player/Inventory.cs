@@ -11,11 +11,11 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     GameObject _itemPrefab;
     [SerializeField]
-    ItemDataTable _itemTable;
-    [SerializeField]
-    Image _cursorSprite;
+    ItemDataTable _itemTable;  
     [SerializeField]
     GridLayoutGroup _slotGrid;
+    [SerializeField]
+    Image _cursorSprite;
     [SerializeField]
     public Sprite[] _iconSprites;
     [SerializeField]
@@ -58,6 +58,11 @@ public class Inventory : MonoBehaviour
         {
             curslot.UseItem();
         }
+    }
+
+    public void SetItemZero()
+    {
+        _cursorSprite.enabled = false;
     }
 
     public void CreateSlot(int count)
