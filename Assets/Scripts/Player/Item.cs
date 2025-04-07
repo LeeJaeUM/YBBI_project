@@ -47,4 +47,14 @@ public class Item : MonoBehaviour
         _itemInfo._count++;
         SetCount();
     }
+
+    public int GetPrice()
+    {
+        return _itemInfo._data._price;
+    }
+
+    public ItemInfo GetItemInfo()
+    {
+        return _itemInfo;
+    }
 }

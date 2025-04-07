@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     public Sprite[] _iconSprites;
     [SerializeField]
-    List<Slot> _slotList = new List<Slot>();
+    public List<Slot> _slotList = new List<Slot>();
 
     public bool IsOpened { get { return gameObject.activeSelf; } }
 
@@ -113,6 +113,18 @@ public class Inventory : MonoBehaviour
         Debug.Log("No empty slots available!");
     }
 
+    public void RemoveAllItems()
+    {
+        foreach (var slot in _slotList)
+        {
+            var item = slot.GetItem();
+            if (item != null)
+            {
+                Destroy(item.gameObject);  
+                slot.SetSlot(null);  
+            }
+        }
+    }
 
     public void InvenUpgrade()
     {
