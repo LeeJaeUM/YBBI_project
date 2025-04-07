@@ -16,7 +16,8 @@ public enum ItemType
 public enum ItemProperty
 {
     Use,
-    Make
+    Make,
+    Sell
 }
 
 [Serializable]

@@ -60,7 +60,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void SetItemZero()
+    public void SetCursorNull()
     {
         _cursorSprite.enabled = false;
     }
@@ -81,12 +81,10 @@ public class Inventory : MonoBehaviour
 
     public void CreateItem(int index)
     {
-        // 슬롯 리스트의 각 슬롯을 순차적으로 확인
         for (int i = 0; i < _slotList.Count; i++)
         {
             var curSlot = _slotList[i];
 
-            // 슬롯이 비어있다면 새로운 아이템 생성
             if (curSlot.IsEmpty)
             {
                 var obj = Instantiate(_itemPrefab);
@@ -118,17 +116,54 @@ public class Inventory : MonoBehaviour
         foreach (var slot in _slotList)
         {
             var item = slot.GetItem();
+
             if (item != null)
             {
-                Destroy(item.gameObject);  
-                slot.SetSlot(null);  
+                var itemInfo = item.GetItemInfo();
+
+                if (itemInfo._data._property == ItemProperty.Sell)
+                {
+                    Destroy(item.gameObject);
+                }
             }
+        }
+    }
+
+    public void CleanInventorySlots()
+    {
+        int itemIndex = 0;
+
+        for (int i = 0; i < _slotList.Count; i++)
+        {
+            if (!_slotList[i].IsEmpty)
+            {
+                if (i != itemIndex)
+                {
+                    var item = _slotList[i].GetItem();
+                    _slotList[itemIndex].SetSlot(item);
+                    _slotList[i].SetSlot(null);
+                }
+
+                itemIndex++;
+            }
+        }
+        
+        // 슬롯 상태 확인 (디버깅용)
+        Debug.Log($"슬롯 개수: {_slotList.Count}");
+        foreach (var slot in _slotList)
+        {
+            Debug.Log(slot.IsEmpty ? "비어있는 슬롯" : $"아이템: {slot.GetItem()?.name ?? "없음"}");
         }
     }
 
     public void InvenUpgrade()
     {
         CreateSlot(5);
+    }
+
+    private void OnEnable()
+    {
+        CleanInventorySlots();
     }
 
     void Awake()

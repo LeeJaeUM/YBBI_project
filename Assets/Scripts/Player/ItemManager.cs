@@ -43,7 +43,8 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 
     public void SetInvenItemZero()
     {
-        inventory.SetItemZero();
+        inventory.SetCursorNull();
+        inventory.CleanInventorySlots();
     }
 
     void SetRandomPosition()

@@ -11,6 +11,8 @@ public class Shop : MonoBehaviour
     [SerializeField]
     Inventory _inventory;
 
+    private int totalPrice = 0;
+
     public void ShowShopUI()
     {
         gameObject.SetActive(true);
@@ -23,31 +25,33 @@ public class Shop : MonoBehaviour
 
     public void OnSellButtonPressed()
     {
-        int totalPrice = CalculateTotalPrice();
-        _priceText.text = "Total Price: " + totalPrice.ToString();
+        CalculateTotalPrice();
+        _priceText.text = totalPrice.ToString();
         _inventory.RemoveAllItems();
     }
 
-    private int CalculateTotalPrice()
+    private void CalculateTotalPrice()
     {
-        int totalPrice = 0;
-
         foreach (var slot in _inventory._slotList)
         {
             var item = slot.GetItem();
+
             if (item != null) 
             {
-                totalPrice += item.GetItemInfo()._data._price * item.GetItemInfo()._count;
+                var itemInfo = item.GetItemInfo();
+
+                if (itemInfo._data._property == ItemProperty.Sell)
+                {
+                    totalPrice += item.GetItemInfo()._data._price * item.GetItemInfo()._count;
+                }
             }
         }
-
-        return totalPrice;
     }
 
     public void UpdatePriceDisplay()
     {
-        int totalPrice = CalculateTotalPrice();
-        _priceText.text = "Total Price: " + totalPrice.ToString();
+        CalculateTotalPrice();
+        _priceText.text = totalPrice.ToString();
     }
     
     void Start()
