@@ -10,16 +10,17 @@ TagManager:
   - DetectAreaPlayer
   - TeleportArea
   - Map
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Bullet
   - DetectArea
-  - 
+  - Walls
   - 
   - 
   - 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class PlayerPosRPC : NetworkBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerPosRPC : NetworkBehaviour
 
     //private ulong _playerId;
     private TheGamePlayerMover _player;
+    private bool isTP = false;
+
     //private TextPopup _textPopup;
     private void Start()
     {
@@ -26,6 +29,8 @@ public class PlayerPosRPC : NetworkBehaviour
     //플레이어텔레포트******************************************************************************************************
     public void TeleportRequest(Vector3 newPosition)
     {
+        if (isTP) return;
+
         if (IsHost)
         {
             TeleportClientRpc(newPosition);
@@ -38,14 +43,21 @@ public class PlayerPosRPC : NetworkBehaviour
         TeleportLocal(newPosition); // 로컬도 이동
 
         UpdatePositionServerRpc(newPosition);
+
+        StartCoroutine(TeleportCooldown());
+
+    }
+    private IEnumerator TeleportCooldown()
+    {
+        isTP = true;
+        yield return new WaitForSeconds(1f);
+        isTP = false;
     }
 
     private void TeleportLocal(Vector3 newPosition)
     {
         transform.position = newPosition;
     }
-
-
 
     [ServerRpc(RequireOwnership = false)]
     private void TeleportServerRpc(Vector3 newPosition)
