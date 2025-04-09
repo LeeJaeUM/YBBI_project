@@ -1,16 +1,18 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Test_06_Chating : MonoBehaviour
+public class Test_06_Chating : TestBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TMP_InputField _loginEmailInputField;        //로그인 이메일
+    [SerializeField] private TMP_InputField _loginPasswordInputField;     //로그인 비밀번호
 
-    // Update is called once per frame
-    void Update()
+    public string TestID = " ";
+    public string TestPASS = " ";
+
+    public override void Test4(InputAction.CallbackContext context)
     {
-        
+        _loginEmailInputField.text = TestID;
+        _loginPasswordInputField.text = TestPASS;
     }
 }

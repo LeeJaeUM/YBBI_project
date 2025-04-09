@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMapPrefab: {fileID: 8902288767891610223, guid: 6309ee1a6d056c54fbae760533818e1e, type: 3}
-  mapCount: 4
+  mapCount: 8
   mapOffset: 45
 --- !u!1001 &234478264298388259
 PrefabInstance:

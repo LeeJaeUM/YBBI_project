@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChatListener : MonoBehaviour
 {
     private DatabaseReference _chatRef;
-    private string _roomName = "room1";
+    private string _roomName = "testroom";
     public ChatUIController _chatUIController;
 
     private void HandleNewMessage(object sender, ChildChangedEventArgs e)
@@ -14,14 +14,32 @@ public class ChatListener : MonoBehaviour
         if (e.Snapshot == null || e.Snapshot.Value == null) return;
 
         string key = e.Snapshot.Key;
-        string userId = e.Snapshot.Child("userId").Value.ToString();
+        string nickname = e.Snapshot.Child("nickname").Value.ToString();
         string messageText = e.Snapshot.Child("messageText").Value.ToString();
         string timestamp = e.Snapshot.Child("timestamp").Value.ToString();
 
+        // 파싱
+        long unixTimestamp = long.Parse(timestamp); // 밀리초 기준
+        DateTime messageTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToLocalTime().DateTime;
+        string readableTime = messageTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+        TimeSpan timeSince = DateTime.Now - messageTime;
+        string relativeTime = "";
+
+        if (timeSince.TotalSeconds < 60)
+            relativeTime = $"{(int)timeSince.TotalSeconds}초 전";
+        else if (timeSince.TotalMinutes < 60)
+            relativeTime = $"{(int)timeSince.TotalMinutes}분 전";
+        else if (timeSince.TotalHours < 24)
+            relativeTime = $"{(int)timeSince.TotalHours}시간 전";
+        else
+            relativeTime = $"{(int)timeSince.TotalDays}일 전";
+
 #if UNITY_EDITOR
-        Debug.Log($"[New] {userId}: {messageText} (timestamp: {timestamp})");
+        Debug.Log($"[New] {nickname}: {messageText} ({readableTime}, {relativeTime})");
 #endif
-        _chatUIController.DisplayNewMessage(userId, messageText, timestamp);
+
+        _chatUIController.DisplayNewMessage(nickname, messageText, $"{readableTime} ({relativeTime})");
     }
 
     void Start()

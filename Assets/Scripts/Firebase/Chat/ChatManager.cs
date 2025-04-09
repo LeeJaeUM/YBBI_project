@@ -7,7 +7,7 @@ public class ChatManager : MonoBehaviour
 {
     private DatabaseReference _dbReference;
     public string _nicname = "null nick";
-    private string _roomName = "room1";
+    [SerializeField] private string _roomName = "room1";
 
     void Start()
     {

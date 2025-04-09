@@ -25,7 +25,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 
     public int _currentPlayers = 0;
 
-    private string firebaseDatabaseUrl = "https://mytest-10314-default-rtdb.firebaseio.com/";
+    private string firebaseDatabaseUrl = "https://unityybbi-default-rtdb.firebaseio.com/";
 
     private void Awake()
     {
