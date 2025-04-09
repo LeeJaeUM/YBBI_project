@@ -6,13 +6,13 @@ using static UnityEditor.Progress;
 public class Slot : MonoBehaviour
 {
     [SerializeField]
-    Item _item;
+    public Item _item;
     [SerializeField]
     bool _isSelected;
     [SerializeField]
     Inventory _inventory;
 
-    private Item _storedItem;
+    public Item _storedItem;
 
     public bool IsSelected { get { return _isSelected; } set { _isSelected = value; } }
 
@@ -43,10 +43,13 @@ public class Slot : MonoBehaviour
         {
             return;
         }
+
         var result = _item.Use();
+
         if (result == 0)
         {
             _item = null;
+            _inventory.CleanInventorySlots();
         }
     }
 

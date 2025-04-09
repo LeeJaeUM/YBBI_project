@@ -43,7 +43,11 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 
     public void SetInvenItemZero()
     {
-        inventory.SetCursorNull();
+        inventory.SetCursorNull();   
+    }
+
+    public void ResetInvenSlots()
+    {
         inventory.CleanInventorySlots();
     }
 
@@ -70,12 +74,6 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
             var item = obj.GetComponent<ItemController>();
             return item;
         });
-    }
-
-    // Start is called before the first frame update
-    protected override void OnStart()
-    {
-        
     }
 
     void Update()

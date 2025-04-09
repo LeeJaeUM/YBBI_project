@@ -35,6 +35,7 @@ public class Inventory : MonoBehaviour
 
     public void CloseUI()
     {
+        SetCursorNull();
         gameObject.SetActive(false);
     }
 
@@ -111,7 +112,7 @@ public class Inventory : MonoBehaviour
         Debug.Log("No empty slots available!");
     }
 
-    public void RemoveAllItems()
+    public void RemoveSellItems()
     {
         foreach (var slot in _slotList)
         {
@@ -141,18 +142,12 @@ public class Inventory : MonoBehaviour
                 {
                     var item = _slotList[i].GetItem();
                     _slotList[itemIndex].SetSlot(item);
-                    _slotList[i].SetSlot(null);
+                    _slotList[i]._item = null;
+                    _slotList[i]._storedItem = null;
                 }
 
                 itemIndex++;
             }
-        }
-        
-        // 슬롯 상태 확인 (디버깅용)
-        Debug.Log($"슬롯 개수: {_slotList.Count}");
-        foreach (var slot in _slotList)
-        {
-            Debug.Log(slot.IsEmpty ? "비어있는 슬롯" : $"아이템: {slot.GetItem()?.name ?? "없음"}");
         }
     }
 
@@ -164,11 +159,6 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         CleanInventorySlots();
-    }
-
-    void Awake()
-    {
-        
     }
 
     // Start is called before the first frame update

@@ -33,7 +33,6 @@ public class Item : MonoBehaviour
             Destroy(gameObject);
             ItemManager.Instance.SetInvenItemZero();
         }
-
         return _itemInfo._count;
     }
 

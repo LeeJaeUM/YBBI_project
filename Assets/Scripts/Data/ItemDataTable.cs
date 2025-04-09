@@ -9,6 +9,7 @@ public class ItemDataTable : MonoBehaviour
     [SerializeField]
     ItemData[] itemDatas;
     public Dictionary<ItemType, ItemData> _itemTable = new Dictionary<ItemType, ItemData>();
+
     public ItemData this[ItemType Data]
     {
         get
@@ -16,11 +17,6 @@ public class ItemDataTable : MonoBehaviour
             return _itemTable[Data];
         }
     }
-
-    //public ItemData GetData(ItemType type)
-    //{
-    //    return _itemTable[type];
-    //}
 
     // Start is called before the first frame update
     void Start()

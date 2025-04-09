@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     [SerializeField]
-    TMP_Text _priceText;
+    TMP_Text _playerMoneyText;
     [SerializeField]
     Inventory _inventory;
+    [SerializeField]
+    List<ShopItem> _shopItems;
 
-    private int totalPrice = 0;
+    private int _playerMoney = 0;
+    private int _totalPrice = 0;
 
     public void ShowShopUI()
     {
@@ -26,12 +29,22 @@ public class Shop : MonoBehaviour
     public void OnSellButtonPressed()
     {
         CalculateTotalPrice();
-        _priceText.text = totalPrice.ToString();
-        _inventory.RemoveAllItems();
+        _playerMoney += _totalPrice;
+        _playerMoneyText.text = _playerMoney.ToString();
+        _inventory.RemoveSellItems();
+        UpdateBtnStates();
+    }
+
+    public void UpdatePriceDisplay()
+    {
+        CalculateTotalPrice();
+        _playerMoneyText.text = _playerMoney.ToString();
     }
 
     private void CalculateTotalPrice()
     {
+        _totalPrice = 0;
+
         foreach (var slot in _inventory._slotList)
         {
             var item = slot.GetItem();
@@ -42,21 +55,30 @@ public class Shop : MonoBehaviour
 
                 if (itemInfo._data._property == ItemProperty.Sell)
                 {
-                    totalPrice += item.GetItemInfo()._data._price * item.GetItemInfo()._count;
+                    _totalPrice += item.GetItemInfo()._data._price * item.GetItemInfo()._count;
                 }
             }
         }
     }
 
-    public void UpdatePriceDisplay()
-    {
-        CalculateTotalPrice();
-        _priceText.text = totalPrice.ToString();
-    }
-    
     void Start()
     {
         UpdatePriceDisplay();
         gameObject.SetActive(false);
+
+        foreach (var item in _shopItems)
+        {
+            item.Initialize();
+        }
+
+        UpdateBtnStates();
+    }
+
+    void UpdateBtnStates()
+    {
+        foreach (var item in _shopItems)
+        {
+            item.UpdateButtonState(_playerMoney);
+        }
     }
 }
