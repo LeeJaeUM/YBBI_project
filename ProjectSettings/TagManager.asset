@@ -48,14 +48,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Map
+    uniqueID: 1446424193
+    locked: 0
+  - name: Object
+    uniqueID: 2762097755
+    locked: 0
   - name: Bullet
     uniqueID: 1567693581
     locked: 0
   - name: UI
     uniqueID: 240760823
-    locked: 0
-  - name: Map
-    uniqueID: 1446424193
     locked: 0
   m_RenderingLayers:
   - Default

@@ -37,6 +37,7 @@ public class NearestEnemyFinder : MonoBehaviour
     {
         if (_enemiesInRange.Count == 0)
         {
+            _directionToNearestEnemy = Vector2.zero;
             return;
         }
 
@@ -65,31 +66,4 @@ public class NearestEnemyFinder : MonoBehaviour
     {
         return _directionToNearestEnemy;
     }
-
-    //public void AttackClosestEnemy()
-    //{
-    //    if (_enemiesInRange.Count == 0)
-    //    {
-    //        return;
-    //    }
-
-    //    Transform _closestEnemy = null;
-    //    float _closestDist = Mathf.Infinity;
-
-    //    foreach (Transform _enemy in _enemiesInRange)
-    //    {
-    //        float _distance = Vector2.Distance(transform.position, _enemy.position);
-
-    //        if (_distance < _closestDist)
-    //        {
-    //            _closestDist = _distance;
-    //            _closestEnemy = _enemy;
-    //        }
-    //    }
-
-    //    if (_closestEnemy != null) 
-    //    {
-    //        Debug.Log("Attack Closest");
-    //    }
-    //}
 }

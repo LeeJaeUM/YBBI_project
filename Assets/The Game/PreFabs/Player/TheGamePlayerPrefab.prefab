@@ -163,81 +163,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &967695717638633558
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4132842495731677272}
-  - component: {fileID: 335441607653205079}
-  - component: {fileID: 308812626884369627}
-  m_Layer: 3
-  m_Name: Background (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4132842495731677272
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967695717638633558}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6850194559366132678}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 1.2579994}
-  m_SizeDelta: {x: -92.9963, y: -43.5258}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &335441607653205079
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967695717638633558}
-  m_CullTransparentMesh: 1
---- !u!114 &308812626884369627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967695717638633558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1444101540848420554
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +422,6 @@ RectTransform:
   m_Children:
   - {fileID: 1092357283561360370}
   - {fileID: 4320963278619624739}
-  - {fileID: 4132842495731677272}
   m_Father: {fileID: 1497083979348121311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -525,7 +449,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 240760823
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1977302156662064062
@@ -599,7 +523,7 @@ GameObject:
   - component: {fileID: -7208792188975301529}
   - component: {fileID: -7735527581421676223}
   - component: {fileID: -9046458761363280456}
-  - component: {fileID: 7035302077526420912}
+  - component: {fileID: -3045432728056949943}
   - component: {fileID: 8571067894637158336}
   - component: {fileID: 3598112144120894801}
   - component: {fileID: 4085331820034534003}
@@ -670,10 +594,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 3
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 6059244581636116009, guid: f92b54af81927e74795bdd2aa9630b5d, type: 3}
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 5623864195369250307, guid: e5142a2bc1becb34d98911cd02e9419b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -954,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _speed: 5
---- !u!114 &7035302077526420912
+--- !u!114 &-3045432728056949943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -963,12 +887,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3619169371191914757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 981188acbcbbc8744948023478d307c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 81cfc8f68a600ff40abdf51f0244471f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _aTKStats: {fileID: 0}
   _nearestEnemyFinder: {fileID: 0}
-  _bullet: {fileID: 6946973756612847469, guid: 37dcee639d748e24fa9a0d45fc7d3119, type: 3}
+  _bullet: {fileID: 6946973756612847469, guid: 3b6f41c8a0a5dff4a84f5431eb705269, type: 3}
   _curAttackDamage: 1
   _spawnDistance: 1
   _isPressed: 0

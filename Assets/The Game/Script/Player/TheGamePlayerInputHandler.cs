@@ -27,7 +27,6 @@ public class TheGamePlayerInputHandler : NetworkBehaviour
     {
         if (!IsOwner) return; 
         OnMoveInput?.Invoke(value.ReadValue<Vector2>()); // 이동 입력이 들어올 때만 이벤트 실행
-        TestInputCheck(value, "move");
     }
 
     public void OnAttack(InputAction.CallbackContext value)
@@ -37,21 +36,18 @@ public class TheGamePlayerInputHandler : NetworkBehaviour
             OnAttackInput?.Invoke(true);
         else if(value.canceled)
             OnAttackInput?.Invoke(false);
-        TestInputCheck(value, "attack");
     }
 
     public void OnPressureSkill(InputAction.CallbackContext value)
     {
         if (!IsOwner) return;
         OnPressureSkillInput?.Invoke();
-        TestInputCheck(value, "Air");
     }
 
     public void OnUniqueSkill(InputAction.CallbackContext value)
     {
         if (!IsOwner) return;
         OnUniqueSkillInput?.Invoke();
-        TestInputCheck(value, "unique");
     }
 
     private void TestInputCheck(InputAction.CallbackContext value, string name)
