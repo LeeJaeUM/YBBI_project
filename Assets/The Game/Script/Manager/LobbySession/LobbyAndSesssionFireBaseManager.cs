@@ -181,10 +181,9 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
             return false;
         }
 
-        string playerName = $"{joinCode}__{playerIndex}";
+        string playerName = TheGameAuthManager.Instance.GetPlayerNickName();
         Debug.Log($"player이름 : {playerName}");
         PlayerData newPlayer = new PlayerData(false, playerName, 1); //임시로 플레이어 네임을 아무렇게나 넣엇음
-        LobbyAndSesssionUIManager.Instance.SetSavedPlayerName(playerName);
         LobbyAndSesssionUIManager.Instance.SetOwnPlayerIndex(playerIndex);
 
         await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).SetValueAsync(newPlayer.ToDictionary());
@@ -194,8 +193,6 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 
         AddDefaultInstancePlayerList(sessionId);
 
-
-        //UIManager.Instance.UpdatePlayerPanels();
 
         return true;
     }

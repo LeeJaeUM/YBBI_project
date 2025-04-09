@@ -24,28 +24,8 @@ public class MapRandomSpawner : MonoBehaviour
 
         for (i = 0; i < mapCount; i++)
         {
-            switch (i)
-            {
-                case 0:
-                    offset = new Vector3(0, 0, 0);
-                    break;
+            offset = new Vector3(i % 2 * mapOffset, i / 2 * mapOffset, 0);
 
-                case 1:
-                    offset = new Vector3(0, mapOffset, 0);
-                    break;
-
-                case 2:
-                    offset = new Vector3(mapOffset, 0, 0);
-                    break;
-
-                case 3:
-                    offset = new Vector3(mapOffset, mapOffset, 0);
-                    break;
-
-
-                default:
-                    break;
-            }
             spawnPos = offset;
 
             mapInstance = Instantiate(baseMapPrefab, spawnPos, Quaternion.identity);

@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 
 public class LobbyAndSesssionUIManager : MonoBehaviour
 {
+    #region Fields & Properties
+
     public static LobbyAndSesssionUIManager Instance { get; private set; }
 
     [Header("플레이어 이미지 리스트")]
@@ -54,91 +56,12 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     private List<PlayerUiPanel> _playerPanels = new List<PlayerUiPanel>();
 
     private string _savedJoinCode;
-    private string _savedPlayerName;
     private int _savedPlayerIndex = -1;
     private int _savedJobIndex = 0;
     private int _maxConnections;
-    
+    #endregion
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        _JobButtons = new Button[4];
-    }
-
-    private void Start()
-    {
-
-        _maxConnections = LobbyAndSesssionFireBaseManager.Instance.GetMaxConnection();
-        // UI 프리팹을 인스턴스화하고 초기화
-        _sessionListUI = Instantiate(_sessionListPrefab, transform);
-        _createSessionUI = Instantiate(_createSessionPrefab, transform);
-        _createSessionUI.SetActive(false); // 처음엔 세션 생성 UI 숨김
-        _inSessionUI = Instantiate(_inSessionPrefab, transform);
-        _inSessionUI.SetActive(false);
-
-        _refreshButton = _sessionListUI.transform.Find("RefreshButton").GetComponent<Button>();
-        _sessionListContainer = _sessionListUI.transform.Find("SessionList/Viewport/Content").GetComponent<Transform>();
-        _sessionCodeInput = _sessionListUI.transform.Find("SessionCodeInput").GetComponent<TMP_InputField>();
-        _passwordInput = _sessionListUI.transform.Find("PasswordInput").GetComponent<TMP_InputField>();
-        _joinButton = _sessionListUI.transform.Find("JoinButton").GetComponent<Button>();
-        _createSessionUIButton = _sessionListUI.transform.Find("CreateSessionButton").GetComponent<Button>();
-
-        _sessionNameInput = FindDeepChild(_createSessionUI.transform, "SessionNameInput").GetComponent<TMP_InputField>();
-        _privateToggle = FindDeepChild(_createSessionUI.transform, "PrivateToggle").GetComponent<Toggle>();
-        _createPasswordInput = FindDeepChild(_createSessionUI.transform, "PasswordInput").GetComponent<TMP_InputField>();
-        _createButton = FindDeepChild(_createSessionUI.transform, "CreateButton").GetComponent<Button>();
-        _cancelButton = _createSessionUI.transform.Find("CancleButton").GetComponent<Button>();
-        _disconnectButton = _inSessionUI.transform.Find("Disconnect").GetComponent<Button>();
-        _readyButton = _inSessionUI.transform.Find("Ready").GetComponent<Button>();
-        _startButton = _inSessionUI.transform.Find("Start").GetComponent<Button>();
-
-        _playerPanelCanv = _inSessionUI.transform.Find("PlayerPanelCanv");
-        foreach (Transform panel in _playerPanelCanv)
-        {
-            _playerPanels.Add(new PlayerUiPanel(panel));
-        }
-
-        _JobSelectCanv = _inSessionUI.transform.Find("JobSelectCanv").GetComponent<Canvas>();
-        for(int i = 0; i<4;i++)
-        {
-            _JobButtons[i] = FindDeepChild(_JobSelectCanv.transform, $"Job ({i})").GetComponent<Button>();
-        }
-        
-
-        // 버튼 이벤트 연결
-        _refreshButton.onClick.AddListener(UpdateSessionList);
-        _joinButton.onClick.AddListener(JoinSession);
-        _createSessionUIButton.onClick.AddListener(ShowCreateSessionUI); 
-        _createButton.onClick.AddListener(CreateSession);
-        _cancelButton.onClick.AddListener(HideCreateSessionUI); 
-        _disconnectButton.onClick.AddListener(DisconnectSession);
-        _readyButton.onClick.AddListener(ToggleReady);
-        _startButton.onClick.AddListener(StartGame);
-        
-        for(int i = 0; i<4; i++)
-        {
-            int index = i;
-            _JobButtons[index].onClick.AddListener(() => SetJobIndex(index+1));
-        }
-
-
-
-        _sessionListUI.SetActive(true);
-        _createSessionUI.SetActive(false);
-       _JobSelectCanv.gameObject.SetActive(false);
-
-    }
-
-    
+    #region Custom Functions
 
     private Transform FindDeepChild(Transform parent, string name)
     {
@@ -320,7 +243,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _startButton.gameObject.SetActive(false);
     }
 
-    public async Task<bool> RequestStartGame(string joinCode)
+    private async Task<bool> RequestStartGame(string joinCode)
     {
         try
         {
@@ -361,7 +284,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     private async void ToggleReady()
     {
         Debug.Log("준비 상태 변경");
-        LobbyAndSesssionFireBaseManager.Instance.RequseReversalReadyToggle(_savedJoinCode, _savedPlayerName);
+        LobbyAndSesssionFireBaseManager.Instance.RequseReversalReadyToggle(_savedJoinCode, TheGameAuthManager.Instance.GetPlayerNickName());
         await Task.Delay(300); // Firebase 값 갱신 시간 확보
         await UpdatePlayerPanels();
     }
@@ -420,21 +343,6 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     public string GetSavedJoinCode()
     {
         return _savedJoinCode;
-    }
-    public void SetSavedPlayerName(string playerName)
-    {
-        if(_savedPlayerName == null)
-        {
-            _savedPlayerName = playerName;
-        }
-        else if(_savedPlayerName != null)
-        {
-            Debug.Log($"이미 플레이어 이름이 존재함 현재 이름 : {_savedPlayerName}");
-        }
-        else
-        {
-            Debug.Log("이름 저장 실패");
-        }
     }
 
     public void SetOwnPlayerIndex(int index)
@@ -498,5 +406,88 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         if (index < 0 || index >= _playerPanels.Count) return;
         _playerPanels[index].ResetPanel();
     }
- 
+    #endregion
+
+    #region Unity Built-in Functions
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        _JobButtons = new Button[4];
+    }
+
+
+    private void Start()
+    {
+
+        _maxConnections = LobbyAndSesssionFireBaseManager.Instance.GetMaxConnection();
+        // UI 프리팹을 인스턴스화하고 초기화
+        _sessionListUI = Instantiate(_sessionListPrefab, transform);
+        _createSessionUI = Instantiate(_createSessionPrefab, transform);
+        _createSessionUI.SetActive(false); // 처음엔 세션 생성 UI 숨김
+        _inSessionUI = Instantiate(_inSessionPrefab, transform);
+        _inSessionUI.SetActive(false);
+
+        _refreshButton = _sessionListUI.transform.Find("RefreshButton").GetComponent<Button>();
+        _sessionListContainer = _sessionListUI.transform.Find("SessionList/Viewport/Content").GetComponent<Transform>();
+        _sessionCodeInput = _sessionListUI.transform.Find("SessionCodeInput").GetComponent<TMP_InputField>();
+        _passwordInput = _sessionListUI.transform.Find("PasswordInput").GetComponent<TMP_InputField>();
+        _joinButton = _sessionListUI.transform.Find("JoinButton").GetComponent<Button>();
+        _createSessionUIButton = _sessionListUI.transform.Find("CreateSessionButton").GetComponent<Button>();
+
+        _sessionNameInput = FindDeepChild(_createSessionUI.transform, "SessionNameInput").GetComponent<TMP_InputField>();
+        _privateToggle = FindDeepChild(_createSessionUI.transform, "PrivateToggle").GetComponent<Toggle>();
+        _createPasswordInput = FindDeepChild(_createSessionUI.transform, "PasswordInput").GetComponent<TMP_InputField>();
+        _createButton = FindDeepChild(_createSessionUI.transform, "CreateButton").GetComponent<Button>();
+        _cancelButton = _createSessionUI.transform.Find("CancleButton").GetComponent<Button>();
+        _disconnectButton = _inSessionUI.transform.Find("Disconnect").GetComponent<Button>();
+        _readyButton = _inSessionUI.transform.Find("Ready").GetComponent<Button>();
+        _startButton = _inSessionUI.transform.Find("Start").GetComponent<Button>();
+
+        _playerPanelCanv = _inSessionUI.transform.Find("PlayerPanelCanv");
+        foreach (Transform panel in _playerPanelCanv)
+        {
+            _playerPanels.Add(new PlayerUiPanel(panel));
+        }
+
+        _JobSelectCanv = _inSessionUI.transform.Find("JobSelectCanv").GetComponent<Canvas>();
+        for (int i = 0; i < 4; i++)
+        {
+            _JobButtons[i] = FindDeepChild(_JobSelectCanv.transform, $"Job ({i})").GetComponent<Button>();
+        }
+
+
+        // 버튼 이벤트 연결
+        _refreshButton.onClick.AddListener(UpdateSessionList);
+        _joinButton.onClick.AddListener(JoinSession);
+        _createSessionUIButton.onClick.AddListener(ShowCreateSessionUI);
+        _createButton.onClick.AddListener(CreateSession);
+        _cancelButton.onClick.AddListener(HideCreateSessionUI);
+        _disconnectButton.onClick.AddListener(DisconnectSession);
+        _readyButton.onClick.AddListener(ToggleReady);
+        _startButton.onClick.AddListener(StartGame);
+
+        for (int i = 0; i < 4; i++)
+        {
+            int index = i;
+            _JobButtons[index].onClick.AddListener(() => SetJobIndex(index + 1));
+        }
+
+
+
+        _sessionListUI.SetActive(true);
+        _createSessionUI.SetActive(false);
+        _JobSelectCanv.gameObject.SetActive(false);
+
+    }
+
+    #endregion
 }

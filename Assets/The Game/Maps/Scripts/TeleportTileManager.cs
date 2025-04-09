@@ -57,23 +57,6 @@ public class TeleportTileManager : MonoBehaviour
                             return;
                         }
                     }
-                    /*                Vector3 teleportPosition;
-                                    if (targetTilemap != null)
-                                    {
-                                        Vector3Int cellPosition = targetTilemap.WorldToCell(targetTeleporter.transform.position);
-                                        teleportPosition = targetTilemap.GetCellCenterWorld(cellPosition);
-                                    }
-                                    else
-                                    {
-                                        teleportPosition = targetTeleporter.transform.position;
-                                    }
-
-                                    PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
-                                    if (posRpc != null)
-                                    {
-                                        posRpc.TeleportRequest(teleportPosition);
-                                    }
-                                    return;*/
                 }
             }
         }
