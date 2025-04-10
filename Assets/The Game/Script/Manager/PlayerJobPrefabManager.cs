@@ -19,7 +19,7 @@ public class PlayerJobPrefabManager : NetworkBehaviour
     private async void SpawnPlayerForClient(ulong clientId)
     {
         string joinCode = LobbyAndSesssionUIManager.Instance.GetSavedJoinCode(); // 저장해둔 값
-        int playerIndex = int.Parse(clientId.ToString());
+        int playerIndex = LobbyAndSesssionUIManager.Instance.GetOwnPlayerIndex();
 
         int jobIndex = await LobbyAndSesssionFireBaseManager.Instance.GetSessionPlayerJobIndex(joinCode, playerIndex) - 1;
 

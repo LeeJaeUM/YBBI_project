@@ -18,7 +18,7 @@ using UnityEngine.InputSystem.HID;
 
 public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 {
-    [SerializeField] private const int MaxConnections = 4;
+    [SerializeField] private const int MaxConnections = 3;
 
     public static LobbyAndSesssionFireBaseManager Instance;
     private DatabaseReference dbReference;
@@ -84,7 +84,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
     public List<PlayerData> newPlayerListMaker()
     {
         List<PlayerData> newList = new List<PlayerData>();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < MaxConnections ; i++)
         {
             newList.Add(new PlayerData(false, i.ToString(), 0));
         }
@@ -176,7 +176,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
         }
 
         if (playerIndex == -1)
-        {
+        { 
             Debug.LogError("플레이어 index 찾기 실패");
             return false;
         }

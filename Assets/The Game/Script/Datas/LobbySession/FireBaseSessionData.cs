@@ -20,7 +20,7 @@ public class FireBaseSessionData
         IsPrivate = isPrivate;
         Password = password;
         CurrentPlayers = currentPlayer;
-        MaxPlayers = 4;
+        MaxPlayers = 3;
         Players = newPlayerList;
     }
 

@@ -2254,8 +2254,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6067673253434646726}
-  - component: {fileID: 7907214896911925212}
   - component: {fileID: 7907214896911925213}
+  - component: {fileID: 7907214896911925214}
   m_Layer: 0
   m_Name: FirebaseManager
   m_TagString: Untagged
@@ -5602,18 +5602,6 @@ MonoBehaviour:
   _failedUIObj: {fileID: 2781409106530746394}
   _failedText: {fileID: 6312841757010991689}
   _resultText: {fileID: 6312841757010991689}
---- !u!114 &7907214896911925212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641138663409153145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 171c22f55a8fc434bba5f44931c12d8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7907214896911925213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5624,6 +5612,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd9845f14b6794b4e946122218c460fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7907214896911925214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641138663409153145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92621ec58cf6b954c9bb65f6fb80a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7907675198594702061

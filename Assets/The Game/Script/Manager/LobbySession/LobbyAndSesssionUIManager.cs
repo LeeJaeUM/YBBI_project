@@ -9,6 +9,7 @@ using System;
 using UnityEditor.Build;
 using System.Security.Cryptography;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LobbyAndSesssionUIManager : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     private Transform _playerPanelCanv;
     private List<PlayerUiPanel> _playerPanels = new List<PlayerUiPanel>();
 
+    private bool _isDelay = false;
     private string _savedJoinCode;
     private int _savedPlayerIndex = -1;
     private int _savedJobIndex = 0;
@@ -110,6 +112,14 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     {
         _JobSelectCanv.gameObject.SetActive(true);
     }
+
+    private IEnumerator ButtonDelay(float delayTime)
+    {
+        _isDelay = true;
+        yield return new WaitForSeconds(delayTime);
+        _isDelay = false;
+    }
+
 
     public void UpdateSessionList()
     {
@@ -218,6 +228,8 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     }
     private async void JoinSession()
     {
+        if (_isDelay) return;
+        
         string code = _sessionCodeInput.text;
         string password = _passwordInput.text;
 
@@ -228,12 +240,20 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
             return;
         }
 
+        int currentPlayer = await LobbyAndSesssionFireBaseManager.Instance.GetCurrentPlayer(code);
+        if (currentPlayer >= _maxConnections) 
+        {
+            Debug.Log("이미 최대 인원수 입니다.");
+            return;
+        }
+
         bool success = await GameRelayManager.Instance.JoinRelay(code, password);
         if (!success)
         {
             Debug.Log("세션 참가 실패");
             return;
         }
+
         Debug.Log("세션 참가 성공");
 
         _savedJoinCode = code;
@@ -241,6 +261,8 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
         _readyButton.gameObject.SetActive(true);
         _startButton.gameObject.SetActive(false);
+
+        StartCoroutine(ButtonDelay(1f));
     }
 
     private async Task<bool> RequestStartGame(string joinCode)
@@ -292,6 +314,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
     private async void DisconnectSession()
     {
+        if (_isDelay) return;
 
         Debug.Log("DisconnectSession요청");
 
@@ -319,10 +342,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             Debug.Log("클라이언트가 세션에서 나갑니다.");
-            bool result = await LobbyAndSesssionFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerIndex);
-        }
-        NetworkManager.Singleton.Shutdown();
+            NetworkManager.Singleton.Shutdown();
 
+            await LobbyAndSesssionFireBaseManager.Instance.RemovePlayerFromSession(_savedJoinCode, _savedPlayerIndex);
+        }
 
 
 
@@ -336,6 +359,8 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _savedPlayerIndex = -1;
         _savedJobIndex = 0;
         UpdateSessionList();
+
+        StartCoroutine(ButtonDelay(1f));
     }
 
 

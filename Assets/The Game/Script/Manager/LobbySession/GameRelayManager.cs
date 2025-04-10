@@ -49,10 +49,11 @@ public class GameRelayManager : MonoBehaviour
 
     public void AddInstanceDissconection()
     {
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
     }
 
-    public async Task<string> CreateRelay(string sessionName, bool isPrivate, string password = "")
+    public async Task<string> CreateRelay(string sessionName, bool isPrivate, string password = "") 
     {
         try
         {
@@ -160,8 +161,6 @@ public class GameRelayManager : MonoBehaviour
 
             // 네트워크 정리
             NetworkManager.Singleton.Shutdown();
-
-            
         }
 
 

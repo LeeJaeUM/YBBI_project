@@ -4,7 +4,7 @@ using UnityEngine.Lumin;
 
 public class PlayerSetupManager : NetworkBehaviour
 {
-    [SerializeField] NetworkUIManager networkUIUIManager;
+    [SerializeField] NetworkUIManager networkUIManager;
     [SerializeField] PlayerATKStats playerATKStats;
     [SerializeField] TheGamePlayerInputHandler theGamePlayerInputHandler;
 
@@ -32,9 +32,9 @@ public class PlayerSetupManager : NetworkBehaviour
         }
 
         // 씬에 존재하는 SkillCoolDownUI 찾기
-        networkUIUIManager = FindObjectOfType<NetworkUIManager>();
+        networkUIManager = FindObjectOfType<NetworkUIManager>();
         
-        if (networkUIUIManager == null)
+        if (networkUIManager == null)
         {
             Debug.LogError("씬에서 SkillCoolDownUI를 찾을 수 없음!");
             return;
@@ -43,6 +43,6 @@ public class PlayerSetupManager : NetworkBehaviour
         theGamePlayerInputHandler = GetComponent<TheGamePlayerInputHandler>();
 
         // SkillCoolDownUI 세팅
-        networkUIUIManager.SetUpUIsInStart(playerATKStats, theGamePlayerInputHandler);
+        networkUIManager.SetUpUIsInStart(playerATKStats, theGamePlayerInputHandler);
     }
 }
