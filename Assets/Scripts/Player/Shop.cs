@@ -37,7 +37,7 @@ public class Shop : MonoBehaviour
 
     public void UpdatePriceDisplay()
     {
-        CalculateTotalPrice();
+        // CalculateTotalPrice();
         _playerMoneyText.text = _playerMoney.ToString();
     }
 
@@ -69,7 +69,12 @@ public class Shop : MonoBehaviour
         foreach (var item in _shopItems)
         {
             item.Initialize();
+
+            ShopItem currentItem = item;
+            item._buyBtn.onClick.AddListener(() => OnItemBuyButtonPressed(currentItem));
         }
+
+        _shopItems[0]._onPurchase = () => _inventory.InvenUpgrade();
 
         UpdateBtnStates();
     }
@@ -79,6 +84,19 @@ public class Shop : MonoBehaviour
         foreach (var item in _shopItems)
         {
             item.UpdateButtonState(_playerMoney);
+        }
+    }
+
+    public void OnItemBuyButtonPressed(ShopItem item)
+    {
+        if (item._IsBuyItem(ref _playerMoney))  
+        {
+            UpdatePriceDisplay();  
+            UpdateBtnStates();  
+        }
+        else
+        {
+            Debug.Log("자본이 부족하여 구매할 수 없습니다.");
         }
     }
 }

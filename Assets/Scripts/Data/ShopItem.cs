@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class ShopItem
     public Button _buyBtn;
 
     private int _curPrice;
+
+    public Action _onPurchase;
 
     public void Initialize()
     {
@@ -46,6 +49,8 @@ public class ShopItem
             playerMoney -= _curPrice;
             IncreasePrice();
             UpdatePriceText();
+
+            _onPurchase?.Invoke();
 
             return true;
         }
