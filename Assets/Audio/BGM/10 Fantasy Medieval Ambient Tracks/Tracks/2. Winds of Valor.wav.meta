@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 3738e9b640ee68a4b80bc95c30cede07
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 8
+  defaultSettings:
+    serializedVersion: 2
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+    preloadAudioData: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310781
+  packageName: Free 10 Medieval Ambient Fantasy Tracks Music Pack
+  packageVersion: 1.0
+  assetPath: Assets/10 Fantasy Medieval Ambient Tracks/Tracks/2. Winds of Valor.wav
+  uploadId: 731920

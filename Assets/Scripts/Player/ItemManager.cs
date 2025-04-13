@@ -5,18 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemManager : SingletonMonoBehaviour<ItemManager>
-{ 
+{
+    #region Serialized Fields
+    [Header("Prefab & Inventory")]
     [SerializeField]
     GameObject _itemPrefab;
     [SerializeField]
     Inventory inventory;
-    GameObjectPool<ItemController> _pool;
+
+    [Header("Sprites")]
     [SerializeField]
     public Sprite[] _itemSprites;
+
+    [Header("UI References")]
     public RectTransform _itemCreatePos;
     public RectTransform _canvasPos;
-    float[] _itemTable = { 5f, 15f, 20f, 25f, 35f };
+    #endregion
 
+    #region Private Fields 
+    GameObjectPool<ItemController> _pool;
+    float[] _itemTable = { 5f, 15f, 20f, 25f, 35f };
+    #endregion
+
+    #region Item Creation & Pooling
     public void Create(RectTransform position)
     {
         ItemType type = (ItemType)Utility.GetProbability(_itemTable);
@@ -31,6 +42,18 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         _pool.Set(item);
     }
 
+    void SetRandomPosition()
+    {
+        Rect canvasRect = _canvasPos.rect;
+
+        float randomX = Random.Range(canvasRect.xMin, canvasRect.xMax);
+        float randomY = Random.Range(canvasRect.yMin, canvasRect.yMax);
+
+        _itemCreatePos.anchoredPosition = new Vector2(randomX, randomY);
+    }
+    #endregion
+
+    #region Inventory Handling
     public Sprite GetIcon(ItemType type)
     {
         return _itemSprites[(int)type];
@@ -50,17 +73,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     {
         inventory.CleanInventorySlots();
     }
+    #endregion
 
-    void SetRandomPosition()
-    {
-        Rect canvasRect = _canvasPos.rect;
-
-        float randomX = Random.Range(canvasRect.xMin, canvasRect.xMax);
-        float randomY = Random.Range(canvasRect.yMin, canvasRect.yMax);
-
-        _itemCreatePos.anchoredPosition = new Vector2(randomX, randomY);
-    }
-
+    #region Unity Methods
     protected override void OnAwake()
     {
         _itemSprites = Resources.LoadAll<Sprite>("Items/");
@@ -84,4 +99,5 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
             Create(_itemCreatePos);
         }
     }
+    #endregion
 }

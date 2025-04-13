@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
+    [Header("UI References")]
     [SerializeField]
     TMP_Text _playerMoneyText;
+
+    [Header("Dependencies")]
     [SerializeField]
     Inventory _inventory;
+
+    [Header("Shop Items")]
     [SerializeField]
     List<ShopItem> _shopItems;
 
     private int _playerMoney = 0;
     private int _totalPrice = 0;
 
+    #region UI Control
     public void ShowShopUI()
     {
         gameObject.SetActive(true);
@@ -26,6 +32,21 @@ public class Shop : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void UpdatePriceDisplay()
+    {
+        _playerMoneyText.text = _playerMoney.ToString();
+    }
+
+    void UpdateBtnStates()
+    {
+        foreach (var item in _shopItems)
+        {
+            item.UpdateButtonState(_playerMoney);
+        }
+    }
+    #endregion
+
+    #region Sell Logic
     public void OnSellButtonPressed()
     {
         CalculateTotalPrice();
@@ -33,12 +54,6 @@ public class Shop : MonoBehaviour
         _playerMoneyText.text = _playerMoney.ToString();
         _inventory.RemoveSellItems();
         UpdateBtnStates();
-    }
-
-    public void UpdatePriceDisplay()
-    {
-        // CalculateTotalPrice();
-        _playerMoneyText.text = _playerMoney.ToString();
     }
 
     private void CalculateTotalPrice()
@@ -60,7 +75,24 @@ public class Shop : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Purchase Logic
+    public void OnItemBuyButtonPressed(ShopItem item)
+    {
+        if (item._IsBuyItem(ref _playerMoney))
+        {
+            UpdatePriceDisplay();
+            UpdateBtnStates();
+        }
+        else
+        {
+            Debug.Log("자본이 부족하여 구매할 수 없습니다.");
+        }
+    }
+    #endregion
+
+    #region Unity Methods
     void Start()
     {
         UpdatePriceDisplay();
@@ -78,25 +110,5 @@ public class Shop : MonoBehaviour
 
         UpdateBtnStates();
     }
-
-    void UpdateBtnStates()
-    {
-        foreach (var item in _shopItems)
-        {
-            item.UpdateButtonState(_playerMoney);
-        }
-    }
-
-    public void OnItemBuyButtonPressed(ShopItem item)
-    {
-        if (item._IsBuyItem(ref _playerMoney))  
-        {
-            UpdatePriceDisplay();  
-            UpdateBtnStates();  
-        }
-        else
-        {
-            Debug.Log("자본이 부족하여 구매할 수 없습니다.");
-        }
-    }
+    #endregion  
 }

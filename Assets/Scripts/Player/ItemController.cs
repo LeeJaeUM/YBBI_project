@@ -29,9 +29,4 @@ public class ItemController : MonoBehaviour
             ItemManager.Instance.Remove(this); 
         }
     }
-
-    void Awake()
-    {
-        
-    }
 }

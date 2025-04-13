@@ -6,20 +6,40 @@ using UnityEngine.UI;
 [System.Serializable]
 public class ShopItem
 {
+    #region Item Data
     public string _itemName;
     public int _initialPrice;
     public float _priceIncreaseRate;
+    #endregion
 
+    #region UI References
     public TMP_Text _priceText;
     public Button _buyBtn;
+    #endregion
 
+    #region Internal State
     private int _curPrice;
 
     public Action _onPurchase;
+    #endregion
 
+    #region Initialization
     public void Initialize()
     {
         _curPrice = _initialPrice;
+        UpdatePriceText();
+    }
+    #endregion
+
+    #region Price Logic
+    public int GetPrice()
+    {
+        return _curPrice;
+    }
+
+    public void IncreasePrice()
+    {
+        _curPrice = Mathf.FloorToInt(_curPrice * _priceIncreaseRate);
         UpdatePriceText();
     }
 
@@ -30,18 +50,9 @@ public class ShopItem
             _priceText.text = "- " + _curPrice.ToString();
         }
     }
+    #endregion
 
-    public void IncreasePrice()
-    {
-        _curPrice = Mathf.FloorToInt(_curPrice * _priceIncreaseRate);
-        UpdatePriceText();
-    }
-
-    public int GetPrice()
-    {
-        return _curPrice;
-    }
-
+    #region Purchase Logic
     public bool _IsBuyItem (ref int playerMoney)
     {
         if (playerMoney >= _curPrice)
@@ -57,7 +68,9 @@ public class ShopItem
 
         return false;
     }
+    #endregion
 
+    #region Button State
     public void UpdateButtonState(int playerMoney)
     {
         if (_buyBtn != null) 
@@ -65,4 +78,5 @@ public class ShopItem
             _buyBtn.interactable = (playerMoney >= _curPrice);
         }
     }
+    #endregion
 }
