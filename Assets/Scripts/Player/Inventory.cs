@@ -6,28 +6,36 @@ using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
+    [Header("Prefabs & Assets")]
     [SerializeField]
     GameObject _slotPrefab;
     [SerializeField]
     GameObject _itemPrefab;
     [SerializeField]
-    ItemDataTable _itemTable;  
+    ItemDataTable _itemTable;
+    [SerializeField]
+    public Sprite[] _iconSprites;
+
+    [Header("UI Elements")]
     [SerializeField]
     GridLayoutGroup _slotGrid;
     [SerializeField]
     Image _cursorSprite;
-    [SerializeField]
-    public Sprite[] _iconSprites;
+
+    [Header("Inventory Slots")]
     [SerializeField]
     public List<Slot> _slotList = new List<Slot>();
 
     public bool IsOpened { get { return gameObject.activeSelf; } }
 
+    #region Utility
     public Sprite GetIcon(int index)
     {
         return _iconSprites[index];
     }
+    #endregion
 
+    #region UI Control
     public void ShowUI()
     {
         gameObject.SetActive(true);
@@ -39,6 +47,13 @@ public class Inventory : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void SetCursorNull()
+    {
+        _cursorSprite.enabled = false;
+    }
+    #endregion
+
+    #region Slot Interaction
     public void OnSlotSelect(Slot current_slot)
     {
         var prevSlot = _slotList.Find(slot => slot.IsSelected);
@@ -60,12 +75,9 @@ public class Inventory : MonoBehaviour
             curslot.UseItem();
         }
     }
+    #endregion
 
-    public void SetCursorNull()
-    {
-        _cursorSprite.enabled = false;
-    }
-
+    #region Slot & Item Management
     public void CreateSlot(int count)
     {
         for (int i = 0; i < count; i++)
@@ -155,13 +167,9 @@ public class Inventory : MonoBehaviour
     {
         CreateSlot(5);
     }
+    #endregion
 
-    private void OnEnable()
-    {
-        CleanInventorySlots();
-    }
-
-    // Start is called before the first frame update
+    #region Unity Events
     void Start()
     {
         _iconSprites = ItemManager.Instance._itemSprites;
@@ -169,4 +177,10 @@ public class Inventory : MonoBehaviour
         _cursorSprite.enabled = false;
         gameObject.SetActive(false);    
     }
+
+    private void OnEnable()
+    {
+        CleanInventorySlots();
+    }
+    #endregion
 }

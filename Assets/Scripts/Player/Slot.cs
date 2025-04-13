@@ -44,6 +44,14 @@ public class Slot : MonoBehaviour
             return;
         }
 
+        var itemInfo = _item.GetItemInfo();
+
+        if (itemInfo._data._property != ItemProperty.Use)
+        {
+            Debug.LogWarning("이 아이템은 사용할 수 없는 타입입니다.");
+            return;
+        }
+
         var result = _item.Use();
 
         if (result == 0)
