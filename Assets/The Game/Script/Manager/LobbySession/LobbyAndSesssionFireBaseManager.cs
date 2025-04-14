@@ -41,6 +41,17 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
         dbReference = FirebaseDatabase.GetInstance(firebaseDatabaseUrl).RootReference;
 
     }
+
+    public void DestroySingleton()
+    {
+        if (Instance != null)
+        {
+            Destroy(Instance.gameObject);
+            Instance = null;
+        }
+    }
+
+
     void Start()
     {
 
@@ -79,6 +90,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
             PlayerData emptyPlayer = new PlayerData(true, null, 0);
             await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(i.ToString()).SetValueAsync(emptyPlayer.ToDictionary());
         }
+        dbReference.Child("sessions").Child(sessionId).Child("Chat"); 
     }
 
     public List<PlayerData> newPlayerListMaker()
@@ -183,7 +195,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 
         string playerName = TheGameAuthManager.Instance.GetPlayerNickName();
         Debug.Log($"player이름 : {playerName}");
-        PlayerData newPlayer = new PlayerData(false, playerName, 1); //임시로 플레이어 네임을 아무렇게나 넣엇음
+        PlayerData newPlayer = new PlayerData(false, playerName, 1); //임시로 플레이어 이름을 authmanager의 이메일의 앞을 따왔음
         LobbyAndSesssionUIManager.Instance.SetOwnPlayerIndex(playerIndex);
 
         await dbReference.Child("sessions").Child(sessionId).Child("Players").Child(playerIndex.ToString()).SetValueAsync(newPlayer.ToDictionary());
@@ -193,6 +205,7 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 
         AddDefaultInstancePlayerList(sessionId);
 
+        RequestSingleTone.Instance.RequestNewChat();
 
         return true;
     }
@@ -448,6 +461,9 @@ public class LobbyAndSesssionFireBaseManager : MonoBehaviour
 
         LobbyAndSesssionUIManager.Instance.SetOwnPlayerIndex(-1);
     }
+
+
+
 
     public async void OnSessionListChanged(object sender, ValueChangedEventArgs e)
     {

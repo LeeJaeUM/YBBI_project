@@ -61,6 +61,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
     private int _savedPlayerIndex = -1;
     private int _savedJobIndex = 0;
     private int _maxConnections;
+    private string _savedOwnName;
     #endregion
 
     #region Custom Functions
@@ -84,6 +85,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _createSessionUI.SetActive(false);
         _inSessionUI.SetActive(true);
+        RequestSingleTone.Instance.RequestChatONOFF(true);
     }
 
     private void ShowCreateSessionUI()
@@ -91,6 +93,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _createSessionUI.SetActive(true);
         _inSessionUI.SetActive(false);
+        RequestSingleTone.Instance.RequestChatONOFF(false);
     }
 
 
@@ -99,6 +102,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(true);
         _inSessionUI.SetActive(false);
+        RequestSingleTone.Instance.RequestChatONOFF(false);
     }
 
     public void HideAllUi()
@@ -106,6 +110,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(false);
         _inSessionUI.SetActive(false);
+        RequestSingleTone.Instance.RequestChatONOFF(false);
     }
 
     public void ShowJobSelectCanv()
@@ -291,8 +296,12 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         }
 
         LobbyAndSesssionFireBaseManager.Instance.SetIsStartInFireBase(_savedJoinCode, true);
+
+
         return true;
     }
+
+
 
     private async void StartGame()
     {
@@ -358,7 +367,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
         _savedPlayerIndex = -1;
         _savedJobIndex = 0;
+        _savedJoinCode = null;
+        _savedPlayerIndex = -1;
         UpdateSessionList();
+        RequestSingleTone.Instance.RequestClearChatContent();
 
         StartCoroutine(ButtonDelay(1f));
     }
@@ -435,6 +447,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
     #region Unity Built-in Functions
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -447,6 +460,15 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         }
 
         _JobButtons = new Button[4];
+    }
+
+    public void DestroySingleton()
+    {
+        if (Instance != null)
+        {
+            Destroy(Instance.gameObject);
+            Instance = null;
+        }
     }
 
 
@@ -511,7 +533,6 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(true);
         _createSessionUI.SetActive(false);
         _JobSelectCanv.gameObject.SetActive(false);
-
     }
 
     #endregion

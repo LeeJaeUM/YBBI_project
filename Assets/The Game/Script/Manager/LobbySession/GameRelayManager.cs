@@ -57,7 +57,6 @@ public class GameRelayManager : MonoBehaviour
     {
         try
         {
-
             // Relay 세션 생성
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(LobbyAndSesssionFireBaseManager.Instance.GetMaxConnection());
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -152,18 +151,29 @@ public class GameRelayManager : MonoBehaviour
     {
         Debug.Log($"클라이언트 {clientId} 연결 끊김 감지됨");
 
-        if(!NetworkManager.Singleton.IsHost)
+        // 호스트인 경우: 클라이언트가 나간 것에 대해 아무 처리도 하지 않음
+        if (NetworkManager.Singleton.IsHost)
         {
-            Debug.Log("호스트와의 연결이 끊겼으므로 세션 리스트 UI로 이동");
+            Debug.Log("호스트는 클라이언트의 연결 해제를 감지했지만 무시합니다.");
+            return;
+        }
 
-            // UIManager를 이용해 세션 리스트 화면으로 이동
-            LobbyAndSesssionUIManager.Instance.HideCreateSessionUI();
+        // 클라이언트가 자기 자신의 연결 해제를 감지한 경우만 처리
+        if (clientId == NetworkManager.Singleton.LocalClientId)
+        {
+            Debug.Log("자기 자신의 연결 해제 감지 → UI 초기화 및 종료");
 
-            // 네트워크 정리
+            // UI 초기화
+            if (LobbyAndSesssionUIManager.Instance != null)
+            {
+                LobbyAndSesssionUIManager.Instance.HideCreateSessionUI();
+            }
+
+            // 네트워크 종료
             NetworkManager.Singleton.Shutdown();
         }
 
-
+        // 이벤트 중복 방지
         NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
     }
 

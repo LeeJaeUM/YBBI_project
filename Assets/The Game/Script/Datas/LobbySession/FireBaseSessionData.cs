@@ -7,6 +7,7 @@ public class FireBaseSessionData
     public string SessionName;
     public string JoinCode;
     public string Password;
+    public string Chat;
     public bool IsPrivate;
     public bool IsStart;
     public int CurrentPlayers; // 현재 접속 인원

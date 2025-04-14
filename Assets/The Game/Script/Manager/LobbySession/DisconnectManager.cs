@@ -17,6 +17,14 @@ public class DisconnectManager : MonoBehaviour
         }
     }
 
+    public void DestroySingleton()
+    {
+        if (Instance != null)
+        {
+            Destroy(Instance.gameObject);
+            Instance = null;
+        }
+    }
 
     private void OnDestroy()
     {

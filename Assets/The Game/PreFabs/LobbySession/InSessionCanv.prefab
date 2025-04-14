@@ -755,7 +755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: -169}
+  m_AnchoredPosition: {x: 311, y: 149}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6634319393933788014
@@ -1199,7 +1199,6 @@ GameObject:
   - component: {fileID: 7461125609711461122}
   - component: {fileID: 2541242969433406735}
   - component: {fileID: 9209159297373970078}
-  - component: {fileID: 3912320805121341896}
   m_Layer: 5
   m_Name: InSessionCanv
   m_TagString: Untagged
@@ -1332,18 +1331,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!210 &3912320805121341896
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2612293767408712387}
-  m_Enabled: 1
-  m_SortingLayerID: 240760823
-  m_SortingLayer: 4
-  m_SortingOrder: 4
-  m_SortAtRoot: 0
 --- !u!1 &2785895512270056368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,7 +3763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: -169.00003}
+  m_AnchoredPosition: {x: 311.00003, y: 148.99995}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6440686375039569474
