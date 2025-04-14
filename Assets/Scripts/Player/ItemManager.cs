@@ -36,6 +36,26 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         item.gameObject.SetActive(true);
     }
 
+    // 아이템 생성 방식을 적이 사망한 위치에서 생성할 때 쓰는 함수, 위의 Create 함수를 주석 처리하고 이 함수를 사용하면 됨
+    //public void Create(Vector3 worldPosition)
+    //{
+    //    ItemType type = (ItemType)Utility.GetProbability(_itemTable);
+    //    var item = _pool.Get();
+    //    item.SetItem(type);
+
+    //    Vector2 uiPosition;
+    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+    //        _canvasPos,
+    //        Camera.main.WorldToScreenPoint(worldPosition),
+    //        null,
+    //        out uiPosition);
+
+    //    RectTransform itemRect = item.GetComponent<RectTransform>();
+    //    itemRect.anchoredPosition = uiPosition;
+
+    //    item.gameObject.SetActive(true);
+    //}
+
     public void Remove(ItemController item)
     {
         item.gameObject.SetActive(false);
