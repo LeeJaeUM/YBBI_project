@@ -19,6 +19,16 @@ public static class Enums
         Attack
     }
 
+    public enum BulletType
+    {
+        NONE,
+
+        Normal,     // 일반 총알
+        Homing,     // 유도 총알
+        Bomb,       // 폭탄
+        Laser,      // 레이저
+        Mine       // 지뢰
+    }
     public enum ATKPatern
     {
         A,

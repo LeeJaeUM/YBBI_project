@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
@@ -10,8 +11,14 @@ public class Bullet : MonoBehaviour
     public float _damage = 5;
     public float _speed = 6f; // 총알 속도
     public Vector2 _arrowVec = Vector2.right;
+    public bool _canMove = true; //움직임 여부, 움직이지 않는 투사체라면 닿아도 사라지지 않음
 
-    public bool _canTrigger = false;
+    public bool _canTrigger = true;
+
+    Enums.BulletType _bulletType = Enums.BulletType.NONE;
+
+    private LaserWarningVisualizer _laserWarningVisualizer;
+    public SpriteRenderer _spriteRenderer;  
 
     public void SetArrowVector(Vector2 value)
     {
@@ -25,12 +32,36 @@ public class Bullet : MonoBehaviour
     /// <param name="radius">공격범위</param>
     /// <param name="activeTime">활성시간</param>
     /// <param name="isMove">움직임 여부</param>
-    public void SetData(float damage, float radius, float activeTime, float moveSpeed)
+    public void SetData(float damage, float radius, float width, float length, float activeTime, float moveSpeed, Enums.BulletType bulletType = Enums.BulletType.Normal)
     {
         _damage = damage;
         transform.localScale = Vector3.one * radius;
         _lifeTime = activeTime;
         _speed = moveSpeed;
+        _bulletType = bulletType;
+
+        StopAllCoroutines(); //기존 코루틴 정지
+        switch(_bulletType)
+        {
+            case Enums.BulletType.Laser:
+                _laserWarningVisualizer = GetComponentInChildren<LaserWarningVisualizer>();
+                if (_laserWarningVisualizer != null)
+                {
+                Debug.Log("찾음레이저");
+                    StartCoroutine(TriggerOff(moveSpeed));
+                    _canMove = false; //이동 정지
+                    _laserWarningVisualizer.ShowLaserWarning(transform.position, _arrowVec, width, length, moveSpeed);
+                    
+                    transform.rotation = Quaternion.FromToRotation(Vector3.up, _arrowVec); //회전
+                    _spriteRenderer.transform.localScale = new Vector3(width, length, 1f);
+                    _spriteRenderer.transform.localPosition = new Vector3(0, length / 2f, 0); // 중심에서 위로
+                }
+                break;
+            case Enums.BulletType.Normal:
+                break;
+            default:
+                break;
+        }
 
         //lifeTime 설정 후 코루틴 시작
         StartCoroutine(LifeTimeCor());
@@ -39,13 +70,31 @@ public class Bullet : MonoBehaviour
     IEnumerator LifeTimeCor()
     {
         yield return new WaitForSeconds(_lifeTime);
-        gameObject.SetActive(false);
+        StopBullet(); 
+    }
+    IEnumerator TriggerOff(float time)
+    {
+        _canTrigger = false;
+        _spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(time);
+        _canTrigger = true;
+        _spriteRenderer.enabled = true;
     }
 
-
-    private void CheckBullet(UnitHealth unitHealth)
+    private void TriggerBullet(Collider2D collision)
     {
+        // Debug.Log($"{collision.gameObject.name} 이 닿음");
+        UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
+        unitHealth.AddAir(_damage * _damageMul);
 
+        if(_canMove)        
+            StopBullet();
+    }
+
+    private void StopBullet()
+    {
+        StopAllCoroutines();
+        BulletPool.Instance.ReturnBullet(gameObject); //풀에 반납
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,23 +105,14 @@ public class Bullet : MonoBehaviour
             {
                 if (collision.CompareTag("Enemy"))
                 {
-                    // Debug.Log($"{collision.gameObject.name} 이 닿음");
-                    UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
-                    unitHealth.AddAir(_damage * _damageMul);
-                        // Debug.Log("데미지 총알");
-                    StopAllCoroutines();
-                    gameObject.SetActive(false); //움직임 종료
+                    TriggerBullet(collision); //적에게 닿았을 때
                 }
             }
             else
             {
                 if (collision.CompareTag("Player"))
                 {
-                    // Debug.Log($"{collision.gameObject.name} 이 닿음");
-                    UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
-                    unitHealth.AddAir(_damage * _damageMul);
-                    StopAllCoroutines();
-                    gameObject.SetActive(false); //움직임 종료
+                    TriggerBullet(collision); //플레이어에게 닿았을 때
                 }
             }
         }
@@ -82,15 +122,23 @@ public class Bullet : MonoBehaviour
     {
         _canTrigger = true;
     }
-
     private void Awake()
+    {
+        Transform child = transform.GetChild(0);
+        _spriteRenderer = child.GetComponent<SpriteRenderer>();
+    }
+
+    private void OnEnable()
     {
         if (!_isPlusAir)
             _damageMul = -1;
 
+        _canMove = true;
+        StartCoroutine(LifeTimeCor()); //테스트
     }
     private void Update()
     {
-        transform.Translate(_arrowVec * _speed * Time.deltaTime);
+        if(_canMove)
+            transform.Translate(_arrowVec * _speed * Time.deltaTime);
     }
 }

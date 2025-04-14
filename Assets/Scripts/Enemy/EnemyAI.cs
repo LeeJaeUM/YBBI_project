@@ -33,7 +33,18 @@ public class EnemyAI : MonoBehaviour
 
     public virtual void Initialize()
     {
-        //기본 상태 설정 (각 자식 클래스에서 필요하면 변경 가능)
+        CreateState();
+        _findTargetPoint = GetComponentInChildren<FindTargetPoint>();
+        _patrolPoint = GetComponentInChildren<PatrolPoint>();
+        _enemyATKStats = GetComponent<EnemyATKStats>();
+        Rigid = GetComponent<Rigidbody2D>();
+
+        _enemyATKStats.OnFinishedAttack += SetFinished;
+    }
+
+    public virtual void CreateState()
+    {
+        // 상태를 생성하는 메서드 (자식 클래스에서 필요하면 구현)
         _states = new Dictionary<EnemyStateType, IEnemyState>
         {
             { EnemyStateType.Idle, new IdleState() },
@@ -41,13 +52,6 @@ public class EnemyAI : MonoBehaviour
             { EnemyStateType.Chase, new ChaseState() },
             { EnemyStateType.Attack, new AttackState() }
         };
-
-        _findTargetPoint = GetComponentInChildren<FindTargetPoint>();
-        _patrolPoint = GetComponentInChildren<PatrolPoint>();
-        _enemyATKStats = GetComponent<EnemyATKStats>();
-        Rigid = GetComponent<Rigidbody2D>();
-
-        _enemyATKStats.OnFinishedAttack += SetFinished;
     }
 
     public void ChangeState(EnemyStateType newState)

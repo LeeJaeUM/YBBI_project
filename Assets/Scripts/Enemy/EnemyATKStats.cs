@@ -16,6 +16,8 @@ public class EnemyATKStats : MonoBehaviour
 
     public Action<bool> OnFinishedAttack;
 
+    public EnemyBulletSpawner _bulletSpawner;
+
     public void SetSkillData(int num)
     {
         _curSkill = _skills[num];
@@ -30,6 +32,7 @@ public class EnemyATKStats : MonoBehaviour
     {
         StartCoroutine(CooldownCoroutine(direction));
     }
+
     /// <summary>
     /// 데미지 계산 함수 : 현재는 단순 배율 곱하기
     /// </summary>
@@ -44,22 +47,9 @@ public class EnemyATKStats : MonoBehaviour
 
     private void CreateBullet(SkillData skillData, Vector3 direction)
     {
-        Vector3 spawnPosition = transform.position + direction.normalized * _spawnDistance;
-
-        GameObject creteAttack = Instantiate(_bullet, spawnPosition, Quaternion.identity);
-        Bullet bullet = creteAttack.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            bullet.SetArrowVector(direction);
-
-            float damage = _curAttackDamage * GetDamageMultiplier(skillData._damageMultiplier);
-            float radius = skillData._radius;
-            float activeTime = skillData._activeTime;
-            float speed = skillData._moveSpeed;
-            //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
-            //Sprite sprite = skillData._skillSprite;   
-            bullet.SetData(damage, radius, activeTime, speed);
-        }
+        _bulletSpawner.SpawnBulletSpread(
+            skillData, _curAttackDamage,
+            transform.position, direction);
     }
 
 
@@ -74,5 +64,14 @@ public class EnemyATKStats : MonoBehaviour
         yield return new WaitForSeconds(coolDown); //쿨다운 동안 대기
         OnFinishedAttack?.Invoke(false);
         Debug.Log("공격 시작");
+    }
+
+    private void Awake()
+    {
+        _bulletSpawner = GetComponent<EnemyBulletSpawner>();
+        if (_bulletSpawner == null)
+        {
+            Debug.LogError("EnemyBulletSpawner 컴포넌트를 찾을 수 없습니다.");
+        }
     }
 }

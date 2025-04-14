@@ -1,30 +1,22 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ColorChange : MonoBehaviour
 {
-    public float _duration = 0.5f;
+    public float _duration = 0.1f;
 
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
     [SerializeField]
     private Color _originColor;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _originColor = _spriteRenderer.color;
-    }
+    private UnitHealth _unitHealth;
 
-    // Update is called once per frame
-    void Update()
+    public void DamageEffect(float value)
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    StopAllCoroutines();
-        //    StartCoroutine(ChangeColor());
-        //}
+        StopAllCoroutines();
+        StartCoroutine(ChangeColor());
     }
 
     IEnumerator ChangeColor()
@@ -35,4 +27,20 @@ public class ColorChange : MonoBehaviour
 
         _spriteRenderer.color = _originColor;
     }
+
+    void Start()
+    {
+        _unitHealth = GetComponent<UnitHealth>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _originColor = _spriteRenderer.color;
+
+        _unitHealth.onChangeAir += DamageEffect;
+    }
+
+    void OnDisable()
+    {
+        _unitHealth.onChangeAir -= DamageEffect;
+    }
+
+
 }
