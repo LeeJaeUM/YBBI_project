@@ -25,6 +25,12 @@ public class Bullet : MonoBehaviour
         _arrowVec = value;
     }
 
+    private void ResetBulletSize()
+    {
+        transform.localScale = Vector3.one;
+        transform.rotation = Quaternion.identity;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -34,6 +40,7 @@ public class Bullet : MonoBehaviour
     /// <param name="isMove">움직임 여부</param>
     public void SetData(float damage, float radius, float width, float length, float activeTime, float moveSpeed, Enums.BulletType bulletType = Enums.BulletType.Normal)
     {
+        ResetBulletSize();
         _damage = damage;
         transform.localScale = Vector3.one * radius;
         _lifeTime = activeTime;

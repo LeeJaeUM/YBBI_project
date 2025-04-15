@@ -68,7 +68,7 @@ public class EnemyATKStats : MonoBehaviour
 
     private void Awake()
     {
-        _bulletSpawner = GetComponent<EnemyBulletSpawner>();
+        _bulletSpawner = GetComponentInChildren<EnemyBulletSpawner>();
         if (_bulletSpawner == null)
         {
             Debug.LogError("EnemyBulletSpawner 컴포넌트를 찾을 수 없습니다.");

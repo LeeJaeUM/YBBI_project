@@ -18,8 +18,8 @@ MonoBehaviour:
   _sprite: {fileID: 0}
   _skillType: 1
   _bulletType: 4
-  _bulletCount: 3
-  _angleRange: 45
+  _bulletCount: 5
+  _angleRange: 350
   _damageMultiplier: 1
   _radius: 1
   _spawnDistance: 0.5
@@ -30,4 +30,4 @@ MonoBehaviour:
   _coolDown: 0
   _level: 0
   _width: 1
-  _length: 2.29
+  _length: 12.01

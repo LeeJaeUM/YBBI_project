@@ -144,12 +144,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337039898}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7390094, y: 1.5557603, z: -0.09299351}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.4609904, y: -0.93423975, z: -0.09299351}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4556602405672751351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &337039900
 MonoBehaviour:
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 6946973756612847469, guid: 37dcee639d748e24fa9a0d45fc7d3119, type: 3}
+  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!1 &440405526
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a50db99a68850408c09e63716f7eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 6946973756612847469, guid: 37dcee639d748e24fa9a0d45fc7d3119, type: 3}
+  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
   _initialSize: 20
 --- !u!4 &461628375
 Transform:
@@ -1933,7 +1933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2849435498309271714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2044,6 +2044,7 @@ Transform:
   - {fileID: 9038297133289178685}
   - {fileID: 1798352811897144680}
   - {fileID: 2029158069}
+  - {fileID: 337039899}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4740330557797118587
@@ -2060,7 +2061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skills:
   - {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
-  - {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
+  - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
   _curSkill: {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   _spawnDistance: 1
   _bullet: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
@@ -2327,6 +2328,5 @@ SceneRoots:
   - {fileID: 4556602405672751351}
   - {fileID: 718604341}
   - {fileID: 1227442414}
-  - {fileID: 337039899}
   - {fileID: 997437376}
   - {fileID: 461628375}
