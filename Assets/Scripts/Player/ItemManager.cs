@@ -31,7 +31,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     public void Create(RectTransform position)
     {
         ItemType type = (ItemType)Utility.GetProbability(_itemTable);
-        var item = _pool.Get(); 
+        var item = _pool.Get();
         item.SetItem(type);
         item.gameObject.SetActive(true);
     }
@@ -43,11 +43,13 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     //    var item = _pool.Get();
     //    item.SetItem(type);
 
+    //    Camera uiCamera = Camera.main;
+
     //    Vector2 uiPosition;
     //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
     //        _canvasPos,
     //        Camera.main.WorldToScreenPoint(worldPosition),
-    //        null,
+    //        uiCamera,
     //        out uiPosition);
 
     //    RectTransform itemRect = item.GetComponent<RectTransform>();
@@ -115,7 +117,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SetRandomPosition();       
+            SetRandomPosition();
             Create(_itemCreatePos);
         }
     }

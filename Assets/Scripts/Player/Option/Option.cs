@@ -37,7 +37,7 @@ public class Option : MonoBehaviour
 
     public void CloseOptionUI()
     {
-        _optionRectTransform.localPosition = new Vector3(0f, 1000f, 0f);
+        _optionRectTransform.localPosition = new Vector3(0f, 3000f, 0f);
     }
     #endregion
 

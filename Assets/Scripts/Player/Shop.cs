@@ -37,6 +37,9 @@ public class Shop : MonoBehaviour
         _playerMoneyText.text = _playerMoney.ToString();
     }
 
+    /// <summary>
+    /// 아이템 구매가능하면 버튼 활성화
+    /// </summary>
     void UpdateBtnStates()
     {
         foreach (var item in _shopItems)
@@ -47,6 +50,7 @@ public class Shop : MonoBehaviour
     #endregion
 
     #region Sell Logic
+
     public void OnSellButtonPressed()
     {
         CalculateTotalPrice();

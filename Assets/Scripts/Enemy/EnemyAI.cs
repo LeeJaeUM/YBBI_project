@@ -113,13 +113,6 @@ public class EnemyAI : MonoBehaviour
         return _isAttackFinished;
     }
 
-    // 적이 죽으면 그 위치에 아이템을 생성하도록 만듦 ItemManager의 Create도 함께 변경해야 함
-    //public void SetDie()
-    //{
-    //    ItemManager.Instance.Create(transform.position);
-    //    Destroy(gameObject);
-    //}
-
     #region Unity Built-in Fuction
 
     private void Awake()
