@@ -870,11 +870,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6668df0f-65bc-495f-a532-7a45145135a4
+  cloudProjectId: 8db4639f-1844-4079-8249-d0cbe549703b
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: YBBI_Project
-  organizationId: lsam3333333
+  projectName: MultiLobby
+  organizationId: gom6953
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

@@ -10,12 +10,18 @@ using UnityEditor.Build;
 using System.Security.Cryptography;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Reflection;
+using System.Reflection;
 
 public class LobbyAndSesssionUIManager : MonoBehaviour
 {
     #region Fields & Properties
 
     public static LobbyAndSesssionUIManager Instance { get; private set; }
+
+    [Header("네트워크매니저 프리팹")]
+    [SerializeField] private GameObject _networkManagerPrefab;
+    private GameObject _currentNetworkManagerInstance;
 
     [Header("플레이어 이미지 리스트")]
     [SerializeField] private Sprite[] playerJobImages;
@@ -85,7 +91,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _createSessionUI.SetActive(false);
         _inSessionUI.SetActive(true);
-        RequestSingleTone.Instance.RequestChatONOFF(true);
+        if (RequestSingleTone.Instance != null)
+        {
+            RequestSingleTone.Instance.RequestChatONOFF(true);
+        }
     }
 
     private void ShowCreateSessionUI()
@@ -93,7 +102,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _sessionListUI.SetActive(false);
         _createSessionUI.SetActive(true);
         _inSessionUI.SetActive(false);
-        RequestSingleTone.Instance.RequestChatONOFF(false);
+        if (RequestSingleTone.Instance != null)
+        {
+            RequestSingleTone.Instance.RequestChatONOFF(false);
+        }
     }
 
 
@@ -102,7 +114,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(true);
         _inSessionUI.SetActive(false);
-        RequestSingleTone.Instance.RequestChatONOFF(false);
+        if(RequestSingleTone.Instance != null)
+        {
+            RequestSingleTone.Instance.RequestChatONOFF(false);
+        }
     }
 
     public void HideAllUi()
@@ -110,7 +125,10 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         _createSessionUI.SetActive(false);
         _sessionListUI.SetActive(false);
         _inSessionUI.SetActive(false);
-        RequestSingleTone.Instance.RequestChatONOFF(false);
+        if (RequestSingleTone.Instance != null)
+        {
+            RequestSingleTone.Instance.RequestChatONOFF(false);
+        }
     }
 
     public void ShowJobSelectCanv()
@@ -230,6 +248,7 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
         _createButton.interactable = true;
         
+        RequestSingleTone.Instance.RequestClearChatContent();
     }
     private async void JoinSession()
     {
@@ -329,13 +348,19 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
 
         HideCreateSessionUI();
 
+        string hostName = await LobbyAndSesssionFireBaseManager.Instance.GetSessionPlayerName(_savedJoinCode, 0);
+        string myName = await LobbyAndSesssionFireBaseManager.Instance.GetSessionPlayerName(_savedJoinCode, GetOwnPlayerIndex());
+        Debug.Log($"HostName : {hostName} myName : {myName}");
+
         var sessionList = GameRelayManager.Instance.GetSessionList();
         var session = sessionList.Find(s => s.JoinCode == _savedJoinCode);
 
 
         Debug.Log($"나갈 세션 코드 :{_savedJoinCode}");
+
+
         
-        if (NetworkManager.Singleton.IsHost)
+        if (NetworkManager.Singleton.IsHost && hostName == myName)
         {
             Debug.Log("호스트가 세션을 종료합니다.");
             // 호스트가 세션을 종료하면 모든 클라이언트 연결이 끊어짐
@@ -347,6 +372,8 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
             // 세션 리스트에서 해당 세션 제거 (호스트가 떠나면 자동 삭제)
             sessionList.RemoveAll(s => s.JoinCode == _savedJoinCode);
 
+            NetworkManager.Singleton.Shutdown();
+            await ResetNetworkManager();
         }
         else if (NetworkManager.Singleton.IsClient)
         {
@@ -375,7 +402,35 @@ public class LobbyAndSesssionUIManager : MonoBehaviour
         StartCoroutine(ButtonDelay(1f));
     }
 
+    public async Task ResetNetworkManager()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton.gameObject);
 
+            ForceClearNetworkManagerSingleton(); // 🧠 여기 중요
+        }
+
+        await Task.Delay(100); // 한 프레임 대기 (안전하게)
+
+        _currentNetworkManagerInstance = Instantiate(_networkManagerPrefab);
+        DontDestroyOnLoad(_currentNetworkManagerInstance);
+    }
+
+    public static void ForceClearNetworkManagerSingleton()
+    {
+        var singletonField = typeof(NetworkManager).GetField("s_Singleton", BindingFlags.Static | BindingFlags.NonPublic);
+        if (singletonField != null)
+        {
+            singletonField.SetValue(null, null);
+            Debug.Log("✅ NetworkManager.Singleton 초기화 완료 (강제)");
+        }
+        else
+        {
+            Debug.LogWarning("❌ NetworkManager.Singleton 내부 필드를 찾지 못했습니다.");
+        }
+    }
 
     public string GetSavedJoinCode()
     {

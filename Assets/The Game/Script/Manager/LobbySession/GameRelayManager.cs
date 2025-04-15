@@ -147,6 +147,8 @@ public class GameRelayManager : MonoBehaviour
         return NetworkManager.Singleton.LocalClientId;
     }
 
+    
+
     private void OnClientDisconnected(ulong clientId)
     {
         Debug.Log($"클라이언트 {clientId} 연결 끊김 감지됨");
