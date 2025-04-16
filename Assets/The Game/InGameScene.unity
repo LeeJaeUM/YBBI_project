@@ -1338,31 +1338,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &602470075176972166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240975081416463557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4ac62fe00ad9846a9d271aef21b463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerMoneyText: {fileID: 825132043963868529}
-  _inventory: {fileID: 7095459555409466160}
-  _shopItems:
-  - _itemName: InvenUpgrade
-    _initialPrice: 5
-    _priceIncreaseRate: 1.3
-    _priceText: {fileID: 880666454722718048}
-    _buyBtn: {fileID: 8150977616804321538}
-  - _itemName: PlayerATKUpgrade
-    _initialPrice: 10
-    _priceIncreaseRate: 1.4
-    _priceText: {fileID: 1996242616149290547}
-    _buyBtn: {fileID: 8637440136232749693}
 --- !u!114 &614416005726924712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,8 +1519,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 602470075176972166}
-        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+      - m_Target: {fileID: 8603183118663766510}
+        m_TargetAssemblyTypeName: TheGameShop, Assembly-CSharp
         m_MethodName: OnSellButtonPressed
         m_Mode: 1
         m_Arguments:
@@ -3919,7 +3894,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -965.66, y: -543.63}
+  m_AnchoredPosition: {x: -962.83, y: -543.11}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &4103179975081611809
@@ -4059,7 +4034,7 @@ GameObject:
   - component: {fileID: 7746310752655764715}
   - component: {fileID: 81645575404597407}
   - component: {fileID: 2739822726692664864}
-  - component: {fileID: 8380141470099324773}
+  - component: {fileID: 7746310752655764716}
   m_Layer: 0
   m_Name: ShopImg
   m_TagString: Untagged
@@ -5224,10 +5199,10 @@ RectTransform:
   - {fileID: 7344110317361947860}
   m_Father: {fileID: 4340247181699090307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -110}
-  m_SizeDelta: {x: 1380, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6945635136959158317
 MonoBehaviour:
@@ -5273,8 +5248,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 602470075176972166}
-        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+      - m_Target: {fileID: 8603183118663766510}
+        m_TargetAssemblyTypeName: TheGameShop, Assembly-CSharp
         m_MethodName: CloseShopUI
         m_Mode: 1
         m_Arguments:
@@ -5506,7 +5481,7 @@ GameObject:
   - component: {fileID: 4985923036731624971}
   - component: {fileID: 8603183118663766509}
   - component: {fileID: 1638922203211006155}
-  - component: {fileID: 602470075176972166}
+  - component: {fileID: 8603183118663766510}
   m_Layer: 5
   m_Name: ShopBgImg
   m_TagString: Untagged
@@ -5979,6 +5954,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7746310752655764716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4328913312335684837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58296dbc493dfc48ad5bfc3052a0d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shop: {fileID: 8603183118663766510}
 --- !u!1 &7800608515021005653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6508,19 +6496,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5164007726633795270}
   m_CullTransparentMesh: 1
---- !u!114 &8380141470099324773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4328913312335684837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74343fb3941b4094ab5d15553bdd384c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shop: {fileID: 602470075176972166}
 --- !u!222 &8385728743856137445
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6545,6 +6520,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7240975081416463557}
   m_CullTransparentMesh: 1
+--- !u!114 &8603183118663766510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240975081416463557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1955547714f0e448ffda0349a59c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMoneyText: {fileID: 825132043963868529}
+  _inventory: {fileID: 7095459555409466160}
+  _shopItems:
+  - _itemName: InvenUpgrade
+    _initialPrice: 5
+    _priceIncreaseRate: 1.3
+    _priceText: {fileID: 880666454722718048}
+    _buyBtn: {fileID: 8150977616804321538}
+  - _itemName: PlayerATKUpgrade
+    _initialPrice: 10
+    _priceIncreaseRate: 1.4
+    _priceText: {fileID: 1996242616149290547}
+    _buyBtn: {fileID: 8637440136232749693}
 --- !u!114 &8637440136232749693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6700,10 +6700,10 @@ RectTransform:
   - {fileID: 6661959756114036689}
   m_Father: {fileID: 4340247181699090307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 1380, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8775716779015662988
 BoxCollider2D:

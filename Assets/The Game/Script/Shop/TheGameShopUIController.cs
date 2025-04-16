@@ -3,7 +3,7 @@ using UnityEngine;
 public class TheGameShopUIController : MonoBehaviour
 {
     [SerializeField]
-    Shop _shop;
+    TheGameShop _shop;
 
     void OnTriggerEnter2D(Collider2D collision)
     {

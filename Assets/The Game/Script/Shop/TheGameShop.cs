@@ -21,6 +21,16 @@ public class TheGameShop : MonoBehaviour
     private int _playerMoney = 0;
     private int _totalPrice = 0;
 
+    #region Value Control
+    public void AddMoney(int amount)
+    {
+        _playerMoney += amount;
+        UpdatePriceDisplay();
+        UpdateBtnStates();
+    }
+
+    #endregion
+
     #region UI Control
     public void ShowShopUI()
     {
