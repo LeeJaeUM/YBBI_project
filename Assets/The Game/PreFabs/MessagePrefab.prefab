@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6407603999866773372}
   - component: {fileID: 4585203680400085059}
   - component: {fileID: 6144014194538219828}
+  - component: {fileID: 4941338107933564367}
   m_Layer: 5
   m_Name: MessagePrefab
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_text: testMessage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3a6c683713578b4dade0effb0de7f31, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -613661679726482739, guid: d3a6c683713578b4dade0effb0de7f31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -151,3 +152,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &4941338107933564367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153174882674843388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
