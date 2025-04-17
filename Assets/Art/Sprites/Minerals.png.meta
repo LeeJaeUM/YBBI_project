@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: e5142a2bc1becb34d98911cd02e9419b
+guid: 4e1850db109f29e47bf191089ff8afd7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5623864195369250307
-    second: diver_0
+      213: -5732747483443466111
+    second: Minerals_0
+  - first:
+      213: -8679966155197468166
+    second: Minerals_1
+  - first:
+      213: 3001957441537787673
+    second: Minerals_2
+  - first:
+      213: 3335794136032191816
+    second: Minerals_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 240
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,10 +81,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +119,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,7 +132,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: tvOS
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,23 +148,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: diver_0
+      name: Mineral_0_Coralite
       rect:
         serializedVersion: 2
-        x: 48
-        y: 12
-        width: 340
-        height: 410
+        x: 2
+        y: 94
+        width: 63
+        height: 67
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 30ea50e60bafb0e40800000000000000
-      internalID: 5623864195369250307
+      spriteID: 180765689803170b0800000000000000
+      internalID: -5732747483443466111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mineral_1_DeepIron
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 94
+        width: 59
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af1ba0135c09a8780800000000000000
+      internalID: -8679966155197468166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mineral_2_AbyssCrystal
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 94
+        width: 59
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91743b5536819a920800000000000000
+      internalID: 3001957441537787673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mineral_3_LostCore
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 94
+        width: 64
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 845a70ac71f1b4e20800000000000000
+      internalID: 3335794136032191816
       vertices: []
       indices: 
       edges: []
@@ -174,7 +249,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      diver_0: 5623864195369250307
+      Mineral_0_Coralite: -5732747483443466111
+      Mineral_1_DeepIron: -8679966155197468166
+      Mineral_2_AbyssCrystal: 3001957441537787673
+      Mineral_3_LostCore: 3335794136032191816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
