@@ -28,6 +28,10 @@ public class UnitHealth : MonoBehaviour
 
     public void AddAir(float addValue)
     {
+        if (addValue < 0)
+        {
+            HitDamage();        //데미지를 입으면 함수 호출
+        }
         SetAir(_curAir + addValue);
     }
 
@@ -45,6 +49,19 @@ public class UnitHealth : MonoBehaviour
     {
         OnDie?.Invoke();
     }
+
+    /// <summary>
+    /// 애니메이션용 데미지 입을 때 호출되는 함수
+    /// </summary>
+    protected virtual void HitDamage()
+    {
+
+    }
+
+    //public bool IsInSafeZone()
+    //{
+    //    return _curAir >= _safeAirZone;
+    //}
 
     protected virtual void Awake()
     {

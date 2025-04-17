@@ -15,6 +15,8 @@ public class PlayerAttacker : MonoBehaviour
 
     public bool _isPressed = false;
 
+    [SerializeField] private PlayerAnimator _playerAnimator;
+
     #region Custom Functions 
 
     /// <summary>
@@ -114,6 +116,8 @@ public class PlayerAttacker : MonoBehaviour
             //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
             //Sprite sprite = skillData._skillSprite;   
             bullet.SetData(damage, radius, skillData._width, skillData._length ,activeTime, speed);
+
+            _playerAnimator.PlayAttackAnimation();  //공격 애니메이션 실행
         }
     }
 
@@ -189,6 +193,7 @@ public class PlayerAttacker : MonoBehaviour
 
         _aTKStats = GetComponent<PlayerATKStats>();                     //GetComponent
         _nearestEnemyFinder = GetComponentInChildren<NearestEnemyFinder>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
     }
     private void Start()
     {

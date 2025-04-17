@@ -7,9 +7,14 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D _rigid;
     private Vector2 _inputVec;
 
+    [SerializeField] private PlayerAnimator _playerAnimator;
+
     private void HandleMoveInput(Vector2 input)
     {
-        _inputVec = input; // 이동 벡터 업데이트
+        _inputVec = input; // 이동 벡터 업데이트    
+
+        // 이동 애니메이션 관련 처리
+        _playerAnimator.UpdateMoveVisual(input);
     }
 
     void Awake()
@@ -21,6 +26,7 @@ public class PlayerMover : MonoBehaviour
         {
             inputHandler.OnMoveInput += HandleMoveInput; // 이벤트 구독
         }
+        _playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     void FixedUpdate()

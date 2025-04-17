@@ -7,4 +7,16 @@ public class PlayerHealth : UnitHealth
     //{
     //    OnDie?.Invoke();
     //}
+
+    [SerializeField] private PlayerAnimator _playerAnimator;
+    protected override void HitDamage()
+    {
+        _playerAnimator.PlayHitAnimation();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _playerAnimator = GetComponent<PlayerAnimator>();
+    }
 }
