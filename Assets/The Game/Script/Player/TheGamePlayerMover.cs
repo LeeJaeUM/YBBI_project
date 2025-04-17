@@ -10,12 +10,16 @@ public class TheGamePlayerMover : NetworkBehaviour
     private Rigidbody2D _rigid;
     private Vector2 _inputVec;
     private PlayerPosRPC _playerPosRpc;
+    private TheGamePlayerAnimator _playerAnimator;
 
     private void HandleMoveInput(Vector2 input)
     {
         if (!IsLocalPlayer) return;
 
         _inputVec = input;
+        // 이동 애니메이션 관련 처리
+        _playerAnimator.UpdateMoveVisual(input);
+
         _playerPosRpc.MoveRequest(_inputVec);
         if (input == Vector2.zero)
         {
@@ -32,6 +36,7 @@ public class TheGamePlayerMover : NetworkBehaviour
     {
         _rigid = GetComponent<Rigidbody2D>();
         _playerPosRpc = GetComponent<PlayerPosRPC>();
+        _playerAnimator = GetComponent<TheGamePlayerAnimator>();
     }
 
     void Start()

@@ -17,6 +17,7 @@ public class TheGamePlayerAttacker : NetworkBehaviour
 
     public bool _isPressed = false;
     private Vector2 _inputVec = Vector2.zero;       //이동방향 : 적이 없을 시 공격할 때 사용
+    private TheGamePlayerAnimator _playerAnimator;
 
     #region Custom Functions 
 
@@ -123,6 +124,8 @@ public class TheGamePlayerAttacker : NetworkBehaviour
             //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
             //Sprite sprite = skillData._skillSprite;   
             bullet.SetData(damage, radius, skillData._width, skillData._length, activeTime, speed);
+
+            _playerAnimator.PlayAttackAnimation();  //공격 애니메이션 실행
         }
     }
 
@@ -206,6 +209,7 @@ public class TheGamePlayerAttacker : NetworkBehaviour
 
         _aTKStats = GetComponent<PlayerATKStats>();                     //GetComponent
         _nearestEnemyFinder = GetComponentInChildren<NearestEnemyFinder>();
+        _playerAnimator = GetComponent<TheGamePlayerAnimator>();
     }
 
 
