@@ -4,6 +4,18 @@ using UnityEngine;
 public class PlayerJobPrefabManager : NetworkBehaviour
 {
     [SerializeField] private GameObject[] playerPrefabs; // Warrior, Mage 등
+    [Header("스폰될 맵 그리드")]
+    [SerializeField] private GameObject mapGrid;
+
+    private Vector3 _pos;
+
+    private void Awake()
+    {
+        MapRandomSpawner grid = mapGrid.GetComponent<MapRandomSpawner>();
+
+
+        _pos = grid.GridToWorld(grid.GetMapListGridCenter());
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -23,7 +35,7 @@ public class PlayerJobPrefabManager : NetworkBehaviour
 
         int jobIndex = await LobbyAndSesssionFireBaseManager.Instance.GetSessionPlayerJobIndex(joinCode, playerIndex) - 1;
 
-        Vector3 spawnPos = Vector3.zero; // 플레이어 별 위치 지정
+        Vector3 spawnPos = _pos; // 플레이어 별 위치 지정
         GameObject player = Instantiate(playerPrefabs[jobIndex], spawnPos, Quaternion.identity);
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }

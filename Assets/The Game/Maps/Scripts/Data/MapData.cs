@@ -26,12 +26,16 @@ public class MapData : MonoBehaviour
     [Header("텔레포트 타일")]
     public GameObject tpUp;
     public string tpUpID;
+    public bool isTpUpSeted = false;
     public GameObject tpDown;
     public string tpDownID;
+    public bool isTpDownSeted = false;
     public GameObject tpLeft;
     public string tpLeftID;
+    public bool isTpLeftSeted = false;
     public GameObject tpRight;
     public string tpRightID;
+    public bool isTpRightSeted = false;
 
     private void Start()
     {
@@ -40,28 +44,47 @@ public class MapData : MonoBehaviour
         tpLeft = transform.Find("TpEntressLeft")?.gameObject;
         tpRight = transform.Find("TpEntressRight")?.gameObject;
         Debug.Log($"[RoomInfo] {gameObject.name} 포탈 오브젝트 자동 할당 완료");
-
     }
 
 
-    public void ApplyTeleportObjectVisibility(Dictionary<Vector2Int, bool> connectionMap)
+
+    public void RefreshMapId()
     {
-        if (tpUp != null) tpUp.SetActive(connectionMap.TryGetValue(Vector2Int.up, out bool u) && u);
-        if (tpDown != null) tpDown.SetActive(connectionMap.TryGetValue(Vector2Int.down, out bool d) && d);
-        if (tpLeft != null) tpLeft.SetActive(connectionMap.TryGetValue(Vector2Int.left, out bool l) && l);
-        if (tpRight != null) tpRight.SetActive(connectionMap.TryGetValue(Vector2Int.right, out bool r) && r);
+        if(tpUp != null)
+        {
+            TeleportTileManager telepoterTile = tpUp.GetComponent<TeleportTileManager>();
+            tpUpID = telepoterTile.teleportID;
+        }
+        else
+        {
+            Debug.Log("tpUpID가 null임");
+        }
+        if (tpDown != null)
+        {
+            TeleportTileManager telepoterTile = tpDown.GetComponent<TeleportTileManager>();
+            tpDownID = telepoterTile.teleportID;
+        }
+        else
+        {
+            Debug.Log("tpDownID가 null임");
+        }
+        if (tpLeft != null)
+        {
+            TeleportTileManager telepoterTile = tpLeft.GetComponent<TeleportTileManager>();
+            tpLeftID = telepoterTile.teleportID;
+        }
+        else
+        {
+            Debug.Log("tpLeftID가 null임");
+        }
+        if (tpRight != null)
+        {
+            TeleportTileManager telepoterTile = tpRight.GetComponent<TeleportTileManager>();
+            tpRightID = telepoterTile.teleportID;
+        }
+        else
+        {
+            Debug.Log("tpRightID가 null임");
+        }
     }
-
-#if UNITY_EDITOR
-    [ContextMenu("텔레포트 방향 자동 감지")]
-    public void AutoDetectTeleportDirections()
-    {
-        canConnectUp = transform.Find("TpEntressUp") != null;
-        canConnectDown = transform.Find("TpEntressDown") != null;
-        canConnectLeft = transform.Find("TpEntressLeft") != null;
-        canConnectRight = transform.Find("TpEntressRight") != null;
-
-        Debug.Log($"[RoomInfo] 텔레포트 방향 자동 감지 완료: {gameObject.name}");
-    }
-#endif
 }
