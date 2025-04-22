@@ -7177,7 +7177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: TP_1_2
+  teleportID: 
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &928759115198768282
@@ -9498,8 +9498,8 @@ MonoBehaviour:
   canConnectLeft: 0
   canConnectRight: 0
   tpUp: {fileID: 333522326288674922}
-  tpUpID: TP_1_2
-  isTpUpSeted: 1
+  tpUpID: 
+  isTpUpSeted: 0
   tpDown: {fileID: 6939820861362383415}
   tpDownID: 
   isTpDownSeted: 0
