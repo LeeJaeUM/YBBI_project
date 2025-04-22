@@ -9013,7 +9013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_6
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &2557923887165262649
@@ -9407,7 +9407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_11
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8187276254779454260
@@ -9801,7 +9801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_12
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8902288767891610223
@@ -9929,14 +9929,14 @@ MonoBehaviour:
   canConnectLeft: 1
   canConnectRight: 1
   tpUp: {fileID: 1301998366643801270}
-  tpUpID: 
+  tpUpID: TP_1_6
   isTpUpSeted: 0
   tpDown: {fileID: 0}
   tpDownID: 
   isTpDownSeted: 0
   tpLeft: {fileID: 8187276254779454260}
-  tpLeftID: 
-  isTpLeftSeted: 0
+  tpLeftID: TP_1_12
+  isTpLeftSeted: 1
   tpRight: {fileID: 2557923887165262649}
-  tpRightID: 
+  tpRightID: TP_1_11
   isTpRightSeted: 0

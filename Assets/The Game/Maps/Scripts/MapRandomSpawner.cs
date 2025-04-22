@@ -27,10 +27,8 @@ public class MapRandomSpawner : MonoBehaviour
     {
         Vector2Int center = GetMapListGridCenter();
         MapData startRoom = GetRandomRoom(RoomType.Start);
-
-        GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
-        MapData startData = startObj.GetComponent<MapData>();
-        _mapGrid[center.x, center.y] = startData;
+        _mapGrid[center.x, center.y] = startRoom;
+        Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
         frontier.Enqueue(center);
@@ -42,7 +40,7 @@ public class MapRandomSpawner : MonoBehaviour
             MapData currentRoom = _mapGrid[currentPos.x, currentPos.y];
 
             List<Vector2Int> dirList = new List<Vector2Int>(_directions);
-            Shuffle(dirList);
+            Shuffle(dirList); // 방향 무작위화
 
             foreach (var dir in dirList)
             {
@@ -54,45 +52,41 @@ public class MapRandomSpawner : MonoBehaviour
                 MapData newRoom = GetRandomCompatibleRoom(RoomType.Normal, dir, currentRoom);
                 if (newRoom == null) continue;
 
-                GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
-                MapData newData = newObj.GetComponent<MapData>();
-                _mapGrid[nextPos.x, nextPos.y] = newData;
-
+                _mapGrid[nextPos.x, nextPos.y] = newRoom;
+                Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
                 frontier.Enqueue(nextPos);
                 placedRoomCount++;
 
                 if (placedRoomCount >= mapCount - 1)
-                    break;
+                    break; // 목표 개수 도달하면 바로 종료
             }
         }
 
-        // 보스방 연결 시도
         for (int y = 0; y < MAP_SIZE; y++)
         {
             for (int x = 0; x < MAP_SIZE; x++)
             {
-                if (_mapGrid[x, y] == null) continue;
-
-                foreach (var dir in _directions)
+                if (_mapGrid[x, y] != null)
                 {
-                    Vector2Int bossPos = new Vector2Int(x, y) + dir;
-                    if (!IsValidPos(bossPos)) continue;
-                    if (_mapGrid[bossPos.x, bossPos.y] != null) continue;
-                    if (FormsSquare(bossPos)) continue;
-
-                    MapData bossRoom = GetRandomCompatibleRoom(RoomType.Boss, dir, _mapGrid[x, y]);
-                    if (bossRoom != null)
+                    foreach (var dir in _directions)
                     {
-                        GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
-                        MapData bossData = bossObj.GetComponent<MapData>();
-                        _mapGrid[bossPos.x, bossPos.y] = bossData;
-                        return;
+                        Vector2Int bossPos = new Vector2Int(x, y) + dir;
+                        if (!IsValidPos(bossPos)) continue;
+                        if (_mapGrid[bossPos.x, bossPos.y] != null) continue;
+                        if (FormsSquare(bossPos)) continue;
+
+                        MapData bossRoom = GetRandomCompatibleRoom(RoomType.Boss, dir, _mapGrid[x, y]);
+                        if (bossRoom != null)
+                        {
+                            _mapGrid[bossPos.x, bossPos.y] = bossRoom;
+                            Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
+                            return;
+                        }
                     }
                 }
             }
         }
     }
-
 
     public Vector2Int GetMapListGridCenter()
     {
@@ -178,54 +172,74 @@ public class MapRandomSpawner : MonoBehaviour
     private void AssignTeleportIDs()
     {
         int idCounter = 0;
-        Vector2Int[] teleportDirs = { Vector2Int.down, Vector2Int.left }; // 한쪽만 처리해서 중복 방지
 
         for (int y = 0; y < MAP_SIZE; y++)
         {
             for (int x = 0; x < MAP_SIZE; x++)
             {
-                var currentRoom = _mapGrid[x, y];
-                if (currentRoom == null) continue;
+                var room = _mapGrid[x, y];
+                if (room == null) continue;
                 Vector2Int currentPos = new Vector2Int(x, y);
 
-                foreach (var dir in teleportDirs)
+                // 위 방향 연결
+                if (room.canConnectUp)
                 {
-                    Vector2Int neighborPos = currentPos + dir;
-                    if (!IsValidPos(neighborPos)) continue;
-
-                    var neighborRoom = _mapGrid[neighborPos.x, neighborPos.y];
-                    if (neighborRoom == null) continue;
-
-                    string tpID = $"TP_{stageNum}_{idCounter}";
-
-                    if (dir == Vector2Int.down &&
-                        currentRoom.canConnectDown && !currentRoom.isTpDownSeted &&
-                        neighborRoom.canConnectUp && !neighborRoom.isTpUpSeted)
+                    Vector2Int neighborPos = currentPos + Vector2Int.up;
+                    if (IsValidPos(neighborPos) && _mapGrid[neighborPos.x, neighborPos.y] != null && !_mapGrid[neighborPos.x, neighborPos.y].isTpUpSeted)
                     {
-                        SetTeleportID(currentRoom.tpDown, tpID);
-                        SetTeleportID(neighborRoom.tpUp, tpID);
-                        currentRoom.isTpDownSeted = true;
-                        neighborRoom.isTpUpSeted = true;
-                        Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
-                        idCounter++;
-                    }
-
-                    if (dir == Vector2Int.left &&
-                        currentRoom.canConnectLeft && !currentRoom.isTpLeftSeted &&
-                        neighborRoom.canConnectRight && !neighborRoom.isTpRightSeted)
-                    {
-                        SetTeleportID(currentRoom.tpLeft, tpID);
-                        SetTeleportID(neighborRoom.tpRight, tpID);
-                        currentRoom.isTpLeftSeted = true;
-                        neighborRoom.isTpRightSeted = true;
-                        Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
-                        idCounter++;
+                        string tpID = $"TP_{stageNum}_{idCounter++}";
+                        SetTeleportID(room.tpUp, tpID);
+                        SetTeleportID(_mapGrid[neighborPos.x, neighborPos.y].tpDown, tpID);
+                        room.isTpUpSeted = true;
+                        _mapGrid[neighborPos.x, neighborPos.y].isTpDownSeted = true;
                     }
                 }
+
+                // 아래 방향 연결
+                if (room.canConnectDown)
+                {
+                    Vector2Int neighborPos = currentPos + Vector2Int.down;
+                    if (IsValidPos(neighborPos) && _mapGrid[neighborPos.x, neighborPos.y] != null && !_mapGrid[neighborPos.x, neighborPos.y].isTpDownSeted)
+                    {
+                        string tpID = $"TP_{stageNum}_{idCounter++}";
+                        SetTeleportID(room.tpDown, tpID);
+                        SetTeleportID(_mapGrid[neighborPos.x, neighborPos.y].tpUp, tpID);
+                        room.isTpDownSeted = true;
+                        _mapGrid[neighborPos.x, neighborPos.y].isTpUpSeted = true;
+                    }
+                }
+
+                // 왼쪽 방향 연결
+                if (room.canConnectLeft)
+                {
+                    Vector2Int neighborPos = currentPos + Vector2Int.left;
+                    if (IsValidPos(neighborPos) && _mapGrid[neighborPos.x, neighborPos.y] != null && !_mapGrid[neighborPos.x, neighborPos.y].isTpLeftSeted)
+                    {
+                        string tpID = $"TP_{stageNum}_{idCounter++}";
+                        SetTeleportID(room.tpLeft, tpID);
+                        SetTeleportID(_mapGrid[neighborPos.x, neighborPos.y].tpRight, tpID);
+                        room.isTpLeftSeted = true;
+                        _mapGrid[neighborPos.x, neighborPos.y].isTpRightSeted = true;
+                    }
+                }
+
+                // 오른쪽 방향 연결
+                if (room.canConnectRight)
+                {
+                    Vector2Int neighborPos = currentPos + Vector2Int.right;
+                    if (IsValidPos(neighborPos) && _mapGrid[neighborPos.x, neighborPos.y] != null && !_mapGrid[neighborPos.x, neighborPos.y].isTpRightSeted)
+                    {
+                        string tpID = $"TP_{stageNum}_{idCounter++}";
+                        SetTeleportID(room.tpRight, tpID);
+                        SetTeleportID(_mapGrid[neighborPos.x, neighborPos.y].tpLeft, tpID);
+                        room.isTpRightSeted = true;
+                        _mapGrid[neighborPos.x, neighborPos.y].isTpLeftSeted = true;
+                    }
+                }
+
             }
         }
     }
-
 
     private void SetTeleportID(GameObject tpObj, string id)
     {
@@ -240,19 +254,14 @@ public class MapRandomSpawner : MonoBehaviour
         var tilemap = tpObj.GetComponent<Tilemap>();
         if (tilemap != null)
         {
-            foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+            foreach (var pos in tilemap.cellBounds.allPositionsWithin)
             {
-                if (!tilemap.HasTile(pos)) continue;
                 var tile = tilemap.GetTile(pos) as TelepoterTile;
                 if (tile != null)
-                {
                     tile.teleportID = id;
-                    break; // 한 타일만 ID 설정하면 됨
-                }
             }
         }
     }
-
     #endregion
 
 
@@ -287,30 +296,6 @@ public class MapRandomSpawner : MonoBehaviour
             }
         }
     }
-    private void DisableUnusedTeleporters()
-    {
-        for (int y = 0; y < MAP_SIZE; y++)
-        {
-            for (int x = 0; x < MAP_SIZE; x++)
-            {
-                var room = _mapGrid[x, y];
-                if (room == null) continue;
-
-                if (!room.isTpUpSeted && room.tpUp != null)
-                    room.tpUp.SetActive(false);
-
-                if (!room.isTpDownSeted && room.tpDown != null)
-                    room.tpDown.SetActive(false);
-
-                if (!room.isTpLeftSeted && room.tpLeft != null)
-                    room.tpLeft.SetActive(false);
-
-                if (!room.isTpRightSeted && room.tpRight != null)
-                    room.tpRight.SetActive(false);
-            }
-        }
-    }
-
     #endregion
 
     private void Start()
@@ -319,7 +304,6 @@ public class MapRandomSpawner : MonoBehaviour
         ReqestMapSpawn();
         AssignTeleportIDs();
         RefreshInspectorForTPID();
-        DisableUnusedTeleporters();
     }
 
 }

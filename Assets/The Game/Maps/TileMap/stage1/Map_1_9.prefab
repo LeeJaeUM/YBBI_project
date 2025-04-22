@@ -8959,7 +8959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_4
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &6035351096251569833
@@ -9353,7 +9353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_1
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &7711497649054138784
@@ -9747,7 +9747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_3
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8902288767891610223
@@ -9876,17 +9876,17 @@ MonoBehaviour:
   canConnectLeft: 1
   canConnectRight: 1
   tpUp: {fileID: 4209220840574714492}
-  tpUpID: 
-  isTpUpSeted: 0
+  tpUpID: TP_1_4
+  isTpUpSeted: 1
   tpDown: {fileID: 6035351096251569833}
-  tpDownID: 
-  isTpDownSeted: 0
+  tpDownID: TP_1_1
+  isTpDownSeted: 1
   tpLeft: {fileID: 7711497649054138784}
-  tpLeftID: 
-  isTpLeftSeted: 0
+  tpLeftID: TP_1_3
+  isTpLeftSeted: 1
   tpRight: {fileID: 8994076370264649341}
-  tpRightID: 
-  isTpRightSeted: 0
+  tpRightID: TP_1_5
+  isTpRightSeted: 1
 --- !u!1 &8994076370264649341
 GameObject:
   m_ObjectHideFlags: 0
@@ -10278,6 +10278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportID: 
+  teleportID: TP_1_5
   isTp: 0
   mapOBJ: {fileID: 8902288767891610223}

@@ -4,11 +4,13 @@ using UnityEngine.Tilemaps;
 
 public class TeleportTileManager : MonoBehaviour
 {
+    [HideInInspector]
     public string teleportID; // 텔레포트될 ID
 
     [SerializeField] private bool isTp = false;
     [SerializeField] private GameObject mapOBJ;
 
+    private Grid mapSpawnGrid;
 
     private async void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,20 +19,22 @@ public class TeleportTileManager : MonoBehaviour
 
         if(!isTp)
         {
+            mapSpawnGrid = mapOBJ.GetComponentInParent<Grid>();
+
             Debug.Log($"[텔레포트] 요청 ID: {teleportID}");
 
             // 모든 TeleportManager 찾기
-            TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>();
+            TeleportTileManager[] allTeleporters = mapSpawnGrid.GetComponentsInChildren<TeleportTileManager>();
 
             foreach (TeleportTileManager targetTeleporter in allTeleporters)
             {
-                if(teleportID == null) continue;
-
                 // 자기 자신 무시
-                if (targetTeleporter == this) continue;
+                if (targetTeleporter == this)
+                    continue;
 
                 // 같은 맵(Grid 내부)에 있는 포탈 무시
-                if (targetTeleporter.transform.IsChildOf(mapOBJ.transform)) continue;
+                if (targetTeleporter.transform.IsChildOf(mapOBJ.transform))
+                    continue;
 
                 // teleportID 같은 포탈 발견 시
                 if (targetTeleporter.teleportID == this.teleportID)
