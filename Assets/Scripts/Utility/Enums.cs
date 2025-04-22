@@ -39,4 +39,16 @@ public static class Enums
         F
     }
 
+    [System.Flags]
+    public enum DebuffFlags
+    {
+        None = 0,
+
+        DecreaseRate2x = 1 << 0,   // 00000001
+        IncreaseRate2x = 1 << 1,   // 00000010
+
+        Poison = 1 << 2,           // 00000100
+        Berserk = 1 << 3,          // 00001000
+        Shock = 1 << 4             // 00010000
+    }
 }

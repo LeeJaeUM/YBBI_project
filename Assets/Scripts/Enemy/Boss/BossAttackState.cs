@@ -6,9 +6,9 @@ public class BossAttackState : IEnemyState
 
     public void Execute(EnemyAI enemy)
     {
-        Debug.Log($"{enemy.name} attacks!");
         if (!enemy.GetIsAttacking())
         {
+            Debug.Log($"{enemy.name} attacks!");
             enemy.SetIsAttacking(true);
             enemy.SetRandomAttackPatern();
             enemy.StartAttack();

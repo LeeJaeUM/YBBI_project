@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
 
     private LaserWarningVisualizer _laserWarningVisualizer;
     public SpriteRenderer _spriteRenderer;  
+    private BoxCollider2D _boxCollider2D; //충돌 콜라이더
 
     public void SetArrowVector(Vector2 value)
     {
@@ -43,6 +44,7 @@ public class Bullet : MonoBehaviour
         ResetBulletSize();
         _damage = damage;
         transform.localScale = Vector3.one * radius;
+        //_spriteRenderer.transform.localScale = Vector3.one * radius; //스프라이트 크기 조정
         _lifeTime = activeTime;
         _speed = moveSpeed;
         _bulletType = bulletType;
@@ -133,6 +135,7 @@ public class Bullet : MonoBehaviour
     {
         Transform child = transform.GetChild(0);
         _spriteRenderer = child.GetComponent<SpriteRenderer>();
+        _boxCollider2D = GetComponentInChildren<BoxCollider2D>();
     }
 
     private void OnEnable()
@@ -140,9 +143,24 @@ public class Bullet : MonoBehaviour
         if (!_isPlusAir)
             _damageMul = -1;
 
+        transform.localScale = Vector3.one;
+        _spriteRenderer.transform.localPosition = Vector3.zero; //스프라이트 위치 초기화
+        _spriteRenderer.transform.localScale = Vector3.one;
+        _boxCollider2D.size = Vector3.one;
+
         _canMove = true;
         StartCoroutine(LifeTimeCor()); //테스트
     }
+
+    //private void OnDisable()
+    //{
+    //    StopAllCoroutines();
+    //    _canMove = true;
+    //    _canTrigger = true;
+    //    _spriteRenderer.enabled = true;
+    //    _laserWarningVisualizer.HideWarning();
+    //}
+
     private void Update()
     {
         if(_canMove)

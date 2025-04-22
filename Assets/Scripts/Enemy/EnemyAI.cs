@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     public FindTargetPoint _findTargetPoint;  // FindTargetPoint를 참조
     private PatrolPoint _patrolPoint;
     private EnemyATKStats _enemyATKStats;
+    private EnemyAnimator _enemyAniamtor;
 
     public virtual void Initialize()
     {
@@ -38,6 +39,7 @@ public class EnemyAI : MonoBehaviour
         _patrolPoint = GetComponentInChildren<PatrolPoint>();
         _enemyATKStats = GetComponent<EnemyATKStats>();
         Rigid = GetComponent<Rigidbody2D>();
+        _enemyAniamtor = GetComponentInChildren<EnemyAnimator>();
 
         _enemyATKStats.OnFinishedAttack += SetFinished;
     }
@@ -75,7 +77,11 @@ public class EnemyAI : MonoBehaviour
 
     public void StartAttack()
     {
-        _enemyATKStats.Attack(_findTargetPoint.GetTargetDirection());
+        Vector3 vector3 = _findTargetPoint.GetTargetDirection();
+        _enemyAniamtor.UpdateMoveVisual(vector3);
+        _enemyAniamtor.PlayAttackAnimation();
+
+        _enemyATKStats.Attack(vector3);
     }
 
     public void SetRandomAttackPatern()

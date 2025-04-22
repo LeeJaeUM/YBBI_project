@@ -26,7 +26,7 @@ public class EnemyBulletSpawner : MonoBehaviour
             float activeTime = skillData._activeTime;
             float speed = skillData._moveSpeed;
             // Sprite sprite = skillData._skillSprite; // 나중에 추가 가능
-
+            Debug.Log($"총알 위치 싱글싱글 {spawnPosition}");
             bullet.SetData(damage, radius, skillData._width, skillData._length , activeTime, speed, skillData._bulletType);
         }
     }
@@ -42,6 +42,8 @@ public class EnemyBulletSpawner : MonoBehaviour
         {
             float angleOffset = startAngle + i * angleStep;
             Vector3 rotatedDirection = Quaternion.Euler(0, 0, angleOffset) * baseDirection;
+
+            Debug.Log($"총알 위치 {spawnPosition}");
 
             SpawnSingleBullet(skillData, curAttackDamage, spawnPosition, rotatedDirection);
         }

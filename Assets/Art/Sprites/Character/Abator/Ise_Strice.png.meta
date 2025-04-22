@@ -1,0 +1,1079 @@
+fileFormatVersion: 2
+guid: b3ce4e88c29eaca41864b9c9fa08a4a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8727122225483052517
+    second: Ise_Strice_0
+  - first:
+      213: 6659493252279208555
+    second: Ise_Strice_1
+  - first:
+      213: 7462936792556718776
+    second: Ise_Strice_2
+  - first:
+      213: -6279433744862339762
+    second: Ise_Strice_3
+  - first:
+      213: -5176132514076970792
+    second: Ise_Strice_4
+  - first:
+      213: -7759630867575555525
+    second: Ise_Strice_5
+  - first:
+      213: -7217611265050111611
+    second: Ise_Strice_6
+  - first:
+      213: 3296029735502346440
+    second: Ise_Strice_7
+  - first:
+      213: -5082618183787454399
+    second: Ise_Strice_8
+  - first:
+      213: -1593545619130691114
+    second: Ise_Strice_9
+  - first:
+      213: -4770491987829262462
+    second: Ise_Strice_10
+  - first:
+      213: 3657847062958487575
+    second: Ise_Strice_11
+  - first:
+      213: -7585524303884578181
+    second: Ise_Strice_12
+  - first:
+      213: -2293123987420410398
+    second: Ise_Strice_13
+  - first:
+      213: -7635793839002999393
+    second: Ise_Strice_14
+  - first:
+      213: -6419073885634872763
+    second: Ise_Strice_15
+  - first:
+      213: 7161915957036525253
+    second: Ise_Strice_16
+  - first:
+      213: 1637865128302889450
+    second: Ise_Strice_17
+  - first:
+      213: 3293786290902506496
+    second: Ise_Strice_18
+  - first:
+      213: 4800839238700568466
+    second: Ise_Strice_19
+  - first:
+      213: -6078310889090197005
+    second: Ise_Strice_20
+  - first:
+      213: -8031840148504597884
+    second: Ise_Strice_21
+  - first:
+      213: -6205298040497843236
+    second: Ise_Strice_22
+  - first:
+      213: -3576743297356028612
+    second: Ise_Strice_23
+  - first:
+      213: 4887614887499846645
+    second: Ise_Strice_24
+  - first:
+      213: -7055951471632402917
+    second: Ise_Strice_25
+  - first:
+      213: 5424586742544861378
+    second: Ise_Strice_26
+  - first:
+      213: 8744279736902343957
+    second: Ise_Strice_27
+  - first:
+      213: 2255888595549606085
+    second: Ise_Strice_28
+  - first:
+      213: 4818981972216942647
+    second: Ise_Strice_29
+  - first:
+      213: 3534734131225638502
+    second: Ise_Strice_30
+  - first:
+      213: 3477899945022859252
+    second: Ise_Strice_31
+  - first:
+      213: -886098750807903143
+    second: Ise_Strice_32
+  - first:
+      213: -5926526471600692079
+    second: Ise_Strice_33
+  - first:
+      213: -1662024894113063127
+    second: Ise_Strice_34
+  - first:
+      213: 3276042355987599365
+    second: Ise_Strice_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 20
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ise_Strice_0
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 52
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e575510d67fc1970800000000000000
+      internalID: 8727122225483052517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_1
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 62
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6a863654d54b6c50800000000000000
+      internalID: 6659493252279208555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_2
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 56
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ba4985f87da19760800000000000000
+      internalID: 7462936792556718776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_3
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 66
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4d11e66748fad8a0800000000000000
+      internalID: -6279433744862339762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_4
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 68
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d0b71c17eeaa28b0800000000000000
+      internalID: -5176132514076970792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_5
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 63
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ab00696d0405490800000000000000
+      internalID: -7759630867575555525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_6
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 71
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58194d38bc4e5db90800000000000000
+      internalID: -7217611265050111611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_7
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 65
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c8fdb1d499ddbd20800000000000000
+      internalID: 3296029735502346440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 59
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1406862d0b9e679b0800000000000000
+      internalID: -5082618183787454399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_9
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 62
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1d55ec3b692e9e0800000000000000
+      internalID: -1593545619130691114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_10
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 0
+        width: 80
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 287f69defcecbcdb0800000000000000
+      internalID: -4770491987829262462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_11
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 66
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 718b85e068843c230800000000000000
+      internalID: 3657847062958487575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_12
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 55
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b721edfd5ddcab690800000000000000
+      internalID: -7585524303884578181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_13
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 0
+        width: 62
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ed01e702ef2d20e0800000000000000
+      internalID: -2293123987420410398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_14
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 60
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f952c18a5f5380690800000000000000
+      internalID: -7635793839002999393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_15
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 0
+        width: 57
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a3fbb8f4edae6a0800000000000000
+      internalID: -6419073885634872763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_16
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 52
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c62d521e9c346360800000000000000
+      internalID: 7161915957036525253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_17
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 57
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae94e7a08addab610800000000000000
+      internalID: 1637865128302889450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_18
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 58
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00c9b4b2e21e5bd20800000000000000
+      internalID: 3293786290902506496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_19
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 56
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29f01860ad100a240800000000000000
+      internalID: 4800839238700568466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_20
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 0
+        width: 57
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f9d36d537085aba0800000000000000
+      internalID: -6078310889090197005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_21
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 59
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48aa9af70fb298090800000000000000
+      internalID: -8031840148504597884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_22
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 37
+        width: 13
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd3d2ba2f4a52e9a0800000000000000
+      internalID: -6205298040497843236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_23
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 0
+        width: 57
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c35a554ebeadc5ec0800000000000000
+      internalID: -3576743297356028612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_24
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 0
+        width: 57
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f3d65038db44d340800000000000000
+      internalID: 4887614887499846645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_25
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 48
+        width: 36
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16b4f44589341e90800000000000000
+      internalID: -7055951471632402917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_26
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 43
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c80ea2d6e0084b40800000000000000
+      internalID: 5424586742544861378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_27
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 45
+        width: 29
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51dd5be671ce95970800000000000000
+      internalID: 8744279736902343957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_28
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 50
+        width: 22
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c0d696b9b68e4f10800000000000000
+      internalID: 2255888595549606085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_29
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 43
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7309009529670e240800000000000000
+      internalID: 4818981972216942647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_30
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 35
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 666372be6f5ed0130800000000000000
+      internalID: 3534734131225638502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_31
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 40
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f72073c29bf34030800000000000000
+      internalID: 3477899945022859252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_32
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 36
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9547d2281e1f3b3f0800000000000000
+      internalID: -886098750807903143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_33
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 35
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194aa4cf29fb0cda0800000000000000
+      internalID: -5926526471600692079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_34
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 39
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92fd8822a2d4fe8e0800000000000000
+      internalID: -1662024894113063127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ise_Strice_35
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 39
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50056c16a27d67d20800000000000000
+      internalID: 3276042355987599365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Ise_Strice_0: 8727122225483052517
+      Ise_Strice_1: 6659493252279208555
+      Ise_Strice_10: -4770491987829262462
+      Ise_Strice_11: 3657847062958487575
+      Ise_Strice_12: -7585524303884578181
+      Ise_Strice_13: -2293123987420410398
+      Ise_Strice_14: -7635793839002999393
+      Ise_Strice_15: -6419073885634872763
+      Ise_Strice_16: 7161915957036525253
+      Ise_Strice_17: 1637865128302889450
+      Ise_Strice_18: 3293786290902506496
+      Ise_Strice_19: 4800839238700568466
+      Ise_Strice_2: 7462936792556718776
+      Ise_Strice_20: -6078310889090197005
+      Ise_Strice_21: -8031840148504597884
+      Ise_Strice_22: -6205298040497843236
+      Ise_Strice_23: -3576743297356028612
+      Ise_Strice_24: 4887614887499846645
+      Ise_Strice_25: -7055951471632402917
+      Ise_Strice_26: 5424586742544861378
+      Ise_Strice_27: 8744279736902343957
+      Ise_Strice_28: 2255888595549606085
+      Ise_Strice_29: 4818981972216942647
+      Ise_Strice_3: -6279433744862339762
+      Ise_Strice_30: 3534734131225638502
+      Ise_Strice_31: 3477899945022859252
+      Ise_Strice_32: -886098750807903143
+      Ise_Strice_33: -5926526471600692079
+      Ise_Strice_34: -1662024894113063127
+      Ise_Strice_35: 3276042355987599365
+      Ise_Strice_4: -5176132514076970792
+      Ise_Strice_5: -7759630867575555525
+      Ise_Strice_6: -7217611265050111611
+      Ise_Strice_7: 3296029735502346440
+      Ise_Strice_8: -5082618183787454399
+      Ise_Strice_9: -1593545619130691114
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

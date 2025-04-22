@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2150737453758765242, guid: 1cdcb8536096aee4aabc51fdf5e5af8b, type: 3}
       propertyPath: m_Name
-      value: Bullet Minus
+      value: Bullet Plus
       objectReference: {fileID: 0}
     - target: {fileID: 6874766263694689151, guid: 1cdcb8536096aee4aabc51fdf5e5af8b, type: 3}
       propertyPath: _isPlusAir
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8037893760528616873, guid: 1cdcb8536096aee4aabc51fdf5e5af8b, type: 3}
       propertyPath: m_LocalPosition.x
