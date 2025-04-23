@@ -47,6 +47,12 @@ public class PlayerPosRPC : NetworkBehaviour
         StartCoroutine(TeleportCooldown());
 
     }
+
+    public bool IsTeleporting()
+    {
+        return isTP;
+    }
+
     private IEnumerator TeleportCooldown()
     {
         isTP = true;
@@ -129,40 +135,4 @@ public class PlayerPosRPC : NetworkBehaviour
         _player.SetMoveVector(Vector2.zero);
         transform.position = correctedPosition; // 클라이언트도 보강 (추가적으로)
     }
-
-    //Skill_1******************************************************************************************************
-
-/*    public void Skill_1Request(Vector2 spawnPosition)
-    {
-        InstanceText(OwnerClientId, spawnPosition);
-        if (IsHost)
-        {
-            UpdateSkill_1ClientRpc(OwnerClientId, spawnPosition);
-        }
-        else if (IsClient)
-        {
-            UpdateSkill_1ServerRpc(OwnerClientId, spawnPosition);
-        }
-    }
-
-    private void InstanceText(ulong playerId, Vector2 spawnPosition)
-    {
-        GameObject textPref = Instantiate(_textObj, spawnPosition, Quaternion.identity);
-        TextPopup textpop = textPref.GetComponent<TextPopup>();
-        textpop.SetId(playerId);
-    }
-
-    [ServerRpc]
-    private void UpdateSkill_1ServerRpc(ulong playerId, Vector2 spawnPosition)
-    {
-        UpdateSkill_1ClientRpc(playerId, spawnPosition);
-        InstanceText(playerId, spawnPosition);
-    }
-
-    [ClientRpc]
-    private void UpdateSkill_1ClientRpc(ulong playerId, Vector2 spawnPosition)
-    {
-        if (IsOwner) return;
-        InstanceText(playerId, spawnPosition);
-    }*/
 }

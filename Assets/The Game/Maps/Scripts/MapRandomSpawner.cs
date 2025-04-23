@@ -26,7 +26,7 @@ public class MapRandomSpawner : MonoBehaviour
     private void ReqestMapSpawn()
     {
         Vector2Int center = GetMapListGridCenter();
-        MapManager startRoom = GetRandomRoom(RoomType.Start);
+        MapManager startRoom = GetRandomRoom(Enums.RoomType.Start);
 
         GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
         MapManager startData = startObj.GetComponent<MapManager>();
@@ -51,7 +51,7 @@ public class MapRandomSpawner : MonoBehaviour
                 if (_mapGrid[nextPos.x, nextPos.y] != null) continue;
                 if (FormsSquare(nextPos)) continue;
 
-                MapManager newRoom = GetRandomCompatibleRoom(RoomType.Normal, dir, currentRoom);
+                MapManager newRoom = GetRandomCompatibleRoom(Enums.RoomType.Normal, dir, currentRoom);
                 if (newRoom == null) continue;
 
                 GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
@@ -80,7 +80,7 @@ public class MapRandomSpawner : MonoBehaviour
                     if (_mapGrid[bossPos.x, bossPos.y] != null) continue;
                     if (FormsSquare(bossPos)) continue;
 
-                    MapManager bossRoom = GetRandomCompatibleRoom(RoomType.Boss, dir, _mapGrid[x, y]);
+                    MapManager bossRoom = GetRandomCompatibleRoom(Enums.RoomType.Boss, dir, _mapGrid[x, y]);
                     if (bossRoom != null)
                     {
                         GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
@@ -148,22 +148,22 @@ public class MapRandomSpawner : MonoBehaviour
         return false;
     }
 
-    private MapManager GetRandomRoom(RoomType type)
+    private MapManager GetRandomRoom(Enums.RoomType type)
     {
         List<MapManager> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
         return list.Count > 0 ? list[Random.Range(0, list.Count)] : null;
     }
 
-    private MapManager GetRandomCompatibleRoom(RoomType type, Vector2Int fromDir, MapManager fromRoom)
+    private MapManager GetRandomCompatibleRoom(Enums.RoomType type, Vector2Int fromDir, MapManager fromRoom)
     {
         List<MapManager> list;
-        if (type != RoomType.Normal)
+        if (type == Enums.RoomType.Normal)
         {
-            list = mapPrefabList.Maps.FindAll(m => m.roomType == RoomType.Normal || m.roomType == RoomType.Enemy);
+            list = mapPrefabList.Maps.FindAll(m => m.roomType == Enums.RoomType.Normal || m.roomType == Enums.RoomType.Enemy);
         }
         else
         {
-            list = mapPrefabList.Maps.FindAll(m => m.roomType == RoomType.Boss);
+            list = mapPrefabList.Maps.FindAll(m => m.roomType == Enums.RoomType.Boss);
         }
 
         if (fromRoom == null)
@@ -171,7 +171,7 @@ public class MapRandomSpawner : MonoBehaviour
 
         return list.FindAll(m => IsCompatible(fromDir, fromRoom, m)).PickRandom();
     }
-
+     
     private bool IsCompatible(Vector2Int dir, MapManager from, MapManager to)
     {
         if (dir == Vector2Int.up) return from.canConnectUp && to.canConnectDown;
@@ -207,7 +207,7 @@ public class MapRandomSpawner : MonoBehaviour
 
                     string tpID = $"TP_{stageNum}_{idCounter}";
 
-                    if (currentRoom.roomType != RoomType.Boss || neighborRoom.roomType != RoomType.Boss)
+                    if (currentRoom.roomType != Enums.RoomType.Boss || neighborRoom.roomType != Enums.RoomType.Boss)
                     {
                         if (dir == Vector2Int.down &&
                         !currentRoom.isTpDownSeted && !currentRoom.isTpDownSeted &&
@@ -232,7 +232,7 @@ public class MapRandomSpawner : MonoBehaviour
                             idCounter++;
                         }
                     }
-                    else if (currentRoom.roomType == RoomType.Boss)
+                    else if (currentRoom.roomType == Enums.RoomType.Boss)
                     {
                         BossRoom = currentRoom;
                         if (dir == Vector2Int.down &&
@@ -258,7 +258,7 @@ public class MapRandomSpawner : MonoBehaviour
                             idCounter++;
                         }
                     }
-                    else if (neighborRoom.roomType == RoomType.Boss)
+                    else if (neighborRoom.roomType == Enums.RoomType.Boss)
                     {
                         if (dir == Vector2Int.down &&
                         !currentRoom.isTpDownSeted && !currentRoom.isTpDownSeted &&
@@ -372,6 +372,66 @@ public class MapRandomSpawner : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region 기타 로직
+    private Vector2Int? FindMapGridPosition(GameObject mapObject)
+    {
+        for (int x = 0; x < MAP_SIZE; x++)
+        {
+            for (int y = 0; y < MAP_SIZE; y++)
+            {
+                if (_mapGrid[x, y] != null && _mapGrid[x, y].gameObject == mapObject)
+                {
+                    return new Vector2Int(x, y);
+                }
+            }
+        }
+        return null; // 못 찾았을 경우
+    }
+
+    public void TurnOffTPs(GameObject mapObject)
+    {
+        Vector2Int? mapOBJGridPos = FindMapGridPosition(mapObject);
+        if (mapOBJGridPos == null) return;
+        
+        MapManager room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
+        if (room == null) return;
+
+        if (room.tpUp != null)
+            room.tpUp.SetActive(false);
+
+        if (room.tpDown != null)
+            room.tpDown.SetActive(false);
+
+        if (room.tpLeft != null)
+            room.tpLeft.SetActive(false);
+
+        if (room.tpRight != null)
+            room.tpRight.SetActive(false);
+    }
+
+    public void TurnOnTPs(GameObject mapObject)
+    {
+        Vector2Int? mapOBJGridPos = FindMapGridPosition(mapObject);
+        if (mapOBJGridPos == null) return;
+
+        MapManager room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
+        if (room == null) return;
+
+        if (room.isTpUpSeted && room.tpUp != null)
+            room.tpUp.SetActive(true);
+
+        if (room.isTpDownSeted && room.tpDown != null)
+            room.tpDown.SetActive(true);
+
+        if (room.isTpLeftSeted && room.tpLeft != null)
+            room.tpLeft.SetActive(true);
+
+        if (room.isTpRightSeted && room.tpRight != null)
+            room.tpRight.SetActive(true);
+
+    }
     #endregion
 
     private void Start()

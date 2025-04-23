@@ -1,63 +1,44 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TeleportTileManager : MonoBehaviour
 {
-    public string teleportID; // 텔레포트될 ID
+    public string teleportID; // 텔레포트 ID
 
-    [SerializeField] private bool isTp = false;
     [SerializeField] private GameObject mapOBJ;
 
-
-    private async void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (!collision.CompareTag("Player") || teleportID == null)
             return;
 
-        if(!isTp)
+        PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
+        if (posRpc == null || posRpc.IsTeleporting()) // 중복 방지
+            return;
+
+        // 모든 TeleportManager 찾기
+        TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>();
+
+        foreach (TeleportTileManager targetTeleporter in allTeleporters)
         {
-            Debug.Log($"[텔레포트] 요청 ID: {teleportID}");
+            if (targetTeleporter == this) continue;
+            if (targetTeleporter.transform.IsChildOf(mapOBJ.transform)) continue;
+            if (targetTeleporter.teleportID != teleportID) continue;
 
-            // 모든 TeleportManager 찾기
-            TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>();
+            // 해당 포탈이 속한 타일맵 찾기
+            Tilemap targetTilemap = targetTeleporter.GetComponent<Tilemap>();
+            if (targetTilemap == null) continue;
 
-            foreach (TeleportTileManager targetTeleporter in allTeleporters)
+            // 실제 존재하는 타일 위치만 가져오기
+            foreach (Vector3Int pos in targetTilemap.cellBounds.allPositionsWithin)
             {
-                if(teleportID == null) continue;
+                if (!targetTilemap.HasTile(pos)) continue;
 
-                // 자기 자신 무시
-                if (targetTeleporter == this) continue;
-
-                // 같은 맵(Grid 내부)에 있는 포탈 무시
-                if (targetTeleporter.transform.IsChildOf(mapOBJ.transform)) continue;
-
-                // teleportID 같은 포탈 발견 시
-                if (targetTeleporter.teleportID == this.teleportID)
-                {
-                    // 해당 포탈이 속한 타일맵 찾기
-                    Tilemap targetTilemap = targetTeleporter.GetComponent<Tilemap>();
-                    if (targetTilemap != null)
-                    {
-                        // 실제 존재하는 타일 위치만 가져오기
-                        foreach (Vector3Int pos in targetTilemap.cellBounds.allPositionsWithin)
-                        {
-                            if (!targetTilemap.HasTile(pos))
-                                continue;  // 빈 타일 무시
-
-                            Vector3 teleportPosition = targetTilemap.GetCellCenterWorld(pos);
-                            PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
-                            if (posRpc != null)
-                            {
-                                posRpc.TeleportRequest(teleportPosition);
-                                isTp = true;
-                            }
-                            return;
-                        }
-                    }
-                }
+                Vector3 teleportPosition = targetTilemap.GetCellCenterWorld(pos);
+                posRpc.TeleportRequest(teleportPosition);
+                Debug.Log($"[텔레포트] {teleportID} → {teleportPosition}");
+                return;
             }
         }
-        isTp = false;
     }
 }

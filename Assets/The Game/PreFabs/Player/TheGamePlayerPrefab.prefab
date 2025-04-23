@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43edf58a62b82e346bee44da2e660e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalAttackSkillData: {fileID: 11400000, guid: 5ad01bc410ed9ec4b866f44273d5ba80, type: 2}
+  _normalAttackSkillData: {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
   _pressureSkillData: {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
   _uniqueSkillData: {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
   _normalAttackCoolDown: 6
@@ -930,7 +930,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab18ba039e83394f8bf5e6d93e1f338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minusAirPersec: 0
+  _currentDebuffs: 0
+  _curAir: 10
+  _maxAir: 50
+  _baseMinusAirPerSec: 1
+  _minusAirPerSec: 1
+  _baseAddAirPerSec: 0
+  _addAirPerSec: 0
+  _curAirPerSec: 0
   _playerAnimator: {fileID: 0}
 --- !u!114 &4085331820034534003
 MonoBehaviour:

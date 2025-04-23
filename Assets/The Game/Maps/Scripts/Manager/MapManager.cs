@@ -3,21 +3,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum RoomType
-{
-    Normal,
-    Start,
-    Boss,
-    Shop,
-    Treasure,
-    Enemy
-    // 필요시 확장
-}
 
 public class MapManager : MonoBehaviour
 {
     public GameObject roomPrefab;
-    public RoomType roomType;
+    public Enums.RoomType roomType;
 
     [Header("맵이 연결 가능하지에 대한 여부")]
     public bool canConnectUp;
@@ -38,7 +28,6 @@ public class MapManager : MonoBehaviour
     public GameObject tpRight;
     public string tpRightID;
     public bool isTpRightSeted = false;
-
 
 
     public void RefreshMapId()

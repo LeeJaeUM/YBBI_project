@@ -15285,9 +15285,10 @@ GameObject:
   - component: {fileID: 6406088726470096707}
   - component: {fileID: 6740552014119554020}
   - component: {fileID: 7517673425886973440}
+  - component: {fileID: 2549273282642619740}
   - component: {fileID: 3075732699507398699}
   m_Layer: 0
-  m_Name: Map_1_2
+  m_Name: Map_1_2N
   m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15379,6 +15380,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &2549273282642619740
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902288767891610223}
+  m_Enabled: 1
+  m_SortingLayerID: 1446424193
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!114 &3075732699507398699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15392,7 +15405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8902288767891610223}
-  roomType: 0
+  roomType: 1
   canConnectUp: 0
   canConnectDown: 0
   canConnectLeft: 1

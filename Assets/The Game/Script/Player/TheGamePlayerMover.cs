@@ -38,12 +38,22 @@ public class TheGamePlayerMover : NetworkBehaviour
 
     private bool IsWallAtPosition(Vector3 worldPosition)
     {
-        foreach (var tilemap in allWallTilemaps)
+        Vector2 offset = new Vector2(0.5f, 0.5f); // 충돌 감지 박스 크기 설정
+        Vector3 topLeft = worldPosition + (Vector3)(-offset);
+        Vector3 bottomRight = worldPosition + (Vector3)(offset);
+
+        for (float x = topLeft.x; x <= bottomRight.x; x += 0.1f)
         {
-            Vector3Int cellPos = tilemap.WorldToCell(worldPosition);
-            if (tilemap.GetTile(cellPos) != null)
+            for (float y = topLeft.y; y <= bottomRight.y; y += 0.1f)
             {
-                return true; // 하나라도 있으면 막음
+                foreach (var tilemap in allWallTilemaps)
+                {
+                    Vector3Int cellPos = tilemap.WorldToCell(new Vector3(x, y, 0));
+                    if (tilemap.GetTile(cellPos) != null)
+                    {
+                        return true;
+                    }
+                }
             }
         }
         return false;

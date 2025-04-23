@@ -1,5 +1,18 @@
 public static class Enums
 {
+    public enum RoomType
+    {
+        NONE,
+
+        Normal,     //아무것도 없는 방
+        Start,      //시작방
+        Boss,       //보스방
+        Shop,       //상점
+        Treasure,   //보물방
+        Enemy       //적이 스폰하는방
+        // 필요시 확장
+    }
+
     public enum SkillType
     {
         NONE,
@@ -8,6 +21,15 @@ public static class Enums
         Pressure,   // 전투 스킬 (압력)
         Unique      // 고유 스킬
     }
+
+    public enum EnemeyValue
+    {
+        NONE,
+
+        Boss,       //보스
+        NomalEnemy1 //적1
+    }
+
 
     public enum EnemyStateType 
     {
@@ -27,7 +49,7 @@ public static class Enums
         Homing,     // 유도 총알
         Bomb,       // 폭탄
         Laser,      // 레이저
-        Mine       // 지뢰
+        Mine        // 지뢰
     }
     public enum ATKPatern
     {
