@@ -7,10 +7,9 @@ public enum BuffType
 {
     None = -1,
     AttackUp,
-    DefenseUp,
     MoveSpeedUp,
+    StopMinusAirPerSec,
     HealOverTime,
-    Invincibility,
     Max
 }
 

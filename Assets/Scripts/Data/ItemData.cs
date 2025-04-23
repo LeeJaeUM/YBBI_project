@@ -26,6 +26,7 @@ public struct ItemData
 {
     public ItemType _id;
     public ItemProperty _property;
+    public BuffType _buff;
     public int _icon;
     public float _value;
     public int _price;

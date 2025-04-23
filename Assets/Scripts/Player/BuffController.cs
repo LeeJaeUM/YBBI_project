@@ -9,6 +9,10 @@ public class BuffController : MonoBehaviour
     [SerializeField]
     public PlayerItemController _player;
 
+    PlayerAttacker _playerAttacker;
+    PlayerMover _playerMover;
+    UnitHealth _unitHealth;
+
     Dictionary<BuffType, BuffInfo> _activeBuffList = new Dictionary<BuffType, BuffInfo>();
 
     IEnumerator CoBuffProcess(BuffType type)
@@ -18,13 +22,16 @@ public class BuffController : MonoBehaviour
         switch (type)
         {
             case BuffType.AttackUp:
-                // _player.AttackPower += curBuff.Data.Value;
+                // _playerAttacker._curAttackDamage += curBuff.Data.Value;
                 break;
             case BuffType.MoveSpeedUp:
-                // _player.MoveSpeed *= curBuff.Data.Value;
+                // _playerMover._speed *= curBuff.Data.Value;
                 break;
-            case BuffType.Invincibility:
-                // _player.IsInvincible = true;
+            case BuffType.StopMinusAirPerSec:
+                // _unitHealth._minusAirPerSec = 0;
+                break;
+            case BuffType.HealOverTime:
+
                 break;
         }
 
@@ -45,13 +52,15 @@ public class BuffController : MonoBehaviour
         switch (type)
         {
             case BuffType.AttackUp:
-                // _player.AttackPower -= curBuff.Data.Value;
+                _playerAttacker._curAttackDamage -= curBuff.Data.Value;
                 break;
             case BuffType.MoveSpeedUp:
-                // _player.MoveSpeed /= curBuff.Data.Value;
+                _playerMover._speed /= curBuff.Data.Value;
                 break;
-            case BuffType.Invincibility:
-                // _player.IsInvincible = false;
+            case BuffType.StopMinusAirPerSec:
+                // _unitHealth._minusAirPerSec =;
+                break;
+            case BuffType.HealOverTime:
                 break;
         }
 

@@ -17,7 +17,11 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 1
+<<<<<<< Updated upstream
   _bulletType: 0
+=======
+  _bulletType: 1
+>>>>>>> Stashed changes
   _bulletCount: 1
   _angleRange: 45
   _damageMultiplier: 1
@@ -28,6 +32,10 @@ MonoBehaviour:
   _attackPreDelay: 0
   _attackEndDelay: 0
   _coolDown: 0.5
+<<<<<<< Updated upstream
   _level: 1
+=======
+  _level: 0
+>>>>>>> Stashed changes
   _width: 1
   _length: 1
