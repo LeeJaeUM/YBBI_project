@@ -435,7 +435,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Speed_Boost_Running_0: 7343886019902892573
+      Speed_Boost_Running_1: 5645053720186966976
+      Speed_Boost_Running_10: -1388915469101682141
+      Speed_Boost_Running_11: -3649202782049406868
+      Speed_Boost_Running_2: -2358448863898488616
+      Speed_Boost_Running_3: -4638936089255292822
+      Speed_Boost_Running_4: -2987502392261118775
+      Speed_Boost_Running_5: 8822560662843114004
+      Speed_Boost_Running_6: 5593072798578243201
+      Speed_Boost_Running_7: -2989043284047932901
+      Speed_Boost_Running_8: -1642114098959160649
+      Speed_Boost_Running_9: 785984818179399074
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

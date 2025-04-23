@@ -10,7 +10,8 @@ public enum ItemType
     BeeHouse,
     Bomb,
     Key,
-    Mashroom
+    Mashroom,
+    MoneyAdjust
 }
 
 public enum ItemProperty
@@ -28,7 +29,6 @@ public struct ItemData
     public int _icon;
     public float _value;
     public int _price;
-
 }
 
 [Serializable]

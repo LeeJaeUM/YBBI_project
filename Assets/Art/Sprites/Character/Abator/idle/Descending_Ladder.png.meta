@@ -360,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Descending_Ladder_0: 1040412954202923675
+      Descending_Ladder_1: -8360259132986453371
+      Descending_Ladder_2: -908519622700433817
+      Descending_Ladder_3: -6572133169416271453
+      Descending_Ladder_4: -8721504753772201493
+      Descending_Ladder_5: -7752690849819395129
+      Descending_Ladder_6: 8271676850491934063
+      Descending_Ladder_7: -5356199600005252939
+      Descending_Ladder_8: 1997179455126230986
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

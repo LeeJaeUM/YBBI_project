@@ -485,7 +485,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Leap_0: 4687906494181083203
+      Leap_1: 6638353751386677545
+      Leap_10: -3010325419371708992
+      Leap_11: 7067440113231396286
+      Leap_12: -6800610392525177559
+      Leap_13: -6876488525010379878
+      Leap_2: -1041419638650298139
+      Leap_3: 4559459253670690829
+      Leap_4: 4089301308430747092
+      Leap_5: 6457009658666716555
+      Leap_6: 6075863715842690618
+      Leap_7: 739103096331076025
+      Leap_8: 1031753461499112755
+      Leap_9: 2406386987154460502
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

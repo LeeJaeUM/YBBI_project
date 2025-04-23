@@ -6,8 +6,11 @@ using UnityEngine;
 public enum BuffType
 {
     None = -1,
-    Sample1,
-    Sample2,
+    AttackUp,
+    DefenseUp,
+    MoveSpeedUp,
+    HealOverTime,
+    Invincibility,
     Max
 }
 

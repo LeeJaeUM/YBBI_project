@@ -360,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Climbing_Ladder_0: 4799994899923509325
+      Climbing_Ladder_1: 8486442656974160176
+      Climbing_Ladder_2: -8713977590056254653
+      Climbing_Ladder_3: 8090529439196755652
+      Climbing_Ladder_4: -1768691137161450705
+      Climbing_Ladder_5: -847531986655245866
+      Climbing_Ladder_6: 6431598524663283123
+      Climbing_Ladder_7: -5904830560509481341
+      Climbing_Ladder_8: 5635227371206998998
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

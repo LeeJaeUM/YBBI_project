@@ -310,7 +310,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Obstacle Jump_0: 8960224471116368093
+      Obstacle Jump_1: 391348548434353547
+      Obstacle Jump_2: 7093681574979960059
+      Obstacle Jump_3: -3406205869133757258
+      Obstacle Jump_4: -2643516112618566897
+      Obstacle Jump_5: 8832855655919067614
+      Obstacle Jump_6: -3251802660884875536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

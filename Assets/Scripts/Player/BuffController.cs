@@ -17,35 +17,45 @@ public class BuffController : MonoBehaviour
 
         switch (type)
         {
-            case BuffType.Sample1:
-                
+            case BuffType.AttackUp:
+                // _player.AttackPower += curBuff.Data.Value;
                 break;
-            case BuffType.Sample2:
-                
+            case BuffType.MoveSpeedUp:
+                // _player.MoveSpeed *= curBuff.Data.Value;
+                break;
+            case BuffType.Invincibility:
+                // _player.IsInvincible = true;
                 break;
         }
+
         while (true)
         {
             curBuff = _activeBuffList[type];
 
             if (curBuff.Time > curBuff.Data.Duration)
             {
-                switch (type)
-                {
-                    case BuffType.Sample1:
-                        
-                        break;
-                    case BuffType.Sample2:
-                        
-                        break;
-                }
-                _activeBuffList.Remove(type);
-                yield break;
+                break;
             }
+
             curBuff.Time += Time.deltaTime;
             _activeBuffList[type] = curBuff;
             yield return null;
         }
+
+        switch (type)
+        {
+            case BuffType.AttackUp:
+                // _player.AttackPower -= curBuff.Data.Value;
+                break;
+            case BuffType.MoveSpeedUp:
+                // _player.MoveSpeed /= curBuff.Data.Value;
+                break;
+            case BuffType.Invincibility:
+                // _player.IsInvincible = false;
+                break;
+        }
+
+        _activeBuffList.Remove(type);
     }
 
     public void SetBuff(BuffType buff)

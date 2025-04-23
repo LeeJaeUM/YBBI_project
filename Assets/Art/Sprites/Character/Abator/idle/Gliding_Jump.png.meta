@@ -335,7 +335,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gliding_Jump_0: 9120679445117625614
+      Gliding_Jump_1: 7361710145409857145
+      Gliding_Jump_2: 5878957270571865559
+      Gliding_Jump_3: 6698241770793493741
+      Gliding_Jump_4: 4082676561952757689
+      Gliding_Jump_5: -4169780553248434858
+      Gliding_Jump_6: 127183042985934009
+      Gliding_Jump_7: -1592401420481329795
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

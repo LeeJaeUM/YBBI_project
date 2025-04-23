@@ -360,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Swimming_Dive_0: -6696308145833961745
+      Swimming_Dive_1: 2575655982570298122
+      Swimming_Dive_2: -1935599713718364171
+      Swimming_Dive_3: 5959291147708809063
+      Swimming_Dive_4: 750430137060610023
+      Swimming_Dive_5: 8717043098252741218
+      Swimming_Dive_6: 8830619186718071210
+      Swimming_Dive_7: -8874862644855417858
+      Swimming_Dive_8: 1099753843872487658
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
