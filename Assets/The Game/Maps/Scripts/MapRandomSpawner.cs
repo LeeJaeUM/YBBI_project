@@ -14,7 +14,7 @@ public class MapRandomSpawner : MonoBehaviour
     [SerializeField] private int stageNum = 1;
 
     public const int MAP_SIZE = 10; //MAP_SIZE * MAP_SIZE의 크기의 맵 배열
-    private MapData[,] _mapGrid = new MapData[MAP_SIZE, MAP_SIZE];
+    private MapManager[,] _mapGrid = new MapManager[MAP_SIZE, MAP_SIZE];
 
     Vector2Int[] _directions = {
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
@@ -26,10 +26,10 @@ public class MapRandomSpawner : MonoBehaviour
     private void ReqestMapSpawn()
     {
         Vector2Int center = GetMapListGridCenter();
-        MapData startRoom = GetRandomRoom(RoomType.Start);
+        MapManager startRoom = GetRandomRoom(RoomType.Start);
 
         GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
-        MapData startData = startObj.GetComponent<MapData>();
+        MapManager startData = startObj.GetComponent<MapManager>();
         _mapGrid[center.x, center.y] = startData;
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
@@ -39,7 +39,7 @@ public class MapRandomSpawner : MonoBehaviour
         while (frontier.Count > 0 && placedRoomCount < mapCount - 1)
         {
             Vector2Int currentPos = frontier.Dequeue();
-            MapData currentRoom = _mapGrid[currentPos.x, currentPos.y];
+            MapManager currentRoom = _mapGrid[currentPos.x, currentPos.y];
 
             List<Vector2Int> dirList = new List<Vector2Int>(_directions);
             Shuffle(dirList);
@@ -51,11 +51,11 @@ public class MapRandomSpawner : MonoBehaviour
                 if (_mapGrid[nextPos.x, nextPos.y] != null) continue;
                 if (FormsSquare(nextPos)) continue;
 
-                MapData newRoom = GetRandomCompatibleRoom(RoomType.Normal, dir, currentRoom);
+                MapManager newRoom = GetRandomCompatibleRoom(RoomType.Normal, dir, currentRoom);
                 if (newRoom == null) continue;
 
                 GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
-                MapData newData = newObj.GetComponent<MapData>();
+                MapManager newData = newObj.GetComponent<MapManager>();
                 _mapGrid[nextPos.x, nextPos.y] = newData;
 
                 frontier.Enqueue(nextPos);
@@ -80,11 +80,11 @@ public class MapRandomSpawner : MonoBehaviour
                     if (_mapGrid[bossPos.x, bossPos.y] != null) continue;
                     if (FormsSquare(bossPos)) continue;
 
-                    MapData bossRoom = GetRandomCompatibleRoom(RoomType.Boss, dir, _mapGrid[x, y]);
+                    MapManager bossRoom = GetRandomCompatibleRoom(RoomType.Boss, dir, _mapGrid[x, y]);
                     if (bossRoom != null)
                     {
                         GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
-                        MapData bossData = bossObj.GetComponent<MapData>();
+                        MapManager bossData = bossObj.GetComponent<MapManager>();
                         _mapGrid[bossPos.x, bossPos.y] = bossData;
                         return;
                     }
@@ -109,7 +109,7 @@ public class MapRandomSpawner : MonoBehaviour
     {
         return pos.x >= 0 && pos.y >= 0 && pos.x < MAP_SIZE && pos.y < MAP_SIZE;
     }
-    
+
     private void Shuffle<T>(List<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)
@@ -148,15 +148,23 @@ public class MapRandomSpawner : MonoBehaviour
         return false;
     }
 
-    private MapData GetRandomRoom(RoomType type)
+    private MapManager GetRandomRoom(RoomType type)
     {
-        List<MapData> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
+        List<MapManager> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
         return list.Count > 0 ? list[Random.Range(0, list.Count)] : null;
     }
 
-    private MapData GetRandomCompatibleRoom(RoomType type, Vector2Int fromDir, MapData fromRoom)
+    private MapManager GetRandomCompatibleRoom(RoomType type, Vector2Int fromDir, MapManager fromRoom)
     {
-        List<MapData> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
+        List<MapManager> list;
+        if (type != RoomType.Normal)
+        {
+            list = mapPrefabList.Maps.FindAll(m => m.roomType == RoomType.Normal || m.roomType == RoomType.Enemy);
+        }
+        else
+        {
+            list = mapPrefabList.Maps.FindAll(m => m.roomType == RoomType.Boss);
+        }
 
         if (fromRoom == null)
             return list.PickRandom(); // fromRoom이 null이면 아무거나 리턴
@@ -164,7 +172,7 @@ public class MapRandomSpawner : MonoBehaviour
         return list.FindAll(m => IsCompatible(fromDir, fromRoom, m)).PickRandom();
     }
 
-    private bool IsCompatible(Vector2Int dir, MapData from, MapData to)
+    private bool IsCompatible(Vector2Int dir, MapManager from, MapManager to)
     {
         if (dir == Vector2Int.up) return from.canConnectUp && to.canConnectDown;
         if (dir == Vector2Int.down) return from.canConnectDown && to.canConnectUp;
@@ -178,6 +186,7 @@ public class MapRandomSpawner : MonoBehaviour
     private void AssignTeleportIDs()
     {
         int idCounter = 0;
+        MapManager BossRoom;
         Vector2Int[] teleportDirs = { Vector2Int.down, Vector2Int.left }; // 한쪽만 처리해서 중복 방지
 
         for (int y = 0; y < MAP_SIZE; y++)
@@ -198,28 +207,81 @@ public class MapRandomSpawner : MonoBehaviour
 
                     string tpID = $"TP_{stageNum}_{idCounter}";
 
-                    if (dir == Vector2Int.down &&
-                        currentRoom.canConnectDown && !currentRoom.isTpDownSeted &&
-                        neighborRoom.canConnectUp && !neighborRoom.isTpUpSeted)
+                    if (currentRoom.roomType != RoomType.Boss || neighborRoom.roomType != RoomType.Boss)
                     {
-                        SetTeleportID(currentRoom.tpDown, tpID);
-                        SetTeleportID(neighborRoom.tpUp, tpID);
-                        currentRoom.isTpDownSeted = true;
-                        neighborRoom.isTpUpSeted = true;
-                        Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
-                        idCounter++;
-                    }
-
-                    if (dir == Vector2Int.left &&
+                        if (dir == Vector2Int.down &&
+                        !currentRoom.isTpDownSeted && !currentRoom.isTpDownSeted &&
+                        neighborRoom.canConnectUp && !neighborRoom.isTpUpSeted)
+                        {
+                            SetTeleportID(currentRoom.tpDown, tpID);
+                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            currentRoom.isTpDownSeted = true;
+                            neighborRoom.isTpUpSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
+                        if (dir == Vector2Int.left &&
                         currentRoom.canConnectLeft && !currentRoom.isTpLeftSeted &&
                         neighborRoom.canConnectRight && !neighborRoom.isTpRightSeted)
+                        {
+                            SetTeleportID(currentRoom.tpLeft, tpID);
+                            SetTeleportID(neighborRoom.tpRight, tpID);
+                            currentRoom.isTpLeftSeted = true;
+                            neighborRoom.isTpRightSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
+                    }
+                    else if (currentRoom.roomType == RoomType.Boss)
                     {
-                        SetTeleportID(currentRoom.tpLeft, tpID);
-                        SetTeleportID(neighborRoom.tpRight, tpID);
-                        currentRoom.isTpLeftSeted = true;
-                        neighborRoom.isTpRightSeted = true;
-                        Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
-                        idCounter++;
+                        BossRoom = currentRoom;
+                        if (dir == Vector2Int.down &&
+                        !currentRoom.isTpDownSeted && neighborRoom.canConnectUp &&
+                        !neighborRoom.isTpUpSeted)
+                        {
+                            SetTeleportID(currentRoom.tpDown, tpID);
+                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            currentRoom.isTpDownSeted = true;
+                            neighborRoom.isTpUpSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
+                        if (dir == Vector2Int.left &&
+                        !currentRoom.isTpDownSeted && neighborRoom.canConnectRight &&
+                        !neighborRoom.isTpRightSeted)
+                        {
+                            SetTeleportID(currentRoom.tpDown, tpID);
+                            SetTeleportID(neighborRoom.tpRight, tpID);
+                            currentRoom.isTpDownSeted = true;
+                            neighborRoom.isTpRightSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
+                    }
+                    else if (neighborRoom.roomType == RoomType.Boss)
+                    {
+                        if (dir == Vector2Int.down &&
+                        !currentRoom.isTpDownSeted && !currentRoom.isTpDownSeted &&
+                        neighborRoom.canConnectDown && !neighborRoom.isTpDownSeted)
+                        {
+                            SetTeleportID(currentRoom.tpDown, tpID);
+                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            currentRoom.isTpDownSeted = true;
+                            neighborRoom.isTpDownSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
+                        if (dir == Vector2Int.left &&
+                        currentRoom.canConnectLeft && !currentRoom.isTpLeftSeted &&
+                        neighborRoom.canConnectDown && !neighborRoom.isTpDownSeted)
+                        {
+                            SetTeleportID(currentRoom.tpLeft, tpID);
+                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            currentRoom.isTpLeftSeted = true;
+                            neighborRoom.isTpDownSeted = true;
+                            Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
+                            idCounter++;
+                        }
                     }
                 }
             }
@@ -243,7 +305,7 @@ public class MapRandomSpawner : MonoBehaviour
             foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
             {
                 if (!tilemap.HasTile(pos)) continue;
-                var tile = tilemap.GetTile(pos) as TelepoterTile;
+                var tile = tilemap.GetTile(pos) as TileMapTelepoter;
                 if (tile != null)
                 {
                     tile.teleportID = id;
@@ -255,11 +317,10 @@ public class MapRandomSpawner : MonoBehaviour
 
     #endregion
 
-
     #region 맵초기화 로직
     private void ResetAllMapPrefabs()
     {
-        foreach (MapData map in mapPrefabList.Maps)
+        foreach (MapManager map in mapPrefabList.Maps)
         {
             if (map == null) continue;
 

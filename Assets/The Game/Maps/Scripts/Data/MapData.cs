@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum RoomType
 {
@@ -8,16 +9,17 @@ public enum RoomType
     Start,
     Boss,
     Shop,
-    Treasure
+    Treasure,
+    Enemy
     // 필요시 확장
 }
 
-public class MapData : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     public GameObject roomPrefab;
     public RoomType roomType;
 
-    // 각 방향에 텔레포트 가능한지
+    [Header("맵이 연결 가능하지에 대한 여부")]
     public bool canConnectUp;
     public bool canConnectDown;
     public bool canConnectLeft;
@@ -36,15 +38,6 @@ public class MapData : MonoBehaviour
     public GameObject tpRight;
     public string tpRightID;
     public bool isTpRightSeted = false;
-
-    private void Start()
-    {
-        tpUp = transform.Find("TpEntressUp")?.gameObject;
-        tpDown = transform.Find("TpEntressDown")?.gameObject;
-        tpLeft = transform.Find("TpEntressLeft")?.gameObject;
-        tpRight = transform.Find("TpEntressRight")?.gameObject;
-        Debug.Log($"[RoomInfo] {gameObject.name} 포탈 오브젝트 자동 할당 완료");
-    }
 
 
 
