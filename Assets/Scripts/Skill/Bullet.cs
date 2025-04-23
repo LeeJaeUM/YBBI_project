@@ -92,7 +92,7 @@ public class Bullet : MonoBehaviour
 
     private void TriggerBullet(Collider2D collision)
     {
-        // Debug.Log($"{collision.gameObject.name} 이 닿음");
+        Debug.Log($"{collision.gameObject.name} 이 닿음");
         UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
         unitHealth.AddAir(_damage * _damageMul);
 

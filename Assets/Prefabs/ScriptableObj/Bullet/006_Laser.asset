@@ -25,7 +25,7 @@ MonoBehaviour:
   _spawnDistance: 0.5
   _moveSpeed: 2
   _activeTime: 3
-  _attackPreDelay: 0
+  _attackPreDelay: 1
   _attackEndDelay: 1
   _coolDown: 0
   _level: 0

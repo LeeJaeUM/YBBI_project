@@ -26,7 +26,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _activeTime: 4
   _attackPreDelay: 1
-  _attackEndDelay: 2
+  _attackEndDelay: 3
   _coolDown: 0
   _level: 0
   _width: 1.2

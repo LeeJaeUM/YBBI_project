@@ -13,7 +13,7 @@ public class ColorChange : MonoBehaviour
 
     private UnitHealth _unitHealth;
 
-    public void DamageEffect(float value)
+    public void DamageEffect()
     {
         StopAllCoroutines();
         StartCoroutine(ChangeColor());
@@ -34,12 +34,12 @@ public class ColorChange : MonoBehaviour
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _originColor = _spriteRenderer.color;
 
-        _unitHealth.onChangeAir += DamageEffect;
+        _unitHealth.OnDamage += DamageEffect;
     }
 
     void OnDisable()
     {
-        _unitHealth.onChangeAir -= DamageEffect;
+        _unitHealth.OnDamage -= DamageEffect;
     }
 
 

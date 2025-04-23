@@ -59,7 +59,6 @@ public class FindTargetPoint : MonoBehaviour
         }
 
         _enemiesInRange.RemoveAll(enemy => enemy == null); // Null 제거
-        Debug.Log($"현재 범위내의 Player 개수{_enemiesInRange.Count}");
 
         _enemiesInRange.Sort((a, b) =>
             Vector2.Distance(transform.position, a.position)

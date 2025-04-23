@@ -17,9 +17,17 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 1
+  _bulletType: 0
+  _bulletCount: 1
+  _angleRange: 45
   _damageMultiplier: 1.2
-  _coolDown: 0.5
   _radius: 1
+  _spawnDistance: 0.5
   _moveSpeed: 1
   _activeTime: 4
-  _level: 0
+  _attackPreDelay: 0
+  _attackEndDelay: 0
+  _coolDown: 0.5
+  _level: 1
+  _width: 1
+  _length: 1

@@ -63,7 +63,6 @@ public class EnemyATKStats : MonoBehaviour
         OnFinishedAttack?.Invoke(true);
         yield return new WaitForSeconds(coolDown); //쿨다운 동안 대기
         OnFinishedAttack?.Invoke(false);
-        Debug.Log("공격 시작");
     }
 
     private void Awake()

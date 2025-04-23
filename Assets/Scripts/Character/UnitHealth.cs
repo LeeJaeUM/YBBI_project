@@ -9,15 +9,17 @@ public class UnitHealth : MonoBehaviour
 
     public DebuffFlags _currentDebuffs = DebuffFlags.None;
 
-    protected float _curAir = 10;
-    protected float _maxAir = 50;
+    [SerializeField]protected float _curAir = 10;
+    [SerializeField]protected float _maxAir = 50;
     protected float _safeAirZone; // 공기 안정권 (maxAir의 2/3)
-    private float _baseMinusAirPerSec = 1f;
+    [SerializeField]private float _baseMinusAirPerSec = 1f;
     public float _minusAirPerSec = 1;   // 감소하는 공기량 (데미지량)
-    private float _baseAddAirPerSec = 0f;
+    [SerializeField]private float _baseAddAirPerSec = 0f;
     public float _addAirPerSec = 0;     // 증가하는 공기량 (힐량)
+    public float _curAirPerSec = 0; // 현재 공기량 (힐량 + 데미지량)
 
     public Action<float> onChangeAir;
+    public Action OnDamage;
     public Action OnDie;
 
     private float _airDecreaseTimer = 0f;
@@ -104,7 +106,6 @@ public class UnitHealth : MonoBehaviour
         if (HasDebuff(DebuffFlags.Berserk))
             _airDecreaseInterval *= 0.5f;
 
-        _minusAirPerSec = Mathf.Max(0f, _minusAirPerSec);
     }
 
     #endregion
@@ -156,9 +157,14 @@ public class UnitHealth : MonoBehaviour
     /// <param name="addValue"></param>
     public void AddAir(float addValue)
     {
+        Debug.Log($"AddAir: {addValue}");
         if (addValue < 0)
         {
             HitDamage();        //데미지를 입으면 함수 호출
+            if(addValue <= 2)
+            {
+                OnDamage?.Invoke();
+            }   
         }
         SetAir(_curAir + addValue);
     }
@@ -181,7 +187,10 @@ public class UnitHealth : MonoBehaviour
     /// <summary>
     /// 애니메이션용 데미지 입을 때 호출되는 함수
     /// </summary>
-    protected virtual void HitDamage() { }
+    protected virtual void HitDamage() 
+    {
+        Debug.Log("HitDamage");
+    }
 
     //public bool IsInSafeZone()
     //{
@@ -201,7 +210,8 @@ public class UnitHealth : MonoBehaviour
         if (_minusAirPerSec != 0 && _airDecreaseTimer >= _airDecreaseInterval)
         {
             _airDecreaseTimer = 0f;
-            SetAir(Mathf.Max(0, _curAir - (_addAirPerSec -_minusAirPerSec) ));
+            _curAirPerSec = _addAirPerSec - _minusAirPerSec;
+            SetAir(Mathf.Max(0, _curAir + _curAirPerSec));
         }
     }
 }

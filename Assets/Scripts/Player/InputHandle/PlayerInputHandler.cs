@@ -16,13 +16,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+        //Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnMoveInput?.Invoke(value.ReadValue<Vector2>()); // 이동 입력이 들어올 때만 이벤트 실행
     }
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+       // Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         if (value.started)
             OnAttackInput?.Invoke(true);
         else if (value.canceled)
@@ -31,13 +31,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnPressureSkill(InputAction.CallbackContext value)
     {
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+       // Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnPressureSkillInput?.Invoke();
     }
 
     public void OnUniqueSkill(InputAction.CallbackContext value)
     { 
-        Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
+       // Debug.Log($"{value.started}, {value.performed},  {value.canceled} ");
         OnUniqueSkillInput?.Invoke();
     }
 }
