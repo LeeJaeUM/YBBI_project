@@ -918,7 +918,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab18ba039e83394f8bf5e6d93e1f338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minusAirPersec: 0
+  _currentDebuffs: 0
+  _curAir: 10
+  _maxAir: 50
+  _baseMinusAirPerSec: 1
+  _minusAirPerSec: 1
+  _baseAddAirPerSec: 0
+  _addAirPerSec: 0
+  _curAirPerSec: 0
   _playerAnimator: {fileID: 0}
 --- !u!114 &8592048334982046420
 MonoBehaviour:
@@ -1245,6 +1252,22 @@ PrefabInstance:
     - target: {fileID: 6858349574633109565, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Radius
       value: 6.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159477827361463156, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159477827361463156, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1567693581
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796390262838216086, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796390262838216086, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1567693581
       objectReference: {fileID: 0}
     - target: {fileID: 9045068582441208762, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_LocalPosition.x

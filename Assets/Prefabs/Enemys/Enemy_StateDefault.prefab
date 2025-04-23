@@ -85,6 +85,8 @@ GameObject:
   - component: {fileID: 1859072663928137634}
   - component: {fileID: 9191551375935444347}
   - component: {fileID: 404987338087079165}
+  - component: {fileID: 6390944475914508356}
+  - component: {fileID: 383690416487660480}
   m_Layer: 0
   m_Name: Enemy_StateDefault
   m_TagString: Enemy
@@ -108,6 +110,7 @@ Transform:
   - {fileID: 8889844617529549397}
   - {fileID: 4839541777208549693}
   - {fileID: 2788557868372845160}
+  - {fileID: 388232917619774815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3622422839997693236
@@ -286,6 +289,7 @@ MonoBehaviour:
   _curAttackDamage: 2
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
+  _bulletSpawner: {fileID: 0}
 --- !u!114 &404987338087079165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +302,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2229f81336ed1254ebda331ba1da8923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minusAirPersec: 1
+  _currentDebuffs: 0
+  _curAir: 10
+  _maxAir: 50
+  _baseMinusAirPerSec: 1
+  _minusAirPerSec: 1
+  _baseAddAirPerSec: 0
+  _addAirPerSec: 0
+  _curAirPerSec: 0
+--- !u!114 &6390944475914508356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744865221038294097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496cca7c74ee01e4f93df58e2d42cf53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+--- !u!95 &383690416487660480
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744865221038294097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5865167942674616530
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,10 +429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc19d88e0c5e4c42ab044967af217f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _visionRange: 4
   _visionAngle: 20
   _moveForward: {x: 0, y: 0}
   _isChasing: 0
+  _enemyDirObj: {fileID: 0}
+  _directionToNearestEnemy: {x: 0, y: 0}
 --- !u!50 &6468353719087338639
 Rigidbody2D:
   serializedVersion: 5
@@ -525,3 +575,48 @@ MonoBehaviour:
   _endTr: {fileID: 5986347870672152274}
   _startPoint: {x: 0, y: 0, z: 0}
   _endPoint: {x: 0, y: 0, z: 0}
+--- !u!1 &8288564532625744027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 388232917619774815}
+  - component: {fileID: 6645590251581606395}
+  m_Layer: 0
+  m_Name: EnemyBulletSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &388232917619774815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288564532625744027}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000001, y: -6.379999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 106880772578686967}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6645590251581606395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288564532625744027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
