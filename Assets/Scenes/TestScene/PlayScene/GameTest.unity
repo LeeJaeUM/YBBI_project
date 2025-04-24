@@ -1682,10 +1682,10 @@ RectTransform:
   - {fileID: 89703707}
   m_Father: {fileID: 14836852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -110}
+  m_SizeDelta: {x: 1380, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546049993
 MonoBehaviour:
@@ -4244,10 +4244,10 @@ RectTransform:
   - {fileID: 2141243502}
   m_Father: {fileID: 14836852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -320}
+  m_SizeDelta: {x: 1380, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168327344
 MonoBehaviour:
@@ -4984,7 +4984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatas:
   - _id: 0
-    _property: 0
+    _property: 2
     _buff: -1
     _icon: 0
     _value: 0
@@ -4994,25 +4994,85 @@ MonoBehaviour:
     _buff: -1
     _icon: 1
     _value: 0
-    _price: 5
+    _price: 3
   - _id: 2
-    _property: 1
+    _property: 2
     _buff: -1
     _icon: 2
     _value: 0
-    _price: 1
+    _price: 5
   - _id: 3
-    _property: 1
+    _property: 2
     _buff: -1
     _icon: 3
     _value: 0
-    _price: 1
+    _price: 2
   - _id: 4
     _property: 2
     _buff: -1
     _icon: 4
     _value: 0
-    _price: 5
+    _price: 6
+  - _id: 5
+    _property: 2
+    _buff: -1
+    _icon: 5
+    _value: 0
+    _price: 7
+  - _id: 6
+    _property: 2
+    _buff: -1
+    _icon: 6
+    _value: 0
+    _price: 10
+  - _id: 7
+    _property: 2
+    _buff: -1
+    _icon: 7
+    _value: 0
+    _price: 15
+  - _id: 8
+    _property: 2
+    _buff: -1
+    _icon: 8
+    _value: 0
+    _price: 20
+  - _id: 9
+    _property: 2
+    _buff: -1
+    _icon: 9
+    _value: 0
+    _price: 25
+  - _id: 10
+    _property: 2
+    _buff: -1
+    _icon: 10
+    _value: 0
+    _price: 30
+  - _id: 11
+    _property: 0
+    _buff: 0
+    _icon: 11
+    _value: 0
+    _price: 0
+  - _id: 12
+    _property: 0
+    _buff: 1
+    _icon: 12
+    _value: 0
+    _price: 0
+  - _id: 13
+    _property: 0
+    _buff: 2
+    _icon: 13
+    _value: 0
+    _price: 0
+  - _id: 13
+    _property: 0
+    _buff: 2
+    _icon: 14
+    _value: 0
+    _price: 0
 --- !u!4 &1362513268
 Transform:
   m_ObjectHideFlags: 0
