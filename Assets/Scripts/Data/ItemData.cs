@@ -6,11 +6,21 @@ using UnityEngine;
 public enum ItemType
 {
     None = -1,
-    Arrow,
-    BeeHouse,
-    Bomb,
-    Key,
-    Mashroom,
+    BlueCrystal,
+    DarkBlueCrystal,
+    EmeraldCrystal,
+    GreenCrystal,
+    LightBlueCrystal,
+    LilacCrystal,
+    OrangeCrystal,
+    PinkCrystal,
+    PurpleCrystal,
+    RedCrystal,
+    YellowCrystal,
+    AtkUpPotion,
+    SpeedUpPotion,
+    StopMinusAirPotion,
+    HealOverTimePotion,
     MoneyAdjust
 }
 
