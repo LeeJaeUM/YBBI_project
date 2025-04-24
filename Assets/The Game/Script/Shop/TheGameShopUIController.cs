@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class TheGameShopUIController : MonoBehaviour
 {
-    [SerializeField]
-    TheGameShop _shop;
+
+    private TheGameShop _shop;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,5 +11,10 @@ public class TheGameShopUIController : MonoBehaviour
         {
             _shop.ShowShopUI();
         }
-    } 
+    }
+
+    private void Awake()
+    {
+        _shop = FindAnyObjectByType<TheGameShop>();
+    }
 }

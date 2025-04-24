@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class MapManager : MonoBehaviour
+public class MapData : MonoBehaviour
 {
     public GameObject roomPrefab;
     public Enums.RoomType roomType;

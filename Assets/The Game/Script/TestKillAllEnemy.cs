@@ -10,13 +10,14 @@ public class TestKillAllEnemy : TestBase
     [Header("맵그리드(mapGrid)")]
     [SerializeField] GameObject mapGrid;
 
-
+    private MapData mapData;
     public override void Test1(InputAction.CallbackContext context)
     {
         EnemySpawnManager[] enemySpawnManagers = mapGrid.GetComponentsInChildren<EnemySpawnManager>();
 
         foreach (var manager in enemySpawnManagers)
         {
+            mapData = manager.GetComponentInParent<MapData>();
             List<GameObject> spawnedEnemyList = manager.spawnedEnemyList;
             if (spawnedEnemyList == null || spawnedEnemyList.Count == 0) continue;
             foreach (var enemy in spawnedEnemyList)
@@ -35,6 +36,14 @@ public class TestKillAllEnemy : TestBase
     private IEnumerator DelayedCheck(EnemySpawnManager manager)
     {
         yield return null; // 1프레임 대기
-        manager.CheckAllEnemyDieInRoom();
+        
+        if (mapData.roomType == Enums.RoomType.Enemy)
+        {
+            manager.CheckAllEnemyDieInRoom();
+        }
+        else if (mapData.roomType == Enums.RoomType.Boss)
+        {
+            manager.CheckBossDieInRoom();
+        }
     }
 }

@@ -20,6 +20,7 @@ public class TheGameShop : MonoBehaviour
 
     private int _playerMoney = 0;
     private int _totalPrice = 0;
+    private DontDestroyDatas _dontDestroyDatas;
 
     #region Value Control
     public void AddMoney(int amount)
@@ -109,6 +110,8 @@ public class TheGameShop : MonoBehaviour
     #region Unity Methods
     void Start()
     {
+        _dontDestroyDatas = FindAnyObjectByType<DontDestroyDatas>();
+        _totalPrice = _dontDestroyDatas.money;
         UpdatePriceDisplay();
         gameObject.SetActive(false);
 
@@ -123,6 +126,15 @@ public class TheGameShop : MonoBehaviour
         _shopItems[0]._onPurchase = () => _inventory.InvenUpgrade();
 
         UpdateBtnStates();
+    }
+
+    private void OnDestroy()
+    {
+        if (_dontDestroyDatas != null)
+        {
+            _dontDestroyDatas.money = _totalPrice;
+            Debug.Log($"[TheGameShop] 자본 상태 저장 완료: {_totalPrice}G");
+        }
     }
     #endregion  
 }

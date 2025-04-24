@@ -477,8 +477,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6292261152651439379}
   m_HandleRect: {fileID: 4107303613732262660}
   m_Direction: 2
-  m_Value: -0.0000035903097
-  m_Size: 0.94333345
+  m_Value: -0.000012566062
+  m_Size: 0.9433333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000027418137, y: 17.000063}
+  m_AnchoredPosition: {x: -0.0000027418137, y: 17.000225}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2196090241216044271
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   _createSessionPrefab: {fileID: 7313491034981176361, guid: d744c76707535ea4989e6fb4da989418, type: 3}
   _sessionButtonPrefab: {fileID: 6697840583042781699, guid: 02bd19c76e98b21498e8ecce5f9b97fe, type: 3}
   _inSessionPrefab: {fileID: 2612293767408712387, guid: d883ff08658b734458a84b74e3a9be8e, type: 3}
-  _sceneName: InGameScene
+  _sceneName: Stage1
 --- !u!1 &5063992971591831946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3323981382419378088}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2669657082
+  GlobalObjectIdHash: 2405055894
   InScenePlacedSourceGlobalObjectIdHash: 54613414
   DeferredDespawnTick: 0
   Ownership: 1

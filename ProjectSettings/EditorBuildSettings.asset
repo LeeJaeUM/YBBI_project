@@ -48,11 +48,17 @@ EditorBuildSettings:
     path: Assets/The Game/Lobby&SessionScene.unity
     guid: c84d3891593058a4bb64754023d7e5ba
   - enabled: 1
-    path: Assets/The Game/InGameScene.unity
+    path: Assets/The Game/Stage1.unity
     guid: 5d2c4a11fc7425441842181a2f6c692b
   - enabled: 1
     path: Assets/The Game/TheGameAuth.unity
     guid: d8fd2d5196b72f145b38f1b12afaf922
+  - enabled: 1
+    path: Assets/The Game/Shop.unity
+    guid: 450dc8bcc357ae04eb68aaf172d15a7d
+  - enabled: 1
+    path: Assets/The Game/Stage2.unity
+    guid: 8c399a45c1351024dbe4c230a60b22e8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

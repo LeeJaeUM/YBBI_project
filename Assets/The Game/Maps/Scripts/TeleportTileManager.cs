@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class TeleportTileManager : MonoBehaviour
@@ -7,10 +8,14 @@ public class TeleportTileManager : MonoBehaviour
 
     [SerializeField] private GameObject mapOBJ;
 
+    private MapData mapData;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") || teleportID == null)
-            return;
+        if (!collision.CompareTag("Player")) return;
+
+        if (teleportID == null) return;
+
 
         PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
         if (posRpc == null || posRpc.IsTeleporting()) // 중복 방지
@@ -40,5 +45,10 @@ public class TeleportTileManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void Awake()
+    {
+        mapData = mapOBJ.GetComponent<MapData>();
     }
 }

@@ -6,15 +6,21 @@ public class PlayerJobPrefabManager : NetworkBehaviour
     [SerializeField] private GameObject[] playerPrefabs; // Warrior, Mage 등
     [Header("스폰될 맵 그리드")]
     [SerializeField] private GameObject mapGrid;
+    private static bool hasSpawnedPlayers = false;
 
     private Vector3 _pos;
 
     private void Awake()
     {
+        if (hasSpawnedPlayers) return;
+
         MapRandomSpawner grid = mapGrid.GetComponent<MapRandomSpawner>();
 
 
         _pos = grid.GridToWorld(grid.GetMapListGridCenter());
+
+        hasSpawnedPlayers = true;
+        
     }
 
     public override void OnNetworkSpawn()

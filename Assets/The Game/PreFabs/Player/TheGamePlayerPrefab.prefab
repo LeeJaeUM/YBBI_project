@@ -879,7 +879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _speed: 5
+  _speed: 8
 --- !u!114 &-3045432728056949943
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MapListSO", menuName = "MapGeneration/MapList", order = 0)]
 public class MapListSO : ScriptableObject
 {
-    public List<MapManager> Maps;
+    public List<MapData> Maps;
 }

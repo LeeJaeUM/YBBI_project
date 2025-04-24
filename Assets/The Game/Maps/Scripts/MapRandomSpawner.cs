@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 public class MapRandomSpawner : MonoBehaviour
 {
+    [SerializeField] private bool isShopScene = false;
     [SerializeField] private Grid mapSpawnGrid;
     [SerializeField] private MapListSO mapPrefabList; // BaseMap 프리팹
     [SerializeField] private int mapCount = 13;
     [SerializeField] private int stageNum = 1;
 
     public const int MAP_SIZE = 10; //MAP_SIZE * MAP_SIZE의 크기의 맵 배열
-    private MapManager[,] _mapGrid = new MapManager[MAP_SIZE, MAP_SIZE];
+    private MapData[,] _mapGrid = new MapData[MAP_SIZE, MAP_SIZE];
 
     Vector2Int[] _directions = {
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
@@ -26,10 +27,10 @@ public class MapRandomSpawner : MonoBehaviour
     private void ReqestMapSpawn()
     {
         Vector2Int center = GetMapListGridCenter();
-        MapManager startRoom = GetRandomRoom(Enums.RoomType.Start);
+        MapData startRoom = GetRandomRoom(Enums.RoomType.Start);
 
         GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
-        MapManager startData = startObj.GetComponent<MapManager>();
+        MapData startData = startObj.GetComponent<MapData>();
         _mapGrid[center.x, center.y] = startData;
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
@@ -39,7 +40,7 @@ public class MapRandomSpawner : MonoBehaviour
         while (frontier.Count > 0 && placedRoomCount < mapCount - 1)
         {
             Vector2Int currentPos = frontier.Dequeue();
-            MapManager currentRoom = _mapGrid[currentPos.x, currentPos.y];
+            MapData currentRoom = _mapGrid[currentPos.x, currentPos.y];
 
             List<Vector2Int> dirList = new List<Vector2Int>(_directions);
             Shuffle(dirList);
@@ -51,11 +52,11 @@ public class MapRandomSpawner : MonoBehaviour
                 if (_mapGrid[nextPos.x, nextPos.y] != null) continue;
                 if (FormsSquare(nextPos)) continue;
 
-                MapManager newRoom = GetRandomCompatibleRoom(Enums.RoomType.Normal, dir, currentRoom);
+                MapData newRoom = GetRandomCompatibleRoom(Enums.RoomType.Normal, dir, currentRoom);
                 if (newRoom == null) continue;
 
                 GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
-                MapManager newData = newObj.GetComponent<MapManager>();
+                MapData newData = newObj.GetComponent<MapData>();
                 _mapGrid[nextPos.x, nextPos.y] = newData;
 
                 frontier.Enqueue(nextPos);
@@ -80,11 +81,11 @@ public class MapRandomSpawner : MonoBehaviour
                     if (_mapGrid[bossPos.x, bossPos.y] != null) continue;
                     if (FormsSquare(bossPos)) continue;
 
-                    MapManager bossRoom = GetRandomCompatibleRoom(Enums.RoomType.Boss, dir, _mapGrid[x, y]);
+                    MapData bossRoom = GetRandomCompatibleRoom(Enums.RoomType.Boss, dir, _mapGrid[x, y]);
                     if (bossRoom != null)
                     {
                         GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
-                        MapManager bossData = bossObj.GetComponent<MapManager>();
+                        MapData bossData = bossObj.GetComponent<MapData>();
                         _mapGrid[bossPos.x, bossPos.y] = bossData;
                         return;
                     }
@@ -93,6 +94,18 @@ public class MapRandomSpawner : MonoBehaviour
         }
     }
 
+    private void RequestShopMapSpawn()
+    {
+        Vector2Int center = GetMapListGridCenter();
+        MapData ShopRoom = GetRandomRoom(Enums.RoomType.Shop);
+
+        GameObject shopRoom = Instantiate(ShopRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
+        MapData shopRoomData = shopRoom.GetComponent<MapData>();
+        _mapGrid[center.x, center.y] = shopRoomData;
+
+        Queue<Vector2Int> frontier = new Queue<Vector2Int>();
+        frontier.Enqueue(center);
+    }
 
     public Vector2Int GetMapListGridCenter()
     {
@@ -148,15 +161,15 @@ public class MapRandomSpawner : MonoBehaviour
         return false;
     }
 
-    private MapManager GetRandomRoom(Enums.RoomType type)
+    private MapData GetRandomRoom(Enums.RoomType type)
     {
-        List<MapManager> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
+        List<MapData> list = mapPrefabList.Maps.FindAll(m => m.roomType == type);
         return list.Count > 0 ? list[Random.Range(0, list.Count)] : null;
     }
 
-    private MapManager GetRandomCompatibleRoom(Enums.RoomType type, Vector2Int fromDir, MapManager fromRoom)
+    private MapData GetRandomCompatibleRoom(Enums.RoomType type, Vector2Int fromDir, MapData fromRoom)
     {
-        List<MapManager> list;
+        List<MapData> list;
         if (type == Enums.RoomType.Normal)
         {
             list = mapPrefabList.Maps.FindAll(m => m.roomType == Enums.RoomType.Normal || m.roomType == Enums.RoomType.Enemy);
@@ -172,7 +185,7 @@ public class MapRandomSpawner : MonoBehaviour
         return list.FindAll(m => IsCompatible(fromDir, fromRoom, m)).PickRandom();
     }
      
-    private bool IsCompatible(Vector2Int dir, MapManager from, MapManager to)
+    private bool IsCompatible(Vector2Int dir, MapData from, MapData to)
     {
         if (dir == Vector2Int.up) return from.canConnectUp && to.canConnectDown;
         if (dir == Vector2Int.down) return from.canConnectDown && to.canConnectUp;
@@ -186,7 +199,7 @@ public class MapRandomSpawner : MonoBehaviour
     private void AssignTeleportIDs()
     {
         int idCounter = 0;
-        MapManager BossRoom;
+        MapData BossRoom;
         Vector2Int[] teleportDirs = { Vector2Int.down, Vector2Int.left }; // 한쪽만 처리해서 중복 방지
 
         for (int y = 0; y < MAP_SIZE; y++)
@@ -265,7 +278,7 @@ public class MapRandomSpawner : MonoBehaviour
                         neighborRoom.canConnectDown && !neighborRoom.isTpDownSeted)
                         {
                             SetTeleportID(currentRoom.tpDown, tpID);
-                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            SetTeleportID(neighborRoom.tpDown, tpID);
                             currentRoom.isTpDownSeted = true;
                             neighborRoom.isTpDownSeted = true;
                             Debug.Log($"{idCounter}번째 텔레포터 연결 ↓ {currentRoom.name} ↔ ↑ {neighborRoom.name} @ {tpID}");
@@ -276,7 +289,7 @@ public class MapRandomSpawner : MonoBehaviour
                         neighborRoom.canConnectDown && !neighborRoom.isTpDownSeted)
                         {
                             SetTeleportID(currentRoom.tpLeft, tpID);
-                            SetTeleportID(neighborRoom.tpUp, tpID);
+                            SetTeleportID(neighborRoom.tpDown, tpID);
                             currentRoom.isTpLeftSeted = true;
                             neighborRoom.isTpDownSeted = true;
                             Debug.Log($"{idCounter}번째 텔레포터 연결 ← {currentRoom.name} ↔ → {neighborRoom.name} @ {tpID}");
@@ -320,7 +333,7 @@ public class MapRandomSpawner : MonoBehaviour
     #region 맵초기화 로직
     private void ResetAllMapPrefabs()
     {
-        foreach (MapManager map in mapPrefabList.Maps)
+        foreach (MapData map in mapPrefabList.Maps)
         {
             if (map == null) continue;
 
@@ -394,8 +407,8 @@ public class MapRandomSpawner : MonoBehaviour
     {
         Vector2Int? mapOBJGridPos = FindMapGridPosition(mapObject);
         if (mapOBJGridPos == null) return;
-        
-        MapManager room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
+
+        MapData room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
         if (room == null) return;
 
         if (room.tpUp != null)
@@ -416,7 +429,7 @@ public class MapRandomSpawner : MonoBehaviour
         Vector2Int? mapOBJGridPos = FindMapGridPosition(mapObject);
         if (mapOBJGridPos == null) return;
 
-        MapManager room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
+        MapData room = _mapGrid[mapOBJGridPos.Value.x, mapOBJGridPos.Value.y];
         if (room == null) return;
 
         if (room.isTpUpSeted && room.tpUp != null)
@@ -430,20 +443,55 @@ public class MapRandomSpawner : MonoBehaviour
 
         if (room.isTpRightSeted && room.tpRight != null)
             room.tpRight.SetActive(true);
-
     }
     #endregion
+
+    private void NotifyPlayerWallUpdate()
+    {
+        TheGamePlayerMover[] movers = FindObjectsOfType<TheGamePlayerMover>();
+        foreach (var mover in movers)
+        {
+            mover.ForceUpdateWallTilemaps();
+        }
+    }
+
+    private void RequestSetPlayerPos()
+    {
+        PlayerPosRPC[] posRpcs = FindObjectsOfType<PlayerPosRPC>();
+        foreach (var posRpc in posRpcs)
+        {
+            Vector3 _pos = GridToWorld(GetMapListGridCenter());
+            posRpc.TeleportRequest(_pos);
+        }
+    }
+
+    #region 시작
 
     private void Start()
     {
         ResetAllMapPrefabs();
-        ReqestMapSpawn();
-        AssignTeleportIDs();
-        RefreshInspectorForTPID();
-        DisableUnusedTeleporters();
+        if (!isShopScene)
+        {
+            ReqestMapSpawn();
+            AssignTeleportIDs();
+            RefreshInspectorForTPID();
+            DisableUnusedTeleporters();
+            EnemySpawnManager[] enemySpawnManagers = GetComponentsInChildren<EnemySpawnManager>();
+            foreach (var enemySpawnManager in enemySpawnManagers)
+            {
+                enemySpawnManager.SetUpEnemySpawnManager();
+            }
+        }
+        else
+        {
+            RequestShopMapSpawn();
+        }
+        NotifyPlayerWallUpdate();
+        RequestSetPlayerPos();
     }
 
 }
+#endregion
 
 public static class ListExtension
 {

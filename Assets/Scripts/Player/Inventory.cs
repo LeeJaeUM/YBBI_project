@@ -237,6 +237,10 @@ public class Inventory : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if(_itemTable == null)
+        {
+            _itemTable = FindAnyObjectByType<ItemDataTable>();
+        }
         _iconSprites = ItemManager.Instance._itemSprites;
         CreateSlot(10);
         _cursorSprite.enabled = false;
