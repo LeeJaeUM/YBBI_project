@@ -23,4 +23,7 @@ public class SkillData : ScriptableObject
 
     public float _width = 1; // 스킬의 너비
     public float _length = 1; // 스킬의 길이
+
+    public bool _isMoveSkill = false; // 이동 스킬 여부
+    public float _moveDistance = 4; // 이동 거리
 }

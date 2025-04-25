@@ -2,12 +2,14 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyATKStats : MonoBehaviour
 {
-    public List<SkillData> _skills;
-    public SkillData _curSkill;
+    public List<PatternData> _patterns;
+    public PatternData _curPattern;     //현재 사용중인 패턴
+    public SkillData _curSkill;         //패턴 속 현재 사용중인 스킬
     public float _spawnDistance = 1;
     public GameObject _bullet;
     public float _curAttackDamage = 2;
@@ -18,31 +20,20 @@ public class EnemyATKStats : MonoBehaviour
 
     public EnemyBulletSpawner _bulletSpawner;
 
-    public void SetSkillData(int num)
+    public void SetPaaternNum(int num)
     {
-        _curSkill = _skills[num];
+        _curPattern = _patterns[num];
     }
 
-    public SkillData GetSKillData(SkillData skillData)
-    {
-        return _curSkill;
-    }
+    //public SkillData GetSKillData(SkillData skillData, int num)
+    //{
+    //    Debug.Log($"스킬 데이터 현재 미사용 함수 {skillData._name} {num}");
+    //    return null;// _curPattern;
+    //}
 
     public void Attack(Vector3 direction)
     {
         StartCoroutine(CooldownCoroutine(direction));
-    }
-
-    /// <summary>
-    /// 데미지 계산 함수 : 현재는 단순 배율 곱하기
-    /// </summary>
-    /// <param name="skillDamageMul"></param>
-    /// <returns></returns>
-    private float GetDamageMultiplier(float skillDamageMul)
-    {
-        float finalMul = 1;
-        finalMul *= skillDamageMul;
-        return finalMul;
     }
 
     private void CreateBullet(SkillData skillData, Vector3 direction)
@@ -55,11 +46,24 @@ public class EnemyATKStats : MonoBehaviour
 
     IEnumerator CooldownCoroutine(Vector3 direction)
     {
-        Debug.Log("공격 시작");
-        float coolDown = _curSkill._coolDown;
-        yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기
-        CreateBullet(_curSkill, direction);
-        yield return new WaitForSeconds(_curSkill._attackEndDelay); //공격후 딜레이만큼 대기
+        for(int i=0; i< _curPattern._skillData.Length; i++) //패턴에 있는 모든 스킬 연속으로 실행 후 종료
+        {
+            _curSkill = _curPattern._skillData[i];
+            Debug.Log($"스킬 데이터 {_curSkill._name} {i}  공격 시작"); 
+
+            yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기
+            if(_curSkill._isMoveSkill) //이동 스킬일 경우
+            {
+                yield return new WaitForSeconds(_curSkill._activeTime); //이동 스킬 지속시간 만큼 대기
+            }
+            else
+            {
+                CreateBullet(_curSkill, direction);
+            }
+            yield return new WaitForSeconds(_curSkill._attackEndDelay); //공격후 딜레이만큼 대기
+        }
+
+        float coolDown = _curPattern._coolDown;
         OnFinishedAttack?.Invoke(true);
         yield return new WaitForSeconds(coolDown); //쿨다운 동안 대기
         OnFinishedAttack?.Invoke(false);

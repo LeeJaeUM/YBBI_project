@@ -44,7 +44,6 @@ public class Bullet : MonoBehaviour
         ResetBulletSize();
         _damage = damage;
         transform.localScale = Vector3.one * radius;
-        //_spriteRenderer.transform.localScale = Vector3.one * radius; //스프라이트 크기 조정
         _lifeTime = activeTime;
         _speed = moveSpeed;
         _bulletType = bulletType;

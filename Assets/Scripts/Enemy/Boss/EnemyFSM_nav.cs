@@ -18,7 +18,7 @@ public class EnemyFSM_nav : MonoBehaviour
         navMeshAgent.updateUpAxis = false;      //자동 회전 방지
     }
 
-    private void Start()
+    private void Awake()
     {
         Setup(target);
     }

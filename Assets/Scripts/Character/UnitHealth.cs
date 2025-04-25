@@ -10,7 +10,7 @@ public class UnitHealth : MonoBehaviour
     public DebuffFlags _currentDebuffs = DebuffFlags.None;
 
     [SerializeField]protected float _curAir = 10;
-    [SerializeField]protected float _maxAir = 50;
+    [SerializeField]protected float _maxAir = 100;
     protected float _safeAirZone; // 공기 안정권 (maxAir의 2/3)
     [SerializeField]private float _baseMinusAirPerSec = 1f;
     public float _minusAirPerSec = 1;   // 감소하는 공기량 (데미지량)

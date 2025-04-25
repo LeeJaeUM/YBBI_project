@@ -8,7 +8,7 @@ public class PlayerAttacker : MonoBehaviour
 
     public NearestEnemyFinder _nearestEnemyFinder;
     public GameObject _bullet;
-    public float _curAttackDamage = 1;
+    public float _curAttackDamage = 10;
     public float _spawnDistance = 1;
     [SerializeField]
     private Dictionary<Enums.SkillType, float> _lastUsedTime = new Dictionary<Enums.SkillType, float>();

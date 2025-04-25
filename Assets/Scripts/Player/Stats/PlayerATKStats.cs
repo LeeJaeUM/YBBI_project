@@ -11,10 +11,28 @@ public class PlayerATKStats : MonoBehaviour
     public float _pressureSkillCoolDown = 6.0f;        // 공기 스킬 쿨타임 (스킬 1)
     public float _uniqueSkillCoolDown = 6.0f;     // 고유 스킬 쿨타임 (스킬 2)
 
-    public float _attckDamage = 5;
+    public float _attckDamage = 10;
     #endregion
 
     #region Custom Functions
+
+    public void UpAttackBuff(float value)
+    {
+        _attckDamage += value;
+    }
+
+    public void SetNormalSkill(SkillData skillData)
+    {
+        _normalAttackSkillData = skillData;
+    }
+    public void SetPressureSkill(SkillData skillData)
+    {
+        _pressureSkillData = skillData;
+    }
+    public void SetUniqueSkill(SkillData skillData)
+    {
+        _uniqueSkillData = skillData;
+    }
     private void SetCoolDown(float normalCool, float pressureCool, float uniqueCool)
     {
         _normalAttackCoolDown = normalCool;

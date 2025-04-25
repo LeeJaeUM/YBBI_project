@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour
         Rigid = GetComponent<Rigidbody2D>();
         _enemyAniamtor = GetComponentInChildren<EnemyAnimator>();
 
-        _enemyATKStats.OnFinishedAttack += SetFinished;
+        _enemyATKStats.OnFinishedAttack += SetAttackFinished;
     }
 
     public virtual void CreateState()
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
     public void StartAttack()
     {
         Vector3 vector3 = _findTargetPoint.GetTargetDirection();
-        _enemyAniamtor.UpdateMoveVisual(vector3);
+        _enemyAniamtor.UpdateMoveVisual(vector3);        //적의 바라보는 방향에 따라 애니메이션을 업데이트
         _enemyAniamtor.PlayAttackAnimation();
 
         _enemyATKStats.Attack(vector3);
@@ -88,35 +88,34 @@ public class EnemyAI : MonoBehaviour
     {
         int randomIndex = Random.Range(0, _maxPaternNumber);  // 1 ~ max-1 랜덤 값0
         _curATKPatern = (ATKPatern)randomIndex;
-        _enemyATKStats.SetSkillData(randomIndex);
-    }
-
-    public void SetPlayer()
-    {
-        Player = _findTargetPoint.Player;
-    }
-
-    public void SetIsAttacking(bool value)
-    {
-        _isAttacking = value;
-    }
-
-    private void SetFinished(bool value)
-    {
-        _isAttackFinished = value;
-        if (!value)
-        {
-            SetIsAttacking(value);
-        }
+        _enemyATKStats.SetPaaternNum(randomIndex);
     }
 
     public bool GetIsAttacking()
     {
         return _isAttacking;
     }
+    public void SetIsAttacking(bool value)
+    {
+        _isAttacking = value;
+    }
+
     public bool GetIsFinished()
     {
         return _isAttackFinished;
+    }
+    private void SetAttackFinished(bool value)
+    {
+        _isAttackFinished = value;
+        if (!value)                 //공격이 완전히 종료되면 
+        {
+            SetIsAttacking(value);  //isAttacking을 false로 변경
+        }
+    }
+
+    public void SetPlayer()
+    {
+        Player = _findTargetPoint.Player;
     }
 
     #region Unity Built-in Fuction
@@ -133,7 +132,7 @@ public class EnemyAI : MonoBehaviour
     private void OnDisable()
     {
         // _enemyATKStats.OnFinishedAttack -= (value) => _IsAttackFinished = value;
-        _enemyATKStats.OnFinishedAttack -= SetFinished;
+        _enemyATKStats.OnFinishedAttack -= SetAttackFinished;
     }
 
     private void Start()
