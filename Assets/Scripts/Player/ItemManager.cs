@@ -18,8 +18,8 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     public Sprite[] _itemSprites;
 
     [Header("UI References")]
-    public RectTransform _itemCreatePos;
     public RectTransform _canvasPos;
+    public RectTransform _itemCreatePos;
     #endregion
 
     #region Private Fields 

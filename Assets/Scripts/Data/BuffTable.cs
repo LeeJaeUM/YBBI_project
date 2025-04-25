@@ -16,6 +16,7 @@ public class BuffTable : SingletonMonoBehaviour<BuffTable>
     // Start is called before the first frame update
     protected override void OnStart()
     {
+        Debug.Log("_buffList");
         for (int i = 0; i < _buffList.Count; i++)
         {
             _buffTable.Add(_buffList[i].Id, _buffList[i]);

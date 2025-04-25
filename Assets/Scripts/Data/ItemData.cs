@@ -20,8 +20,7 @@ public enum ItemType
     AtkUpPotion,
     SpeedUpPotion,
     StopMinusAirPotion,
-    HealOverTimePotion,
-    MoneyAdjust
+    HealOverTimePotion
 }
 
 public enum ItemProperty

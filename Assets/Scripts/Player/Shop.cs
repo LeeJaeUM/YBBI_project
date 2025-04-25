@@ -13,12 +13,13 @@ public class Shop : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField]
     Inventory _inventory;
+    PlayerATKStats _playerATKStats;
 
     [Header("Shop Items")]
     [SerializeField]
     List<ShopItem> _shopItems;
 
-    private int _playerMoney = 0;
+    private int _playerMoney = 100000;
     private int _totalPrice = 0;
 
     #region UI Control
@@ -111,6 +112,9 @@ public class Shop : MonoBehaviour
         }
 
         _shopItems[0]._onPurchase = () => _inventory.InvenUpgrade();
+        // _shopItems[1]._onPurchase = () => _playerATKStats._attckDamage += 5;
+        // _shopItems[2]._onPurchase = () => 
+        // _shopItems[3]._onPurchase = () => 
 
         UpdateBtnStates();
     }

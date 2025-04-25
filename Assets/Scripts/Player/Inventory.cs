@@ -225,7 +225,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public void InvenUpgrade()
     {
-        CreateSlot(5);
+        CreateSlot(3);
     }
 
     #endregion

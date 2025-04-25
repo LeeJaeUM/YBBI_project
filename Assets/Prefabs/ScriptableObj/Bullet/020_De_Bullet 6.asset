@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647969794a4709b44a8e955227141558, type: 3}
   m_Name: 020_De_Bullet 6
   m_EditorClassIdentifier: 
-  _ID: 18
+  _ID: 20
   _name: 
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 1
   _bulletType: 1
-  _bulletCount: 5
-  _angleRange: 180
+  _bulletCount: 1
+  _angleRange: 1
   _damageMultiplier: 1
-  _radius: 2
+  _radius: 3
   _spawnDistance: 0.5
-  _moveSpeed: 2
+  _moveSpeed: 3
   _activeTime: 2
-  _attackPreDelay: 1
+  _attackPreDelay: 2
   _attackEndDelay: 2
   _coolDown: 0
   _level: 0

@@ -14,21 +14,27 @@ public class BuffController : MonoBehaviour
     UnitHealth _unitHealth;
 
     Dictionary<BuffType, BuffInfo> _activeBuffList = new Dictionary<BuffType, BuffInfo>();
+    Dictionary<BuffType, float> _originalValues = new Dictionary<BuffType, float>();
 
     IEnumerator CoBuffProcess(BuffType type)
     {
-        BuffInfo curBuff;
+        
+        if (!_activeBuffList.TryGetValue(type, out BuffInfo curBuff))
+        {
+            yield break;
+        }
 
         switch (type)
         {
             case BuffType.AttackUp:
-                // _playerAttacker._curAttackDamage += curBuff.Data.Value;
+                _playerAttacker._curAttackDamage += curBuff.Data.Value;
                 break;
             case BuffType.MoveSpeedUp:
-                // _playerMover._speed *= curBuff.Data.Value;
+                _playerMover._speed *= curBuff.Data.Value;
                 break;
             case BuffType.StopMinusAirPerSec:
-                // _unitHealth._minusAirPerSec = 0;
+                _originalValues[type] = _unitHealth._minusAirPerSec;
+                _unitHealth._minusAirPerSec = 0;
                 break;
             case BuffType.HealOverTime:
 
@@ -58,7 +64,11 @@ public class BuffController : MonoBehaviour
                 _playerMover._speed /= curBuff.Data.Value;
                 break;
             case BuffType.StopMinusAirPerSec:
-                // _unitHealth._minusAirPerSec =;
+                if (_originalValues.ContainsKey(type))
+                {
+                    _unitHealth._minusAirPerSec = _originalValues[type];
+                    _originalValues.Remove(type);
+                }
                 break;
             case BuffType.HealOverTime:
                 break;
