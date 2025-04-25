@@ -111,7 +111,7 @@ public class TheGameShop : MonoBehaviour
     void Start()
     {
         _dontDestroyDatas = FindAnyObjectByType<DontDestroyDatas>();
-        _totalPrice = _dontDestroyDatas.money;
+        _playerMoney = _dontDestroyDatas.money;
         UpdatePriceDisplay();
         gameObject.SetActive(false);
 
@@ -132,7 +132,7 @@ public class TheGameShop : MonoBehaviour
     {
         if (_dontDestroyDatas != null)
         {
-            _dontDestroyDatas.money = _totalPrice;
+            _dontDestroyDatas.money = _playerMoney;
             Debug.Log($"[TheGameShop] 자본 상태 저장 완료: {_totalPrice}G");
         }
     }

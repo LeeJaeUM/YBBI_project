@@ -32,6 +32,15 @@ public class PlayerJobPrefabManager : NetworkBehaviour
             Debug.Log($"플레이어ID : {clientId}스폰성공");
             SpawnPlayerForClient(clientId);
         }
+
+        if (hasSpawnedPlayers) return;
+
+        MapRandomSpawner grid = mapGrid.GetComponent<MapRandomSpawner>();
+
+
+        _pos = grid.GridToWorld(grid.GetMapListGridCenter());
+
+        hasSpawnedPlayers = true;
     }
 
     private async void SpawnPlayerForClient(ulong clientId)

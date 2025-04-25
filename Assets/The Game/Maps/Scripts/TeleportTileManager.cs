@@ -22,7 +22,7 @@ public class TeleportTileManager : MonoBehaviour
             return;
 
         // 모든 TeleportManager 찾기
-        TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>();
+        TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>(true);
 
         foreach (TeleportTileManager targetTeleporter in allTeleporters)
         {

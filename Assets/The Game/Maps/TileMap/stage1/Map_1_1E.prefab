@@ -13210,7 +13210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &7740473639402811461
 GameObject:
@@ -13440,6 +13439,7 @@ MonoBehaviour:
   mapOBJ: {fileID: 8902288767891610223}
   enemySpawnTileMap: {fileID: 2878117547276652298}
   enemyList: {fileID: 11400000, guid: 0c44a82d68a4b4f47b69135b127702ed, type: 2}
+  spawnedEnemyList: []
 --- !u!61 &1058695154173437706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13878,7 +13878,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8617972356219040241
 GameObject:
@@ -14272,7 +14271,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8902288767891610223
 GameObject:
@@ -14287,6 +14285,7 @@ GameObject:
   - component: {fileID: 7517673425886973440}
   - component: {fileID: 5661956902217991291}
   - component: {fileID: -2176995938041301715}
+  - component: {fileID: 8427894061754976258}
   m_Layer: 0
   m_Name: Map_1_1E
   m_TagString: Map
@@ -14424,3 +14423,28 @@ MonoBehaviour:
   tpRight: {fileID: 8617972356219040241}
   tpRightID: 
   isTpRightSeted: 0
+--- !u!114 &8427894061754976258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902288767891610223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0

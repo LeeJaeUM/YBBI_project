@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8408167598491350655}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2422618883091874415}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092357283561360370}
   - component: {fileID: 6318108552000256238}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AirSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 5442417455038184342}
   - component: {fileID: 5870305890702685160}
   - component: {fileID: 833100614825672052}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 4020136677856491869}
   - component: {fileID: 4483447192985894271}
   - component: {fileID: 6891630497961302676}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 8814990496690169703}
   - component: {fileID: 7021213231147828796}
   - component: {fileID: 380989413715691083}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 1977302156662064062}
   - component: {fileID: 7413174320372390937}
   - component: {fileID: 1908210497721797268}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: HealthBarCanvasCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 4160264063091707913}
   - component: {fileID: 6056258531123265922}
   - component: {fileID: 2853506457849349083}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TheGamePlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1029,7 +1029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4320963278619624739}
   - component: {fileID: 1907243355291720409}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: DangerSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 7615715764331972928}
   - component: {fileID: 6053585502234889334}
   - component: {fileID: 925811869783801775}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1193,7 +1193,7 @@ GameObject:
   - component: {fileID: 509785797970103031}
   - component: {fileID: 912279323509523136}
   - component: {fileID: 778893812117493719}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: BackShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1266,7 +1266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9177972314705557730}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1303,7 +1303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1310526702290476412, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071625299999685112, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Name
@@ -1311,7 +1311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3071625299999685112, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6858349574633109565, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Radius
@@ -1319,7 +1319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8291424812674393198, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9045068582441208762, guid: 03a9c2348a9aea0439711529b96408cb, type: 3}
       propertyPath: m_LocalPosition.x

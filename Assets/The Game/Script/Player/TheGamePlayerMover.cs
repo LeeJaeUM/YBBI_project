@@ -90,11 +90,7 @@ public class TheGamePlayerMover : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (allWallTilemaps == null || allWallTilemaps.Length == 0)
-        {
-            Debug.Log("벽타일이 없음");
-            return; // 타일맵이 아직 준비되지 않은 경우 이동 무시
-        }
+        if (allWallTilemaps == null || allWallTilemaps.Length == 0) return;
 
         Vector2 nextVec = _inputVec * _speed * Time.fixedDeltaTime;
         Vector3 nextPos = _rigid.position + nextVec;

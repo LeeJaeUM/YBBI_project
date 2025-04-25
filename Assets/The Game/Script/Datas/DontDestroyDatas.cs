@@ -6,10 +6,6 @@ public class DontDestroyDatas : MonoBehaviour
 
     public int money = 0;
 
-
-
-
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,6 +17,4 @@ public class DontDestroyDatas : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject); // 씬 전환 시 유지
     }
-
-    
 }
