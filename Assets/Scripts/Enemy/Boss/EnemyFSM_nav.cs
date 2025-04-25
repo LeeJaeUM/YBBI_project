@@ -1,21 +1,25 @@
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.Behavior;
 
 public class EnemyFSM_nav : MonoBehaviour
 {
-    private Transform target;
-    private UnityEngine.AI.NavMeshAgent navMeshAgent;
+    [SerializeField]   private Transform target;
+    [SerializeField]private NavMeshAgent navMeshAgent;
+    [SerializeField] private BehaviorGraphAgent behaviorGraphAgent;
 
     public void Setup(Transform target)
     {
         this.target = target;
 
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        behaviorGraphAgent= GetComponent<BehaviorGraphAgent>();
         navMeshAgent.updateRotation = false;    //자동 회전 방지
         navMeshAgent.updateUpAxis = false;      //자동 회전 방지
     }
 
-    private void Update()
+    private void Start()
     {
-        navMeshAgent.SetDestination(target.position);
+        Setup(target);
     }
 }

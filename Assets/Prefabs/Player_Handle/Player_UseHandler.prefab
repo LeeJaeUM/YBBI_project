@@ -899,7 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43edf58a62b82e346bee44da2e660e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalAttackSkillData: {fileID: 11400000, guid: 5ad01bc410ed9ec4b866f44273d5ba80, type: 2}
+  _normalAttackSkillData: {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
   _pressureSkillData: {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
   _uniqueSkillData: {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
   _normalAttackCoolDown: 6
