@@ -16,7 +16,5 @@ MonoBehaviour:
   _name: 
   _skillData:
   - {fileID: 11400000, guid: bb273286247a22e44bef915c979c71fa, type: 2}
-  - {fileID: 11400000, guid: bb273286247a22e44bef915c979c71fa, type: 2}
-  - {fileID: 11400000, guid: bb273286247a22e44bef915c979c71fa, type: 2}
-  _animationName: 
+  _animationName: Teleport
   _coolDown: 0

@@ -127,34 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1275653122309997627, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275653122309997627, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275653122309997627, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821350047498633839, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: TEST_patternNum
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821350047498633839, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: _maxPaternNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821350047498633839, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: TEST_isPatternSet
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821350047498633839, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: _isAttackFinished
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2286453488193102018, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -204,55 +176,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: _patterns.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
       propertyPath: '_patterns.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: bb2ebf377456c17448385d05e49a7e69, type: 2}
     - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
       propertyPath: '_patterns.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: '_patterns.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 73240a511d18d37449c2f95c47f8a6d7, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: phasePatterns.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: 'phasePatterns.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 0ab6645aeb883c34bad1bfc26adb51c7, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: 'phasePatterns.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: dae883706b2d9724295bb241ea6904bf, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: phasePatterns.Array.data[1].phaseNumber
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: phasePatterns.Array.data[0].patterns.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: phasePatterns.Array.data[1].patterns.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: bb2ebf377456c17448385d05e49a7e69, type: 2}
-    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
-      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
     - target: {fileID: 5861819037238600151, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
@@ -2280,8 +2208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdea4e0a60c995b4bab63cbadc6dd356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TEST_isPatternSet: 0
-  TEST_patternNum: 0
+  TEST_isSkillSet: 0
+  TEST_skillNum: 0
   _currentStateType: 0
   _speed: 0
   _chaseExitDistance: 15
@@ -3315,6 +3243,7 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  _enemyAnimator: {fileID: 0}
 --- !u!114 &8784388430664095733
 MonoBehaviour:
   m_ObjectHideFlags: 0

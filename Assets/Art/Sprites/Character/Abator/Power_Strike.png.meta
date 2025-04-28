@@ -179,6 +179,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -186,10 +199,10 @@ TextureImporter:
       name: Power_Strike_0
       rect:
         serializedVersion: 2
-        x: 1099
-        y: 58
-        width: 10
-        height: 11
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,10 +221,10 @@ TextureImporter:
       name: Power_Strike_1
       rect:
         serializedVersion: 2
-        x: 1237
-        y: 69
-        width: 6
-        height: 6
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,10 +243,10 @@ TextureImporter:
       name: Power_Strike_2
       rect:
         serializedVersion: 2
-        x: 10
+        x: 256
         y: 0
-        width: 54
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,10 +265,10 @@ TextureImporter:
       name: Power_Strike_3
       rect:
         serializedVersion: 2
-        x: 136
+        x: 384
         y: 0
-        width: 53
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,10 +287,10 @@ TextureImporter:
       name: Power_Strike_4
       rect:
         serializedVersion: 2
-        x: 259
+        x: 512
         y: 0
-        width: 50
-        height: 67
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -296,10 +309,10 @@ TextureImporter:
       name: Power_Strike_5
       rect:
         serializedVersion: 2
-        x: 385
-        y: 41
-        width: 6
-        height: 11
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,10 +331,10 @@ TextureImporter:
       name: Power_Strike_6
       rect:
         serializedVersion: 2
-        x: 389
+        x: 768
         y: 0
-        width: 39
-        height: 67
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -340,10 +353,10 @@ TextureImporter:
       name: Power_Strike_7
       rect:
         serializedVersion: 2
-        x: 511
+        x: 896
         y: 0
-        width: 45
-        height: 66
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,10 +375,10 @@ TextureImporter:
       name: Power_Strike_8
       rect:
         serializedVersion: 2
-        x: 658
+        x: 1024
         y: 0
-        width: 50
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,10 +397,10 @@ TextureImporter:
       name: Power_Strike_9
       rect:
         serializedVersion: 2
-        x: 707
-        y: 43
-        width: 11
-        height: 13
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,10 +419,10 @@ TextureImporter:
       name: Power_Strike_10
       rect:
         serializedVersion: 2
-        x: 786
+        x: 1280
         y: 0
-        width: 70
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -424,209 +437,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Power_Strike_11
-      rect:
-        serializedVersion: 2
-        x: 914
-        y: 0
-        width: 56
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 885cb86420341b0d0800000000000000
-      internalID: -3408869765890194040
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_12
-      rect:
-        serializedVersion: 2
-        x: 966
-        y: 32
-        width: 38
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5a9bd9198ae0fcda0800000000000000
-      internalID: -5922498867808585307
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_13
-      rect:
-        serializedVersion: 2
-        x: 1042
-        y: 0
-        width: 56
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1671dd8977fe4b260800000000000000
-      internalID: 7112573008469628769
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_14
-      rect:
-        serializedVersion: 2
-        x: 1112
-        y: 49
-        width: 35
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f1bbee56ddd67ae0800000000000000
-      internalID: -1551809108797312525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_15
-      rect:
-        serializedVersion: 2
-        x: 1170
-        y: 0
-        width: 51
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d78687da8fca50c0800000000000000
-      internalID: -4586125075295074351
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_16
-      rect:
-        serializedVersion: 2
-        x: 1256
-        y: 0
-        width: 93
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05cd637ae68a6fde0800000000000000
-      internalID: -1299666249244550064
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_17
-      rect:
-        serializedVersion: 2
-        x: 1099
-        y: 29
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 387370b871eb9e8f0800000000000000
-      internalID: -510668074403809405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_18
-      rect:
-        serializedVersion: 2
-        x: 1104
-        y: 38
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff193ac592323a0d0800000000000000
-      internalID: -3412845432061849089
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Power_Strike_19
-      rect:
-        serializedVersion: 2
-        x: 1239
-        y: 25
-        width: 12
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3069b5f34900bbbb0800000000000000
-      internalID: -4919337531254008317
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 431d12371e796de46ae457ee2d07c4af
     internalID: 0
     vertices: []
     indices: 
@@ -639,15 +454,6 @@ TextureImporter:
       Power_Strike_0: -2127846740217628831
       Power_Strike_1: 6404772328290444515
       Power_Strike_10: -6864546086030485180
-      Power_Strike_11: -3408869765890194040
-      Power_Strike_12: -5922498867808585307
-      Power_Strike_13: 7112573008469628769
-      Power_Strike_14: -1551809108797312525
-      Power_Strike_15: -4586125075295074351
-      Power_Strike_16: -1299666249244550064
-      Power_Strike_17: -510668074403809405
-      Power_Strike_18: -3412845432061849089
-      Power_Strike_19: -4919337531254008317
       Power_Strike_2: 8347438325448447312
       Power_Strike_3: 3855844865910904197
       Power_Strike_4: -4168565506913619423

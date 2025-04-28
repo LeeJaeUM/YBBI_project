@@ -24,6 +24,7 @@ public class EnemyATKStats : MonoBehaviour
     public Action<float, float, float> OnMoveSkill;
 
     public EnemyBulletSpawner _bulletSpawner;
+    public EnemyAnimator _enemyAnimator;
 
     public void SetPaaternNum(int num)
     {
@@ -41,6 +42,7 @@ public class EnemyATKStats : MonoBehaviour
             _curPhaseNum++;
 
         _patterns = phasePatterns[_curPhaseNum].patterns;
+        _enemyAnimator.PlayPhaseChange();
     }
 
     public int GetPhaseNum()
@@ -69,10 +71,13 @@ public class EnemyATKStats : MonoBehaviour
 
     IEnumerator CooldownCoroutine(Vector3 direction)
     {
-        for(int i=0; i< _curPattern._skillData.Length; i++) //패턴에 있는 모든 스킬 연속으로 실행 후 종료
+        _enemyAnimator.PlayPatternAniamation(_curPattern._animationName); //패턴 애니메이션 실행
+
+        for (int i=0; i< _curPattern._skillData.Length; i++) //패턴에 있는 모든 스킬 연속으로 실행 후 종료
         {
             _curSkill = _curPattern._skillData[i];
-            Debug.Log($"스킬 데이터 {_curSkill._name} {i}  공격 시작"); 
+            Debug.Log($"스킬 데이터 {_curSkill._name} {i}  공격 시작");
+
 
             yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기
             if(_curSkill._isMoveSkill) //이동 스킬일 경우
@@ -96,6 +101,7 @@ public class EnemyATKStats : MonoBehaviour
     private void Awake()
     {
         _bulletSpawner = GetComponentInChildren<EnemyBulletSpawner>();
+        _enemyAnimator = GetComponentInChildren<EnemyAnimator>();
         if (_bulletSpawner == null)
         {
             Debug.LogError("EnemyBulletSpawner 컴포넌트를 찾을 수 없습니다.");

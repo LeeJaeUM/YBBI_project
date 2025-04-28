@@ -161,6 +161,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -168,10 +181,10 @@ TextureImporter:
       name: Fire_Kick_0
       rect:
         serializedVersion: 2
-        x: 31
+        x: 0
         y: 0
-        width: 54
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,10 +203,10 @@ TextureImporter:
       name: Fire_Kick_1
       rect:
         serializedVersion: 2
-        x: 155
+        x: 128
         y: 0
-        width: 55
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,10 +225,10 @@ TextureImporter:
       name: Fire_Kick_2
       rect:
         serializedVersion: 2
-        x: 281
+        x: 256
         y: 0
-        width: 49
-        height: 67
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +247,10 @@ TextureImporter:
       name: Fire_Kick_3
       rect:
         serializedVersion: 2
-        x: 407
+        x: 384
         y: 0
-        width: 42
-        height: 67
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +269,10 @@ TextureImporter:
       name: Fire_Kick_4
       rect:
         serializedVersion: 2
-        x: 534
+        x: 512
         y: 0
-        width: 43
-        height: 66
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,10 +291,10 @@ TextureImporter:
       name: Fire_Kick_5
       rect:
         serializedVersion: 2
-        x: 664
-        y: 56
-        width: 12
-        height: 12
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +313,10 @@ TextureImporter:
       name: Fire_Kick_6
       rect:
         serializedVersion: 2
-        x: 679
+        x: 768
         y: 0
-        width: 51
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -322,10 +335,10 @@ TextureImporter:
       name: Fire_Kick_7
       rect:
         serializedVersion: 2
-        x: 789
+        x: 896
         y: 0
-        width: 70
-        height: 74
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +357,10 @@ TextureImporter:
       name: Fire_Kick_8
       rect:
         serializedVersion: 2
-        x: 915
+        x: 1024
         y: 0
-        width: 74
-        height: 80
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -366,10 +379,10 @@ TextureImporter:
       name: Fire_Kick_9
       rect:
         serializedVersion: 2
-        x: 1063
+        x: 1152
         y: 0
-        width: 51
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -388,10 +401,10 @@ TextureImporter:
       name: Fire_Kick_10
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 49
-        width: 8
-        height: 15
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,77 +419,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Fire_Kick_11
-      rect:
-        serializedVersion: 2
-        x: 1191
-        y: 0
-        width: 51
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff51ea34675bd8d60800000000000000
-      internalID: 7894165241396598271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire_Kick_12
-      rect:
-        serializedVersion: 2
-        x: 1239
-        y: 61
-        width: 13
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5a2de0a5749260490800000000000000
-      internalID: -7780485919805615451
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire_Kick_13
-      rect:
-        serializedVersion: 2
-        x: 1319
-        y: 0
-        width: 66
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a204cba9244cd060800000000000000
-      internalID: 6979528468283523753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e44a6bcb6c5497d459fc6fc894d132fc
     internalID: 0
     vertices: []
     indices: 
@@ -489,9 +436,6 @@ TextureImporter:
       Fire_Kick_0: -3669661426506544809
       Fire_Kick_1: 6493538103788315173
       Fire_Kick_10: 4090844901939388834
-      Fire_Kick_11: 7894165241396598271
-      Fire_Kick_12: -7780485919805615451
-      Fire_Kick_13: 6979528468283523753
       Fire_Kick_2: 3791138981267656391
       Fire_Kick_3: -2664463405944207965
       Fire_Kick_4: -7017314961994028389

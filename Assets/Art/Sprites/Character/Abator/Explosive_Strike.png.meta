@@ -278,6 +278,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -285,10 +298,10 @@ TextureImporter:
       name: Explosive_Strike_0
       rect:
         serializedVersion: 2
-        x: 769
+        x: 0
         y: 0
-        width: 140
-        height: 93
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,10 +320,10 @@ TextureImporter:
       name: Explosive_Strike_1
       rect:
         serializedVersion: 2
-        x: 908
-        y: 58
-        width: 28
-        height: 36
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -329,10 +342,10 @@ TextureImporter:
       name: Explosive_Strike_2
       rect:
         serializedVersion: 2
-        x: 957
-        y: 69
-        width: 39
-        height: 27
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,10 +364,10 @@ TextureImporter:
       name: Explosive_Strike_3
       rect:
         serializedVersion: 2
-        x: 995
-        y: 85
-        width: 15
-        height: 10
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -373,10 +386,10 @@ TextureImporter:
       name: Explosive_Strike_4
       rect:
         serializedVersion: 2
-        x: 997
-        y: 56
-        width: 22
-        height: 34
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -395,10 +408,10 @@ TextureImporter:
       name: Explosive_Strike_5
       rect:
         serializedVersion: 2
-        x: 1046
-        y: 83
-        width: 7
-        height: 7
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -417,10 +430,10 @@ TextureImporter:
       name: Explosive_Strike_6
       rect:
         serializedVersion: 2
-        x: 1054
-        y: 81
-        width: 16
-        height: 14
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -439,10 +452,10 @@ TextureImporter:
       name: Explosive_Strike_7
       rect:
         serializedVersion: 2
-        x: 1105
-        y: 89
-        width: 7
-        height: 7
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -461,10 +474,10 @@ TextureImporter:
       name: Explosive_Strike_8
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 84
-        width: 8
-        height: 6
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -479,979 +492,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_9
-      rect:
-        serializedVersion: 2
-        x: 1116
-        y: 90
-        width: 12
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33c0903afb59f3200800000000000000
-      internalID: 162012761915198515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_10
-      rect:
-        serializedVersion: 2
-        x: 1125
-        y: 82
-        width: 16
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1db90e71dcfec7d20800000000000000
-      internalID: 3277758292966808529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_11
-      rect:
-        serializedVersion: 2
-        x: 646
-        y: 0
-        width: 122
-        height: 87
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4099ac9e45d31dce0800000000000000
-      internalID: -1382256175717115644
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_12
-      rect:
-        serializedVersion: 2
-        x: 930
-        y: 79
-        width: 15
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b1324de2ee01789a0800000000000000
-      internalID: -6230992944269876453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_13
-      rect:
-        serializedVersion: 2
-        x: 935
-        y: 72
-        width: 22
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 97919d6b7765a72a0800000000000000
-      internalID: -6738978820237747847
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_14
-      rect:
-        serializedVersion: 2
-        x: 995
-        y: 81
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a95235b904179ef0800000000000000
-      internalID: -101590434665309783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_15
-      rect:
-        serializedVersion: 2
-        x: 1034
-        y: 47
-        width: 18
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4d7e2b5696bbcc4d0800000000000000
-      internalID: -3112907181067671596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_16
-      rect:
-        serializedVersion: 2
-        x: 1064
-        y: 68
-        width: 26
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f6d92f382da799710800000000000000
-      internalID: 1700525378884509039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_17
-      rect:
-        serializedVersion: 2
-        x: 1090
-        y: 77
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79b9b665152927090800000000000000
-      internalID: -8038201506863015017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_18
-      rect:
-        serializedVersion: 2
-        x: 1097
-        y: 75
-        width: 9
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 513e4227030939d00800000000000000
-      internalID: 978284081817379605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_19
-      rect:
-        serializedVersion: 2
-        x: 1136
-        y: 67
-        width: 10
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bf1b1017651d17df0800000000000000
-      internalID: -184135940552150533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_20
-      rect:
-        serializedVersion: 2
-        x: 528
-        y: 0
-        width: 112
-        height: 77
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 269299f52451d1900800000000000000
-      internalID: 656704495481858402
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_21
-      rect:
-        serializedVersion: 2
-        x: 926
-        y: 55
-        width: 10
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e043cb4eb6a123170800000000000000
-      internalID: 8156610925822751758
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_22
-      rect:
-        serializedVersion: 2
-        x: 934
-        y: 55
-        width: 20
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c74a11a7e084ab40800000000000000
-      internalID: 5450623181353797571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_23
-      rect:
-        serializedVersion: 2
-        x: 1031
-        y: 65
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2e77d824cd8d20d40800000000000000
-      internalID: 5549236131394844642
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_24
-      rect:
-        serializedVersion: 2
-        x: 1049
-        y: 70
-        width: 12
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce0619bd32519d450800000000000000
-      internalID: 6113941212883935468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_25
-      rect:
-        serializedVersion: 2
-        x: 1056
-        y: 65
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b261375b21d1f1d20800000000000000
-      internalID: 3251349422175622699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_26
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 0
-        width: 29
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b891cd54fa6c49c10800000000000000
-      internalID: 2059489385708788107
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_27
-      rect:
-        serializedVersion: 2
-        x: 173
-        y: 0
-        width: 32
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e95056f72667f3db0800000000000000
-      internalID: -4809995711592200802
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_28
-      rect:
-        serializedVersion: 2
-        x: 283
-        y: 0
-        width: 66
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f58c381a565523560800000000000000
-      internalID: 7291984641656080479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_29
-      rect:
-        serializedVersion: 2
-        x: 409
-        y: 0
-        width: 66
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 503c091818d8700e0800000000000000
-      internalID: -2303717097012673787
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_30
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 40
-        width: 11
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 86797c85ca8cc2650800000000000000
-      internalID: 6209558628786476904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_31
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 52
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e030f3add1cf97ce0800000000000000
-      internalID: -1406816203430755570
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_32
-      rect:
-        serializedVersion: 2
-        x: 914
-        y: 47
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f2cb4fe4d44f14580800000000000000
-      internalID: -8844519580304622545
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_33
-      rect:
-        serializedVersion: 2
-        x: 915
-        y: 57
-        width: 11
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d5bc548cde639d7c0800000000000000
-      internalID: -4046142395320513699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_34
-      rect:
-        serializedVersion: 2
-        x: 917
-        y: 0
-        width: 111
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d9dcf1c63e12df940800000000000000
-      internalID: 5331454794531851677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_35
-      rect:
-        serializedVersion: 2
-        x: 975
-        y: 55
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 40689851adb561b00800000000000000
-      internalID: 798926976127174148
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_36
-      rect:
-        serializedVersion: 2
-        x: 1015
-        y: 42
-        width: 13
-        height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8387bb1d14a44a510800000000000000
-      internalID: 1559453017529088056
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_37
-      rect:
-        serializedVersion: 2
-        x: 1025
-        y: 48
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea859ac05051d66c0800000000000000
-      internalID: -4148636570306914130
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_38
-      rect:
-        serializedVersion: 2
-        x: 1027
-        y: 30
-        width: 14
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71035102ee73fedd0800000000000000
-      internalID: -2454681776013627369
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_39
-      rect:
-        serializedVersion: 2
-        x: 1037
-        y: 0
-        width: 89
-        height: 67
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eff598b1e50a2fe90800000000000000
-      internalID: -6993350945303601154
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_40
-      rect:
-        serializedVersion: 2
-        x: 1116
-        y: 50
-        width: 12
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f23749b8cad5e99b0800000000000000
-      internalID: -5071513134715079889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_41
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 56
-        width: 13
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 93584a670e2737250800000000000000
-      internalID: 5941218641820550457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_42
-      rect:
-        serializedVersion: 2
-        x: 1141
-        y: 46
-        width: 11
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0d32e2e80b79fb480800000000000000
-      internalID: -8881213155595902000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_43
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 22
-        width: 14
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b9361a2f22f7b6eb0800000000000000
-      internalID: -4725543595918924901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_44
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 31
-        width: 10
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4488e0553a27de660800000000000000
-      internalID: 7416710207181326404
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_45
-      rect:
-        serializedVersion: 2
-        x: 1141
-        y: 34
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4e3efdf9f69e37bd0800000000000000
-      internalID: -2633504691448716316
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_46
-      rect:
-        serializedVersion: 2
-        x: 1145
-        y: 28
-        width: 7
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2922ac0de99236640800000000000000
-      internalID: 5071943367433790098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_47
-      rect:
-        serializedVersion: 2
-        x: 909
-        y: 20
-        width: 10
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4dceba44c60f6e460800000000000000
-      internalID: 7270762996235496660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_48
-      rect:
-        serializedVersion: 2
-        x: 1023
-        y: 21
-        width: 14
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f681173dc0a6fc30800000000000000
-      internalID: 4392875289799132915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_49
-      rect:
-        serializedVersion: 2
-        x: 1046
-        y: 22
-        width: 14
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bd16736fcf832cd50800000000000000
-      internalID: 6756025050122904027
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_50
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 19
-        width: 9
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f9cc05f8235454b10800000000000000
-      internalID: 1965052895872208031
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_51
-      rect:
-        serializedVersion: 2
-        x: 1134
-        y: 25
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 07c035f35e46fdaa0800000000000000
-      internalID: -6134073231682630544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosive_Strike_52
-      rect:
-        serializedVersion: 2
-        x: 1109
-        y: 9
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 89c39ede856117ea0800000000000000
-      internalID: -5876891467537367912
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bb3a94a7bba11284290e93ee54053b41
     internalID: 0
     vertices: []
     indices: 
@@ -1463,57 +508,13 @@ TextureImporter:
     nameFileIdTable:
       Explosive_Strike_0: -735348699013514397
       Explosive_Strike_1: 7177049376562605671
-      Explosive_Strike_10: 3277758292966808529
-      Explosive_Strike_11: -1382256175717115644
-      Explosive_Strike_12: -6230992944269876453
-      Explosive_Strike_13: -6738978820237747847
-      Explosive_Strike_14: -101590434665309783
-      Explosive_Strike_15: -3112907181067671596
-      Explosive_Strike_16: 1700525378884509039
-      Explosive_Strike_17: -8038201506863015017
-      Explosive_Strike_18: 978284081817379605
-      Explosive_Strike_19: -184135940552150533
       Explosive_Strike_2: 3335883492763993210
-      Explosive_Strike_20: 656704495481858402
-      Explosive_Strike_21: 8156610925822751758
-      Explosive_Strike_22: 5450623181353797571
-      Explosive_Strike_23: 5549236131394844642
-      Explosive_Strike_24: 6113941212883935468
-      Explosive_Strike_25: 3251349422175622699
-      Explosive_Strike_26: 2059489385708788107
-      Explosive_Strike_27: -4809995711592200802
-      Explosive_Strike_28: 7291984641656080479
-      Explosive_Strike_29: -2303717097012673787
       Explosive_Strike_3: 8691475154721134857
-      Explosive_Strike_30: 6209558628786476904
-      Explosive_Strike_31: -1406816203430755570
-      Explosive_Strike_32: -8844519580304622545
-      Explosive_Strike_33: -4046142395320513699
-      Explosive_Strike_34: 5331454794531851677
-      Explosive_Strike_35: 798926976127174148
-      Explosive_Strike_36: 1559453017529088056
-      Explosive_Strike_37: -4148636570306914130
-      Explosive_Strike_38: -2454681776013627369
-      Explosive_Strike_39: -6993350945303601154
       Explosive_Strike_4: -763767654377084278
-      Explosive_Strike_40: -5071513134715079889
-      Explosive_Strike_41: 5941218641820550457
-      Explosive_Strike_42: -8881213155595902000
-      Explosive_Strike_43: -4725543595918924901
-      Explosive_Strike_44: 7416710207181326404
-      Explosive_Strike_45: -2633504691448716316
-      Explosive_Strike_46: 5071943367433790098
-      Explosive_Strike_47: 7270762996235496660
-      Explosive_Strike_48: 4392875289799132915
-      Explosive_Strike_49: 6756025050122904027
       Explosive_Strike_5: 8110689273177843524
-      Explosive_Strike_50: 1965052895872208031
-      Explosive_Strike_51: -6134073231682630544
-      Explosive_Strike_52: -5876891467537367912
       Explosive_Strike_6: 8042006940933956006
       Explosive_Strike_7: -5122491780882032806
       Explosive_Strike_8: 5673544179828971406
-      Explosive_Strike_9: 162012761915198515
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -15,6 +15,11 @@ public class EnemyAnimator : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
+    public void PlayPhaseChange()
+    {
+        _animator.SetTrigger("PhaseChange");
+    }
+
     public void UpdateMoveVisual(Vector2 moveDir)
     {
         // 방향 처리
@@ -24,8 +29,14 @@ public class EnemyAnimator : MonoBehaviour
             _spriteRenderer.flipX = false;
 
         // 움직임 애니메이션 처리
-        bool isMoving = moveDir != Vector2.zero;
-        _animator.SetBool(IsMovingHash, isMoving);
+       // bool isMoving = moveDir != Vector2.zero;
+       // _animator.SetBool(IsMovingHash, isMoving);
+    }
+
+    public void PlayPatternAniamation(string animName)
+    {
+        Debug.Log($"애니메이션 실행 : {animName}");
+        _animator.SetTrigger(animName);
     }
 
     public void PlayAttackAnimation()

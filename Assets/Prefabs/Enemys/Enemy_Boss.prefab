@@ -777,6 +777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdea4e0a60c995b4bab63cbadc6dd356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TEST_isPatternSet: 1
+  TEST_patternNum: 1
   _currentStateType: 0
   _speed: 0
   _chaseExitDistance: 15
@@ -784,7 +786,8 @@ MonoBehaviour:
   _curATKPatern: 0
   _isAttacking: 0
   _isAttackFinished: 0
-  _maxPaternNumber: 4
+  _maxPaternNumber: 2
+  _phaseChangeAir: 0
   _findTargetPoint: {fileID: 0}
 --- !u!114 &7187069565467687596
 MonoBehaviour:
@@ -813,11 +816,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dcfa97baac0c44d8084e55347824ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skills:
-  - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
-  - {fileID: 11400000, guid: 149a0679b1793a54394fa71f872c8e98, type: 2}
-  - {fileID: 11400000, guid: 6b03fc77030da66448713fd400718af5, type: 2}
-  - {fileID: 11400000, guid: e66c50a373bdaa04eb8636412676195a, type: 2}
+  phasePatterns:
+  - {fileID: 11400000, guid: 0ab6645aeb883c34bad1bfc26adb51c7, type: 2}
+  - {fileID: 11400000, guid: dae883706b2d9724295bb241ea6904bf, type: 2}
+  _curPhaseNum: 0
+  _patterns:
+  - {fileID: 11400000, guid: bb2ebf377456c17448385d05e49a7e69, type: 2}
+  - {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
+  - {fileID: 11400000, guid: 73240a511d18d37449c2f95c47f8a6d7, type: 2}
+  _curPattern: {fileID: 0}
   _curSkill: {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   _spawnDistance: 1
   _bullet: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}

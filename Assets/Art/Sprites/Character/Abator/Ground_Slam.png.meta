@@ -164,6 +164,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -171,10 +184,10 @@ TextureImporter:
       name: Ground_Slam_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 0
-        width: 40
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +206,10 @@ TextureImporter:
       name: Ground_Slam_1
       rect:
         serializedVersion: 2
-        x: 135
+        x: 128
         y: 0
-        width: 51
-        height: 69
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,8 +230,8 @@ TextureImporter:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 55
-        height: 70
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +250,10 @@ TextureImporter:
       name: Ground_Slam_3
       rect:
         serializedVersion: 2
-        x: 386
+        x: 384
         y: 0
-        width: 40
-        height: 56
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,10 +272,10 @@ TextureImporter:
       name: Ground_Slam_4
       rect:
         serializedVersion: 2
-        x: 516
+        x: 512
         y: 0
-        width: 47
-        height: 41
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +294,10 @@ TextureImporter:
       name: Ground_Slam_5
       rect:
         serializedVersion: 2
-        x: 644
+        x: 640
         y: 0
-        width: 47
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,10 +316,10 @@ TextureImporter:
       name: Ground_Slam_6
       rect:
         serializedVersion: 2
-        x: 772
+        x: 768
         y: 0
-        width: 56
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -325,10 +338,10 @@ TextureImporter:
       name: Ground_Slam_7
       rect:
         serializedVersion: 2
-        x: 900
+        x: 896
         y: 0
-        width: 87
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,10 +360,10 @@ TextureImporter:
       name: Ground_Slam_8
       rect:
         serializedVersion: 2
-        x: 1028
+        x: 1024
         y: 0
-        width: 117
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -369,10 +382,10 @@ TextureImporter:
       name: Ground_Slam_9
       rect:
         serializedVersion: 2
-        x: 1229
+        x: 1152
         y: 0
-        width: 44
-        height: 42
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,10 +404,10 @@ TextureImporter:
       name: Ground_Slam_10
       rect:
         serializedVersion: 2
-        x: 1376
-        y: 21
-        width: 14
-        height: 14
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -413,10 +426,10 @@ TextureImporter:
       name: Ground_Slam_11
       rect:
         serializedVersion: 2
-        x: 1394
-        y: 17
-        width: 17
-        height: 31
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -431,77 +444,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Ground_Slam_12
-      rect:
-        serializedVersion: 2
-        x: 1508
-        y: 24
-        width: 28
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1dc5fd0cc8bfc080800000000000000
-      internalID: -9164903530128618212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_Slam_13
-      rect:
-        serializedVersion: 2
-        x: 1257
-        y: 4
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 99af1ede870dfc130800000000000000
-      internalID: 3589316645843237529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_Slam_14
-      rect:
-        serializedVersion: 2
-        x: 1266
-        y: 7
-        width: 12
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 30f27545c1ed75670800000000000000
-      internalID: 8527528632704773891
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bf30003ed1878504c95e56314c293299
     internalID: 0
     vertices: []
     indices: 
@@ -515,9 +462,6 @@ TextureImporter:
       Ground_Slam_1: 4726365623250336511
       Ground_Slam_10: 4970001698969866643
       Ground_Slam_11: -5735775263684792514
-      Ground_Slam_12: -9164903530128618212
-      Ground_Slam_13: 3589316645843237529
-      Ground_Slam_14: 8527528632704773891
       Ground_Slam_2: 6253848758877919626
       Ground_Slam_3: 1259337530513560311
       Ground_Slam_4: 2827049590720690859

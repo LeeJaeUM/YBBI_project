@@ -6,8 +6,8 @@ using static Enums;
 
 public class EnemyAI : MonoBehaviour
 {
-    public bool TEST_isPatternSet = false; //패턴 세팅 테스트용
-    public int TEST_patternNum = 0; //패턴 세팅 테스트용
+    public bool TEST_isSkillSet = false; //패턴 세팅 테스트용
+    public int TEST_skillNum = 0; //패턴 세팅 테스트용
     protected Dictionary<EnemyStateType, IEnemyState> _states;
     [Header("State")]
     [SerializeField] protected Enums.EnemyStateType _currentStateType;
@@ -110,9 +110,9 @@ public class EnemyAI : MonoBehaviour
     {
         int randomIndex = Random.Range(0, _maxPaternNumber);  // 1 ~ max-1 랜덤 값0
 #if UNITY_EDITOR
-        if (TEST_isPatternSet) //에디터에서만 사용
+        if (TEST_isSkillSet) //에디터에서만 사용
         {
-            randomIndex = TEST_patternNum; //에디터에서만 사용
+            randomIndex = TEST_skillNum; //에디터에서만 사용
         }
 #endif
         _curATKPatern = (ATKPatern)randomIndex;

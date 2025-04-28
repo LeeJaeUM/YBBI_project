@@ -18,5 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
   - {fileID: 11400000, guid: e66c50a373bdaa04eb8636412676195a, type: 2}
   - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
-  _animationName: 
+  _animationName: Attack_2
   _coolDown: 5

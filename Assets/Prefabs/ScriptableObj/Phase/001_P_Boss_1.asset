@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b8651fda98bac4b9e3dd7746cb427d, type: 3}
-  m_Name: 002_Boss_2
+  m_Name: 001_P_Boss_1
   m_EditorClassIdentifier: 
   phaseNumber: 0
   patterns:
   - {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
   - {fileID: 11400000, guid: bb2ebf377456c17448385d05e49a7e69, type: 2}
-  - {fileID: 11400000, guid: 73240a511d18d37449c2f95c47f8a6d7, type: 2}

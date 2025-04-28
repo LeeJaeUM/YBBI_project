@@ -146,6 +146,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -153,10 +166,10 @@ TextureImporter:
       name: Enchanced_Impact_1_0
       rect:
         serializedVersion: 2
-        x: 41
+        x: 0
         y: 0
-        width: 37
-        height: 68
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +188,10 @@ TextureImporter:
       name: Enchanced_Impact_1_1
       rect:
         serializedVersion: 2
-        x: 164
+        x: 128
         y: 0
-        width: 43
-        height: 67
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +210,10 @@ TextureImporter:
       name: Enchanced_Impact_1_2
       rect:
         serializedVersion: 2
-        x: 292
+        x: 256
         y: 0
-        width: 43
-        height: 66
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +232,10 @@ TextureImporter:
       name: Enchanced_Impact_1_3
       rect:
         serializedVersion: 2
-        x: 428
+        x: 384
         y: 0
-        width: 65
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +254,10 @@ TextureImporter:
       name: Enchanced_Impact_1_4
       rect:
         serializedVersion: 2
-        x: 556
+        x: 512
         y: 0
-        width: 60
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,10 +276,10 @@ TextureImporter:
       name: Enchanced_Impact_1_5
       rect:
         serializedVersion: 2
-        x: 617
-        y: 42
-        width: 21
-        height: 9
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,10 +298,10 @@ TextureImporter:
       name: Enchanced_Impact_1_6
       rect:
         serializedVersion: 2
-        x: 684
+        x: 768
         y: 0
-        width: 60
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,55 +316,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Enchanced_Impact_1_7
-      rect:
-        serializedVersion: 2
-        x: 750
-        y: 41
-        width: 23
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ae72c77e0fe783c90800000000000000
-      internalID: -7189857231956072470
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enchanced_Impact_1_8
-      rect:
-        serializedVersion: 2
-        x: 812
-        y: 0
-        width: 60
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7b0eb51ec4f8ad350800000000000000
-      internalID: 6042299410432123063
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8a44fe8de988ca049a9396976e2349e0
     internalID: 0
     vertices: []
     indices: 
@@ -368,8 +337,6 @@ TextureImporter:
       Enchanced_Impact_1_4: -685056614791367279
       Enchanced_Impact_1_5: -7890596001638615501
       Enchanced_Impact_1_6: -2652230777283091158
-      Enchanced_Impact_1_7: -7189857231956072470
-      Enchanced_Impact_1_8: 6042299410432123063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
