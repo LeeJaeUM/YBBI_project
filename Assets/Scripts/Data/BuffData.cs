@@ -10,6 +10,7 @@ public enum BuffType
     MoveSpeedUp,
     StopMinusAirPerSec,
     HealOverTime,
+    GamblePlayerMoney,
     Max
 }
 

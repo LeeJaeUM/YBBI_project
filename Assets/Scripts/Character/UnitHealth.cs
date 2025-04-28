@@ -116,11 +116,35 @@ public class UnitHealth : MonoBehaviour
         return _maxAir;
     }
 
+    public float ShopMaxAirUpgrade()
+    {
+        _maxAir *= 1.2f;
+        return _maxAir;
+    }
+
     public float ShopBaseMinusAirPerSecUpgrade()
     {
         _baseMinusAirPerSec /= 1.2f;
         return _baseMinusAirPerSec;
+    }
 
+    public float GetMinusAirPerSec()
+    {
+        return _minusAirPerSec;
+    }
+
+    // StopMinusAirPerSec 버프 처리 함수
+    public void StopMinusAirPerSecBuff()
+    {
+        // _minusAirPerSec 값을 0으로 설정
+        _minusAirPerSec = 0;
+    }
+
+    // StopMinusAirPerSec 버프 해제 함수
+    public void ResetStopMinusAirPerSec()
+    {
+        // 버프 종료 시 원래 값으로 복원
+        _minusAirPerSec = _baseMinusAirPerSec;
     }
 
     /// <summary>

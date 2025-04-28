@@ -123,6 +123,33 @@ public class Shop : MonoBehaviour
 
     #endregion
 
+    #region Gamble Logic
+
+    /// <summary>
+    /// 돈을 도박처럼 70% 확률로 절반, 30% 확률로 두 배로 변경하는 함수
+    /// </summary>
+    public void GamblePlayerMoney()
+    {
+        // 0~1 사이의 랜덤 값 생성
+        float randomChance = Random.Range(0f, 1f);
+
+        if (randomChance <= 0.7f)
+        {
+            // 70% 확률로 소지금을 절반으로
+            _playerMoney = Mathf.FloorToInt(_playerMoney * 0.5f);
+        }
+        else
+        {
+            // 30% 확률로 소지금을 두 배로
+            _playerMoney = Mathf.FloorToInt(_playerMoney * 2f);
+        }
+
+        // UI 갱신
+        UpdatePriceDisplay();
+    }
+
+    #endregion
+
     #region Unity Methods
 
     /// <summary>
@@ -145,7 +172,8 @@ public class Shop : MonoBehaviour
         _shopItems[0]._onPurchase = () => _inventory.InvenUpgrade();
         _shopItems[1]._onPurchase = () => _playerATKStats.ShopATKUpgrade();
         _shopItems[2]._onPurchase = () => _playerMover.ShopMoveSpeedUpgrade();
-        _shopItems[3]._onPurchase = () => _unitHealth.ShopBaseMinusAirPerSecUpgrade();
+        _shopItems[3]._onPurchase = () => _unitHealth.ShopMaxAirUpgrade();
+        _shopItems[4]._onPurchase = () => _unitHealth.ShopBaseMinusAirPerSecUpgrade();
 
         UpdateBtnStates();      // 버튼 초기 상태 설정
     }

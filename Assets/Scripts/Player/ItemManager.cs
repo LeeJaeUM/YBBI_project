@@ -24,7 +24,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 
     #region Private Fields 
     GameObjectPool<ItemController> _pool;
-    float[] _itemTable = { 8f, 8f, 8f, 8f, 8f, 7f, 7f, 7f, 5f, 5f, 5f, 6f, 6f, 6f, 6f };
+    float[] _itemTable = { 8f, 8f, 8f, 8f, 8f, 7f, 7f, 6f, 5f, 5f, 5f, 6f, 6f, 6f, 6f, 1f };
     #endregion
 
     #region Item Creation & Pooling
