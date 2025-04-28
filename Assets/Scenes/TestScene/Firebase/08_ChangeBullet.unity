@@ -219,6 +219,42 @@ PrefabInstance:
       propertyPath: '_patterns.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 73240a511d18d37449c2f95c47f8a6d7, type: 2}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: phasePatterns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: 'phasePatterns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ab6645aeb883c34bad1bfc26adb51c7, type: 2}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: 'phasePatterns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: dae883706b2d9724295bb241ea6904bf, type: 2}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: phasePatterns.Array.data[1].phaseNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: phasePatterns.Array.data[0].patterns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: phasePatterns.Array.data[1].patterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bb2ebf377456c17448385d05e49a7e69, type: 2}
+    - target: {fileID: 5022433501114067211, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
+      propertyPath: 'phasePatterns.Array.data[0].patterns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c1ae94dcf6cd2854184e2e90d04c425b, type: 2}
     - target: {fileID: 5861819037238600151, guid: 551759b431126b243b517de5baf6a5e8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1162,7 +1198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1227442413
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3263,6 +3299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dcfa97baac0c44d8084e55347824ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phasePatterns: []
+  _curPhaseNum: 0
   _patterns: []
   _curPattern: {fileID: 0}
   _curSkill: {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}

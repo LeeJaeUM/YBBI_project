@@ -110,6 +110,11 @@ public class UnitHealth : MonoBehaviour
 
     #endregion
 
+    public float GetMaxAir()
+    {
+        return _maxAir;
+    }
+
     /// <summary>
     /// base 공기 감소 빈도율 감소 함수
     /// </summary>
@@ -174,7 +179,7 @@ public class UnitHealth : MonoBehaviour
         return _curAir; 
     }
 
-    public float GetMaxAir()
+    public float GetMaxAirs()
     {
         return _maxAir;
     }

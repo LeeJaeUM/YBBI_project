@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class EnemyATKStats : MonoBehaviour
 {
+    //    public List<PatternData> _allPhasePatterns; //페이즈 당 패턴들
+    public List<PhasePatternData> phasePatterns;
+    public int _curPhaseNum = 0; //현재 페이즈 번호
     public List<PatternData> _patterns;
     public PatternData _curPattern;     //현재 사용중인 패턴
     public SkillData _curSkill;         //패턴 속 현재 사용중인 스킬
@@ -24,6 +27,12 @@ public class EnemyATKStats : MonoBehaviour
     public void SetPaaternNum(int num)
     {
         _curPattern = _patterns[num];
+    }
+
+    public void SetPhaseNum(int num)    //현재 페이즈의 패턴으로 모든 패턴 교체
+    {
+        _curPhaseNum = num;
+        _patterns = phasePatterns[num].patterns;
     }
 
     //public SkillData GetSKillData(SkillData skillData, int num)
