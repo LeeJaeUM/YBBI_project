@@ -43,9 +43,17 @@ public class Bullet : MonoBehaviour
         ResetBulletSize();
         _damage = damage;
         transform.localScale = Vector3.one * radius;
+        _boxCollider2D.offset = Vector3.zero;
         _lifeTime = activeTime;
         _speed = moveSpeed;
         _bulletType = bulletType;
+
+        if(damage > 0)                              //damage가 0보다 크면 데미지
+            _spriteRenderer.color = Color.red;
+        else if(damage <= 0)                        //0보다 작으면 힐
+            _spriteRenderer.color = Color.green;
+
+        _bulletAnimator.SetAnimator(_bulletType);      //애니메이터 컨트롤러 설정
 
         StopAllCoroutines(); //기존 코루틴 정지
         switch(_bulletType)
@@ -77,7 +85,7 @@ public class Bullet : MonoBehaviour
     IEnumerator LifeTimeCor()
     {
         yield return new WaitForSeconds(_lifeTime);
-        StopBullet(); 
+        StopBullet(false); 
     }
     IEnumerator TriggerOff(float time)
     {
@@ -86,30 +94,36 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSeconds(time);
         _canTrigger = true;
         _spriteRenderer.enabled = true;
+        _bulletAnimator.PlayStartAnimation();
     }
 
-    private void TriggerBullet(Collider2D collision)
-    {
-        Debug.Log($"{collision.gameObject.name} 이 닿음");
-        UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
-        unitHealth.AddAir(_damage);
 
-        if(_canMove)        
-            StopBullet();
-    }
-
-    IEnumerator EndAnimation()
+    IEnumerator EndAnimation(bool isTriggered)
     {
         _canTrigger = false;
-        _bulletAnimator.PlayEndAnimation();
+        if(isTriggered)
+        {
+            _bulletAnimator.PlayEndAnimation();
+            _speed = 0;
+        }
+
         yield return new WaitForSeconds(0.8f);
         BulletPool.Instance.ReturnBullet(gameObject); //풀에 반납
     }
 
-    private void StopBullet()
+    private void StopBullet(bool isTriggered)
     {
         StopAllCoroutines();
-        StartCoroutine(EndAnimation());
+        StartCoroutine(EndAnimation(isTriggered));
+    }
+    private void TriggerBullet(Collider2D collision)
+    {
+        Debug.Log($"{collision.gameObject.name} 이 닿음");
+        UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
+        unitHealth.AddAir(_damage * -1);
+
+        if (_canMove)
+            StopBullet(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,13 +1,26 @@
+using UnityEditor.Animations;
 using UnityEngine;
+using static Enums;
 
 public class BulletAnimator : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
+    public AnimatorOverrideController[] _animatorControllers;
 
     // 해시값 미리 캐싱
     private static readonly int StartTriggerHash = Animator.StringToHash("Start");
     private static readonly int EndTriggerHash = Animator.StringToHash("End");
 
+
+    public void SetAnimator(Enums.BulletType type)
+    {
+            Debug.LogError($"Animator type is {type}");
+        if (type == BulletType.NONE)
+        {
+            return;
+        }
+        _animator.runtimeAnimatorController = _animatorControllers[(int)type];
+    }   
 
     //public void UpdateMoveVisual(Vector2 moveDir)
     //{
@@ -21,6 +34,11 @@ public class BulletAnimator : MonoBehaviour
     //    bool isMoving = moveDir != Vector2.zero;
     //    _animator.SetBool(IsMovingHash, isMoving);
     //}
+
+    public void UpdateAnimator(BulletType type)
+    {
+        _animator.runtimeAnimatorController = _animatorControllers[(int)type];
+    }
 
     public void PlayStartAnimation()
     {
