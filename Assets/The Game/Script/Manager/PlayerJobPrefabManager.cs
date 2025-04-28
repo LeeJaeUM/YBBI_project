@@ -7,8 +7,10 @@ public class PlayerJobPrefabManager : NetworkBehaviour
     [Header("스폰될 맵 그리드")]
     [SerializeField] private GameObject mapGrid;
     private static bool hasSpawnedPlayers = false;
+    public static bool isSessionHost = false;
 
     private Vector3 _pos;
+   
 
     private void Awake()
     {
@@ -22,36 +24,34 @@ public class PlayerJobPrefabManager : NetworkBehaviour
         hasSpawnedPlayers = true;
         
     }
-
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return; // 서버(호스트)만 스폰 처리
+        Debug.Log("스폰로직 실행");
+        if (NetworkManager.Singleton.LocalClientId != OwnerClientId) return; // **나 자신만 조작**
+        if (IsHost) isSessionHost = true;
 
-        foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            Debug.Log($"플레이어ID : {clientId}스폰성공");
-            SpawnPlayerForClient(clientId);
-        }
-
-        if (hasSpawnedPlayers) return;
-
-        MapRandomSpawner grid = mapGrid.GetComponent<MapRandomSpawner>();
-
-
-        _pos = grid.GridToWorld(grid.GetMapListGridCenter());
-
-        hasSpawnedPlayers = true;
+        // 각자 자신의 플레이어 생성
+        Debug.Log("각자 스폰 실행");
+        SpawnMyPlayer();
     }
 
-    private async void SpawnPlayerForClient(ulong clientId)
+    private async void SpawnMyPlayer()
     {
-        string joinCode = LobbyAndSesssionUIManager.Instance.GetSavedJoinCode(); // 저장해둔 값
+        string joinCode = LobbyAndSesssionUIManager.Instance.GetSavedJoinCode();
         int playerIndex = LobbyAndSesssionUIManager.Instance.GetOwnPlayerIndex();
 
         int jobIndex = await LobbyAndSesssionFireBaseManager.Instance.GetSessionPlayerJobIndex(joinCode, playerIndex) - 1;
 
-        Vector3 spawnPos = _pos; // 플레이어 별 위치 지정
+        MapRandomSpawner grid = mapGrid.GetComponent<MapRandomSpawner>();
+        Vector3 spawnPos = grid.GridToWorld(grid.GetMapListGridCenter());
+
         GameObject player = Instantiate(playerPrefabs[jobIndex], spawnPos, Quaternion.identity);
-        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+
+        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(OwnerClientId);
+    }
+
+    public bool GetIsSessionHost()
+    {
+        return isSessionHost;
     }
 }
