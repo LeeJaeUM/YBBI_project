@@ -110,9 +110,17 @@ public class UnitHealth : MonoBehaviour
 
     #endregion
 
+
     public float GetMaxAir()
     {
         return _maxAir;
+    }
+
+    public float ShopBaseMinusAirPerSecUpgrade()
+    {
+        _baseMinusAirPerSec /= 1.2f;
+        return _baseMinusAirPerSec;
+
     }
 
     /// <summary>

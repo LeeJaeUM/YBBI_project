@@ -17,6 +17,22 @@ public class PlayerMover : MonoBehaviour
         _playerAnimator.UpdateMoveVisual(input);
     }
 
+    public float ShopMoveSpeedUpgrade()
+    {
+        _speed *= 1.2f;
+        return _speed;
+    }
+
+    public void UpMoveSpeedBuff(float value)
+    {
+        _speed *= value;
+    }
+
+    public void ResetMoveSpeedBuff(float value)
+    {
+        _speed /= value;
+    }
+
     void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();

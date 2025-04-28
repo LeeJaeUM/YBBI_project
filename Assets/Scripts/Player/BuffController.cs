@@ -9,7 +9,7 @@ public class BuffController : MonoBehaviour
     [SerializeField]
     public PlayerItemController _player;
 
-    PlayerAttacker _playerAttacker;
+    PlayerATKStats _playerATKStats;
     PlayerMover _playerMover;
     UnitHealth _unitHealth;
 
@@ -27,10 +27,10 @@ public class BuffController : MonoBehaviour
         switch (type)
         {
             case BuffType.AttackUp:
-                _playerAttacker._curAttackDamage += curBuff.Data.Value;
+                _playerATKStats.UpAttackBuff(curBuff.Data.Value);
                 break;
             case BuffType.MoveSpeedUp:
-                _playerMover._speed *= curBuff.Data.Value;
+                _playerMover.UpMoveSpeedBuff(curBuff.Data.Value);
                 break;
             case BuffType.StopMinusAirPerSec:
                 _originalValues[type] = _unitHealth._minusAirPerSec;
@@ -58,10 +58,10 @@ public class BuffController : MonoBehaviour
         switch (type)
         {
             case BuffType.AttackUp:
-                _playerAttacker._curAttackDamage -= curBuff.Data.Value;
+                _playerATKStats.ResetAttackBuff(curBuff.Data.Value);
                 break;
             case BuffType.MoveSpeedUp:
-                _playerMover._speed /= curBuff.Data.Value;
+                _playerMover.ResetMoveSpeedBuff(curBuff.Data.Value);
                 break;
             case BuffType.StopMinusAirPerSec:
                 if (_originalValues.ContainsKey(type))

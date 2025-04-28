@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerATKStats : MonoBehaviour
 {
     #region Fields & Properties
+
     public SkillData _normalAttackSkillData;
     public SkillData _pressureSkillData;
     public SkillData _uniqueSkillData;
@@ -12,13 +13,25 @@ public class PlayerATKStats : MonoBehaviour
     public float _uniqueSkillCoolDown = 6.0f;     // 고유 스킬 쿨타임 (스킬 2)
 
     public float _attckDamage = 10;
+
     #endregion
 
     #region Custom Functions
 
+    public float ShopATKUpgrade()
+    {
+        _attckDamage *= 1.4f;
+        return _attckDamage;
+    }
+
     public void UpAttackBuff(float value)
     {
         _attckDamage += value;
+    }
+
+    public void ResetAttackBuff(float value)
+    {
+        _attckDamage -= value;
     }
 
     public void SetNormalSkill(SkillData skillData)
@@ -81,6 +94,7 @@ public class PlayerATKStats : MonoBehaviour
     {
         return _uniqueSkillData;
     }
+
     #endregion
 
     private void Awake()
