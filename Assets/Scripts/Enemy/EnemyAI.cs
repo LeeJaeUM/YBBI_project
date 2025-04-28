@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
@@ -5,6 +6,8 @@ using static Enums;
 
 public class EnemyAI : MonoBehaviour
 {
+    public bool TEST_isPatternSet = false; //패턴 세팅 테스트용
+    public int TEST_patternNum = 0; //패턴 세팅 테스트용
     protected Dictionary<EnemyStateType, IEnemyState> _states;
     [Header("State")]
     [SerializeField] protected Enums.EnemyStateType _currentStateType;
@@ -15,8 +18,8 @@ public class EnemyAI : MonoBehaviour
     public float _attackRange = 2;
     [Header("Attack")]
     [SerializeField] private Enums.ATKPatern _curATKPatern;
-    [SerializeField]private bool _isAttacking = false;      //현재 공격중인지 판단하는 변수
-    [SerializeField]private bool _isAttackFinished = false;        //공격 가능한지 판단하는 변수
+    [SerializeField] private bool _isAttacking = false;      //현재 공격중인지 판단하는 변수
+    [SerializeField] private bool _isAttackFinished = false;        //공격 가능한지 판단하는 변수
 
     public int _maxPaternNumber = 2;        //실제 패턴 개수 (인덱스 +1 과 같음)
 
@@ -42,6 +45,7 @@ public class EnemyAI : MonoBehaviour
         _enemyAniamtor = GetComponentInChildren<EnemyAnimator>();
 
         _enemyATKStats.OnFinishedAttack += SetAttackFinished;
+        _enemyATKStats.OnMoveSkill += StartRandomMove; //이동 스킬 시작
     }
 
     public virtual void CreateState()
@@ -87,6 +91,12 @@ public class EnemyAI : MonoBehaviour
     public void SetRandomAttackPatern()
     {
         int randomIndex = Random.Range(0, _maxPaternNumber);  // 1 ~ max-1 랜덤 값0
+#if UNITY_EDITOR
+        if (TEST_isPatternSet) //에디터에서만 사용
+        {
+            randomIndex = TEST_patternNum; //에디터에서만 사용
+        }
+#endif
         _curATKPatern = (ATKPatern)randomIndex;
         _enemyATKStats.SetPaaternNum(randomIndex);
     }
@@ -118,6 +128,59 @@ public class EnemyAI : MonoBehaviour
         Player = _findTargetPoint.Player;
     }
 
+    public void StartRandomMove(float moveDistance, float moveSpeed, float activeTime)
+    {
+        StartCoroutine(RandomMoveCoroutine(moveDistance, moveSpeed, activeTime));
+    }
+
+    private IEnumerator RandomMoveCoroutine(float moveDistance, float moveSpeed, float activeTime)
+    {
+        Vector3[] directions = new Vector3[]
+        {
+            Vector3.up,
+            Vector3.down,
+            Vector3.left,
+            Vector3.right,
+            (Vector3.up + Vector3.right).normalized,    // 우상향
+            (Vector3.up + Vector3.left).normalized,     // 좌상향
+            (Vector3.down + Vector3.right).normalized,  // 우하향
+            (Vector3.down + Vector3.left).normalized    // 좌하향
+        };
+
+        Vector3 selectedDir = directions[Random.Range(0, directions.Length)];
+
+        // 목표 위치 계산
+        Vector3 targetPos = CalculateTargetPosition(transform.position, selectedDir, moveDistance);
+
+        float elapsed = 0f;
+        while (elapsed < activeTime && Vector3.Distance(transform.position, targetPos) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPos; // 위치 보정
+    }
+    private Vector3 CalculateTargetPosition(Vector3 startPos, Vector3 direction, float moveDistance)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(startPos, direction, moveDistance, LayerMask.GetMask("Map"));
+
+        if (hit.collider != null && hit.collider.CompareTag("Wall"))
+        {
+            // 벽에 맞았으면 충돌 지점까지 거리 - 2 만큼만 이동
+            float distanceToWall = hit.distance - 2;
+            distanceToWall = Mathf.Max(0f, distanceToWall); // 0보다 작으면 0으로 보정
+            return startPos + direction * distanceToWall;
+        }
+        else
+        {
+            // 벽이 없으면 그냥 원래 거리만큼 이동
+            return startPos + direction * moveDistance;
+        }
+    }
+
+
     #region Unity Built-in Fuction
 
     private void Awake()
@@ -133,12 +196,14 @@ public class EnemyAI : MonoBehaviour
     {
         // _enemyATKStats.OnFinishedAttack -= (value) => _IsAttackFinished = value;
         _enemyATKStats.OnFinishedAttack -= SetAttackFinished;
+        _enemyATKStats.OnMoveSkill -= StartRandomMove; //이동 스킬
     }
 
     private void Start()
     {
         StartPatrolPoint = _patrolPoint.GetStartPonint();
         EndPatrolPoint = _patrolPoint.GetEndPonint();
+
     }
     void Update()
     {

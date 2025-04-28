@@ -17,6 +17,7 @@ public class EnemyATKStats : MonoBehaviour
     public float _attackEndDelay = 1f;
 
     public Action<bool> OnFinishedAttack;
+    public Action<float, float, float> OnMoveSkill;
 
     public EnemyBulletSpawner _bulletSpawner;
 
@@ -54,6 +55,7 @@ public class EnemyATKStats : MonoBehaviour
             yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기
             if(_curSkill._isMoveSkill) //이동 스킬일 경우
             {
+                OnMoveSkill?.Invoke(_curSkill._moveDistance, _curSkill._moveSpeed, _curSkill._activeTime); //이동 스킬 시작
                 yield return new WaitForSeconds(_curSkill._activeTime); //이동 스킬 지속시간 만큼 대기
             }
             else
