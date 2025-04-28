@@ -21,7 +21,7 @@ public class EnemyBulletSpawner : MonoBehaviour
         {
             bullet.SetArrowVector(direction);
 
-            float damage = curAttackDamage;
+            float damage = curAttackDamage * skillData._damageMultiplier;
             float radius = skillData._radius;
             float activeTime = skillData._activeTime;
             float speed = skillData._moveSpeed;

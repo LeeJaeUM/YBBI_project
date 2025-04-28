@@ -4,15 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyATKStats : MonoBehaviour
 {
     //    public List<PatternData> _allPhasePatterns; //페이즈 당 패턴들
-    public List<PhasePatternData> phasePatterns;
-    public int _curPhaseNum = 0; //현재 페이즈 번호
-    public List<PatternData> _patterns;
-    public PatternData _curPattern;     //현재 사용중인 패턴
-    public SkillData _curSkill;         //패턴 속 현재 사용중인 스킬
+    [SerializeField] private List<PhasePatternData> phasePatterns;
+    [SerializeField] private int _curPhaseNum = 0; //현재 페이즈 번호
+    [SerializeField] private List<PatternData> _patterns;
+    [SerializeField] private PatternData _curPattern;     //현재 사용중인 패턴
+    [SerializeField] private SkillData _curSkill;         //패턴 속 현재 사용중인 스킬
     public float _spawnDistance = 1;
     public GameObject _bullet;
     public float _curAttackDamage = 2;
@@ -29,10 +30,22 @@ public class EnemyATKStats : MonoBehaviour
         _curPattern = _patterns[num];
     }
 
-    public void SetPhaseNum(int num)    //현재 페이즈의 패턴으로 모든 패턴 교체
+    public void SetPhaseNum(bool isReturnNormal)    //현재 페이즈의 패턴으로 모든 패턴 교체
     {
-        _curPhaseNum = num;
-        _patterns = phasePatterns[num].patterns;
+        if (isReturnNormal)
+        {
+            _curPhaseNum--;
+            _curPhaseNum = Mathf.Max(0, _curPhaseNum); //0 이하 방지
+        }
+        else
+            _curPhaseNum++;
+
+        _patterns = phasePatterns[_curPhaseNum].patterns;
+    }
+
+    public int GetPhaseNum()
+    {
+        return _curPhaseNum;
     }
 
     //public SkillData GetSKillData(SkillData skillData, int num)

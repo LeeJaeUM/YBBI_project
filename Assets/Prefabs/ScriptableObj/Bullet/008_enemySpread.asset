@@ -20,7 +20,7 @@ MonoBehaviour:
   _bulletType: 1
   _bulletCount: 6
   _angleRange: 200
-  _damageMultiplier: 1
+  _damageMultiplier: -1
   _radius: 1.4
   _spawnDistance: 0.5
   _moveSpeed: 2
@@ -31,3 +31,5 @@ MonoBehaviour:
   _level: 0
   _width: 1
   _length: 1
+  _isMoveSkill: 0
+  _moveDistance: 4

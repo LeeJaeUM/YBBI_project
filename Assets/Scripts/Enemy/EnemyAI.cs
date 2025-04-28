@@ -23,7 +23,9 @@ public class EnemyAI : MonoBehaviour
 
     public int _maxPaternNumber = 2;        //실제 패턴 개수 (인덱스 +1 과 같음)
     private float _maxAir = 10000;
+    private bool _returnPhase = false;
 
+    [SerializeField] private float _phaseChangeAir = 0;
 
 
     public Vector2 StartPatrolPoint { get; private set; }
@@ -47,6 +49,7 @@ public class EnemyAI : MonoBehaviour
         _enemyAniamtor = GetComponentInChildren<EnemyAnimator>();
         _enemyHealth = GetComponent<EnemyHealth>();
         _maxAir = _enemyHealth.GetMaxAir();
+        _phaseChangeAir = _maxAir * (2f / 3f);
 
         _enemyATKStats.OnFinishedAttack += SetAttackFinished;
         _enemyATKStats.OnMoveSkill += StartRandomMove; //이동 스킬 시작
@@ -56,9 +59,9 @@ public class EnemyAI : MonoBehaviour
             {
                 _enemyAniamtor.PlayDieAnimation();
             }
-            else if(value < 40) //테스트
+            else if(value < _phaseChangeAir) //테스트
             {
-                _enemyAniamtor.PlayHitAnimation();
+                PhaseChange(_returnPhase);
             }
         };
     }
@@ -116,9 +119,9 @@ public class EnemyAI : MonoBehaviour
         _enemyATKStats.SetPaaternNum(randomIndex);
     }
 
-    private void PhaseChange(int phaseNum)
+    private void PhaseChange(bool isReturnNormal)
     {
-        _enemyATKStats.SetPhaseNum(phaseNum);
+        _enemyATKStats.SetPhaseNum(isReturnNormal);
     }
 
     public bool GetIsAttacking()

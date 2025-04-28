@@ -6,8 +6,6 @@ public class Bullet : MonoBehaviour
 {
     public bool _isPlayers = true;
     public float _lifeTime = 2;
-    public bool _isPlusAir = false;     //데미지가 +인지 -인지 판단하는 변수
-    public float _damageMul = 1;        //데미지가 +인지 -인지 정하는 1/-1 곱하기용 변수
     public float _damage = 5;
     public float _speed = 6f; // 총알 속도
     public Vector2 _arrowVec = Vector2.right;
@@ -20,6 +18,7 @@ public class Bullet : MonoBehaviour
     private LaserWarningVisualizer _laserWarningVisualizer;
     public SpriteRenderer _spriteRenderer;  
     private BoxCollider2D _boxCollider2D; //충돌 콜라이더
+    private BulletAnimator _bulletAnimator;
 
     public void SetArrowVector(Vector2 value)
     {
@@ -93,16 +92,24 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log($"{collision.gameObject.name} 이 닿음");
         UnitHealth unitHealth = collision.GetComponent<UnitHealth>();
-        unitHealth.AddAir(_damage * _damageMul);
+        unitHealth.AddAir(_damage);
 
         if(_canMove)        
             StopBullet();
     }
 
+    IEnumerator EndAnimation()
+    {
+        _canTrigger = false;
+        _bulletAnimator.PlayEndAnimation();
+        yield return new WaitForSeconds(0.8f);
+        BulletPool.Instance.ReturnBullet(gameObject); //풀에 반납
+    }
+
     private void StopBullet()
     {
         StopAllCoroutines();
-        BulletPool.Instance.ReturnBullet(gameObject); //풀에 반납
+        StartCoroutine(EndAnimation());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -128,20 +135,19 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _canTrigger = true;
+       // _canTrigger = true;
     }
     private void Awake()
     {
         Transform child = transform.GetChild(0);
         _spriteRenderer = child.GetComponent<SpriteRenderer>();
         _boxCollider2D = GetComponentInChildren<BoxCollider2D>();
+        _bulletAnimator = GetComponentInChildren<BulletAnimator>();
     }
 
     private void OnEnable()
     {
-        if (!_isPlusAir)
-            _damageMul = -1;
-
+        _canTrigger = true;
         transform.localScale = Vector3.one;
         _spriteRenderer.transform.localPosition = Vector3.zero; //스프라이트 위치 초기화
         _spriteRenderer.transform.localScale = Vector3.one;
