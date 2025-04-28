@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Tiles/TileMapTelepoter")]
-public class TileMapTelepoter : Tile
+[CreateAssetMenu(menuName = "Tiles/NextSceneTile")]
+public class NextSceneTile : Tile
 {
-    public string teleportID; // "A", "B" 같은 이름으로 쌍을 구분
+    public string SceneName; //다음 씬 이름
 }

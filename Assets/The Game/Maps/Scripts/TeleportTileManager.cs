@@ -1,14 +1,14 @@
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class TeleportTileManager : MonoBehaviour
 {
-    public string teleportID;
-    // 텔레포트 ID
+    public string teleportID; // 텔레포트 ID
 
     [SerializeField] private GameObject mapOBJ;
+
+    private MapData mapData;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,22 +30,6 @@ public class TeleportTileManager : MonoBehaviour
             if (targetTeleporter.transform.IsChildOf(mapOBJ.transform)) continue;
             if (targetTeleporter.teleportID != teleportID) continue;
 
-            MapData targetMapData = targetTeleporter.mapOBJ.GetComponent<MapData>();
-            if (targetMapData == null) continue;
-
-            bool isConnected = false;
-
-            if (targetMapData.tpUp == targetTeleporter.gameObject && targetMapData.isTpUpSeted)
-                isConnected = true;
-            if (targetMapData.tpDown == targetTeleporter.gameObject && targetMapData.isTpDownSeted)
-                isConnected = true;
-            if (targetMapData.tpLeft == targetTeleporter.gameObject && targetMapData.isTpLeftSeted)
-                isConnected = true;
-            if (targetMapData.tpRight == targetTeleporter.gameObject && targetMapData.isTpRightSeted)
-                isConnected = true;
-
-            if (!isConnected) continue; // 연결 안 된 포탈이면 스킵
-
             // 해당 포탈이 속한 타일맵 찾기
             Tilemap targetTilemap = targetTeleporter.GetComponent<Tilemap>();
             if (targetTilemap == null) continue;
@@ -65,5 +49,6 @@ public class TeleportTileManager : MonoBehaviour
 
     private void Awake()
     {
+        mapData = mapOBJ.GetComponent<MapData>();
     }
 }

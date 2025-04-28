@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class MapData : NetworkBehaviour
+public class MapData : MonoBehaviour
 {
     public GameObject roomPrefab;
     public Enums.RoomType roomType;
@@ -30,13 +29,6 @@ public class MapData : NetworkBehaviour
     public string tpRightID;
     public bool isTpRightSeted = false;
 
-    [HideInInspector] public Vector2Int GridPosition { get; private set; }
-
-
-    public void SetGridPosition(Vector2Int pos)
-    {
-        GridPosition = pos;
-    }
 
     public void RefreshMapId()
     {

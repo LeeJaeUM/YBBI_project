@@ -9091,9 +9091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  teleportID:
-    m_InternalValue: 
+  teleportID: 
+  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &7173060622465861276
 GameObject:
@@ -9486,9 +9485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  teleportID:
-    m_InternalValue: 
+  teleportID: 
+  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &7888050004918123724
 GameObject:
@@ -9881,9 +9879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  teleportID:
-    m_InternalValue: 
+  teleportID: 
+  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
 --- !u!1 &8902288767891610223
 GameObject:
@@ -10049,7 +10046,6 @@ GameObject:
   - component: {fileID: 19362708194392529}
   - component: {fileID: 8081708297948383811}
   - component: {fileID: 8303147081043596672}
-  - component: {fileID: 8289842613993492219}
   - component: {fileID: 6911488190953895001}
   m_Layer: 0
   m_Name: TpEntressUp
@@ -10415,31 +10411,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!114 &8289842613993492219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9163836659113377650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &6911488190953895001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10452,7 +10423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b4af6a8ac5db479dac4e606f22d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  teleportID:
-    m_InternalValue: 
+  teleportID: 
+  isTp: 0
   mapOBJ: {fileID: 8902288767891610223}
