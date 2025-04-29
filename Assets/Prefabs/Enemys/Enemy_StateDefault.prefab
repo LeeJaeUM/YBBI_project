@@ -157,8 +157,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1532869541
   m_SortingLayer: 2
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 5398807837072792716, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 4723107735738678597, guid: 261a51830cc6f6d47834b4e69088ae95, type: 3}
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -257,6 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb6a4c1ba8d5d04898f2221e2a3b5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TEST_isSkillSet: 0
+  TEST_skillNum: 0
   _currentStateType: 0
   _speed: 3.12
   _chaseExitDistance: 7
@@ -265,6 +267,7 @@ MonoBehaviour:
   _isAttacking: 0
   _isAttackFinished: 0
   _maxPaternNumber: 2
+  _phaseChangeAir: 0
   _findTargetPoint: {fileID: 0}
 --- !u!114 &1859072663928137634
 MonoBehaviour:
@@ -293,9 +296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dcfa97baac0c44d8084e55347824ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skills:
-  - {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
-  - {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
+  phasePatterns: []
+  _curPhaseNum: 0
+  _patterns: []
+  _curPattern: {fileID: 0}
   _curSkill: {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   _spawnDistance: 1
   _bullet: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
@@ -303,6 +307,7 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  _enemyAnimator: {fileID: 0}
 --- !u!114 &404987338087079165
 MonoBehaviour:
   m_ObjectHideFlags: 0
