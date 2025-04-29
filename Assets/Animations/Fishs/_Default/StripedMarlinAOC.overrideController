@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: StripedMarlinAOC
+  m_Controller: {fileID: 9100000, guid: e0498e3588af42d44a90dcdf93119adf, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 2ed5a715afbfc8847931bcc933ca0a54, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 611a518624d78d54da1cfc0bd2097993, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9daab4f256ce2ba4081917100018d9c1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7ed2e6354c812545a2be3dc723dd339, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f58bc38e1a7f73640ab41bf0fa9c5439, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 59f7a467d7434a346b6b62b1da88786c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 07b57fe812349ef41a95460b09d86e6e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1f961ae6e698f45468cd9d843a5a007a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 71588fcdef917934c8f7fe06e9aa41be, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6049c169ec3cb7d48a64e5747dea5bd2, type: 2}
