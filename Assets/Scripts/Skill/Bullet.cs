@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
@@ -14,9 +15,12 @@ public class Bullet : MonoBehaviour
 
     public bool _canTrigger = true;
     public bool _isLingering = false; //지속형 스킬인지 여부
+    public bool _isHoming = false; //추적형 스킬인지 여부
 
     private float _tickTimer = 0f;
     [SerializeField] private float _tickInterval = 0.35f;
+
+    private float _homingRadius = 20f;
 
     Enums.BulletType _bulletType = Enums.BulletType.NONE;
 
@@ -24,6 +28,22 @@ public class Bullet : MonoBehaviour
     public SpriteRenderer _spriteRenderer;  
     private BoxCollider2D _boxCollider2D; //충돌 콜라이더
     private BulletAnimator _bulletAnimator;
+    [SerializeField]private Transform _target; //추적형 스킬의 타겟
+
+    private void Initialize()
+    {
+        transform.localScale = Vector3.one;
+        _spriteRenderer.transform.localPosition = Vector3.zero; //스프라이트 위치 초기화
+        _spriteRenderer.transform.localScale = Vector3.one;
+        _boxCollider2D.size = Vector3.one;
+
+        _canTrigger = true;
+        _canMove = true;
+        _isLingering = false;
+        _isHoming = false;
+        _target = null;
+        StartCoroutine(LifeTimeCor()); //테스트
+    }
 
     public void SetArrowVector(Vector2 value)
     {
@@ -49,6 +69,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 직선으로만 나아가는 이동이라면 true
+    /// </summary>
+    /// <param name="isTrue"></param>
     private void IsMoveable(bool isTrue)
     {
         if (isTrue)
@@ -104,6 +128,17 @@ public class Bullet : MonoBehaviour
                     _spriteRenderer.transform.localPosition = new Vector3(0, length / 2f, 0); // 중심에서 위로
                 }
                 break;
+
+            case Enums.BulletType.Homing:
+                _isHoming = true; //추적형 스킬로 설정
+                if(!_isPlayers)
+                    FindTarget("Player"); //플레이어 찾기
+                else
+                    FindTarget("Enemy"); //적 찾기 
+
+
+                break;
+
             case Enums.BulletType.Bomb:
 
                 IsMoveable(false); //이동 정지
@@ -207,6 +242,33 @@ public class Bullet : MonoBehaviour
     }
     #endregion
 
+    #region Homming
+    private void FindTarget(string targetTagName)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _homingRadius);
+
+        Transform closestPlayer = null;
+        float closestDistanceSqr = float.MaxValue;
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag(targetTagName))
+            {
+                float distanceSqr = (hit.transform.position - transform.position).sqrMagnitude;
+                if (distanceSqr < closestDistanceSqr)
+                {
+                    closestDistanceSqr = distanceSqr;
+                    closestPlayer = hit.transform;
+                }
+            }
+        }
+
+        if (closestPlayer != null)
+        {
+            _target = closestPlayer;
+        }
+    }
+    #endregion
     IEnumerator LifeTimeCor()
     {
         yield return new WaitForSeconds(_lifeTime);
@@ -307,14 +369,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localScale = Vector3.one;
-        _spriteRenderer.transform.localPosition = Vector3.zero; //스프라이트 위치 초기화
-        _spriteRenderer.transform.localScale = Vector3.one;
-        _boxCollider2D.size = Vector3.one;
-
-        _canTrigger = true;
-        _canMove = true;
-        StartCoroutine(LifeTimeCor()); //테스트
+        Initialize();
     }
 
     //private void OnDisable()
@@ -330,7 +385,18 @@ public class Bullet : MonoBehaviour
     {
         _tickTimer += Time.deltaTime;
 
+        if (_isHoming)
+        {
+            if (_target != null)
+            {
+                Vector2 direction = (_target.position - transform.position).normalized;
+                SetArrowVector(direction);
+            }
+        }
+
         if (_canMove)
             transform.Translate(_arrowVec * _speed * Time.deltaTime);
+
+
     }
 }
