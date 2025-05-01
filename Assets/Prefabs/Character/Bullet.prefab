@@ -323,6 +323,8 @@ MonoBehaviour:
   _arrowVec: {x: 1, y: 0}
   _canMove: 1
   _canTrigger: 1
+  _isLingering: 0
+  _tickInterval: 0.35
   _spriteRenderer: {fileID: 0}
 --- !u!114 &3224759080590324028
 MonoBehaviour:
@@ -336,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 463026771
+  GlobalObjectIdHash: 832665178
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -477,3 +479,5 @@ MonoBehaviour:
   - {fileID: 22100000, guid: f6a1650ae35d41e4f8f9307702d40f61, type: 2}
   - {fileID: 22100000, guid: f6a1650ae35d41e4f8f9307702d40f61, type: 2}
   - {fileID: 22100000, guid: 99e0a0166bd553a4fbc45bc26928f548, type: 2}
+  - {fileID: 22100000, guid: f6a1650ae35d41e4f8f9307702d40f61, type: 2}
+  - {fileID: 22100000, guid: 6c40c1507e1ab68489caddd3675eecc7, type: 2}

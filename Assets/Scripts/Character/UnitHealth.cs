@@ -195,19 +195,16 @@ public class UnitHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// 공기에 변화를 주는 함수 +일 경우 힐 -일 경우 데미지 처리
+    /// 공기에 변화를 주는 함수 -일 경우 힐 +일 경우 데미지 처리
     /// </summary>
     /// <param name="addValue"></param>
-    public void AddAir(float addValue)
+    public void DamageAir(float addValue)
     {
         Debug.Log($"AddAir: {addValue}");
-        if (addValue < 0)
+        if (addValue > 0)
         {
-            HitDamage();        //데미지를 입으면 함수 호출
-            if(addValue <= 2)
-            {
-                OnDamage?.Invoke();
-            }   
+           HitDamage();        //데미지를 입으면 함수 호출
+           OnDamage?.Invoke();
         }
         SetAir(_curAir + addValue);
     }

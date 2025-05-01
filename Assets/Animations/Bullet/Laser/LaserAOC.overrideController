@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LaserACOC
+  m_Name: LaserAOC
   m_Controller: {fileID: 9100000, guid: 7b49482120343c44c9dfdc4bb3fbe040, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 3826a94bff70a8a4393b94a5c468e570, type: 2}

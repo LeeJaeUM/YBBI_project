@@ -30,13 +30,13 @@ public class LaserWarningVisualizer : MonoBehaviour
         _warningSpriteRenderer.enabled = true;
         _timerSpriteRenderer.enabled = true;
 
-        // 부모 콜라이더 설정
-        BoxCollider2D parentCollider = GetComponentInParent<BoxCollider2D>();
-        if (parentCollider != null)
-        {
-            parentCollider.size = new Vector2(width, length);
-            parentCollider.offset = new Vector2(0, length / 2f);
-        }
+        //// 부모 콜라이더 설정
+        //BoxCollider2D parentCollider = GetComponentInParent<BoxCollider2D>();
+        //if (parentCollider != null)
+        //{
+        //    parentCollider.size = new Vector2(width, length);
+        //    parentCollider.offset = new Vector2(0, length / 2f);
+        //}
 
         StartCoroutine(GrowTimer(length, duration));
     }
@@ -58,8 +58,31 @@ public class LaserWarningVisualizer : MonoBehaviour
         _timerSpriteRenderer.transform.localPosition = new Vector3(0, maxLength / 2f, 0);
 
         HideWarning();
-        // 여기서 레이저 공격 처리 호출 가능
-        // TriggerLaserAttack();
+    }
+
+    public void ShowBombWarning(float duration)
+    {
+        _warningSpriteRenderer.enabled = true;
+        _timerSpriteRenderer.enabled = true;
+
+        StartCoroutine(Bomb_GrowTimer(1, duration));
+    }
+
+    private IEnumerator Bomb_GrowTimer(float maxLength, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            float currentLength = Mathf.Lerp(0, maxLength, t);
+            _timerSpriteRenderer.transform.localScale = new Vector3(_timerSpriteRenderer.transform.localScale.x, currentLength, 1f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        _timerSpriteRenderer.transform.localScale = new Vector3(_timerSpriteRenderer.transform.localScale.x, maxLength, 1f);
+
+        HideWarning();
     }
 
     public void HideWarning()
@@ -67,6 +90,7 @@ public class LaserWarningVisualizer : MonoBehaviour
         _warningSpriteRenderer.enabled = false;
         _timerSpriteRenderer.enabled = false;
     }
+
 
     private void Awake()
     {
