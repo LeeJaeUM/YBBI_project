@@ -21,7 +21,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     List<ShopItem> _shopItems;      // 상점에서 판매하는 아이템 목록
 
-    private int _playerMoney = 100000;      // 초기 플레이어 소지금
+    private int _playerMoney = 0;      // 초기 플레이어 소지금
     private int _totalPrice = 0;        // 판매 금액 총합
 
     #region UI Control

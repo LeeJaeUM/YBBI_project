@@ -133,6 +133,12 @@ public class UnitHealth : MonoBehaviour
         return _minusAirPerSec;
     }
 
+    public void HealAirBuff()
+    {
+        _curAir += (_maxAir * 1.3f);
+        _curAir = Mathf.Min(_curAir, _maxAir);
+    }
+
     // StopMinusAirPerSec 버프 처리 함수
     public void StopMinusAirPerSecBuff()
     {

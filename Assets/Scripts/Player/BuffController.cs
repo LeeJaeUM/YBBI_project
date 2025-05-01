@@ -24,6 +24,10 @@ public class BuffController : MonoBehaviour
     UnitHealth _unitHealth;
     Shop _shop;
 
+    #endregion
+
+    #region Buff Management
+
     // 현재 활성화된 버프 목록
     Dictionary<BuffType, BuffInfo> _activeBuffList = new Dictionary<BuffType, BuffInfo>();
 
@@ -41,6 +45,9 @@ public class BuffController : MonoBehaviour
         {
             yield break;
         }
+
+        float healInterval = 1f;
+        float healTimer = 0f;
 
         // 버프 종류에 따라 효과 적용
         switch (type)
@@ -73,11 +80,21 @@ public class BuffController : MonoBehaviour
         // 버프 지속 시간 동안 대기
         while (true)
         {
-            curBuff = _activeBuffList[type];
+            if (!_activeBuffList.TryGetValue(type, out curBuff))
+                break;
 
             if (curBuff.Time > curBuff.Data.Duration)
-            {
                 break;
+
+            // HealOverTime일 경우 일정 주기로 HealAirBuff() 호출
+            if (type == BuffType.HealOverTime)
+            {
+                healTimer += Time.deltaTime;
+                if (healTimer >= healInterval)
+                {
+                    _unitHealth.HealAirBuff();
+                    healTimer = 0f;
+                }
             }
 
             curBuff.Time += Time.deltaTime;
