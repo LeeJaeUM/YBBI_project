@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 0
   _name: 
-  _skillData: []
+  _skillData:
+  - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
+  - {fileID: 11400000, guid: e66c50a373bdaa04eb8636412676195a, type: 2}
+  - {fileID: 11400000, guid: 1fe5a4bb94b2fee489b9dad76c3177e1, type: 2}
   _animationName: 
   _coolDown: 0

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phaseNumber: 0
   patterns:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8fb3a24642fdd124ca390138ab52334e, type: 2}

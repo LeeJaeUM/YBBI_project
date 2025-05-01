@@ -1624,8 +1624,8 @@ MonoBehaviour:
     Duration: 8
     Value: 0
   - Id: 3
-    Duration: 5
-    Value: 5
+    Duration: 10
+    Value: 0
 --- !u!1 &353263467
 GameObject:
   m_ObjectHideFlags: 0
@@ -6926,6 +6926,12 @@ MonoBehaviour:
     _property: 0
     _buff: 3
     _icon: 14
+    _value: 10
+    _price: 0
+  - _id: 15
+    _property: 0
+    _buff: 4
+    _icon: 15
     _value: 0
     _price: 0
 --- !u!4 &1362513268

@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 647969794a4709b44a8e955227141558, type: 3}
-  m_Name: 003_Default_Unique
+  m_Name: 024_Bomb_Bullet
   m_EditorClassIdentifier: 
-  _ID: 3
-  _name: DefaultUnique
+  _ID: 0
+  _name: 
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
-  _skillType: 3
-  _bulletType: 1
+  _skillType: 0
+  _bulletType: 4
   _bulletCount: 1
   _angleRange: 45
-  _damageMultiplier: 3.5
-  _radius: 3
+  _damageMultiplier: 4
+  _radius: 2
   _spawnDistance: 0.5
-  _moveSpeed: 2
-  _activeTime: 4
+  _moveSpeed: 1
+  _activeTime: 2
   _attackPreDelay: 0
   _attackEndDelay: 0
-  _coolDown: 5
-  _level: 5
+  _coolDown: 0
+  _level: 0
   _width: 1
   _length: 1
   _isMoveSkill: 0

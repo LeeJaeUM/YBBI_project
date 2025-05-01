@@ -135,7 +135,7 @@ public class UnitHealth : MonoBehaviour
 
     public void HealAirBuff()
     {
-        _curAir += (_maxAir * 1.3f);
+        _curAir += (_maxAir * 0.025f);
         _curAir = Mathf.Min(_curAir, _maxAir);
     }
 

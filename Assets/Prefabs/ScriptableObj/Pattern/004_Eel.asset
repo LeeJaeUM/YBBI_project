@@ -16,6 +16,7 @@ MonoBehaviour:
   _name: 
   _skillData:
   - {fileID: 11400000, guid: 6ed401f92eb87934dbb8d0cf4ba95c58, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 25e823c718ad9734499935fee530236c, type: 2}
+  - {fileID: 11400000, guid: 939330718cc39de459fec55cdb2ae857, type: 2}
   _animationName: 
   _coolDown: 0
