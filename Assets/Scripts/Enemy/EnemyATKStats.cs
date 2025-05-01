@@ -24,7 +24,7 @@ public class EnemyATKStats : MonoBehaviour
     public Action<float, float, float> OnMoveSkill;
 
     public EnemyBulletSpawner _bulletSpawner;
-    public EnemyAnimator _enemyAnimator;
+    private EnemyAnimator _enemyAnimator;
 
     public void SetPaaternNum(int num)
     {
@@ -77,6 +77,7 @@ public class EnemyATKStats : MonoBehaviour
         {
             _curSkill = _curPattern._skillData[i];
             Debug.Log($"스킬 데이터 {_curSkill._name} {i}  공격 시작");
+
 
 
             yield return new WaitForSeconds(_curSkill._attackPreDelay); //공격전 딜레이만큼 대기

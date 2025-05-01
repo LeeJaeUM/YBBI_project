@@ -1330,8 +1330,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679669837}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &679669847
@@ -1997,8 +1997,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917988616}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &917988626
@@ -2292,8 +2292,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945401530}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &945401540
@@ -3291,8 +3291,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313027996}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &1313028006
@@ -3654,8 +3654,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405623922}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!212 &1405623932
@@ -5113,7 +5113,7 @@ Animator:
   m_GameObject: {fileID: 1593336359732418594}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e0498e3588af42d44a90dcdf93119adf, type: 2}
+  m_Controller: {fileID: 22100000, guid: edd7691df9fd7c34c919b05ccd1f371d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5881,7 +5881,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.81, y: 1.45}
+  m_Size: {x: 2.4, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6093,8 +6093,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593336359732418594}
   m_Enabled: 1
-  m_SortingLayerID: 1446424193
-  m_SortingLayer: 1
+  m_SortingLayerID: -1532869541
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!114 &5461318709113822224

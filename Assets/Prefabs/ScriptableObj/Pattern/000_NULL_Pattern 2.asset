@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 0
   _name: NULL
-  _skillData: []
+  _skillData:
+  - {fileID: 11400000, guid: 6ed401f92eb87934dbb8d0cf4ba95c58, type: 2}
+  - {fileID: 11400000, guid: 9fe3870d3ee140c44b73ae7cba327cac, type: 2}
+  - {fileID: 11400000, guid: 25e823c718ad9734499935fee530236c, type: 2}
+  - {fileID: 11400000, guid: 4d7c179269d83af40a39e940baebdca4, type: 2}
+  - {fileID: 11400000, guid: ae613ef8094714a468178e6a821adc5b, type: 2}
+  - {fileID: 11400000, guid: 20bd346c216e31341b005479cdceed26, type: 2}
+  - {fileID: 11400000, guid: aab0fa347c880c94f9136c60ccc758a3, type: 2}
+  - {fileID: 11400000, guid: 98b92d7d1b7a17341b4f07765273696f, type: 2}
+  - {fileID: 11400000, guid: 9c961919f4d88844693aca99dd40ad2c, type: 2}
+  - {fileID: 11400000, guid: 1fe5a4bb94b2fee489b9dad76c3177e1, type: 2}
+  - {fileID: 11400000, guid: 939330718cc39de459fec55cdb2ae857, type: 2}
   _animationName: 
   _coolDown: 5

@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     public bool TEST_isSkillSet = false; //패턴 세팅 테스트용
     public int TEST_skillNum = 0; //패턴 세팅 테스트용
+    public bool hasOtherPhase = false; //다른 페이즈가 있는지 확인하는 변수
     protected Dictionary<EnemyStateType, IEnemyState> _states;
     [Header("State")]
     [SerializeField] protected Enums.EnemyStateType _currentStateType;
@@ -38,10 +39,12 @@ public class EnemyAI : MonoBehaviour
     private EnemyATKStats _enemyATKStats;
     private EnemyAnimator _enemyAniamtor;
     private EnemyHealth _enemyHealth;
+    public SpriteRenderer _spriteRenderer;
 
     public virtual void Initialize()
     {
         CreateState();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _findTargetPoint = GetComponentInChildren<FindTargetPoint>();
         _patrolPoint = GetComponentInChildren<PatrolPoint>();
         _enemyATKStats = GetComponent<EnemyATKStats>();
@@ -59,7 +62,7 @@ public class EnemyAI : MonoBehaviour
             {
                 _enemyAniamtor.PlayDieAnimation();
             }
-            else if(value < _phaseChangeAir) //테스트
+            else if(hasOtherPhase && value < _phaseChangeAir) //테스트
             {
                 PhaseChange(_returnPhase);
             }
@@ -91,19 +94,34 @@ public class EnemyAI : MonoBehaviour
     public void EnemyMove(Vector2 direction)
     {
         transform.Translate(direction * _speed * Time.deltaTime);
+        SetFlipX(direction.x < 0);
         //Rigid.MovePosition(Rigid.position + direction * _speed * Time.deltaTime);
         // 회전: 이동 방향으로 회전
         //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    /// <summary>
+    /// true면 반전    false면 원래대로
+    /// </summary>
+    /// <param name="isFlip"></param>
+    public void SetFlipX(bool isFlip)
+    {
+        if(_spriteRenderer.flipX == isFlip) return; //스프라이트 반전이 필요없으면 리턴
+
+        _spriteRenderer.flipX = isFlip; //스프라이트 반전
+    }
+
     public void StartAttack()
     {
-        Vector3 vector3 = _findTargetPoint.GetTargetDirection();
-        _enemyAniamtor.UpdateMoveVisual(vector3);        //적의 바라보는 방향에 따라 애니메이션을 업데이트
+        Vector3 direction = _findTargetPoint.GetTargetDirection();
+
+        SetFlipX(direction.x < 0); //플레이어 방향으로 스프라이트 반전
+
+        _enemyAniamtor.UpdateMoveVisual(direction);        //적의 바라보는 방향에 따라 애니메이션을 업데이트
         _enemyAniamtor.PlayAttackAnimation();
 
-        _enemyATKStats.Attack(vector3);
+        _enemyATKStats.Attack(direction);
     }
 
     public void SetRandomAttackPatern()
