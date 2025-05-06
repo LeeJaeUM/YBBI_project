@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
+using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class MapRandomSpawner : MonoBehaviour
+public class MapRandomSpawner : NetworkBehaviour
 {
-    [SerializeField] private bool isShopScene = false;
+    [SerializeField] private MapRpc mapRpc;
     [SerializeField] private Grid mapSpawnGrid;
     [SerializeField] private MapListSO mapPrefabList; // BaseMap 프리팹
     [SerializeField] private int mapCount = 13;
     [SerializeField] private int stageNum = 1;
+    
 
+    public bool isShopScene = false;
     public const int MAP_SIZE = 10; //MAP_SIZE * MAP_SIZE의 크기의 맵 배열
+    private PlayerJobPrefabManager jobMgr;
     private MapData[,] _mapGrid = new MapData[MAP_SIZE, MAP_SIZE];
 
     Vector2Int[] _directions = {
@@ -24,13 +30,16 @@ public class MapRandomSpawner : MonoBehaviour
 
     #region 맵생성로직
 
-    private void ReqestMapSpawn()
+    public void ReqestMapSpawn()
     {
         Vector2Int center = GetMapListGridCenter();
         MapData startRoom = GetRandomRoom(Enums.RoomType.Start);
 
         GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
+        Debug.Log($"[HOST] {startObj.name} 생성됨, 위치: {startObj.transform.position}");
         MapData startData = startObj.GetComponent<MapData>();
+        startData.SetGridPosition(center);
+        startObj.GetComponent<NetworkObject>().Spawn();
         _mapGrid[center.x, center.y] = startData;
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
@@ -56,7 +65,10 @@ public class MapRandomSpawner : MonoBehaviour
                 if (newRoom == null) continue;
 
                 GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
+                Debug.Log($"[HOST] {newObj.name} 생성됨, 위치: {newObj.transform.position}");
                 MapData newData = newObj.GetComponent<MapData>();
+                newData.SetGridPosition(nextPos);
+                newObj.GetComponent<NetworkObject>().Spawn();
                 _mapGrid[nextPos.x, nextPos.y] = newData;
 
                 frontier.Enqueue(nextPos);
@@ -85,7 +97,10 @@ public class MapRandomSpawner : MonoBehaviour
                     if (bossRoom != null)
                     {
                         GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
+                        Debug.Log($"[HOST] {bossObj.name} 생성됨, 위치: {bossObj.transform.position}");
                         MapData bossData = bossObj.GetComponent<MapData>();
+                        bossData.SetGridPosition(bossPos);
+                        bossObj.GetComponent<NetworkObject>().Spawn();
                         _mapGrid[bossPos.x, bossPos.y] = bossData;
                         return;
                     }
@@ -94,7 +109,7 @@ public class MapRandomSpawner : MonoBehaviour
         }
     }
 
-    private void RequestShopMapSpawn()
+    public void RequestShopMapSpawn()
     {
         Vector2Int center = GetMapListGridCenter();
         MapData ShopRoom = GetRandomRoom(Enums.RoomType.Shop);
@@ -196,7 +211,7 @@ public class MapRandomSpawner : MonoBehaviour
     #endregion
 
     #region 텔레포트 연결 로직
-    private void AssignTeleportIDs()
+    public void AssignTeleportIDs()
     {
         int idCounter = 0;
         MapData BossRoom;
@@ -331,7 +346,7 @@ public class MapRandomSpawner : MonoBehaviour
     #endregion
 
     #region 맵초기화 로직
-    private void ResetAllMapPrefabs()
+    public void ResetAllMapPrefabs()
     {
         foreach (MapData map in mapPrefabList.Maps)
         {
@@ -348,7 +363,7 @@ public class MapRandomSpawner : MonoBehaviour
             map.isTpRightSeted = false;
         }
     }
-    private void RefreshInspectorForTPID()
+    public void RefreshInspectorForTPID()
     {
         for (int y = 0; y < MAP_SIZE; y++)
         {
@@ -361,7 +376,7 @@ public class MapRandomSpawner : MonoBehaviour
             }
         }
     }
-    private void DisableUnusedTeleporters()
+    public void DisableUnusedTeleporters()
     {
         for (int y = 0; y < MAP_SIZE; y++)
         {
@@ -446,7 +461,7 @@ public class MapRandomSpawner : MonoBehaviour
     }
     #endregion
 
-    private void NotifyPlayerWallUpdate()
+    public void NotifyPlayerWallUpdate()
     {
         TheGamePlayerMover[] movers = FindObjectsOfType<TheGamePlayerMover>();
         foreach (var mover in movers)
@@ -455,7 +470,7 @@ public class MapRandomSpawner : MonoBehaviour
         }
     }
 
-    private void RequestSetPlayerPos()
+    public void RequestSetPlayerPos()
     {
         PlayerPosRPC[] posRpcs = FindObjectsOfType<PlayerPosRPC>();
         foreach (var posRpc in posRpcs)
@@ -465,17 +480,44 @@ public class MapRandomSpawner : MonoBehaviour
         }
     }
 
+
+    public void RebuildMapArray()
+    {
+        MapData[] allMaps = FindObjectsOfType<MapData>();
+
+        foreach (var map in allMaps)
+        {
+            Vector2Int pos = map.gridPos;
+            if (pos.x < 0 || pos.x >= MAP_SIZE || pos.y < 0 || pos.y >= MAP_SIZE)
+                continue;
+
+            _mapGrid[pos.x, pos.y] = map;
+        }
+
+        Debug.Log("[클라이언트] 맵 배열 재구성 완료");
+    }
+
+    public MapData[,] GetMapGrid()
+    {
+        return _mapGrid;
+    }
+
     #region 시작
 
     private void Start()
     {
+        if (!NetworkManager.Singleton.IsServer) return;
+        Debug.Log("서버 맵 스폰 실행");
         ResetAllMapPrefabs();
+
         if (!isShopScene)
         {
+            Debug.Log("서버측 일반맵 스폰 실행");
             ReqestMapSpawn();
             AssignTeleportIDs();
             RefreshInspectorForTPID();
             DisableUnusedTeleporters();
+
             EnemySpawnManager[] enemySpawnManagers = GetComponentsInChildren<EnemySpawnManager>();
             foreach (var enemySpawnManager in enemySpawnManagers)
             {
@@ -486,8 +528,11 @@ public class MapRandomSpawner : MonoBehaviour
         {
             RequestShopMapSpawn();
         }
+
         NotifyPlayerWallUpdate();
         RequestSetPlayerPos();
+
+        mapRpc.UploadMapToClients(GetMapGrid());
     }
 
 }

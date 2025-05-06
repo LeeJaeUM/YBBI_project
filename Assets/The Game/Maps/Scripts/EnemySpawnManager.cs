@@ -49,6 +49,11 @@ public class EnemySpawnManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (mapData == null)
+            {
+                Debug.LogWarning("[EnemySpawnManager] mapData가 null입니다. 아직 초기화되지 않음.");
+                return;
+            }
             RequestEnterFight();
             Debug.Log("전투방 감지됨");
         }

@@ -821,6 +821,8 @@ GameObject:
   - component: {fileID: 1729357942}
   - component: {fileID: 1729357939}
   - component: {fileID: 1729357941}
+  - component: {fileID: 1729357944}
+  - component: {fileID: 1729357945}
   - component: {fileID: 1729357940}
   - component: {fileID: 1729357943}
   m_Layer: 8
@@ -854,11 +856,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c794933bc1596ea4a83776814cac7566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShopScene: 1
+  ShowTopMostFoldoutHeaderGroup: 1
+  mapRpc: {fileID: 1729357945}
   mapSpawnGrid: {fileID: 1729357939}
   mapPrefabList: {fileID: 11400000, guid: 8b72d6c4258f0c84a9ddf95304004c1a, type: 2}
   mapCount: 4
   stageNum: 1
+  isShopScene: 1
 --- !u!114 &1729357941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,6 +917,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Stage2
+--- !u!114 &1729357944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729357938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2870428954
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &1729357945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729357938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c174375793d4d1b4f906cfdff3655f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  mapRandomSpawner: {fileID: 1729357940}
 --- !u!224 &68217407669736501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2740,8 +2783,8 @@ MonoBehaviour:
   _itemPrefab: {fileID: 3175133025054244218, guid: faa69afa24d668b49983f3b26da657ac, type: 3}
   inventory: {fileID: 7095459555409466160}
   _itemSprites: []
-  _itemCreatePos: {fileID: 524082798}
   _canvasPos: {fileID: 1286655058}
+  _itemCreatePos: {fileID: 524082798}
 --- !u!61 &2403944901980051199
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3545,7 +3588,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -870}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3552931135567814429
 MonoBehaviour:
@@ -4138,7 +4181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4378085826993073600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5176,10 +5219,10 @@ RectTransform:
   - {fileID: 7344110317361947860}
   m_Father: {fileID: 4340247181699090307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -110}
-  m_SizeDelta: {x: 1380, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6945635136959158317
 MonoBehaviour:
@@ -6634,10 +6677,10 @@ RectTransform:
   - {fileID: 6661959756114036689}
   m_Father: {fileID: 4340247181699090307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 1380, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8775716779015662988
 BoxCollider2D:

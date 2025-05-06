@@ -29,6 +29,12 @@ public class MapData : MonoBehaviour
     public string tpRightID;
     public bool isTpRightSeted = false;
 
+    public Vector2Int gridPos;
+
+    public void SetGridPosition(Vector2Int pos)
+    {
+        gridPos = pos;
+    }
 
     public void RefreshMapId()
     {

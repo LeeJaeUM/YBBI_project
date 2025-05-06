@@ -11745,9 +11745,9 @@ GameObject:
   - component: {fileID: 6365761415330578925}
   - component: {fileID: 6208240918883352930}
   - component: {fileID: 9220634139163117151}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemySpawnPoint
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12541,6 +12541,7 @@ MonoBehaviour:
   tpRight: {fileID: 2557923887165262649}
   tpRightID: 
   isTpRightSeted: 0
+  gridPos: {x: 0, y: 0}
 --- !u!114 &-1697972307548648026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12553,7 +12554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2821707228
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1

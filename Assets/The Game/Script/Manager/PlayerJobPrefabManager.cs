@@ -8,6 +8,7 @@ public class PlayerJobPrefabManager : NetworkBehaviour
     [SerializeField] private GameObject mapGrid;
     private static bool hasSpawnedPlayers = false;
 
+
     private Vector3 _pos;
 
     private void Awake()
