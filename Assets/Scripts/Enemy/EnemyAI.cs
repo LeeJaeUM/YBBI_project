@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     public float _chaseExitDistance = 4;    //chase에서 patrol로 돌아가는 거리
     public float _attackRange = 2;
     [Header("Attack")]
-    [SerializeField] private Enums.ATKPatern _curATKPatern;
+    [SerializeField] protected Enums.ATKPatern _curATKPatern;
     [SerializeField] private bool _isAttacking = false;      //현재 공격중인지 판단하는 변수
     [SerializeField] private bool _isAttackFinished = false;        //공격 가능한지 판단하는 변수
 
@@ -35,10 +35,10 @@ public class EnemyAI : MonoBehaviour
     public Rigidbody2D Rigid { get; private set; }
 
     public FindTargetPoint _findTargetPoint;  // FindTargetPoint를 참조
-    private PatrolPoint _patrolPoint;
-    private EnemyATKStats _enemyATKStats;
-    private EnemyAnimator _enemyAniamtor;
-    private EnemyHealth _enemyHealth;
+    protected PatrolPoint _patrolPoint;
+    protected EnemyATKStats _enemyATKStats;
+    protected EnemyAnimator _enemyAniamtor;
+    protected EnemyHealth _enemyHealth;
     public SpriteRenderer _spriteRenderer;
 
     public virtual void Initialize()
@@ -91,7 +91,7 @@ public class EnemyAI : MonoBehaviour
         _currentState.Enter(this);
     }
 
-    public void EnemyMove(Vector2 direction)
+    public virtual void EnemyMove(Vector2 direction)
     {
         transform.Translate(direction * _speed * Time.deltaTime);
         SetFlipX(direction.x < 0);
@@ -105,14 +105,14 @@ public class EnemyAI : MonoBehaviour
     /// true면 반전    false면 원래대로
     /// </summary>
     /// <param name="isFlip"></param>
-    public void SetFlipX(bool isFlip)
+    public virtual void SetFlipX(bool isFlip)
     {
         if(_spriteRenderer.flipX == isFlip) return; //스프라이트 반전이 필요없으면 리턴
 
         _spriteRenderer.flipX = isFlip; //스프라이트 반전
     }
 
-    public void StartAttack()
+    public virtual void StartAttack()
     {
         Vector3 direction = _findTargetPoint.GetTargetDirection();
 
@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
         _enemyATKStats.Attack(direction);
     }
 
-    public void SetRandomAttackPatern()
+    public virtual void SetRandomAttackPatern()
     {
         int randomIndex = Random.Range(0, _maxPaternNumber);  // 1 ~ max-1 랜덤 값0
 #if UNITY_EDITOR
@@ -224,29 +224,29 @@ public class EnemyAI : MonoBehaviour
 
     #region Unity Built-in Fuction
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Initialize();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         ChangeState(EnemyStateType.Idle); // 기본 상태
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         // _enemyATKStats.OnFinishedAttack -= (value) => _IsAttackFinished = value;
         _enemyATKStats.OnFinishedAttack -= SetAttackFinished;
         _enemyATKStats.OnMoveSkill -= StartRandomMove; //이동 스킬
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         StartPatrolPoint = _patrolPoint.GetStartPonint();
         EndPatrolPoint = _patrolPoint.GetEndPonint();
 
     }
-    void Update()
+    protected virtual void Update()
     {
         _currentState?.Execute(this);
     }
