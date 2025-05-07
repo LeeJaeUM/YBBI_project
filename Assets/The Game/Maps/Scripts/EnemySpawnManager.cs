@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class EnemySpawnManager : MonoBehaviour
@@ -21,8 +23,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     private Dictionary<Vector3Int, bool> EnemySpawnTileStatus = new();
     private Dictionary<GameObject, Action> EnemyDeathHandlers = new();
+
+
     public void RequestEnterFight()
     {
+        if (!NetworkManager.Singleton.IsServer) return;
+
         if(!isSpawnActivedOnce)
         {
             if (mapData.roomType == Enums.RoomType.Enemy && enemySpawnTileMap != null)
@@ -43,22 +49,6 @@ public class EnemySpawnManager : MonoBehaviour
             }
         }
     }
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (mapData == null)
-            {
-                Debug.LogWarning("[EnemySpawnManager] mapData가 null입니다. 아직 초기화되지 않음.");
-                return;
-            }
-            RequestEnterFight();
-            Debug.Log("전투방 감지됨");
-        }
-    }
-
     private void EnteredBossRoom()
     {
         BoundsInt bounds = enemySpawnTileMap.cellBounds;
@@ -75,6 +65,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Vector3 spawnPos = enemySpawnTileMap.CellToWorld(tilePos);
 
                 GameObject enemyInstance = Instantiate(EnemyPrefabSelect(Enums.EnemeyValue.Boss), spawnPos, Quaternion.identity, transform);
+                //enemyInstance.GetComponent<NetworkObject>().Spawn();
                 spawnedEnemyList.Add(enemyInstance);
                 EnemySpawnTileStatus[tilePos] = true; // 스폰됨 표시
 
@@ -116,6 +107,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Vector3 spawnPos = enemySpawnTileMap.CellToWorld(tilePos);
 
                 GameObject enemyInstance = Instantiate(EnemyPrefabSelect(Enums.EnemeyValue.NomalEnemy1), spawnPos, Quaternion.identity, transform);
+                //enemyInstance.GetComponent<NetworkObject>().Spawn();
                 spawnedEnemyList.Add(enemyInstance);
                 EnemySpawnTileStatus[tilePos] = true; // 스폰됨 표시
 

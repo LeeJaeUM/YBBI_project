@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:editor="UnityEditor.UIElements" xmlns:engine="UnityEngine.UIElements" xmlns="Unity.Services.Deployment.Editor.Interface.UI.Views" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:appui="Unity.AppUI.UI" xmlns:editor="UnityEditor.UIElements" xmlns:nav="Unity.AppUI.Navigation" xmlns:engine="UnityEngine.UIElements" xmlns="Unity.Services.Deployment.Editor.Interface.UI.Views" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="UnityEngine.UIElements.xsd" namespace="UnityEngine.UIElements" />
-  <xs:import schemaLocation="UnityEditor.ShaderGraph.Drawing.xsd" namespace="UnityEditor.ShaderGraph.Drawing" />
   <xs:include schemaLocation="GlobalNamespace.xsd" />
+  <xs:import schemaLocation="UnityEditor.ShaderGraph.Drawing.xsd" namespace="UnityEditor.ShaderGraph.Drawing" />
   <xs:import schemaLocation="Unity.Services.Multiplayer.Editor.Shared.UI.DeploymentConfigInspectorFooter.xsd" namespace="Unity.Services.Multiplayer.Editor.Shared.UI.DeploymentConfigInspectorFooter" />
   <xs:import schemaLocation="Unity.Services.Core.Editor.Environments.UI.xsd" namespace="Unity.Services.Core.Editor.Environments.UI" />
   <xs:import schemaLocation="UnityEditor.Rendering.xsd" namespace="UnityEditor.Rendering" />
@@ -10,6 +10,11 @@
   <xs:import schemaLocation="Unity.Multiplayer.Tools.NetworkProfiler.Editor.xsd" namespace="Unity.Multiplayer.Tools.NetworkProfiler.Editor" />
   <xs:import schemaLocation="Unity.Multiplayer.Tools.NetVis.Editor.UI.xsd" namespace="Unity.Multiplayer.Tools.NetVis.Editor.UI" />
   <xs:import schemaLocation="Unity.Multiplayer.Playmode.WorkflowUI.Editor.xsd" namespace="Unity.Multiplayer.Playmode.WorkflowUI.Editor" />
+  <xs:import schemaLocation="Unity.Behavior.GraphFramework.xsd" namespace="Unity.Behavior.GraphFramework" />
+  <xs:import schemaLocation="UnityEngine.UIExtras.xsd" namespace="UnityEngine.UIExtras" />
+  <xs:import schemaLocation="Unity.Behavior.xsd" namespace="Unity.Behavior" />
+  <xs:import schemaLocation="Unity.AppUI.Navigation.xsd" namespace="Unity.AppUI.Navigation" />
+  <xs:import schemaLocation="Unity.AppUI.UI.xsd" namespace="Unity.AppUI.UI" />
   <xs:import schemaLocation="UnityEditor.Tilemaps.xsd" namespace="UnityEditor.Tilemaps" />
   <xs:import schemaLocation="UnityEditor.Tilemaps.External.xsd" namespace="UnityEditor.Tilemaps.External" />
   <xs:import schemaLocation="UnityEditor.U2D.Sprites.SpriteEditorTool.xsd" namespace="UnityEditor.U2D.Sprites.SpriteEditorTool" />

@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -35,7 +36,7 @@ public class MapRandomSpawner : NetworkBehaviour
         Vector2Int center = GetMapListGridCenter();
         MapData startRoom = GetRandomRoom(Enums.RoomType.Start);
 
-        GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
+        GameObject startObj = Instantiate(startRoom.gameObject, GridToWorld(center), Quaternion.identity);
         Debug.Log($"[HOST] {startObj.name} 생성됨, 위치: {startObj.transform.position}");
         MapData startData = startObj.GetComponent<MapData>();
         startData.SetGridPosition(center);
@@ -61,14 +62,22 @@ public class MapRandomSpawner : NetworkBehaviour
                 if (_mapGrid[nextPos.x, nextPos.y] != null) continue;
                 if (FormsSquare(nextPos)) continue;
 
+
+
                 MapData newRoom = GetRandomCompatibleRoom(Enums.RoomType.Normal, dir, currentRoom);
                 if (newRoom == null) continue;
 
-                GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity, mapSpawnGrid.transform);
+                GameObject newObj = Instantiate(newRoom.gameObject, GridToWorld(nextPos), Quaternion.identity);
                 Debug.Log($"[HOST] {newObj.name} 생성됨, 위치: {newObj.transform.position}");
                 MapData newData = newObj.GetComponent<MapData>();
                 newData.SetGridPosition(nextPos);
                 newObj.GetComponent<NetworkObject>().Spawn();
+                if (newData.roomType == Enums.RoomType.Enemy)
+                {
+                    EnemySpawnManager enemySpawnManager = newObj.GetComponentInChildren<EnemySpawnManager>();
+                    enemySpawnManager.SetUpEnemySpawnManager();
+                }
+
                 _mapGrid[nextPos.x, nextPos.y] = newData;
 
                 frontier.Enqueue(nextPos);
@@ -96,10 +105,14 @@ public class MapRandomSpawner : NetworkBehaviour
                     MapData bossRoom = GetRandomCompatibleRoom(Enums.RoomType.Boss, dir, _mapGrid[x, y]);
                     if (bossRoom != null)
                     {
-                        GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity, mapSpawnGrid.transform);
+                        GameObject bossObj = Instantiate(bossRoom.gameObject, GridToWorld(bossPos), Quaternion.identity);
                         Debug.Log($"[HOST] {bossObj.name} 생성됨, 위치: {bossObj.transform.position}");
                         MapData bossData = bossObj.GetComponent<MapData>();
                         bossData.SetGridPosition(bossPos);
+
+                        EnemySpawnManager enemySpawnManager = bossObj.GetComponentInChildren<EnemySpawnManager>();
+                        enemySpawnManager.SetUpEnemySpawnManager();
+
                         bossObj.GetComponent<NetworkObject>().Spawn();
                         _mapGrid[bossPos.x, bossPos.y] = bossData;
                         return;
@@ -109,14 +122,14 @@ public class MapRandomSpawner : NetworkBehaviour
         }
     }
 
-    public void RequestShopMapSpawn()
+    public void RequestShopMapSpawn(MapData[,] mapGrid)
     {
         Vector2Int center = GetMapListGridCenter();
         MapData ShopRoom = GetRandomRoom(Enums.RoomType.Shop);
 
         GameObject shopRoom = Instantiate(ShopRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
         MapData shopRoomData = shopRoom.GetComponent<MapData>();
-        _mapGrid[center.x, center.y] = shopRoomData;
+        mapGrid[center.x, center.y] = shopRoomData;
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
         frontier.Enqueue(center);
@@ -211,7 +224,7 @@ public class MapRandomSpawner : NetworkBehaviour
     #endregion
 
     #region 텔레포트 연결 로직
-    public void AssignTeleportIDs()
+    public void AssignTeleportIDs(MapData[,] mapGrid)
     {
         int idCounter = 0;
         MapData BossRoom;
@@ -221,7 +234,7 @@ public class MapRandomSpawner : NetworkBehaviour
         {
             for (int x = 0; x < MAP_SIZE; x++)
             {
-                var currentRoom = _mapGrid[x, y];
+                var currentRoom = mapGrid[x, y];
                 if (currentRoom == null) continue;
                 Vector2Int currentPos = new Vector2Int(x, y);
 
@@ -230,8 +243,10 @@ public class MapRandomSpawner : NetworkBehaviour
                     Vector2Int neighborPos = currentPos + dir;
                     if (!IsValidPos(neighborPos)) continue;
 
-                    var neighborRoom = _mapGrid[neighborPos.x, neighborPos.y];
+                    var neighborRoom = mapGrid[neighborPos.x, neighborPos.y];
                     if (neighborRoom == null) continue;
+
+                    if (currentRoom.roomType == Enums.RoomType.NONE || neighborRoom.roomType == Enums.RoomType.NONE) continue;
 
                     string tpID = $"TP_{stageNum}_{idCounter}";
 
@@ -363,26 +378,26 @@ public class MapRandomSpawner : NetworkBehaviour
             map.isTpRightSeted = false;
         }
     }
-    public void RefreshInspectorForTPID()
+    public void RefreshInspectorForTPID(MapData[,] mapGrid)
     {
         for (int y = 0; y < MAP_SIZE; y++)
         {
             for (int x = 0; x < MAP_SIZE; x++)
             {
-                var room = _mapGrid[x, y];
+                var room = mapGrid[x, y];
                 if (room == null) continue;
 
                 room.RefreshMapId();
             }
         }
     }
-    public void DisableUnusedTeleporters()
+    public void DisableUnusedTeleporters(MapData[,] mapGrid)
     {
         for (int y = 0; y < MAP_SIZE; y++)
         {
             for (int x = 0; x < MAP_SIZE; x++)
             {
-                var room = _mapGrid[x, y];
+                var room = mapGrid[x, y];
                 if (room == null) continue;
 
                 if (!room.isTpUpSeted && room.tpUp != null)
@@ -502,6 +517,11 @@ public class MapRandomSpawner : NetworkBehaviour
         return _mapGrid;
     }
 
+    public void SetMapGrid(MapData[,] newMapData)
+    {
+        _mapGrid = newMapData;
+    }
+
     #region 시작
 
     private void Start()
@@ -514,19 +534,19 @@ public class MapRandomSpawner : NetworkBehaviour
         {
             Debug.Log("서버측 일반맵 스폰 실행");
             ReqestMapSpawn();
-            AssignTeleportIDs();
-            RefreshInspectorForTPID();
-            DisableUnusedTeleporters();
+            AssignTeleportIDs(_mapGrid);
+            RefreshInspectorForTPID(_mapGrid);
+            DisableUnusedTeleporters(_mapGrid);
 
-            EnemySpawnManager[] enemySpawnManagers = GetComponentsInChildren<EnemySpawnManager>();
+/*            EnemySpawnManager[] enemySpawnManagers = GetComponentsInChildren<EnemySpawnManager>();
             foreach (var enemySpawnManager in enemySpawnManagers)
             {
                 enemySpawnManager.SetUpEnemySpawnManager();
-            }
+            }*/
         }
         else
         {
-            RequestShopMapSpawn();
+            RequestShopMapSpawn(_mapGrid);
         }
 
         NotifyPlayerWallUpdate();

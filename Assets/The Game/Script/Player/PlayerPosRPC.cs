@@ -10,6 +10,7 @@ public class PlayerPosRPC : NetworkBehaviour
     //private ulong _playerId;
     private TheGamePlayerMover _player;
     private bool isTP = false;
+    [SerializeField] private float tpCooldown = 2f; // 쿨타임 지속 시간 (초)
 
     //private TextPopup _textPopup;
     private void Start()
@@ -56,7 +57,7 @@ public class PlayerPosRPC : NetworkBehaviour
     private IEnumerator TeleportCooldown()
     {
         isTP = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(tpCooldown);
         isTP = false;
     }
 

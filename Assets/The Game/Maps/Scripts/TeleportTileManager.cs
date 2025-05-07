@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-public class TeleportTileManager : MonoBehaviour
+public class TeleportTileManager : NetworkBehaviour
 {
     public string teleportID; // 텔레포트 ID
 
@@ -13,13 +14,15 @@ public class TeleportTileManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-
         if (teleportID == null) return;
 
 
         PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
-        if (posRpc == null || posRpc.IsTeleporting()) // 중복 방지
-            return;
+        if (posRpc == null || posRpc.IsTeleporting()) return;// 중복 방지
+
+
+        var playerNetObj = collision.GetComponent<NetworkObject>();
+        if (playerNetObj == null || !playerNetObj.IsOwner) return;
 
         // 모든 TeleportManager 찾기
         TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>(true);
@@ -40,8 +43,17 @@ public class TeleportTileManager : MonoBehaviour
                 if (!targetTilemap.HasTile(pos)) continue;
 
                 Vector3 teleportPosition = targetTilemap.GetCellCenterWorld(pos);
-                posRpc.TeleportRequest(teleportPosition);
+                
                 Debug.Log($"[텔레포트] {teleportID} → {teleportPosition}");
+
+                MapData targetData = targetTilemap.GetComponentInParent<MapData>();
+                if(targetData.roomType == Enums.RoomType.Enemy || targetData.roomType == Enums.RoomType.Boss)
+                {
+                    EnemySpawnManager enemySpawnManager = targetData.GetComponentInChildren<EnemySpawnManager>();
+                    enemySpawnManager.RequestEnterFight();
+                }
+
+                posRpc.TeleportRequest(teleportPosition);
                 return;
             }
         }

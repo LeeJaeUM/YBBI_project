@@ -7,10 +7,13 @@ using UnityEngine.InputSystem;
 
 public class TestKillAllEnemy : TestBase
 {
-    [Header("맵그리드(mapGrid)")]
+    [Header("맵그리드(mapGridObj)")]
     [SerializeField] GameObject mapGrid;
 
+
     private MapData mapData;
+
+
     public override void Test1(InputAction.CallbackContext context)
     {
         EnemySpawnManager[] enemySpawnManagers = mapGrid.GetComponentsInChildren<EnemySpawnManager>();

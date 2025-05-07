@@ -477,8 +477,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6292261152651439379}
   m_HandleRect: {fileID: 4107303613732262660}
   m_Direction: 2
-  m_Value: -0.0000035903033
-  m_Size: 0.9433211
+  m_Value: 0
+  m_Size: 0.9433333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000027418137, y: 17.000063}
+  m_AnchoredPosition: {x: -0.0000027418137, y: 17.00001}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2196090241216044271
@@ -1581,7 +1581,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5601850943992888573, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
       propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5601850943992888573, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
       propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[1]'
@@ -1591,6 +1591,10 @@ PrefabInstance:
       propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 368866af3563e9e4ebbac93ebadee2d3, type: 2}
+    - target: {fileID: 5601850943992888573, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
+      propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cfeb0375ee230b347a011d017bab48ef, type: 2}
     - target: {fileID: 6948600434356522569, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1817,7 +1821,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3323981382419378088}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
