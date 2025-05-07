@@ -3559,7 +3559,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 12
-      m_TileSpriteIndex: 12
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4899,7 +4899,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 10
-      m_TileSpriteIndex: 10
+      m_TileSpriteIndex: 12
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6516,14 +6516,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 11
     m_Data: {fileID: 993888889, guid: 957b13e3c5363ff4cbccc210496fff1f, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 2001828348, guid: 957b13e3c5363ff4cbccc210496fff1f, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1572465221, guid: a1bde2afc69e5244abb210e2eb420a00, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 7
     m_Data: {fileID: 100710424, guid: 957b13e3c5363ff4cbccc210496fff1f, type: 3}
   - m_RefCount: 7
@@ -8960,7 +8960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
+  mapOBJ: {fileID: 0}
 --- !u!1 &7173060622465861276
 GameObject:
   m_ObjectHideFlags: 0
@@ -9353,7 +9353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
+  mapOBJ: {fileID: 0}
 --- !u!1 &7888050004918123724
 GameObject:
   m_ObjectHideFlags: 0
@@ -9746,7 +9746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
+  mapOBJ: {fileID: 0}
 --- !u!1 &8902288767891610223
 GameObject:
   m_ObjectHideFlags: 0
@@ -9874,12 +9874,17 @@ MonoBehaviour:
   canConnectRight: 1
   tpUp: {fileID: 9163836659113377650}
   tpUpID: 
+  isTpUpSeted: 0
   tpDown: {fileID: 7888050004918123724}
   tpDownID: 
+  isTpDownSeted: 0
   tpLeft: {fileID: 7173060622465861276}
   tpLeftID: 
+  isTpLeftSeted: 0
   tpRight: {fileID: 5421734701081321862}
   tpRightID: 
+  isTpRightSeted: 0
+  gridPos: {x: 0, y: 0}
 --- !u!1 &9163836659113377650
 GameObject:
   m_ObjectHideFlags: 0
@@ -10272,4 +10277,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportID: 
-  isTp: 0
+  mapOBJ: {fileID: 0}
