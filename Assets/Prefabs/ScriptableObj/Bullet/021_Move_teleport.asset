@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647969794a4709b44a8e955227141558, type: 3}
   m_Name: 021_Move_teleport
   m_EditorClassIdentifier: 
-  _ID: 0
+  _ID: 21
   _name: 
   _icon: {fileID: 0}
   _sprite: {fileID: 0}

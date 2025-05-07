@@ -17,9 +17,9 @@ public class RPC_EnemyAI : EnemyAI
             randomIndex = TEST_skillNum; //에디터에서만 사용
         }
 #endif
+        Debug.Log($"{randomIndex}");
         _curATKPatern = (ATKPatern)randomIndex;
-        _enemyATKStats.SetPaaternNum(randomIndex);
-
+        _enemyATKStats.SetPatternNum(randomIndex);
     }
     public override void StartAttack()
     {
@@ -33,16 +33,12 @@ public class RPC_EnemyAI : EnemyAI
         _enemyATKStats.Attack(direction);
     }
 
-    public override void EnemyMove(Vector2 direction)
-    {
-        transform.Translate(direction * _speed * Time.deltaTime);
-        SetFlipX(direction.x < 0);
-    }
     public override void SetFlipX(bool isFlip)
     {
         if (_spriteRenderer.flipX == isFlip) return; //스프라이트 반전이 필요없으면 리턴
 
         _spriteRenderer.flipX = isFlip; //스프라이트 반전
+        _enemyNetworkController.SetFlipX(isFlip); //스프라이트 반전
     }
 
     #region Unity Built-in Fuction  

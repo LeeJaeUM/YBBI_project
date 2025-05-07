@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private bool _isAttacking = false;      //현재 공격중인지 판단하는 변수
     [SerializeField] private bool _isAttackFinished = false;        //공격 가능한지 판단하는 변수
 
-    public int _maxPaternNumber = 2;        //실제 패턴 개수 (인덱스 +1 과 같음)
+    public int _maxPaternNumber = 1;        //실제 패턴 개수 (인덱스 +1 과 같음)
     private float _maxAir = 10000;
     private bool _returnPhase = false;
 
@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
         }
 #endif
         _curATKPatern = (ATKPatern)randomIndex;
-        _enemyATKStats.SetPaaternNum(randomIndex);
+        _enemyATKStats.SetPatternNum(randomIndex);
     }
 
     private void PhaseChange(bool isReturnNormal)

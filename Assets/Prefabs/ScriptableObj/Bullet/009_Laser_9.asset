@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647969794a4709b44a8e955227141558, type: 3}
   m_Name: 009_Laser_9
   m_EditorClassIdentifier: 
-  _ID: 0
+  _ID: 9
   _name: 
   _icon: {fileID: 0}
   _sprite: {fileID: 0}

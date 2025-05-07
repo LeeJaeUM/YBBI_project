@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skills/Skill")]
 public class SkillData : ScriptableObject
 {
-    public uint _ID;               // 고유번호 (000~999)
+    public int _ID;               // 고유번호 (000~999)
     public string _name;           // 사용자에게 표시될 스킬 이름
     public Sprite _icon;           // 스킬 버튼 아이콘 (스프라이트)
     public Sprite _sprite;         // 스킬 이미지/이펙트 (스프라이트)

@@ -26,7 +26,10 @@ public class EnemyATKStats : MonoBehaviour
     public EnemyBulletSpawner _bulletSpawner;
     private EnemyAnimator _enemyAnimator;
 
-    public void SetPaaternNum(int num)
+    public bool useRPC = false; //RPC 사용 여부
+    public RPC_EnemyBulletSpawner _rpcBulletSpawner; //RPC 사용시 사용
+
+    public void SetPatternNum(int num)
     {
         _curPattern = _patterns[num];
     }
@@ -63,9 +66,18 @@ public class EnemyATKStats : MonoBehaviour
 
     private void CreateBullet(SkillData skillData, Vector3 direction)
     {
-        _bulletSpawner.SpawnBulletSpread(
-            skillData, _curAttackDamage,
-            transform.position, direction);
+        if(!useRPC) //RPC 사용하지 않을 경우
+        {
+            _bulletSpawner.SpawnBulletSpread(
+                skillData, _curAttackDamage,
+                transform.position, direction);
+        }
+        else //RPC 사용시
+        {
+            _rpcBulletSpawner.SpawnBulletSpread(
+                skillData, _curAttackDamage,
+                transform.position, direction);
+        }
     }
 
 
@@ -101,8 +113,10 @@ public class EnemyATKStats : MonoBehaviour
 
     private void Awake()
     {
+        _patterns = phasePatterns[0].patterns; //초기 패턴 설정
         _bulletSpawner = GetComponentInChildren<EnemyBulletSpawner>();
         _enemyAnimator = GetComponentInChildren<EnemyAnimator>();
+        _rpcBulletSpawner = GetComponentInChildren<RPC_EnemyBulletSpawner>();
         if (_bulletSpawner == null)
         {
             Debug.LogError("EnemyBulletSpawner 컴포넌트를 찾을 수 없습니다.");
