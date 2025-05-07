@@ -20,7 +20,7 @@ public class Test_10_BulletTypeTEst : TestBase
         float radius = skillData._radius;
         float activeTime = skillData._activeTime;
         float speed = skillData._moveSpeed;
-        bullet.SetData(damage, radius, skillData._width, skillData._length, activeTime, speed, skillData._bulletType);
+        bullet.SetData(true, damage, radius, skillData._width, skillData._length, activeTime, speed, skillData._bulletType);
     }
 }
 

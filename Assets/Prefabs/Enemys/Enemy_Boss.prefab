@@ -668,11 +668,11 @@ GameObject:
   - component: {fileID: 2419056879152092430}
   - component: {fileID: 2237793377330540078}
   - component: {fileID: 6348788167521314843}
-  - component: {fileID: 1821350047498633839}
   - component: {fileID: 7187069565467687596}
   - component: {fileID: 5022433501114067211}
   - component: {fileID: 5373806043133408891}
   - component: {fileID: 4294736731848043140}
+  - component: {fileID: 4666912812108787390}
   m_Layer: 0
   m_Name: Enemy_Boss
   m_TagString: Enemy
@@ -765,30 +765,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1821350047498633839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6304952641858771852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdea4e0a60c995b4bab63cbadc6dd356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TEST_isPatternSet: 1
-  TEST_patternNum: 1
-  _currentStateType: 0
-  _speed: 0
-  _chaseExitDistance: 15
-  _attackRange: 15
-  _curATKPatern: 0
-  _isAttacking: 0
-  _isAttackFinished: 0
-  _maxPaternNumber: 2
-  _phaseChangeAir: 0
-  _findTargetPoint: {fileID: 0}
 --- !u!114 &7187069565467687596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,6 +808,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!114 &5373806043133408891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +843,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+--- !u!114 &4666912812108787390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304952641858771852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdea4e0a60c995b4bab63cbadc6dd356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TEST_isSkillSet: 0
+  TEST_skillNum: 0
+  hasOtherPhase: 0
+  _currentStateType: 0
+  _speed: 0
+  _chaseExitDistance: 15
+  _attackRange: 15
+  _curATKPatern: 0
+  _isAttacking: 0
+  _isAttackFinished: 0
+  _maxPaternNumber: 1
+  _phaseChangeAir: 0
+  _findTargetPoint: {fileID: 0}
   _spriteRenderer: {fileID: 0}
 --- !u!1 &6339707669407307128
 GameObject:

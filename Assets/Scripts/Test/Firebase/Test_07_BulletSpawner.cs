@@ -14,7 +14,7 @@ public class Test_07_BulletSpawner : TestBase
     public LaserWarningVisualizer _laserWarningVisualizer ;
     public override void Test1(InputAction.CallbackContext context)
     {
-        _enemyBulletSpawner.SpawnBulletSpread(skillData, curAttackDamage, transform.position, _direction);   
+        //_enemyBulletSpawner.SpawnBulletSpread(false, skillData, curAttackDamage, transform.position, _direction);   
     }
 
     public override void Test2(InputAction.CallbackContext context)

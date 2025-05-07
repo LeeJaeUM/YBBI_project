@@ -93,8 +93,9 @@ public class Bullet : MonoBehaviour
     /// <param name="radius">공격범위</param>
     /// <param name="activeTime">활성시간</param>
     /// <param name="isMove">움직임 여부</param>
-    public void SetData(float damage, float radius, float width, float length, float activeTime, float moveSpeed, Enums.BulletType bulletType = Enums.BulletType.Normal)
+    public void SetData(bool isPlayer,float damage, float radius, float width, float length, float activeTime, float moveSpeed, Enums.BulletType bulletType = Enums.BulletType.Normal)
     {
+        _isPlayers = isPlayer; //사용자가 플레이어인지 적인지 설정
         ResetBulletSize();
         _damage = damage;
         transform.localScale = Vector3.one * radius;

@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class EnemyBulletSpawner : MonoBehaviour
 {
-    public GameObject _bulletPrefab; // 총알 프리팹
-
     public void SpawnSingleBullet(
+        bool isPlayer,
         SkillData skillData,
         float curAttackDamage,
         Vector3 spawnPosition,
@@ -27,11 +26,12 @@ public class EnemyBulletSpawner : MonoBehaviour
             float speed = skillData._moveSpeed;
             // Sprite sprite = skillData._skillSprite; // 나중에 추가 가능
             Debug.Log($"총알 위치 싱글싱글 {spawnPosition}");
-            bullet.SetData(damage, radius, skillData._width, skillData._length , activeTime, speed, skillData._bulletType);
+            bullet.SetData(isPlayer, damage, radius, skillData._width, skillData._length , activeTime, speed, skillData._bulletType);
         }
     }
 
     public void SpawnBulletSpread(
+        bool isPlayer,
         SkillData skillData,   float curAttackDamage,
         Vector3 spawnPosition, Vector3 baseDirection)
     {
@@ -45,7 +45,7 @@ public class EnemyBulletSpawner : MonoBehaviour
 
             Debug.Log($"총알 위치 {spawnPosition}");
 
-            SpawnSingleBullet(skillData, curAttackDamage, spawnPosition, rotatedDirection);
+            SpawnSingleBullet(isPlayer, skillData, curAttackDamage, spawnPosition, rotatedDirection);
         }
     }
 

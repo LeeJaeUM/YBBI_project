@@ -14,7 +14,6 @@ public class BulletAnimator : MonoBehaviour
 
     public void SetAnimator(Enums.BulletType type)
     {
-            Debug.LogError($"Animator type is {type}");
         if (type == BulletType.NONE)
         {
             return;

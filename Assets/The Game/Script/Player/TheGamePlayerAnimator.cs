@@ -33,12 +33,59 @@ public class TheGamePlayerAnimator : NetworkBehaviour
     /// </summary>
     public bool IsInteracting => _isInteracting.Value;
 
-    private void Awake()
+
+    /// <summary>
+    /// 이동 입력 방향에 따라 이동 애니메이션 및 스프라이트 방향 처리
+    /// </summary>
+    /// <param name="moveDir">이동 방향 벡터</param>
+    public void UpdateMoveVisual(Vector2 moveDir)
     {
-        _animator = GetComponent<Animator>();
-        _networkAnimator = GetComponent<NetworkAnimator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (!IsOwner) return;
+
+        // 스프라이트 방향 반전
+        if (moveDir.x < 0)
+            RequestSetFlipX(true);
+        else if (moveDir.x > 0)
+            RequestSetFlipX(false);
+
+        // 이동 여부를 서버에 알림
+        _isMoving.Value = moveDir != Vector2.zero;
     }
+    public void RequestSetFlipX(bool isFlip)
+    {
+        if (_spriteRenderer.flipX == isFlip) return; //스프라이트 반전이 필요없으면 리턴
+
+        if (IsServer)
+        {
+            SetFlipXInServer(isFlip);
+        }
+        else
+        {
+            RequestSetFlipXServerRpc(isFlip); //서버로 스프라이트 반전요청
+        }
+
+    }
+    public void SetFlipX(bool isFlip)
+    {
+        _spriteRenderer.flipX = isFlip; //스프라이트 반전
+    }
+    [ServerRpc]
+    public void RequestSetFlipXServerRpc(bool isFlip)
+    {
+        SetFlipXInServer(isFlip); //서버로 스프라이트 반전요청
+    }
+
+    public void SetFlipXInServer(bool isFlip)
+    {
+        SetFlipX(isFlip); //서버에서 스프라이트 반전
+        RequestSetFlipXClientRpc(isFlip); //클라이언트에게 스프라이트 반전 명령
+    }
+    [ClientRpc]
+    public void RequestSetFlipXClientRpc(bool isFlip)
+    {
+        SetFlipX(isFlip); //스프라이트 반전
+    }
+
 
     /// <summary>
     /// NetworkVariable의 값 변경 리스너 등록
@@ -74,23 +121,7 @@ public class TheGamePlayerAnimator : NetworkBehaviour
         _animator.SetBool(IsInteractingParam, current);
     }
 
-    /// <summary>
-    /// 이동 입력 방향에 따라 이동 애니메이션 및 스프라이트 방향 처리
-    /// </summary>
-    /// <param name="moveDir">이동 방향 벡터</param>
-    public void UpdateMoveVisual(Vector2 moveDir)
-    {
-        if (!IsOwner) return;
 
-        // 스프라이트 방향 반전
-        if (moveDir.x < 0)
-            _spriteRenderer.flipX = true;
-        else if (moveDir.x > 0)
-            _spriteRenderer.flipX = false;
-
-        // 이동 여부를 서버에 알림
-        _isMoving.Value = moveDir != Vector2.zero;
-    }
 
     /// <summary>
     /// 공격 애니메이션 재생 및 상호작용 상태 설정
@@ -148,5 +179,11 @@ public class TheGamePlayerAnimator : NetworkBehaviour
         {
             SetInteractingServerRpc(false);
         }
+    }
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _networkAnimator = GetComponent<NetworkAnimator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 }

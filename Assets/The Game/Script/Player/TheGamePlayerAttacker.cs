@@ -19,6 +19,9 @@ public class TheGamePlayerAttacker : NetworkBehaviour
     private Vector2 _inputVec = Vector2.zero;       //이동방향 : 적이 없을 시 공격할 때 사용
     private TheGamePlayerAnimator _playerAnimator;
 
+    public bool useRPC = true; //RPC 사용 여부
+    public RPC_BulletSpawner _rpcBulletSpawner; //RPC 사용시 사용
+
     #region Custom Functions 
 
     /// <summary>
@@ -36,8 +39,8 @@ public class TheGamePlayerAttacker : NetworkBehaviour
             //Debug.Log($"스킬 {skillData._name}은 아직 사용 불가!");
             return;
         }
-
-        CreateBullet(skillData);
+        Vector3 direction = _nearestEnemyFinder.GetDirectionToNearestEnemy();
+        CreateBullet(skillData, direction);
     }
 
     /// <summary>
@@ -52,7 +55,8 @@ public class TheGamePlayerAttacker : NetworkBehaviour
             return;
         }
 
-        CreateBullet(skillData);
+        Vector3 direction = _nearestEnemyFinder.GetDirectionToNearestEnemy();
+        CreateBullet(skillData, direction);
     }
 
     /// <summary>
@@ -100,35 +104,45 @@ public class TheGamePlayerAttacker : NetworkBehaviour
         return value;
     }
 
-    private void CreateBullet(SkillData skillData)
+    //private void CreateBullet(SkillData skillData)
+    //{
+    //    Vector3 direction = _nearestEnemyFinder.GetDirectionToNearestEnemy();
+    //    Debug.Log($"{direction}");
+    //    if (direction == Vector3.zero)
+    //    {
+    //        direction = _inputVec;
+    //        Debug.Log($"{direction}");
+    //    }
+    //    Vector3 spawnPosition = transform.position + direction.normalized * _spawnDistance;
+
+    //    GameObject creteAttack = Instantiate(_bullet, spawnPosition, Quaternion.identity);
+    //    Bullet bullet = creteAttack.GetComponent<Bullet>();
+    //    if (bullet != null)
+    //    {
+    //        bullet.SetArrowVector(direction);
+
+    //        float damage = _curAttackDamage * GetDamageMultiplier(skillData._damageMultiplier);
+    //        float radius = skillData._radius;
+    //        float activeTime = skillData._activeTime;
+    //        float speed = skillData._moveSpeed;
+    //        //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
+    //        //Sprite sprite = skillData._skillSprite;   
+    //        bullet.SetData(true, damage, radius, skillData._width, skillData._length, activeTime, speed);
+
+    //        _playerAnimator.PlayAttackAnimation();  //공격 애니메이션 실행
+    //    }
+    //}
+    private void CreateBullet(SkillData skillData, Vector3 direction)
     {
-        Vector3 direction = _nearestEnemyFinder.GetDirectionToNearestEnemy();
-        Debug.Log($"{direction}");
-        if (direction == Vector3.zero)
+        if (useRPC) //RPC 사용
         {
-            direction = _inputVec;
-            Debug.Log($"{direction}");
+            _rpcBulletSpawner.RequestSpawnBulletSpread(true,
+                skillData, _curAttackDamage,
+                transform.position, direction);
         }
-        Vector3 spawnPosition = transform.position + direction.normalized * _spawnDistance;
 
-        GameObject creteAttack = Instantiate(_bullet, spawnPosition, Quaternion.identity);
-        Bullet bullet = creteAttack.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            bullet.SetArrowVector(direction);
-
-            float damage = _curAttackDamage * GetDamageMultiplier(skillData._damageMultiplier);
-            float radius = skillData._radius;
-            float activeTime = skillData._activeTime;
-            float speed = skillData._moveSpeed;
-            //TODO : 나중에 스킬 스프라이트 추가 후 Bullet에 전달 추가
-            //Sprite sprite = skillData._skillSprite;   
-            bullet.SetData(damage, radius, skillData._width, skillData._length, activeTime, speed);
-
-            _playerAnimator.PlayAttackAnimation();  //공격 애니메이션 실행
-        }
+        _playerAnimator.PlayAttackAnimation();  //공격 애니메이션 실행
     }
-
 
     /// <summary>
     /// 데미지 계산 함수 : 현재는 단순 배율 곱하기
@@ -210,6 +224,7 @@ public class TheGamePlayerAttacker : NetworkBehaviour
         _aTKStats = GetComponent<PlayerATKStats>();                     //GetComponent
         _nearestEnemyFinder = GetComponentInChildren<NearestEnemyFinder>();
         _playerAnimator = GetComponent<TheGamePlayerAnimator>();
+        _rpcBulletSpawner = GetComponent<RPC_BulletSpawner>();
     }
 
 

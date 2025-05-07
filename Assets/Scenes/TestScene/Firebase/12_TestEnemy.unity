@@ -356,7 +356,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  enemyPrefab: {fileID: 3135699754164833068, guid: 9a36ee898f6a23c48a5e75d24f45256b, type: 3}
+  enemyPrefab: {fileID: 8178282432946721580, guid: 23049ad2eae0e6541b4377a39608d75b, type: 3}
   spawnPoint: {fileID: 219895797}
 --- !u!4 &219895797
 Transform:
@@ -3756,6 +3756,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!1 &1174151428377143336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,7 +3912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!224 &1406849874566910727
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4292,7 +4293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!210 &1736160269933522052
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -4346,6 +4346,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!1 &1784333018723636518
 GameObject:
   m_ObjectHideFlags: 0
@@ -5166,6 +5168,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!114 &2567471487924497905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5374,7 +5378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!114 &2878324490261318175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8036,6 +8039,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!4 &5745123202536926550
 Transform:
   m_ObjectHideFlags: 0
@@ -8710,7 +8715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!70 &6435055717152899150
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -8972,6 +8976,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!224 &6584616503837404745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9444,7 +9450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!114 &7159244295851259644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10424,6 +10429,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!1 &8433556691851217935
 GameObject:
   m_ObjectHideFlags: 0
@@ -11158,7 +11165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
 --- !u!222 &9119826098481600496
 CanvasRenderer:
   m_ObjectHideFlags: 0
