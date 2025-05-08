@@ -8,6 +8,14 @@ public class RPC_BulletSpawner : NetworkBehaviour
 
     public SkillData[] _skillDatas; // 스킬 데이터 배열
 
+    /// <summary>
+    /// 각자 자기 자신의 클라에서 총알을 발사하는 메서드
+    /// </summary>
+    /// <param name="isPlayer"></param>
+    /// <param name="skillData"></param>
+    /// <param name="curAttackDamage"></param>
+    /// <param name="spawnPosition"></param>
+    /// <param name="direction"></param>
     public void SpawnSingleBullet(
         bool isPlayer,
         SkillData skillData,
@@ -15,11 +23,8 @@ public class RPC_BulletSpawner : NetworkBehaviour
         Vector3 spawnPosition,
         Vector3 direction)
     {
-        if (!IsServer) return;
-
         Vector3 bulletSpawnPos = spawnPosition + direction.normalized * skillData._spawnDistance;
 
-        // 서버에서만 총알을 생성
         GameObject bulletObj = BulletPool.Instance.GetBullet();
         bulletObj.transform.position = bulletSpawnPos;
         bulletObj.transform.rotation = Quaternion.identity;
@@ -38,6 +43,14 @@ public class RPC_BulletSpawner : NetworkBehaviour
     }
 
 
+    /// <summary>
+    /// 몬스터나 플레이어가 요청하는 총알 발사 메서드. 부른 후 서버인지 클라인지 판단
+    /// </summary>
+    /// <param name="isPlayer"></param>
+    /// <param name="skillData"></param>
+    /// <param name="curAttackDamage"></param>
+    /// <param name="spawnPosition"></param>
+    /// <param name="baseDirection"></param>
     public void RequestSpawnBulletSpread(
     bool isPlayer,
     SkillData skillData,

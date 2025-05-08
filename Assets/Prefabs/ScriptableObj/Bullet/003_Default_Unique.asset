@@ -17,7 +17,7 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _sprite: {fileID: 0}
   _skillType: 3
-  _bulletType: 1
+  _bulletType: 4
   _bulletCount: 1
   _angleRange: 45
   _damageMultiplier: 3.5
@@ -30,6 +30,6 @@ MonoBehaviour:
   _coolDown: 5
   _level: 5
   _width: 1
-  _length: 1
+  _length: 3
   _isMoveSkill: 0
   _moveDistance: 4

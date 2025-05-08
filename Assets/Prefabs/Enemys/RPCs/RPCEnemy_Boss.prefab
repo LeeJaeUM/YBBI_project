@@ -414,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 203169990227632337}
   - component: {fileID: 4305493166821099664}
-  - component: {fileID: 3709854560171906826}
+  - component: {fileID: 6341475004105354159}
   m_Layer: 0
   m_Name: EnemyBulletSpawner
   m_TagString: Untagged
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3709854560171906826
+--- !u!114 &6341475004105354159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -458,15 +458,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6025269362692422195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11f2eef75d2abd4f81a53f50777fd55, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f32b0c523996d340a4f3a8328b0d4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _skillDatas:
+  - {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   - {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
   - {fileID: 11400000, guid: 9f7105cb08f6d5e4c9d3e00d925e6933, type: 2}
-  - {fileID: 11400000, guid: b86868d7c80239d4480253186021f6f2, type: 2}
   - {fileID: 11400000, guid: fd60dc1f1d8bafe48bc4f5b4b131c4ba, type: 2}
+  - {fileID: 11400000, guid: b86868d7c80239d4480253186021f6f2, type: 2}
   - {fileID: 11400000, guid: 12bb385797e13614c903ac087648d18b, type: 2}
   - {fileID: 11400000, guid: 4d2d9920999a69e46b6450556defb1f2, type: 2}
   - {fileID: 11400000, guid: 149a0679b1793a54394fa71f872c8e98, type: 2}
@@ -488,6 +489,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69b49274c99d39b4fa0f65d897935838, type: 2}
   - {fileID: 11400000, guid: 9bf7894c9dae73240b14f06923aa6f33, type: 2}
   - {fileID: 11400000, guid: 9b36e3d9b0aeb114f80c17fe8b74c7b3, type: 2}
+  - {fileID: 11400000, guid: 0285745b4ae739041840beeb0c26383e, type: 2}
 --- !u!1 &6381322909080898463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1167093946
+  GlobalObjectIdHash: 826602971
   InScenePlacedSourceGlobalObjectIdHash: 826602971
   DeferredDespawnTick: 0
   Ownership: 1

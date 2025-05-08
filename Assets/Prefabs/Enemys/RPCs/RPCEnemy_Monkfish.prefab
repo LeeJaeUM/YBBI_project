@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 312029762
+  GlobalObjectIdHash: 1044947144
   InScenePlacedSourceGlobalObjectIdHash: 3025653378
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1005,7 +1005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7269040296380911119}
   - component: {fileID: 867403901805052922}
-  - component: {fileID: 2409276153587203441}
+  - component: {fileID: 2445735895036033224}
   m_Layer: 0
   m_Name: EnemyBulletSpawner
   m_TagString: Untagged
@@ -1040,8 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
---- !u!114 &2409276153587203441
+--- !u!114 &2445735895036033224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1050,12 +1049,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6022884432763791228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11f2eef75d2abd4f81a53f50777fd55, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f32b0c523996d340a4f3a8328b0d4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _enemyBulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}
-  _playerBulletPrefab: {fileID: 6946973756612847469, guid: 37dcee639d748e24fa9a0d45fc7d3119, type: 3}
   _skillDatas:
   - {fileID: 11400000, guid: f06d689cafcd8e64b97d12a1741b78ea, type: 2}
   - {fileID: 11400000, guid: 3d12afb8b0029e44097714a2de6fe31d, type: 2}
@@ -1083,6 +1080,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69b49274c99d39b4fa0f65d897935838, type: 2}
   - {fileID: 11400000, guid: 9bf7894c9dae73240b14f06923aa6f33, type: 2}
   - {fileID: 11400000, guid: 9b36e3d9b0aeb114f80c17fe8b74c7b3, type: 2}
+  - {fileID: 11400000, guid: 0285745b4ae739041840beeb0c26383e, type: 2}
 --- !u!1 &6138651612317100369
 GameObject:
   m_ObjectHideFlags: 0

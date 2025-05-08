@@ -506,7 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _airSlider: {fileID: 6318108552000256238}
   _dangerSlider: {fileID: 1907243355291720409}
-  _unitHealth: {fileID: 3598112144120894801}
+  _unitHealth: {fileID: 1961012831791490539}
 --- !u!1 &3619169371191914757
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: -9046458761363280456}
   - component: {fileID: -3045432728056949943}
   - component: {fileID: 8571067894637158336}
-  - component: {fileID: 3598112144120894801}
+  - component: {fileID: 1961012831791490539}
   - component: {fileID: 4085331820034534003}
   - component: {fileID: -3831034447512767127}
   - component: {fileID: 4160264063091707913}
@@ -922,7 +922,7 @@ MonoBehaviour:
   _pressureSkillCoolDown: 6
   _uniqueSkillCoolDown: 6
   _attckDamage: 5
---- !u!114 &3598112144120894801
+--- !u!114 &1961012831791490539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,18 +931,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3619169371191914757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab18ba039e83394f8bf5e6d93e1f338, type: 3}
+  m_Script: {fileID: 11500000, guid: d1f427ea8c54b0c4f81456dc9ee51cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _currentDebuffs: 0
   _curAir: 10
-  _maxAir: 50
+  _maxAir: 100
   _baseMinusAirPerSec: 1
   _minusAirPerSec: 1
   _baseAddAirPerSec: 0
   _addAirPerSec: 0
   _curAirPerSec: 0
-  _playerAnimator: {fileID: 0}
+  _playerAnimator: {fileID: 6056258531123265922}
 --- !u!114 &4085331820034534003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  tpCooldown: 2
 --- !u!114 &4160264063091707913
 MonoBehaviour:
   m_ObjectHideFlags: 0

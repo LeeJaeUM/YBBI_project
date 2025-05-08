@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  enemyPrefab: {fileID: 8178282432946721580, guid: 23049ad2eae0e6541b4377a39608d75b, type: 3}
+  enemyPrefab: {fileID: 3135699754164833068, guid: 9a36ee898f6a23c48a5e75d24f45256b, type: 3}
   spawnPoint: {fileID: 219895797}
 --- !u!4 &219895797
 Transform:
