@@ -477,8 +477,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6292261152651439379}
   m_HandleRect: {fileID: 4107303613732262660}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9433333
+  m_Value: -0.00001077091
+  m_Size: 0.8891619
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000027418137, y: 17.00001}
+  m_AnchoredPosition: {x: -0.0000027418137, y: 17.0002}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2196090241216044271
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   _networkManagerPrefab: {fileID: 8373552020202094810, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
   playerJobImages:
   - {fileID: 7482667652216324306, guid: 240cca56b5d283b48b304d175789cfee, type: 3}
-  - {fileID: 6059244581636116009, guid: f92b54af81927e74795bdd2aa9630b5d, type: 3}
+  - {fileID: 21300000, guid: e5142a2bc1becb34d98911cd02e9419b, type: 3}
   - {fileID: -5720429097031363069, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: -7911572535675539837, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
   - {fileID: 5398807837072792716, guid: c3aaebedc71e89d4d924971b38698ee0, type: 3}
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3323981382419378088}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
