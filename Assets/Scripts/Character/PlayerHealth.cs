@@ -11,6 +11,11 @@ public class PlayerHealth : UnitHealth
     [SerializeField] private PlayerAnimator _playerAnimator;
     protected override void HitDamage()
     {
+        if(_playerAnimator == null)
+        {
+            Debug.LogError("PlayerAnimator is not assigned.");
+            return;
+        }
         _playerAnimator.PlayHitAnimation();
     }
 

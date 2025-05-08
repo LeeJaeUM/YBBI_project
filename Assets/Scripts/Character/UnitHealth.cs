@@ -206,7 +206,7 @@ public class UnitHealth : MonoBehaviour
            HitDamage();        //데미지를 입으면 함수 호출
            OnDamage?.Invoke();
         }
-        SetAir(_curAir + addValue);
+        SetAir(_curAir - addValue);
     }
 
     public float GetAir()

@@ -6,6 +6,7 @@ public class Test_10_BulletTypeTEst : TestBase
     public SkillData skillData;
     public Vector2 right = Vector2.right;
     public GameObject bulletPrefab;
+    public bool isPlayer = false;
 
     public override void Test1(InputAction.CallbackContext context)
     {
@@ -20,7 +21,7 @@ public class Test_10_BulletTypeTEst : TestBase
         float radius = skillData._radius;
         float activeTime = skillData._activeTime;
         float speed = skillData._moveSpeed;
-        bullet.SetData(true, damage, radius, skillData._width, skillData._length, activeTime, speed, skillData._bulletType);
+        bullet.SetData(isPlayer, damage, radius, skillData._width, skillData._length, activeTime, speed, skillData._bulletType);
     }
 }
 

@@ -100,17 +100,31 @@ public class Bullet : MonoBehaviour
         _damage = damage;
         transform.localScale = Vector3.one * radius;
         _boxCollider2D.offset = Vector3.zero;
+        _boxCollider2D.size = Vector3.one;
         _lifeTime = activeTime;
         _speed = moveSpeed;
         _bulletType = bulletType;
 
-        if(damage > 0)                              //damage가 0보다 크면 데미지
-            _spriteRenderer.color = Color.red;
-        else if(damage <= 0)                        //0보다 작으면 힐
-            _spriteRenderer.color = Color.green;
+        if(isPlayer) //플레이어가 쏜 총알이라면
+        {
+            if (damage > 0)                              //damage가 0보다 크면 데미지
+                _spriteRenderer.color = Color.green;
+            else if (damage <= 0)                        //0보다 작으면 힐
+                _spriteRenderer.color = Color.red;
+        }
+        else
+        {
+            if (damage > 0)                              //damage가 0보다 크면 데미지
+                _spriteRenderer.color = Color.red;
+            else if (damage <= 0)                        //0보다 작으면 힐
+                _spriteRenderer.color = Color.green;
+        }
+
+
 
         _bulletAnimator.SetAnimator(_bulletType);      //애니메이터 컨트롤러 설정
 
+        Debug.Log($"{_bulletType} 설정됨");
         StopAllCoroutines(); //기존 코루틴 정지
         switch(_bulletType)
         {
@@ -142,6 +156,7 @@ public class Bullet : MonoBehaviour
 
             case Enums.BulletType.Bomb:
 
+                _spriteRenderer.color = Color.yellow;
                 IsMoveable(false); //이동 정지
                 IsLingeringBullet(true); //지속형 스킬로 설정
                 // 방향 벡터 기반 도착 지점 계산
