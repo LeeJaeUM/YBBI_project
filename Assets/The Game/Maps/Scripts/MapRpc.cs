@@ -79,6 +79,13 @@ public class MapRpc : NetworkBehaviour
         mapRandomSpawner.RequestSetPlayerPos();
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void DespawnAllMapsServerRpc()
+    {
+        mapRandomSpawner.DespawnAllMaps();
+    }
+
+
     //private void SetTpIDIfExists(GameObject tpObj, string id)
     //{
     //    if (tpObj == null || string.IsNullOrEmpty(id)) return;

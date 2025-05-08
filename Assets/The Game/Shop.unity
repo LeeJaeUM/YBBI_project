@@ -916,6 +916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Stage2
+  mapRandomSpawner: {fileID: 1729357940}
+  mapRpc: {fileID: 2047542336}
 --- !u!114 &1729357944
 MonoBehaviour:
   m_ObjectHideFlags: 0

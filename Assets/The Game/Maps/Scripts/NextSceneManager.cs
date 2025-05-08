@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 public class NextSceneManager : MonoBehaviour
 {
     [SerializeField] private string nextSceneName;
-
+    [SerializeField] private MapRandomSpawner mapRandomSpawner;
+    [SerializeField] private MapRpc mapRpc;
     public void RequestNextScene()
     {
         if (string.IsNullOrEmpty(nextSceneName))
@@ -15,6 +16,17 @@ public class NextSceneManager : MonoBehaviour
         }
 
         Debug.Log($"[NextSceneTeleport] {nextSceneName} 씬으로 이동 요청");
+
+        if(NetworkManager.Singleton.IsServer)
+        {
+            mapRandomSpawner.DespawnAllMaps();
+        }
+        else
+        {
+            mapRpc.DespawnAllMapsServerRpc();
+        }
+        
         NetworkManager.Singleton.SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
     }
+
 }

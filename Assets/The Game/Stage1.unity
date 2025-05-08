@@ -977,6 +977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Shop
+  mapRandomSpawner: {fileID: 1729357940}
+  mapRpc: {fileID: 1850797860}
 --- !u!114 &1729357944
 MonoBehaviour:
   m_ObjectHideFlags: 0

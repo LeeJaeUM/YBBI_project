@@ -9,7 +9,7 @@ public class NextSceneTileManager : MonoBehaviour
     private void Awake()
     {
         mapData = mapOBJ.GetComponent<MapData>();
-        mapGridNextSceneManager = mapOBJ.GetComponentInParent<NextSceneManager>();
+        mapGridNextSceneManager = FindFirstObjectByType<NextSceneManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

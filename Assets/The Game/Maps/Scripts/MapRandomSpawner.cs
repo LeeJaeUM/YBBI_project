@@ -125,10 +125,11 @@ public class MapRandomSpawner : NetworkBehaviour
     public void RequestShopMapSpawn(MapData[,] mapGrid)
     {
         Vector2Int center = GetMapListGridCenter();
-        MapData ShopRoom = GetRandomRoom(Enums.RoomType.Shop);
+        MapData ShopRoom = mapPrefabList.Maps[0];
 
-        GameObject shopRoom = Instantiate(ShopRoom.gameObject, GridToWorld(center), Quaternion.identity, mapSpawnGrid.transform);
-        MapData shopRoomData = shopRoom.GetComponent<MapData>();
+        GameObject shopObj = Instantiate(ShopRoom.gameObject, GridToWorld(center), Quaternion.identity);
+        MapData shopRoomData = shopObj.GetComponent<MapData>();
+        shopObj.GetComponent<NetworkObject>().Spawn();
         mapGrid[center.x, center.y] = shopRoomData;
 
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
@@ -418,6 +419,30 @@ public class MapRandomSpawner : NetworkBehaviour
     #endregion
 
     #region 기타 로직
+
+    public void DespawnAllMaps()
+    {
+        for (int x = 0; x < MAP_SIZE; x++)
+        {
+            for (int y = 0; y < MAP_SIZE; y++)
+            {
+                MapData map = _mapGrid[x, y];
+                if (map == null) continue;
+
+                NetworkObject netObj = map.GetComponent<NetworkObject>();
+                if (netObj != null && netObj.IsSpawned)
+                {
+                    netObj.Despawn(true); // 클라이언트에서도 제거
+                }
+
+                _mapGrid[x, y] = null;
+            }
+        }
+
+        Debug.Log("모든 맵 오브젝트 제거 완료");
+    }
+
+
     private Vector2Int? FindMapGridPosition(GameObject mapObject)
     {
         for (int x = 0; x < MAP_SIZE; x++)
@@ -527,6 +552,13 @@ public class MapRandomSpawner : NetworkBehaviour
     private void Start()
     {
         if (!NetworkManager.Singleton.IsServer) return;
+        MapRandomSpawner[] spawners = FindObjectsOfType<MapRandomSpawner>();
+        foreach (var spawner in spawners)
+        {
+            spawner.DespawnAllMaps();
+        }
+        _mapGrid = new MapData[MAP_SIZE, MAP_SIZE];
+
         Debug.Log("서버 맵 스폰 실행");
         ResetAllMapPrefabs();
 
@@ -547,6 +579,9 @@ public class MapRandomSpawner : NetworkBehaviour
         else
         {
             RequestShopMapSpawn(_mapGrid);
+            AssignTeleportIDs(_mapGrid);
+            RefreshInspectorForTPID(_mapGrid);
+            DisableUnusedTeleporters(_mapGrid);
         }
 
         NotifyPlayerWallUpdate();
