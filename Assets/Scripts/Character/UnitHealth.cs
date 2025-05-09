@@ -221,7 +221,15 @@ public class UnitHealth : MonoBehaviour
 
     protected virtual void Die()
     {
+        StartCoroutine(DelayDie());
         OnDie?.Invoke();
+    }
+
+    private IEnumerator DelayDie()
+    {
+        yield return 2f;
+
+        Destroy(this.gameObject);
     }
 
     /// <summary>

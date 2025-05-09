@@ -16,41 +16,48 @@ public class TeleportTileManager : NetworkBehaviour
         if (!collision.CompareTag("Player")) return;
         if (teleportID == null) return;
 
-
-        PlayerPosRPC posRpc = collision.GetComponent<PlayerPosRPC>();
-        if (posRpc == null || posRpc.IsTeleporting()) return;// 중복 방지
-
-
         var playerNetObj = collision.GetComponent<NetworkObject>();
-        if (playerNetObj == null || !playerNetObj.IsOwner) return;
+        if (playerNetObj == null) return;
 
-        // 모든 TeleportManager 찾기
+        // 클라이언트든 호스트든 서버에 요청
+        RequestTeleportServerRpc(playerNetObj.OwnerClientId, teleportID);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestTeleportServerRpc(ulong clientId, string teleportID)
+    {
+        // 요청한 플레이어를 찾아 이동
+        NetworkObject netObj = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+        if (netObj == null) return;
+
+        var posRpc = netObj.GetComponent<PlayerPosRPC>();
+        if (posRpc == null || posRpc.IsTeleporting()) return;
+
+        // 목적지 계산 (호스트 기준)
         TeleportTileManager[] allTeleporters = FindObjectsOfType<TeleportTileManager>(true);
-
-        foreach (TeleportTileManager targetTeleporter in allTeleporters)
+        foreach (TeleportTileManager tp in allTeleporters)
         {
-            if (targetTeleporter == this) continue;
-            if (targetTeleporter.transform.IsChildOf(mapOBJ.transform)) continue;
-            if (targetTeleporter.teleportID != teleportID) continue;
+            if (tp == this) continue;
+            if (tp.teleportID != teleportID) continue;
+            if (tp.transform.IsChildOf(mapOBJ.transform)) continue;
 
-            // 해당 포탈이 속한 타일맵 찾기
-            Tilemap targetTilemap = targetTeleporter.GetComponent<Tilemap>();
-            if (targetTilemap == null) continue;
+            Tilemap tilemap = tp.GetComponent<Tilemap>();
+            if (tilemap == null) continue;
 
-            // 실제 존재하는 타일 위치만 가져오기
-            foreach (Vector3Int pos in targetTilemap.cellBounds.allPositionsWithin)
+            foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
             {
-                if (!targetTilemap.HasTile(pos)) continue;
+                if (!tilemap.HasTile(pos)) continue;
 
-                Vector3 teleportPosition = targetTilemap.GetCellCenterWorld(pos);
-                
-                Debug.Log($"[텔레포트] {teleportID} → {teleportPosition}");
+                Vector3 teleportPosition = tilemap.GetCellCenterWorld(pos);
+                Debug.Log($"[서버 텔레포트] Client {clientId} → {teleportPosition}");
 
-                MapData targetData = targetTilemap.GetComponentInParent<MapData>();
-                if(targetData.roomType == Enums.RoomType.Enemy || targetData.roomType == Enums.RoomType.Boss)
+                MapData targetData = tilemap.GetComponentInParent<MapData>();
+                if (targetData != null &&
+                    (targetData.roomType == Enums.RoomType.Enemy || targetData.roomType == Enums.RoomType.Boss))
                 {
-                    EnemySpawnManager enemySpawnManager = targetData.GetComponentInChildren<EnemySpawnManager>();
-                    enemySpawnManager.RequestEnterFight();
+                    var enemySpawner = targetData.GetComponentInChildren<EnemySpawnManager>();
+                    enemySpawner.RequestEnterFight();
                 }
 
                 posRpc.TeleportRequest(teleportPosition);

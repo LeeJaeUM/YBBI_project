@@ -49,6 +49,7 @@ public class PlayerPosRPC : NetworkBehaviour
 
     }
 
+
     public bool IsTeleporting()
     {
         return isTP;
@@ -76,7 +77,7 @@ public class PlayerPosRPC : NetworkBehaviour
     [ClientRpc]
     private void TeleportClientRpc(Vector3 newPosition)
     {
-        if (IsOwner) return; // 본인은 이미 이동했음
+        /*if (IsOwner) return;*/ // 본인은 이미 이동했음
         TeleportLocal(newPosition);
     }
     //플레이어이동******************************************************************************************************

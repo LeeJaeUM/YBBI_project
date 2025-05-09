@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 3622422839997693236}
   - component: {fileID: 5238885596166510167}
   - component: {fileID: 3516888610563790575}
+  - component: {fileID: 3336847072708464131}
   - component: {fileID: 4821909895994028980}
   - component: {fileID: 8852696980550195802}
   - component: {fileID: 1859072663928137634}
@@ -218,6 +219,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.49, y: 1.45}
   m_Direction: 0
+--- !u!114 &3336847072708464131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744865221038294097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!50 &4821909895994028980
 Rigidbody2D:
   serializedVersion: 5
@@ -259,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TEST_isSkillSet: 0
   TEST_skillNum: 0
+  hasOtherPhase: 0
   _currentStateType: 0
   _speed: 3.12
   _chaseExitDistance: 7
@@ -269,6 +296,7 @@ MonoBehaviour:
   _maxPaternNumber: 2
   _phaseChangeAir: 0
   _findTargetPoint: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
 --- !u!114 &1859072663928137634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +335,8 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
-  _enemyAnimator: {fileID: 0}
+  useRPC: 0
+  _rpcBulletSpawner: {fileID: 0}
 --- !u!114 &404987338087079165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,4 +666,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514aba80f6ee5ed4d87bbfb82c2c5619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7606718824706718399, guid: 4441134f5ec47ae449d028bc53779493, type: 3}

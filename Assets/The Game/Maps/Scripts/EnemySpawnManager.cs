@@ -37,7 +37,7 @@ public class EnemySpawnManager : MonoBehaviour
                 EnteredNomalEnemyRoom();
                 isRoomCleared = false;
                 isSpawnActivedOnce = true;
-                RequestTurnOffTeleportals();
+                //RequestTurnOffTeleportals();
             }
             else if (mapData.roomType == Enums.RoomType.Boss && enemySpawnTileMap != null)
             {
@@ -45,7 +45,7 @@ public class EnemySpawnManager : MonoBehaviour
                 EnteredBossRoom();
                 isRoomCleared = false;
                 isSpawnActivedOnce = true;
-                RequestTurnOffTeleportals();
+                //RequestTurnOffTeleportals();
             }
         }
     }
@@ -65,7 +65,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Vector3 spawnPos = enemySpawnTileMap.CellToWorld(tilePos);
 
                 GameObject enemyInstance = Instantiate(EnemyPrefabSelect(Enums.EnemeyValue.Boss), spawnPos, Quaternion.identity, transform);
-                //enemyInstance.GetComponent<NetworkObject>().Spawn();
+                enemyInstance.GetComponent<NetworkObject>().Spawn();
                 spawnedEnemyList.Add(enemyInstance);
                 EnemySpawnTileStatus[tilePos] = true; // 스폰됨 표시
 
@@ -107,7 +107,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Vector3 spawnPos = enemySpawnTileMap.CellToWorld(tilePos);
 
                 GameObject enemyInstance = Instantiate(EnemyPrefabSelect(Enums.EnemeyValue.NomalEnemy1), spawnPos, Quaternion.identity, transform);
-                //enemyInstance.GetComponent<NetworkObject>().Spawn();
+                enemyInstance.GetComponent<NetworkObject>().Spawn();
                 spawnedEnemyList.Add(enemyInstance);
                 EnemySpawnTileStatus[tilePos] = true; // 스폰됨 표시
 

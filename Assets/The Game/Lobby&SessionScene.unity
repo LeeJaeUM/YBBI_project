@@ -477,8 +477,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6292261152651439379}
   m_HandleRect: {fileID: 4107303613732262660}
   m_Direction: 2
-  m_Value: -0.00001077091
-  m_Size: 0.8891619
+  m_Value: 0
+  m_Size: 0.9433264
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000027418137, y: 17.0002}
+  m_AnchoredPosition: {x: -0.0000027418137, y: 17.000038}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2196090241216044271
@@ -1590,7 +1590,7 @@ PrefabInstance:
     - target: {fileID: 5601850943992888573, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
       propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 368866af3563e9e4ebbac93ebadee2d3, type: 2}
+      objectReference: {fileID: 11400000, guid: e0fafe4246a3138499ac9ea511dc6733, type: 2}
     - target: {fileID: 5601850943992888573, guid: 9d2b6519c7530a547bbad584ef6831ab, type: 3}
       propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[3]'
       value: 
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3323981382419378088}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

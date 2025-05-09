@@ -401,20 +401,29 @@ public class MapRandomSpawner : NetworkBehaviour
                 var room = mapGrid[x, y];
                 if (room == null) continue;
 
-                if (!room.isTpUpSeted && room.tpUp != null)
-                    room.tpUp.SetActive(false);
-
-                if (!room.isTpDownSeted && room.tpDown != null)
-                    room.tpDown.SetActive(false);
-
-                if (!room.isTpLeftSeted && room.tpLeft != null)
-                    room.tpLeft.SetActive(false);
-
-                if (!room.isTpRightSeted && room.tpRight != null)
-                    room.tpRight.SetActive(false);
+                TryDespawnTeleport(room.tpUp, room.isTpUpSeted);
+                TryDespawnTeleport(room.tpDown, room.isTpDownSeted);
+                TryDespawnTeleport(room.tpLeft, room.isTpLeftSeted);
+                TryDespawnTeleport(room.tpRight, room.isTpRightSeted);
             }
         }
     }
+
+    private void TryDespawnTeleport(GameObject tp, bool isSet)
+    {
+        if (isSet || tp == null) return;
+
+        var netObj = tp.GetComponent<NetworkObject>();
+        if (netObj != null && netObj.IsSpawned)
+        {
+            netObj.Despawn(true); // 네트워크 상에서도 제거
+        }
+        else
+        {
+            Destroy(tp); // 네트워크 오브젝트가 아니라면 일반 제거
+        }
+    }
+
 
     #endregion
 
