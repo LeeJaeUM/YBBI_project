@@ -46,7 +46,7 @@ public class TestNet_CharAir : MonoBehaviour
         if (_airDecreaseTimer >= _airDecreaseInterval)
         {
             _airDecreaseTimer = 0f;
-            SetAir(Mathf.Max(0, _curAir - 1));
+            //SetAir(Mathf.Max(0, _curAir - 1));
         }
     }
 

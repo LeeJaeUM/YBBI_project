@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     public bool _isLingering = false; //지속형 스킬인지 여부
     public bool _isHoming = false; //추적형 스킬인지 여부
 
-    private float _tickTimer = 0f;
+    [SerializeField]private float _tickTimer = 0f;
     [SerializeField] private float _tickInterval = 0.35f;
 
     private float _homingRadius = 20f;
@@ -293,9 +293,12 @@ public class Bullet : MonoBehaviour
     IEnumerator TriggerOff_Laser(float time)
     {
         _canTrigger = false;
+        Debug.Log($"{_canTrigger}트리거 정지");
         _spriteRenderer.enabled = false;
         yield return new WaitForSeconds(time);
+        _tickTimer = 50f; //타이머 초기화
         _canTrigger = true;
+        Debug.Log($"{_canTrigger}트리거 시작");
         _spriteRenderer.enabled = true;
         _bulletAnimator.PlayStartAnimation();
     }

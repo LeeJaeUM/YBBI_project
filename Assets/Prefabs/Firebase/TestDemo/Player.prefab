@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 7146715550019607152}
   - component: {fileID: 7783154205629626670}
   - component: {fileID: 6531958504410652447}
+  - component: {fileID: 5888975320242541094}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -708,6 +709,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed71b81c2bcb7b43be60d591eb62fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5888975320242541094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887172448659579055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab18ba039e83394f8bf5e6d93e1f338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentDebuffs: 0
+  _curAir: 10
+  _maxAir: 100
+  _baseMinusAirPerSec: 1
+  _minusAirPerSec: 1
+  _baseAddAirPerSec: 0
+  _addAirPerSec: 0
+  _curAirPerSec: 0
+  _playerAnimator: {fileID: 0}
 --- !u!1 &5928991673313804773
 GameObject:
   m_ObjectHideFlags: 0

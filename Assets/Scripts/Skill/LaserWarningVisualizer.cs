@@ -31,12 +31,12 @@ public class LaserWarningVisualizer : MonoBehaviour
         _timerSpriteRenderer.enabled = true;
 
         //// 부모 콜라이더 설정
-        //BoxCollider2D parentCollider = GetComponentInParent<BoxCollider2D>();
-        //if (parentCollider != null)
-        //{
-        //    parentCollider.size = new Vector2(width, length);
-        //    parentCollider.offset = new Vector2(0, length / 2f);
-        //}
+        BoxCollider2D parentCollider = GetComponentInParent<BoxCollider2D>();
+        if (parentCollider != null)
+        {
+            parentCollider.size = new Vector2(width, length);
+            parentCollider.offset = new Vector2(0, length / 2f);
+        }
 
         StartCoroutine(GrowTimer(length, duration));
     }

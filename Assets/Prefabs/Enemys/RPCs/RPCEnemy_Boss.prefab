@@ -1275,7 +1275,7 @@ MonoBehaviour:
   _attackPreDelay: 0.5
   _attackEndDelay: 0.5
   _bulletSpawner: {fileID: 0}
-  useRPC: 0
+  useRPC: 1
   _rpcBulletSpawner: {fileID: 0}
 --- !u!114 &484184177965863646
 MonoBehaviour:
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3427239466
+  GlobalObjectIdHash: 826602971
   InScenePlacedSourceGlobalObjectIdHash: 826602971
   DeferredDespawnTick: 0
   Ownership: 1
