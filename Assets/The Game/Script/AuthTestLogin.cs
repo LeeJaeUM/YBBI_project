@@ -19,12 +19,12 @@ public class AuthTestLogin : TestBase
     }
     public override void Test3(InputAction.CallbackContext context)
     {
-        _loginEmailInputField.text = "tester3@c.com";
-        _loginPasswordInputField.text = "tester3";
+        _loginEmailInputField.text = "qwerzxcv@gmail.com";
+        _loginPasswordInputField.text = "qwerzxcv";
     }
     public override void Test4(InputAction.CallbackContext context)
     {
-        _loginEmailInputField.text = "tester4@c.com";
-        _loginPasswordInputField.text = "tester4";
+        _loginEmailInputField.text = "rama@gmail.com";
+        _loginPasswordInputField.text = "rama12";
     }
 }

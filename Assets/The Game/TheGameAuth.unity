@@ -4460,7 +4460,7 @@ MonoBehaviour:
   m_text: loginfailedtext
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3a6c683713578b4dade0effb0de7f31, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_sharedMaterial: {fileID: -613661679726482739, guid: d3a6c683713578b4dade0effb0de7f31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5426,10 +5426,10 @@ RectTransform:
   - {fileID: 7037667490432129915}
   m_Father: {fileID: 4992654039040310148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -169}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 267, y: -126}
+  m_SizeDelta: {x: 129, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7758273217745980908
 MonoBehaviour:

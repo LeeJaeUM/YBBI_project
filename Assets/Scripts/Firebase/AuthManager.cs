@@ -29,7 +29,7 @@ public class AuthManager : MonoBehaviour
     // 회원가입 (이메일 & 비밀번호)
     public void RegisterUser(string email, string password, Action<FirebaseUser> onSuccess, Action<string> onError)
     {
-        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {

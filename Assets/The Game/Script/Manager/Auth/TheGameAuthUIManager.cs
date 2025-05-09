@@ -85,11 +85,13 @@ public class TheGameAuthUIManager : MonoBehaviour
         TheGameAuthManager.Instance.RegisterUser(email, password,
             (user) =>
             {
+                Debug.Log("회원가입 성공");
                 _resultText.text = "Sign Up Successful! ID: " + user.UserId;
                 _signUpUIObj.SetActive(false); // 회원가입 성공 시 UI 닫기
             },
             (error) =>
             {
+                Debug.Log("회원가입 실패");
                 _resultText.text = "Sign Up Failed: " + error;
                 OperationFailed("Sign Up Failed");
             });
