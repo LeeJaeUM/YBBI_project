@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 /// <summary>
 /// 인벤토리 슬롯을 나타내는 클래스

@@ -45,21 +45,24 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene/NetCode/NetCodeGameStart.unity
     guid: 42c166786fc8f2142bb1ec2d323e99bb
   - enabled: 1
+    path: Assets/The Game/TheGameTitle.unity
+    guid: 1559a3a145c9e5b4287623c3c4ee6fe6
+  - enabled: 1
+    path: Assets/The Game/TheGameAuth.unity
+    guid: d8fd2d5196b72f145b38f1b12afaf922
+  - enabled: 1
     path: Assets/The Game/Lobby&SessionScene.unity
     guid: c84d3891593058a4bb64754023d7e5ba
   - enabled: 1
     path: Assets/The Game/Stage1.unity
     guid: 5d2c4a11fc7425441842181a2f6c692b
   - enabled: 1
-    path: Assets/The Game/TheGameAuth.unity
-    guid: d8fd2d5196b72f145b38f1b12afaf922
-  - enabled: 1
     path: Assets/The Game/Shop.unity
     guid: 450dc8bcc357ae04eb68aaf172d15a7d
   - enabled: 1
     path: Assets/The Game/Stage2.unity
     guid: 8c399a45c1351024dbe4c230a60b22e8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScene/Firebase/12_TestEnemy.unity
     guid: b74513f333e95e84aa6b81d91c3b8b6a
   m_configObjects:
