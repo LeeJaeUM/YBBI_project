@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 3927016009123334826}
   - component: {fileID: 4302516627362782159}
   - component: {fileID: 6893191100100712990}
+  - component: {fileID: 2088142052545650531}
   m_Layer: 0
   m_Name: RPCEnemy_Monkfish
   m_TagString: Enemy
@@ -708,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1044947144
+  GlobalObjectIdHash: 1230780070
   InScenePlacedSourceGlobalObjectIdHash: 3025653378
   DeferredDespawnTick: 0
   Ownership: 1
@@ -933,6 +934,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee972b1c1bf636448f5fc573c71b1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2088142052545650531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871271195395126449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 0000000081ae36565b44a2a40d1b715df7b7590e
+  m_ShapePath:
+  - {x: -0.80000305, y: -0.54999924, z: 0}
+  - {x: -0.80000305, y: 0.54999924, z: 0}
+  - {x: 0.80000305, y: 0.54999924, z: 0}
+  - {x: 0.80000305, y: -0.54999924, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 9043639963077882460}
+  m_ShadowShape2DProvider:
+    rid: 3133655631541567586
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.6699829, y: 0.4199829, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.13
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.05
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.13
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 9043639963077882460}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3133655631541567586
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 
 --- !u!1 &5898221106494888650
 GameObject:
   m_ObjectHideFlags: 0
