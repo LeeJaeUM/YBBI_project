@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 1160655936330261143}
   - component: {fileID: 3579773198493573444}
   - component: {fileID: 4300846555451788703}
+  - component: {fileID: 1968300743488858253}
   m_Layer: 0
   m_Name: RPCEnemy_Turtle
   m_TagString: Enemy
@@ -492,6 +493,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &1968300743488858253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812338899112339084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee972b1c1bf636448f5fc573c71b1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938237017599276788
 GameObject:
   m_ObjectHideFlags: 0

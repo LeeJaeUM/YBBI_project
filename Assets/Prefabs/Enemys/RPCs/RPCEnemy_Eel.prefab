@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 7199635309662312284}
   - component: {fileID: 3076431388528238945}
   - component: {fileID: 381229957640353861}
+  - component: {fileID: -3901113885069937377}
   m_Layer: 0
   m_Name: RPCEnemy_Eel
   m_TagString: Enemy
@@ -811,6 +812,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &-3901113885069937377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135699754164833068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee972b1c1bf636448f5fc573c71b1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3220249293076288072
 GameObject:
   m_ObjectHideFlags: 0

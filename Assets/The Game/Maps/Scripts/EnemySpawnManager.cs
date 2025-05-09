@@ -176,7 +176,7 @@ public class EnemySpawnManager : MonoBehaviour
         {
             Debug.Log("보스방 클리어 확인됨");
             isRoomCleared = true;
-            RequestTurnOnTeleportals();
+            //RequestTurnOnTeleportals();
             UnsubscribeAllEnemyDeaths();
         }
     }
@@ -188,12 +188,12 @@ public class EnemySpawnManager : MonoBehaviour
         {
             Debug.Log("맵 클리어 확인됨");
             isRoomCleared = true;
-            RequestTurnOnTeleportals();
+            //RequestTurnOnTeleportals();
             UnsubscribeAllEnemyDeaths();
         }    
     }
 
-    private void RequestTurnOffTeleportals()
+/*    private void RequestTurnOffTeleportals()
     {
         MapRandomSpawner spawner = mapOBJ.GetComponentInParent<MapRandomSpawner>();
         if(spawner == null) 
@@ -212,9 +212,9 @@ public class EnemySpawnManager : MonoBehaviour
             }
             nextSceneTileManager.gameObject.SetActive(false);
         }
-    }
+    }*/
 
-    private void RequestTurnOnTeleportals()
+/*    private void RequestTurnOnTeleportals()
     {
         MapRandomSpawner spawner = mapOBJ.GetComponentInParent<MapRandomSpawner>();
         if (spawner == null)
@@ -234,7 +234,7 @@ public class EnemySpawnManager : MonoBehaviour
             Debug.Log("[EnemySpawnManager] 다음씬 타일 다시 활성화됨: " + nextSceneTileManager.gameObject.name);
             nextSceneTileManager.gameObject.SetActive(true);
         }
-    }
+    }*/
 
     public void SetUpEnemySpawnManager()
     {
