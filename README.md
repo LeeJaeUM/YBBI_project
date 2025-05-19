@@ -1,5 +1,10 @@
-# YBBI_project
-Unity 2D mobile game project
+# Hadal Zone - 2D Multiplayer RPG (2025.02 ~ 2025.04) 🚀
+
+### 개요 (What)
+
+Hadal Zone은 멀티플레이 환경에서 RPG의 다양한 기능을 개발해보는 간단한 프로젝트입니다.
+
+Unity Netcode와 Firebase를 활용하여 실시간 동기화, 사용자 인증 및 채팅 시스템을 구현하였습니다.
 
 설명 영상 : https://youtu.be/yhnakvrS8g0
 
